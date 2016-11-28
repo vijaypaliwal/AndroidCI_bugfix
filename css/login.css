@@ -1,0 +1,159 @@
+   .input-group-addon {
+        padding: 6px 12px;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1;
+        color: #6f6f6f;
+        text-align: center;
+        background-color: #eeeeee !important;
+        border: 1px solid #cccccc;
+        border-radius: 0;
+        min-width: 50px;
+    }
+        .input-group-addon i {
+            padding: 4px 4px !important;
+            font-size: initial;
+            font-weight: normal;
+            line-height: 1;
+            color: #6f6f6f !important;
+            text-align: center;
+            font-size: 18px !important;
+            background-color: #eeeeee;
+            border-radius: 0;
+        }
+    .navbar {
+        display: none;
+    }
+
+    .side-nav
+    {
+        display:none !important;
+    }
+
+    #sidenav-overlay
+    {
+        display:none !important;
+    }
+    
+    
+     .center {
+        text-align: center;
+    }
+    .loginn {
+        background: #999999 !important;
+    }
+
+    label
+    {
+        font-size:15px;
+        color:#333;
+    }
+
+    .form-control {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius:0px;
+    }
+    
+    
+     .formarea {
+        background: #fff;
+        padding: 10px;
+        border-radius:5px;
+    }
+    
+    
+     .layoutheader {
+        display: none;
+    }
+
+    .bottomnavigation {
+        position: fixed;
+        bottom: 10px;
+        text-align: center;
+        width: 100%;
+        color: #fff;
+    }
+
+        .bottomnavigation a
+        
+        {
+            color:#fff;
+            display:block;
+            margin-top:5px;
+        }
+
+
+
+    body {
+        background: #2196F3;
+        padding-top: 7px;
+        overflow-x: hidden !important;
+    }
+
+    .loginlogo {
+        width: 82px;
+        margin-bottom: 15px;
+    }
+
+    #viewdata {
+        margin-top: 0px;
+    }
+
+   
+
+    .login-form .col-xs-5 {
+        text-align: right;
+    }
+
+    .btn-white {
+        margin: 0 auto;
+        margin-bottom: 15px;
+        background: #fff !important;
+        color: #000 !important;
+        text-align:center
+    }
+
+        .btn-white .fa-angle-right {
+            position: absolute;
+            right: 25px;
+            font-size: 25px;
+            margin-top: -2px;
+        }
+
+
+   
+
+    login-form {
+        overflow: hidden !important;
+    }
+
+    .container {
+        width: 98%;
+    }
+
+    #toolbar
+    {
+        display:none;
+    }
+
+    .btn-primary
+    {
+        text-transform:capitalize;
+        padding-left:15px;
+        padding-right:15px;
+    }
+
+    .btn-gray {
+        text-transform: capitalize;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+    .signuplink
+    {
+    color: #2196F3;
+    border-bottom: 1px solid #6aaee4;
+    padding-right: 3px;
+    margin-top: 10px;
+    }

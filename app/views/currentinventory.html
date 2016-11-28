@@ -1,0 +1,458 @@
+﻿
+<link href="css/report.css" rel="stylesheet" />
+
+<div class="title-header">
+
+    <div class="row">
+        <div class="col-xs-10">
+         <h4 class="titletext">{{CurrentView.Name}} <small>Reports</small></h4>
+        </div>
+    </div>
+</div>
+<div ng-if="isDataLoading==false">
+
+    <div class="modal-backdrop fade in"></div>
+    <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+
+        <img src="img/loader.gif" alt="Alternate Text" />
+
+    </div>
+</div>
+<a href="#/reportmenu" ng-if="isviewload==false" class="newbackbtn left15"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-if="isviewload==true" ng-click="showview()" class="newbackbtn left15"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-if="isviewload==true" ng-click="showfilter()" class="waves-effect  btn roundbtntitle"><i class="fa fa-filter"></i> </a>
+
+<a class="Addbtn cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
+
+
+
+<div class="contentsection">
+    <div ng-if="isviewload==false" class="infoareas">
+        <div ng-repeat="_obj in InventoryViews" class=" row" ng-click="AssignCurrentView(_obj)">
+            <div class="col-xs-2">
+                <a class="btn btn-white">
+                    {{$index+1}}
+                </a>
+            </div>
+
+            <div  class="col-xs-10">
+                <div style="padding-top:0px;" class="row">
+                    <div class="col-xs-12">
+                        <a class="text">{{_obj.Name}} <span ng-if="_obj.GridLayoutID==-1" style="font-size: 11px; color: #2196F3;">System view</span></a>
+                        <p>{{_obj.Description}}</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="isviewload==true" class="paginationtext">
+        <span style="font-size:13px;">{{currentrecord}} of {{totalrecords}} <span>records shown <span class="pull-right" ng-click="clearfilterArray()"></span> </span> </span>
+    </div>
+
+
+    <div ng-if="isviewload==true" class="table-responsive">
+        
+        <div ng-if="loadingblock==true" style="background:#ECECEC; text-align:center; margin-top:-5px; padding-top:12px; padding-bottom:12px;">
+            <img style="height:30px;" src="img/loader.gif" alt="Alternate Text">
+        </div>
+        <div style="margin-top:10px;" class="input-group">
+
+            <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class="input-group-addon">
+                <a class="dropdown-toggle"  aria-expanded="true">
+                    <i style="padding:0px; background:transparent; color:#afaeae !important; font-size:16px !important;" class="fa fa-search"></i>
+                </a>
+            </span>
+
+            <input style="border-left:transparent" type="text" ng-model="FilterData.SearchValue" class="form-control ng-pristine ng-valid" placeholder="Type to Search">
+
+            <i ng-if="FilterData.SearchValue!=''" ng-click="clearfilter()" class="fa fa-times filtercross right47"></i> 
+
+            <a class="input-group-addon last textData" ng-click="GetInventoryDataAccordingToView()" style="margin-top: 0px;"><i class="fa fa-search" style="font-size:20px;"></i> </a>
+          
+
+        </div>
+
+        <div ng-if="InventoryList.length==0" style="text-align:center;" class="well">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <img style="height:150px; width:200px;" src="img/oops_image.png" alt="Alternate Text" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>No such records found !!</h4>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a ng-click="clearfilter()" class="btn btn-primary width-100"> <i class="fa fa-times"></i> Clear filter</a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div id="mylist">
+
+          
+            <div class="well" ng-repeat="_obj in InventoryList" ng-init="parentIndex=$index">
+                <table class="table table-striped">
+
+                    <tbody id="row_{{_obj.iID}}">
+
+                        <tr ng-if="IsAvailableColumn('ImagePath')">
+                            <td style="text-align:center;" colspan="2">
+                                <img ng-if="_obj.ImagePath !=''" style="height:55px; width:55px; border-radius:55px;" ng-click="OpenImageModal(_obj.ImagePath,_obj.ImageDisplayName)" src="{{_obj.ImagePath}}" alt="Alternate Text" />
+
+                                <img ng-if="_obj.ImagePath ==''" style="height:55px; width:55px; border-radius:55px;" src="img/default.png" alt="Alternate Text" />
+                            </td>
+
+                        </tr>
+
+                        <tr ng-repeat="_obj2 in Columns" ng-class="{'ExtraTr':$index > 2}" ng-if="_obj2.ColumnID!='LeaveBlank' && _obj2.Visible!=false && _obj2.ColumnID != 'Button1' && _obj2.ColumnID != 'Button2' && _obj2.ColumnID != 'ImagePath' ">
+
+                            <td width="50%">
+                                <code ng-if="_obj2.isFirstFurtherCalculated == true || _obj2.isSecondFurtherCalculated == true" class="w3-codespan">{{_obj2.DisplayLabel}}</code>
+                                <code ng-if="_obj2.isFirstFurtherCalculated == false && _obj2.isSecondFurtherCalculated == false" ng-click="applysorting(_obj2.ColumnID)" class="w3-codespan">{{_obj2.DisplayLabel}} <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='DESC'" class=" sortIcon fa fa-chevron-down"></i> <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='ASC'" class="sortIcon fa fa-chevron-up"></i></code>
+                                <a class="morebtn" ng-click="ShowHideDiv(_obj.iID)" ng-if="$index==0"><i class="fa fa-chevron-up" id="icon_{{_obj.iID}}"></i></a>
+                            </td>
+                            <td width="50%" class="Celldata overflowtext">{{GetCellData(_obj2.ColumnID,parentIndex,_obj2.isCalculated) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="filtermodal" class="modal animated bounceInRight">
+    <div class="modal-header">
+        <span  class="close">
+            <i data-dismiss="modal" class="fa fa-times"></i>
+        </span>
+        <h4>Apply filters</h4>
+    </div>
+
+    <div style="padding:10px; padding-top:0px;" class="modal-body">
+        <div class="row" ng-show="IsAvailableColumn('ImagePath')">
+            <div class="col-xs-12 imgfilterarea">
+
+                <div class="row">
+                    <div class="col-xs-7">
+                        <p> Has Image</p>
+                        <a ng-click="ClearImageFilter()" ng-if="HasImage!=''">Clear Image filter</a>
+                    </div>
+
+                    <div class="col-xs-5">
+                        <div custom-swipe class="btn-group custombtnGroup">
+                            <label class="switch1">
+                                <input type="checkbox" ng-model="HasImage">
+                                <div class="slider round"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+
+        </div>
+        <div class="row" ng-repeat="_obj in FilterArray" ng-if="_obj.ColumnName!='Button1' && _obj.ColumnName!='Button2'&& _obj.ColumnName!='ImagePath' && isFurtherCalculatedColumn(_obj.ColumnName)==false">
+            
+
+            <div class="col-xs-12">
+                <h6>{{GetDisplayLabel(_obj.ColumnName) }}</h6>
+                <div class="input-group" ng-if="_obj.ColumnName=='iStatusValue'">
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                        <ul  class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
+                        </ul>
+
+                    </span>
+                    <div ng-if="_obj.ColumnName=='iStatusValue'">
+
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{_obj.SearchValue}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="_optionValue in StatusList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="_obj.SearchValue=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+                 
+                </div>
+                <div class="input-group" ng-if="_obj.ColumnName=='uomUOM'">
+
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                        <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
+                        </ul>
+                        
+                    </span>
+
+                    <div ng-if="_obj.ColumnName=='uomUOM'">
+
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{_obj.SearchValue}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="_optionValue in UOMList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+                  
+                </div>
+                <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='string' && _obj.ColumnName!='iStatusValue' && _obj.ColumnName!='uomUOM'">
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class="input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                        <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='cn'"><img src="img/filter/Contains.gif" alt=""> Contains</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Exact</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> does not equals</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bw'"><img src="img/filter/BeginsWith.gif" alt=""> Begins With</a></li>
+                        </ul>
+                       
+                    </span>
+                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+                    </div>
+
+
+                <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='date'||GetColumnDataType(_obj.ColumnName)=='datetime'">
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class="input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                      
+                        <ul class="dropdown-menu operator" role="menu" aria-labelledby="dropdownMenu">
+                            <li><a tabindex="-1" data-ng-click="_obj.FilterOperator='date-eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li><a tabindex="-1" data-ng-click="_obj.FilterOperator='date-before'"><img src="img/filter/OnOrBefore.gif" alt="">On OR Before</a></li>
+                            <li><a tabindex="-1" data-ng-click="_obj.FilterOperator='date-after'"><img src="img/filter/OnOrAfter.gif" alt="">On OR After</a></li>
+                        </ul>
+
+                    </span>
+                    <input class="form-control" type="date" name="name" ng-model="_obj.SearchValue" value="" />
+                </div>
+
+                <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
+
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                        <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
+                        </ul>
+
+                    </span>
+
+                    <div ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
+
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{_obj.SearchValue}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="_data in GetComboData(_obj.ColumnName)">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="_obj.SearchValue=_data">{{_data}}</td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <!--<select class="form-control" ng-model="_obj.SearchValue">
+                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                    </select>-->
+                </div>
+
+                <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='number'||GetColumnDataType(_obj.ColumnName)=='decimal' ||GetColumnDataType(_obj.ColumnName)=='money' || GetColumnDataType(_obj.ColumnName)=='currency'">
+
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                      
+
+
+                        <ul class="dropdown-menu operator" role="menu" aria-labelledby="dropdownMenu">
+                            <li><a tabindex="-1" ng-click="_obj.FilterOperator='num-eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li><a tabindex="-1" ng-click="_obj.FilterOperator='num-ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does NOT Equal</a></li>
+                            <li><a tabindex="-1" ng-click="_obj.FilterOperator='num-gte'"><img src="img/filter/GreaterThanOrEqualTo.gif" alt=""> Greater Than OR Equals</a></li>
+                            <li><a tabindex="-1" ng-click="_obj.FilterOperator='num-lte'"><img src="img/filter/LessThanOrEqualTo.gif" alt=""> Less Than OR Equals</a></li>
+                            
+                        </ul>
+
+                    </span>
+                    <input class="form-control" type="number" data-type="number" pattern="[0-9]*" inputmode="numeric" name="name" ng-model="_obj.SearchValue" value="" />
+                </div>
+                    
+                    
+                </div>
+            <div class="col-xs-12">
+                <br />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-primary width-100 pull-left" ng-click="GetInventoryDataAccordingToView()"><i style="padding-left:5px !important; padding-right:5px !important;" class="fa fa-filter"></i>Filter</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-danger width-100 pull-left" style="border-radius:45px; padding-left:10px; padding-right:10px;" ng-click="clearfilterArray()"><i style="padding-left:5px !important; padding-right:5px !important;" class="fa fa-times"></i>Clear</a>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect btn-info">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">All Reports</span></a>  <a href="#/reportmenu" class=" waves-effect accent-color btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div style="background:#fff;" class="modal-header" id="modalheader">
+        <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+        <h4>Image</h4>
+    </div>
+    <div class="modal-body" style="text-align:center">
+        <img src="" id="imagepreview" style="max-height:250px;max-width:250px;">
+    </div>
+
+</div>
+
+<script>
+    $('.myLinkToTop').click(function () {
+        $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+        return false;
+    });
+
+    $('.myMenuLink').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        return false;
+    });
+</script>
+<script>
+
+    var offset = 50;
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    var offset_opacity = 1200;
+    //duration of the top scrolling animation (in ms)
+    var scroll_top_duration = 700;
+    //grab the "back to top" link
+    var $back_to_top = $('.cd-top');
+
+    function scrollToTop() {
+
+        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
+    }
+
+
+
+    $(window).scroll(function () {
+        ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if ($(this).scrollTop() > offset_opacity) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+ .container
+    {
+        width:100%;
+    }
+
+ .btn-info {
+        color: #ffffff !important;
+        background-color: #5bc0de !important;
+      
+    }
+
+    .col-xs-3 div {
+        background: #fff;
+        color: #000;
+        font-size: 20px;
+        border-radius: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        height: 50px;
+        width: 50px;
+        padding: 0px;
+        float: right;
+        margin-right: -32px;
+        text-align:center;
+    }
+  
+
+
+        .btn-large p {
+           
+            margin: 0 0 10px;
+            text-transform: capitalize;
+            margin-top:-5px;
+            margin-bottom:8px;
+        }
+    .accent-color
+    {
+        color:#fff !important;
+    }
+     body {
+        background: #eaeaea;
+        overflow-x: hidden !important;
+    }

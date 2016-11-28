@@ -1,0 +1,402 @@
+﻿<link href="css/setting.css" rel="stylesheet" />
+<link href="css/mobileorder.css" rel="stylesheet" />
+
+<link href="css/customfield.css" rel="stylesheet" />
+
+<link href="css/permission.css" rel="stylesheet" />
+
+
+<style>
+    .text.btn-success {
+        height: 35px;
+        width: 35px;
+        line-height: 35px;
+        border-radius: 100%;
+        padding: 0px;
+        text-align: center;
+        float: left;
+        margin-top: 8px;
+    }
+
+    .list-group-item {
+        background-color: #e2e2e2;
+    }
+
+    .list-group-item {
+        padding: 12px !important;
+        border: transparent;
+        border-bottom: 2px solid #d8d8d8;
+        border-left: 3px solid #2196F3;
+    }
+
+
+        .list-group-item a {
+            font-size: 17px;
+            float: left;
+        }
+
+    .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-inline-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        margin-bottom: 0;
+        font-size: 17px;
+        line-height: 33px;
+        text-align: left;
+    }
+
+    #slide-out-left {
+        display: none;
+    }
+</style>
+
+<div class="title-header">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext">Permissions - {{CurrentUser}}</h4>
+        </div>
+    </div>
+</div>
+
+<div ng-if="showpermission==true">
+    <a ng-click="showuserlist()" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+</div>
+
+<a href="#/Accounts" ng-if="showpermission==false" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+
+<div class="top45">
+
+    <div ng-show="Issearch==true" class="row rowMargin">
+        <input type="text" placeholder="Type Name" ng-model="SearchString" class="form-control" name="name" value=" " />
+        <i class="fa fa-times clearicon" ng-if="GetTrimmedStringData(SearchString)!=''" ng-click="ClearFilter()"></i>
+    </div>
+
+
+    <div ng-if="IsLoading==true">
+
+        <div class="modal-backdrop fade in"></div>
+        <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+            <img src="img/loader.gif" alt="Alternate Text" />
+        </div>
+    </div>
+
+    <div ng-if="IsLoading==true">
+
+        <div class="modal-backdrop fade in"></div>
+        <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+            <img src="img/loader.gif" alt="Alternate Text" />
+
+        </div>
+    </div>
+
+
+    <ul ng-if="showpermission==false" class="list-group">
+        <li class="list-group-item" ng-repeat="obj in Userlist" ng-if="obj.UnitOfMeasureName != ''">
+            <div class="row">
+                <div class="col-xs-2">
+                 <a class="btn text btn-success accent-color">{{$index+1}}</a>
+                </div>
+                <div class="col-xs-8">
+                 <a class="text">{{obj.FirstName}}</a>
+                 <a style="font-size:12px; margin-top:-13px; color:#656565; " class="text">{{obj.Email}}</a>
+                </div>
+                <div class="col-xs-2">
+
+                    
+                    <a ng-if="obj.AccountOwner==true" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:100%;" class="btn btn-success pull-right btnUom">
+                        <i class="fa fa-users"></i>
+                    </a>
+
+                    <a ng-if="obj.AccountOwner==false" ng-click="ManagePermission(obj.UserKey,obj.FirstName)" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:100%;" class="btn btn-danger pull-right btnUom">
+                        <i class="fa fa-gears"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+
+
+    <table class="table gridTable table-striped bs-item" ng-if="showpermission==true">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="infoareas columnHeader" ng-click="openClosePanel(1)">
+                        <h5>Library</h5>
+                        <i class="fa fa-chevron-up pull-right" ng-if="IsLibrarydataopen==true"></i>
+                        <i class="fa fa-chevron-down pull-right" ng-if="IsLibrarydataopen==false"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-repeat="_obj in Permissions1" ng-if="IsLibrarydataopen==true && (_obj.PermissionName=='Location Library' || _obj.PermissionName=='Units of Measure Library' || _obj.PermissionName=='Status Library' || _obj.PermissionName=='Item Library' || _obj.PermissionName=='Item Group Library')">
+                <td>
+                    <div class=" infoareas">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <a ng-if="_obj.PermissionName=='Item Library'" class="btn text btn-warning"> 1 </a>
+                                <a ng-if="_obj.PermissionName=='Item Group Library'" class="btn text btn-warning"> 2 </a>
+                                <a ng-if="_obj.PermissionName=='Location Library'" class="btn text btn-warning"> 3 </a>
+                                <a ng-if="_obj.PermissionName=='Units of Measure Library'" class="btn text btn-warning"> 4 </a>
+                                <a ng-if="_obj.PermissionName=='Status Library'" class="btn text btn-warning"> 5 </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a class="text ng-binding">{{_obj.PermissionName }}</a>
+                            </div>
+                            <div class="col-xs-4">
+                                <div ng-if="_obj.IsTurnedOn==false" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,4,'See')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                                <div ng-if="_obj.IsTurnedOn==true" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,4,'Hide')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="infoareas columnHeader" ng-click="openClosePanel(2)">
+                        <h5>Views </h5>
+                        <i class="fa fa-chevron-up pull-right" ng-if="IsViewOpen==true"></i>
+                        <i class="fa fa-chevron-down pull-right" ng-if="IsViewOpen==false"></i>
+                    </div>
+
+                </td>
+            </tr>
+            <tr ng-repeat="_obj in Permissions2" ng-if="IsViewOpen==true && (_obj.PermissionName!='Views' && _obj.PermissionName!='Location Restock' && _obj.PermissionName!='Global Restock' && _obj.PermissionName!='Restock Views')">
+                <td>
+                    <div class="infoareas">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <a class="btn text btn-warning accent-color">{{$index}} </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a class="text ng-binding">{{_obj.PermissionName }} </a>
+
+                            </div>
+                            <div class="col-xs-4">
+                                <div ng-if="_obj.IsTurnedOn==false" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,3,'See')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+
+                                <div ng-if="_obj.IsTurnedOn==true" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,3,'Hide')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="infoareas columnHeader" ng-click="openClosePanel(3)">
+                        <h5>Admin </h5>
+                        <i class="fa fa-chevron-up pull-right" ng-if="IsAdminopen==true"></i>
+                        <i class="fa fa-chevron-down pull-right" ng-if="IsAdminopen==false"></i>
+                    </div>
+
+                </td>
+            </tr>
+            <tr ng-repeat="_obj in Permissions3" ng-if="IsAdminopen==true && (_obj.PermissionName == 'MyInventory Columns' || _obj.PermissionName == 'Custom Item Fields' || _obj.PermissionName == 'Custom Transaction Fields' || _obj.PermissionName == 'Unit Data Fields')">
+                <td>
+                    <div class="infoareas">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <a class="btn text btn-warning ng-binding">{{$index - 13}} </a>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <a class="text ng-binding">{{_obj.PermissionName }} </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <div ng-if="_obj.IsTurnedOn==false" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,5,'See')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+
+                                <div ng-if="_obj.IsTurnedOn==true" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,5,'Hide')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="infoareas columnHeader" ng-click="openClosePanel(4)">
+                        <h5>Global</h5>
+                        <i class="fa fa-chevron-up pull-right" ng-if="IsGlobalopen==true"></i>
+                        <i class="fa fa-chevron-down pull-right" ng-if="IsGlobalopen==false"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-repeat="_obj in Permissions4" ng-if="IsGlobalopen==true && (_obj.PermissionName == 'Increase Item Quantities' || _obj.PermissionName == 'Decrease  Item Quantities' || _obj.PermissionName == 'Move Items Among Locations' || _obj.PermissionName == 'Convert Items to Different Units of Measure' || _obj.PermissionName == 'Apply Unique Tags to Items' || _obj.PermissionName == 'Can Change Inventory Status' ||_obj.PermissionCode == 'ACTION:CanMoveTagUpdate')">
+                <td>
+                    <div class="infoareas">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <a class="btn text btn-warning ng-binding">{{$index}}</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a class="text ng-binding">{{_obj.PermissionName }} </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <div ng-if="_obj.IsTurnedOn==false" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,1,'See')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                                <div ng-if="_obj.IsTurnedOn==true" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input ng-change="UpdatePermission(_obj.PermissionCode,1,'Hide')" type="checkbox" ng-model="_obj.IsTurnedOn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br /><br />
+
+</div>
+
+<a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
+
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">Go to Report</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="filtermodal" class="modal animated bounceInRight">
+    <div class="modal-header">
+        <span class="close">
+            <i data-dismiss="modal" class="fa fa-times"></i>
+        </span>
+        <h4>Apply filters</h4>
+    </div>
+
+    <div style="padding:5px;" class="modal-body">
+
+        <div ng-show="IsUnitDataOpen==true">
+
+            <h4>Unit data columns</h4>
+
+            <div class="input-group">
+                <span style="background: #e99002;" class="input-group-addon"><i style="background: #e99002;" class="fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="UnitDataSearch" value="" class="form-control" />
+            </div>
+        </div>
+
+        <div ng-show="IsItemOpen==true">
+            <h4>Custom Item columns</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="CustomItemSearch" value="" class="form-control" />
+            </div>
+        </div>
+
+        <div ng-show="IsActivityOpen==true">
+            <h4>By Name</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="CustomActivitySearch" value="" class="form-control" />
+            </div>
+
+            <h4>By Datatype</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <select class="form-control" ng-model="CustomActivityDatatype">
+                    <option>Choose</option>
+                    <option value="string">String</option>
+                    <option value="currency">Currency</option>
+                    <option value="datetime">Date</option>
+                    <option value="number">Number</option>
+                    <option value="checkbox">Boolean</option>
+                    <option value="combobox">Dropdown</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-primary" ng-click="FilterDataColumns()" ><i  class="fa fa-filter"></i> Filter</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-gray" ><i class="fa fa-times"></i> Clear</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    var offset = 50;
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    var offset_opacity = 1200;
+    //duration of the top scrolling animation (in ms)
+    var scroll_top_duration = 700;
+    //grab the "back to top" link
+    var $back_to_top = $('.cd-top');
+
+    function scrollToTop() {
+
+        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
+    }
+
+    $(window).scroll(function () {
+        ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if ($(this).scrollTop() > offset_opacity) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+</script>

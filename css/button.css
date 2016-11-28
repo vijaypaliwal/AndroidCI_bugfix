@@ -1,0 +1,562 @@
+.btn-primary {
+    background-color: #2196F3 !important;
+    border: transparent !important;
+    font-size: 17px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 45px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-transform: capitalize;
+    color: #fff !important;
+}
+
+    .btn-primary i {
+        font-size: 18px;
+    }
+
+.btn-gray {
+    background: #949494 !important;
+    color: #fff !important;
+    opacity: 0.9;
+    height: 45px;
+    line-height: 45px;
+    border: transparent !important;
+    border-radius: 45px;
+    font-size: 17px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-transform: capitalize;
+}
+
+.primary-color {
+    color: #fff !important;
+}
+
+.btn-gray i {
+    font-size: 18px;
+}
+
+.bootbox .modal-body {
+    padding: 15px;
+    text-align: left;
+}
+
+.bootbox .mybootboxbody {
+    padding-top: 0px;
+    text-align: left;
+    padding-left: 13px;
+    background: #d6d6d6;
+    padding-bottom: 7px;
+    color: brown;
+}
+
+.cartitems .input-group-addon {
+    background: transparent !important;
+}
+
+.myicon {
+    background: transparent !important;
+}
+
+    .myicon .fa-thumb-tack {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+.input-group-addon .fa-thumb-tack {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+
+.input-group-addon .fa-undo {
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+}
+
+.input-group-addon .fa-thumb-tack {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.c-widget-figure {
+    margin-right: 20px;
+    width: 48px;
+    min-width:48px;
+    height: 48px;
+    min-height:48px;
+    color: #fff;
+    border-radius: 50%;
+    line-height: 51px;
+    text-align: center;
+}
+
+.waves-effect.btn-warning {
+    border-radius: 45px;
+}
+
+
+.input-group-addon .fa-plus {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+}
+
+.input-group-addon .fa-minus {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-top:14px !important;
+}
+
+.input-group-addon .fa-barcode {
+ padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 13px !important;
+    padding-bottom: 11px !important;
+}
+
+
+.fileUpload.btn-primary {
+    font-size: 14px;
+    line-height: 18px;
+    padding-top: 18px !important;
+    text-transform: capitalize;
+    height: 75px;
+    border-radius: 100%;
+    padding-top: 9px;
+    width: 75px;
+}
+
+.bottom-modal {
+    padding: 0px !important;
+    background: transparent;
+    border: none !important;
+    box-shadow: none !important;
+    max-height: initial !important;
+}
+
+    .bottom-modal .modal-body {
+        padding: 0px;
+        border-radius: 10px;
+        background: transparent;
+    }
+
+
+    .bottom-modal ul {
+        padding: 15px;
+        margin-bottom: 0px;
+        border-radius: 10px;
+        width: 95%;
+        background: #fff;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+    }
+
+        .bottom-modal ul li {
+            padding: 14px;
+            border: 1px solid #ccc;
+            background: #2196F3;
+            list-style-type: none;
+            margin-bottom: 10px;
+            border-radius: 20px;
+        }
+
+            .bottom-modal ul li a {
+                padding-left: 20px;
+                display: block;
+                width: 100%;
+                text-decoration: none !important;
+                color: #fff;
+            }
+
+                .bottom-modal ul li a i {
+                    font-size: 16px;
+                    margin-right: 7px;
+                }
+
+
+    .bottom-modal .modal-footer {
+        margin-top: 0px;
+    }
+
+
+.menubtn {
+    position: fixed;
+    bottom: 23px;
+    right: 25px;
+    background: #FF4081 !important;
+    z-index: 13000;
+    color: #fff !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 55px;
+    cursor: pointer;
+}
+
+#bottommenumodal {
+    position: fixed;
+    right: 25px;
+}
+
+    #bottommenumodal .selectAction {
+        position: fixed;
+        bottom: 75px;
+        right: 35px;
+    }
+
+
+
+        #bottommenumodal .selectAction li {
+            list-style-type: none;
+        }
+
+
+            #bottommenumodal .selectAction li span {
+                color: #000;
+            }
+
+
+        #bottommenumodal .selectAction .btn {
+            height: 34px;
+            width: 34px;
+            padding: 0px;
+            border-radius: 100%;
+            text-align: center;
+            line-height: 34px;
+            border: transparent;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+#bottommenumodal {
+    position: fixed;
+    right: 13px;
+    font-size: 18px;
+    text-align: right;
+    display: none;
+    background: transparent;
+    overflow: hidden;
+}
+
+    #bottommenumodal span {
+        font-size: 16px;
+        font-family: verdana;
+        margin-right: 7px;
+    }
+
+
+    #bottommenumodal .modal-body {
+        background: transparent;
+    }
+
+
+
+.rotate {
+    -ms-transform: rotate(42deg);
+    -webkit-transform: rotate(42deg);
+    transform: rotate(42deg);
+}
+
+.filtercross {
+    font-size: 35px;
+    color: brown;
+    padding: 6px;
+    margin-top: 3px;
+    padding-top: 0px;
+    z-index: 10;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+
+.right47 {
+    right: 47px;
+}
+
+.close {
+    opacity: 1;
+}
+
+.modal-header {
+    padding: 10px;
+}
+
+    .modal-header h4 {
+        line-height: 5px;
+    }
+
+.close i {
+    color: brown;
+    font-size: 40px;
+}
+
+.lesstop12 {
+    margin-top: -12px;
+}
+
+.title-header {
+    background-color: #2196F3;
+    color: #fff;
+    padding-bottom: 9px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    right: 0;
+}
+
+    .title-header h4, small {
+        color: #fff !important;
+    }
+
+    .title-header h4 {
+        padding-left: 50px;
+    }
+
+    .title-header small {
+        font-size: 12px !important;
+    }
+
+.titletext {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    margin-bottom: 0;
+    font-size: 17px;
+    line-height: 25px;
+    margin-top: 5px;
+}
+
+.roundbtntitle {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    position: fixed;
+    padding: 0px;
+    margin-top: 18px;
+    background: #f44336;
+    color: #fff !important;
+    line-height: 40px;
+    z-index: 100;
+    font-size: 25px;
+    right: 15px;
+}
+
+
+.top50 {
+    padding-top: 50px;
+}
+
+.newbackbtn {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    position: fixed;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: 7px;
+    line-height: 37px;
+    z-index: 100;
+    color: #fff;
+    font-size: 25px;
+}
+
+    .newbackbtn i {
+        color: #fff !important;
+    }
+
+.btn-large {
+    border-radius: 50px;
+}
+
+    .btn-large i {
+        font-size: 17px;
+    }
+
+.left15 {
+    margin-left: 15px !important;
+}
+
+
+   #filtermodal
+        {
+        background:#fff;
+     padding:0px;
+      overflow-x:hidden;
+         overflow-x:hidden !important;
+          left:initial !important;
+          position:fixed;
+          right:0 !important;
+          width:295px;
+          font-size:13px;
+          box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2); 
+          z-index:25000;
+        }
+
+        #filtermodal .modal-header
+        {
+      background: #2196F3;
+      color: #fff;
+      
+        }
+
+            #filtermodal .modal-header i
+        {
+    font-size:22px;
+    margin-top:10px;
+    color:#fff !important;
+      
+        }
+
+            #filtermodal .width-100
+            {
+                width:initial !important;
+            }
+     
+
+        #filtermodal h4
+        {
+            font-size:15px;
+        }
+
+#filtermodal img {
+    background: #fff;
+    border-radius: 100%;
+}
+
+#filtermodal .input-group-addon {
+    background: #2196F3;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+
+#filtermodal .dropdown-menu img {
+    background: transparent;
+    border: 1px solid #ccc;
+}
+
+#filtermodal .form-control {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: transparent;
+}
+
+#filtermodal #firstDiv .fa-calendar {
+    padding: 6px !important;
+    color: #000 !important;
+    background: #fff !important;
+    border-radius: 100% !important;
+}
+
+#filtermodal #firstDiv .input-group-addon {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.finditems img {
+    background: #fff;
+    border-radius: 100%;
+}
+
+.finditems.input-group-addon {
+    background: #2196F3;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    border-right: 1px solid #fff;
+}
+
+
+.finditems .dropdown-menu img {
+    background: transparent;
+    border: 1px solid #ccc;
+}
+
+
+.finditems .fa-caret-down {
+  background: #fff;
+    color: #000 !important;
+    padding: 1px !important;
+    padding-top: 2px !important;
+    padding-left: 7px !important;
+    font-size: 24px !important;
+    padding-right: 7px !important;
+}
+
+#toast-container {
+    position: fixed !important;
+    z-index: 999999;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.tagarrow .fa-tag
+{
+    margin-top:13px !important;
+}
+
+.toast-success {
+    background: #3CB371;
+    color: #fff !important;
+}
+
+.bootbox .modal-dialog
+{
+    width:94%;
+      border-radius:10px;
+}
+
+.bootbox .modal-content
+{
+   background:#fff;
+   box-shadow:none;
+   border:transparent;
+ 
+}
+
+.bootbox .modal-body
+{
+ background: #d6d6d6;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding-bottom:5px;
+}
+
+.bootbox
+{
+    position:fixed;
+    bottom:0;
+    top:initial;
+}
+
+
+.bootbox .modal-footer {
+    background: #fff;
+    padding: 0px;
+    margin-top: 0px;
+    border: transparent;
+    padding-bottom: 10px;
+    margin-top:10px;
+    padding-left:7px;
+    padding-right:7px;
+}
+
+
+.bootbox .btn {
+  width:100%;
+  margin-bottom:10px;
+  margin-left:0px !important;
+  text-align:left;
+}
+
+
+
+

@@ -1,0 +1,235 @@
+﻿
+
+
+<table style=" z-index: 999; width: 100%; top: 0; left: 0; background: #2196F3; color: #fff;">
+    <tr>
+        <td style="width:33.33%">
+            <a style="padding:4px;color:white !important;" href="#/login"><i class="fa fa-arrow-left"></i></a>
+        </td>
+        <td style="width:33.33%">
+            <div style="text-align:center">
+                <h5> Sign Up </h5>
+            </div>
+        </td>
+        <td style="width:33.33%">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+
+<form name="signup">
+
+    <h4>Account Info</h4>
+
+            <div class="form-group">
+             
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-male"></i></span>
+                    <input type="text" class="form-control" placeholder="Your Name" data-ng-model="registration.Name" required autofocus>
+                </div>
+
+            </div>
+            <div class="form-group">
+               
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-globe"></i></span>
+                    <input type="text" class="form-control" placeholder="Company Name" data-ng-model="registration.Company" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-envelope"></i></span>
+                    <input type="text" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Email Address" data-ng-model="registration.Email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-briefcase"></i></span>
+                    <input type="text" class="form-control" placeholder="Account Name" data-ng-model="registration.Account" required>
+                </div>
+            </div>
+           <h4>Login Info</h4>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Username" data-ng-model="registration.UserName" required>
+                </div>
+            </div>
+            <div class="form-group">
+              
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-key"></i></span>
+                    <input type="password" ng-minlength="7" name="Password" class="dotfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
+                    <input style="display:none" type="text" ng-minlength="7" class="textfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
+
+
+                    <span ng-click="showpassword();" class="showbtn input-group-addon last">Show</span>
+                    <span ng-click="hidepassword();" style="display:none; min-width:67px;" class="hidebtn input-group-addon last">Hide</span>
+                </div>
+
+                <span style="color:red;" ng-if="signup.Password.$error.minlength">
+                    Minimum 7 characters required.
+                </span>
+            </div>
+ 
+    <button class="waves-effect waves-light btn btn-primary" type="button" id="signUpBtn" ng-disabled="signup.$invalid" data-ng-click="signUp()"><i class="fa fa-sign-in" ng-class="{'fa-spin':IsProcessing==true}"></i> Sign Up</button>
+    <a class="waves-effect waves-light btn-gray btn" href="#/login"><i class="fa fa-times"></i> Cancel</a>
+</form>
+
+<style>
+
+    form
+    {
+        overflow-x:hidden !important;
+        padding-left:8px;
+        padding-right:8px;
+    }
+    
+    
+     .input-group-addon {
+        padding: 6px 12px;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1;
+        color: #6f6f6f;
+        text-align: center;
+        background-color: #eeeeee !important;
+        border: 1px solid #cccccc;
+        border-radius: 0;
+        min-width: 50px;
+    }
+
+        .input-group-addon i {
+            padding: 4px 4px !important;
+            font-size: initial;
+            font-weight: normal;
+            line-height: 1;
+            color: #6f6f6f !important;
+            text-align: center;
+            font-size: 18px !important;
+            background-color: #eeeeee;
+            border-radius: 0;
+        }
+    .navbar {
+        display: none;
+    }
+
+    .side-nav {
+        display: none !important;
+    }
+
+    #sidenav-overlay {
+        display: none !important;
+    }  
+
+
+    .center
+     {
+       text-align: center;
+     }
+
+    .loginn 
+    {
+     background: #999999 !important;
+    }
+
+    label {
+        font-size: 15px;
+        color: #333;
+    }
+
+    .form-control {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+
+    .layoutheader {
+        display: none;
+    }
+
+    .bottomnavigation {
+        position: fixed;
+        bottom: 10px;
+        text-align: center;
+        width: 100%;
+        color: #fff;
+    }
+
+        .bottomnavigation a {
+            color: #fff;
+            display: block;
+            margin-top: 5px;
+        }
+
+
+
+    body {
+    
+        padding-top: 40px;
+        overflow-x: hidden !important;
+    }
+
+    .loginlogo {
+        width: 82px;
+        margin-bottom: 15px;
+    }
+
+    #viewdata {
+        margin-top: 0px;
+    }
+    .container
+    {
+        width:100%;
+        padding-left:0px;
+        padding-right:0px;
+    }
+
+    .login-form .col-xs-5 {
+        text-align: right;
+    }
+
+    .btn-white {
+        margin: 0 auto;
+        margin-bottom: 15px;
+        background: #fff !important;
+        color: #000 !important;
+        text-align: center;
+    }
+
+        .btn-white .fa-angle-right {
+            position: absolute;
+            right: 25px;
+            font-size: 25px;
+            margin-top: -2px;
+        }
+
+
+
+    login-form {
+        overflow: hidden !important;
+    }
+
+  
+
+    #toolbar {
+        display: none;
+    }
+
+  
+
+    #mysignupModal {
+        text-align: center;
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+        margin-top: 100px;
+    }
+
+    body
+    {
+        padding-top:0px;
+    }
+
+
+</style>

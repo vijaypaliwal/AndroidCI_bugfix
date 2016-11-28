@@ -1,0 +1,399 @@
+﻿
+
+<link href="css/finditem.css" rel="stylesheet" />
+
+
+<div class="title-header">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <h4 class="titletext">Inventory <small>{{currentrecord}} of {{totalrecords}} <span ng-if="totalrecords<1">record</span> <span ng-if="totalrecords>1">records</span>  shown</small> </h4>
+        </div>
+    </div>
+</div>
+
+<a ng-if="isshowsearch==false" ng-click="showsearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-search"></i> </a>
+
+<a ng-if="isshowsearch==true" ng-click="hidesearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
+<a href="#/Accounts" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+<div>
+    <br /><br /><br />
+
+    <a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
+
+    <div ng-if="myinventoryColumnLoaded==false">
+
+        <div class="modal-backdrop fade in"></div>
+        <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+            <img src="img/loader.gif" alt="Alternate Text" />
+
+            <!--<i style="font-size: 100px; color: #0083C7; " class="fa fa-spin fa-spinner"></i>-->
+        </div>
+    </div>
+    <div id="sticky-anchor"></div>
+    <div class="" style="margin-bottom:7px;" ng-if="isshowsearch==true" id="" >
+        <table class="searchtable">
+            <tbody>
+                <tr>
+
+                    <td>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-addon finditems" id="addonData" >
+
+                                <a class="waves-effect waves-effect status dropdown"  data-toggle="dropdown">
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dm-icon searchlist" id="dynamicd">
+                                    <li class="suggestItem1"><a ng-click="searchfunction('All')" alt="All">All</a></li>
+                                    <li class="suggestItem2"><a ng-click="searchfunction('pPart')" alt="pPart">Items</a></li>
+                                    <li class="suggestItem3"><a ng-click="searchfunction('lLoc')" alt="lLoc">Location</a></li>
+                                    <li class="suggestItem4"><a ng-click="searchfunction('iStatusValue')" alt="iStatusValue">Status</a></li>
+                                    <li class="suggestItem5"><a ng-click="searchfunction('uomUOM')" alt="uomUOM">UOM</a></li>
+
+
+
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iReqValue')" alt="iReqValue">{{GetUnitDataLabel('iReqValue')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag2')" alt="iUnitTag2">{{GetUnitDataLabel('iUnitTag2')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag3')" alt="iUnitTag3">{{GetUnitDataLabel('iUnitTag3')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUniqueDate')" alt="iUniqueDate">{{GetUnitDataLabel('iUniqueDate')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitDate2')" alt="iUnitDate2">{{GetUnitDataLabel('iUnitDate2')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber1')" alt="iUnitNumber1">{{GetUnitDataLabel('iUnitNumber1')}}</a></li>
+                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber2')" alt="iUnitNumber2">{{GetUnitDataLabel('iUnitNumber2')}}</a></li>
+
+
+                                </ul>
+
+
+                            </span>
+
+                            <span class="input-group-addon finditems">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+
+                                    <img src="{{CurrentActiveSearchOperator}}" alt="">
+                                </a>
+                                <ul ng-if="CurrentActiveSearchType==1" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('cn',CurrentActiveSearchField)"><img src="img/filter/Contains.gif" alt=""> Contains</a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('eq',CurrentActiveSearchField)"><img src="img/filter/EqualTo.gif" alt=""> Exact</a></li>
+                                </ul>
+
+                                <ul ng-if="CurrentActiveSearchType==2" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('num-eq',CurrentActiveSearchField)"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('num-lte',CurrentActiveSearchField)"><img src="img/filter/LessThanOrEqualTo.gif" alt="">Less than </a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('num-gte',CurrentActiveSearchField)"><img src="img/filter/GreaterThanOrEqualTo.gif" alt="">Greater than </a></li>
+
+
+                                </ul>
+
+                                <ul ng-if="CurrentActiveSearchType==3" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('date-eq',CurrentActiveSearchField)"><img src="img/filter/EqualTo.gif" alt=""> On</a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('date-after',CurrentActiveSearchField)"><img src="img/filter/OnOrAfter.gif" alt="">On or after </a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('date-before',CurrentActiveSearchField)"><img src="img/filter/OnOrBefore.gif" alt="">On or before </a></li>
+
+
+                                </ul>
+
+                                <ul ng-if="CurrentActiveSearchType==4" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('in',CurrentActiveSearchField)"><img src="img/filter/EqualTo.gif" alt=""> In</a></li>
+                                    <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('ni',CurrentActiveSearchField)"><img src="img/filter/NotEqualTo.gif" alt="">Not in </a></li>
+
+
+                                </ul>
+                            </span>
+
+                            
+                            <div style="position:relative" class="fg-line">
+
+                                <span ng-if="CurrentActiveSearchType==1">
+
+                                    <input style="border-radius:0px; border-left:transparent" id="MasterSearch" type="text" ng-model="SearchValue" class="form-control" placeholder="Type to Search">
+                                </span>
+
+                                <span ng-if="CurrentActiveSearchType==3">
+
+                                    <input style="border-radius: 0px; border-left: transparent"" id="MasterSearchDate" type="date" ng-model="SearchDateValue" class="form-control" placeholder="Type to Search">
+                                </span>
+                                <span ng-if="CurrentActiveSearchType==2">
+
+                                    <input style="border-radius: 0px; border-left: transparent"" id="MasterSearchNumber" type="number" ng-model="SearchNumberValue" class="form-control" placeholder="Type to Search">
+                                </span>
+                                <span ng-if="CurrentActiveSearchType==4">
+
+                                    <select ng-if="CurrentActiveSearchField == 'iStatusValue'" class="form-control" multiple-select multiple="multiple" ng-model="SearchStatusValue" ng-options="obj.StatusValue for obj in StatusList track by obj.StatusValue" id="MasterSearchStatus"></select>
+
+                                    <select ng-if="CurrentActiveSearchField == 'uomUOM'" class="form-control" multiple-select multiple="multiple" ng-model="SearchUOMValue" ng-options="obj.UnitOfMeasureName for obj in UOMList track by obj.UnitOfMeasureName" id="MasterSearchUOM"></select>
+
+
+
+                                </span>
+                                <i id="btnClearSearch" class="fa fa-times filtercross" ng-click="ClearFilter()" ng-show="SearchValue!=''"></i>
+                            </div>
+
+                            <a class="input-group-addon last textData" style="margin-top: 0px;  width: 37px;" id="btnMasterSearch" ng-click="SearchInventory()"><i class="fa fa-search" style="font-size:20px;"></i> </a>
+                            <a class="input-group-addon last" style="margin-top: 0px;  width: 37px;  " ng-click="ScanItemSearch()"><i class="fa fa-barcode " style=" color: #2196F3; font-weight: 400;"></i></a>
+                        </div>
+
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="display:none">
+        <input type="file" id="myfile" name="myfile" />
+
+    </div>
+    <div style="text-align: center; color: #d9534f; display:none;" class="maincontent norecords">
+
+        <div ng-if="ActualTotalRecords!=0">
+
+            <h3>No record matched your Query</h3>
+            <a style="cursor:pointer;width:auto;" class="btn btn-primary" ng-click="ClearFilter()"> <i class="fa fa-filter"></i> Clear your filters</a>
+            <br /><br />
+        </div>
+        <div ng-if="ActualTotalRecords==0">
+            <br />
+            <h5>You don't have any inventory records yet. Click the "New Inventory" button below to put something in inventory.</h5>
+            <br />
+        </div>
+
+    </div>
+    
+
+    <div class="animated slideInLeft" id="mylist">
+
+
+        <div ng-if="loadingblock==true" style="background:#ECECEC; text-align:center; margin-top:-5px; padding-top:12px; padding-bottom:12px;">
+            <img style="height:30px;" src="img/loader.gif" alt="Alternate Text">
+        </div>
+        
+        <div class="pageData">
+            <ul class=" widget-products">
+                <li ng-repeat="_obj in InventoryItems" class="newlistitem">
+                    <a class="checkicon" id="actionQty_{{_obj.iID}}" inv-id="{{_obj.iID}}" ng-click="AddToCart(_obj)">
+
+                        <i style="font-size: 35px; color:transparent;" class="fa fa-check"></i>
+
+                    </a>
+                    <a class="">
+                        <span class="img">
+                            <span class="imghelper"></span>
+                            <i ng-if="_obj.ImageThumbPath==''" class="fa fa-shopping-cart cartImage"></i>
+                            <img class="thumbimg" ng-if="_obj.ImageThumbPath!=''" style="display:none !important;" src="{{_obj.ImageThumbPath}}" alt="loading.." imageonload />
+                            <img style="height:32px;width:32px; border:transparent" ng-if="_obj.ImageThumbPath!=''" src="img/loader1.gif" class="loadingImage" alt="loading.." />
+                        </span>
+                        <span class="product clearfix" ng-click="GoToDetailPage(_obj)" on-long-press="SetCurrentObject(_obj)" on-touch-end="ShowOptionModal()">
+                            <!--<span class="product clearfix" ng-click="ShowOptionModal()">-->
+                            <!--<span class="name">
+
+                            </span>-->
+
+                            <h5 class="list-group-item-heading">
+
+                                {{_obj.pPart}} <span class="pull-right"> <span> <span >{{_obj.iQty}}</span> <span > {{_obj.uomUOM}}</span>  </span> </span>
+
+                            </h5>
+
+                            <span class="list-group-item-text">
+                                <span class="text" style="width:30%">
+
+                                    <span ng-if="IsAvailableMyInventoryColumn('pDescription')">
+                                        {{_obj.pDescription}}
+                                    </span>
+
+                                 
+                                </span>
+                                <span class="text" style="float:right">
+                                    <span>
+                                        {{_obj.lLoc}}
+                                    </span>
+                                </span>
+                            </span>
+                            <div class="unitdata">
+
+                                <span ng-if="_obj.iStatusValue != ''">
+                                    {{_obj.iStatusValue}},
+                                </span>
+
+                                <span ng-if="_obj.iReqValue != ''">
+                                    {{TrimFirstThreeLetter('iReqValue')}}:{{_obj.iReqValue}},
+                                </span>
+                                <span ng-if="_obj.iUnitTag2 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag2')}}:{{_obj.iUnitTag2}},
+                                </span>
+
+                                <span ng-if="_obj.iUnitTag3 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag3')}}:{{_obj.iUnitTag3}},
+                                </span>
+
+
+                                <span ng-if="_obj.iUniqueDate != null">
+                                    {{TrimFirstThreeLetter('iUniqueDate')}}:{{_obj.iUniqueDate}},
+                                </span>
+
+                                <span ng-if="_obj.iUnitDate2 != null">
+                                    {{TrimFirstThreeLetter('iUnitDate2')}}:{{_obj.iUnitDate2}}
+                                </span>
+
+                                <span ng-if="_obj.iUnitNumber1 != null">
+                                    {{TrimFirstThreeLetter('iUnitNumber1')}}:{{_obj.iUnitNumber1}},
+                                </span>
+
+                                <span ng-if="_obj.iUnitNumber2 != null">
+                                    {{TrimFirstThreeLetter('iUnitNumber2')}}:{{_obj.iUnitNumber2}}
+                                </span>
+
+
+
+                            </div>
+                            
+                         
+                        
+
+                        </span>
+                    </a>
+
+                    
+
+                   
+
+                </li>
+            </ul>
+        </div>
+
+        <div><br /><br /><br /></div>
+
+    </div>
+
+
+    <div style="text-align:center; top:100px; overflow:hidden;" id="myModal1" class="modal fade " role="dialog">
+        <div class="animated flipInY modal-body">
+            <img style="max-width:250px; max-height:280px;" src="{{selectedImage}}" alt="">
+            <button style="padding: 2px 7px; position: absolute; margin-left: -23px; margin-top:-5px;" class="btn waves-effect-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+
+
+    <div id="myModal2" class="modal bottommenu fade">
+
+        <div class="modal-body">
+            <ul class="animated slideInUp selectAction">
+                <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">New Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-success btn"> <i class="fa fa-plus"></i> </a></li>
+                <li class="bottomlink" ng-if="totalrecords!=0 && _areImagesShown==false" ng-click="Showhideimage('true')"> <span>Show Image</span> <a class="waves-effect btn-info btn decrease" style="background-color: #C65E28;" data-dismiss="modal"> <i class="fa fa-image"></i> </a></li>
+                <li class="bottomlink" ng-if="totalrecords!=0 &&_areImagesShown==true" ng-click="Showhideimage('false')"> <span>Hide Image</span> <a class="waves-effect btn-info btn decrease" style="background-color: #C65E28;" data-dismiss="modal"> <i class="fa fa-image"></i> </a></li>
+                <li class="bottomlink" ng-if="totalrecords!=0 &&_areZeroRecordsShown==false" ng-click=" showhidezerorecord('true')"><span>Show Zero record</span><a class="waves-effect btn-info btn decrease" style="background-color: #583782;" data-dismiss="modal"> 0 </a></li>
+                <li class="bottomlink" ng-if="totalrecords!=0 &&_areZeroRecordsShown==true" ng-click="showhidezerorecord('false')"><span>Hide Zero record</span><a class="waves-effect btn-info btn decrease" style="background-color: #583782;" data-dismiss="modal"> 0 </a></li>
+                <li ng-click="SelectAll()" class="bottomlink"><span>Select All</span><a class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-check"></i>  </a></li>
+                <li ng-click="ClearFilter()" class="bottomlink"><span data-dismiss="modal">Clear Filters</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <a ng-click="OpenmenuModal()" class="menubtn waves-effect btn-info btn-floating" ng-if="mainObjectToSend.length==0">
+        <i class="fa fa-bars"></i>
+    </a>
+
+    <div style="text-align:center; top:100px; overflow:hidden;" id="myModalforlist" class="modal fade">
+        <div class="modal-body">
+            <ul class="list-group">
+                <li data-dismiss="modal" class="list-group-item" ng-click="GoToDetailPage(_Currentobj)">
+                    <a>
+                        <i class="fa fa-info-circle"></i>&nbsp;&nbsp;View details
+                    </a>
+                </li>
+                <li data-dismiss="modal" ng-click="AddToCart(_Currentobj)" class="list-group-item">
+                    <a>
+                        <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Add to cart
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="mycartModal" class="modal bottommenu fade">
+
+        <div class="modal-body">
+            <ul class="animated transactionbody selectAction animated slideInUp">
+
+
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('iQty') && checkpermission('ACTION:CanAddInventory')==true" ng-click="GoToNextMobile(1)"> <span>Increase</span> <a style="background-color: #177B3D;" class=" waves-effect btn-success btn decrease" data-dismiss="modal"> <i class="fa fa-plus"></i> </a></li>
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('iQty') && checkpermission('ACTION:CanSubtractInventory')==true" ng-click="GoToNextMobile(-1)"> <span>Decrease</span> <a style="background-color: #AF2525;" class=" waves-effect btn-danger btn decrease" data-dismiss="modal"> <i class="fa fa-minus-circle"></i> </a></li>
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('iQty') && checkpermission('ACTION:CanAddInventory')==true && checkpermission('ACTION:CanSubtractInventory')==true" ng-click="GoToNextMobile(12)"> <span>Adjust</span> <a style="background-color: #f8c217;" class="waves-effect btn-danger btn adjust" data-dismiss="modal"> <i class="fa fa-arrows-v"></i> </a></li>
+                <li class="bottomlink" ng-if="IsAnyUnitDataFieldActive()==true && checkpermission('ACTION:UniqueTag')==true" ng-click="GoToNextMobile(4)"><span>Tag</span><a style="background-color: #0D190F" class=" waves-effect btn-info btn decrease" data-dismiss="modal"> <i class="fa fa-tag"></i>  </a></li>
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('lLoc') && checkpermission('ACTION:CanMoveInventory')==true" ng-click="GoToNextMobile(0)"><span>Move</span><a style="background-color: #C65E28;" class=" waves-effect btn-warning btn decrease" data-dismiss="modal"> <i class="fa fa-exchange"></i>  </a></li>
+                <li class="bottomlink" ng-if="(IsAvailableMyInventoryColumn('lLoc') ||IsAvailableMyInventoryColumn('iStatusValue') ||IsAnyUnitDataFieldActive()) && checkpermission('ACTION:CanMoveTagUpdate')==true" ng-click="GoToNextMobile(5)"><span>Move,Tag,Update</span><a class=" bgm-MoveTagUpdate waves-effect btn-warning btn decrease" data-dismiss="modal"> <i class="fa fa-list-ul"></i>  </a></li>
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('uomUOM') && checkpermission('ACTION:CanConvertInventory')==true" ng-click="GoToNextMobile(2)"><span>Convert</span><a style="background-color: #CE59A1" class=" waves-effect btn-info btn decrease" data-dismiss="modal"> <i class="fa fa-refresh"></i>  </a></li>
+                <li class="bottomlink" ng-if="IsAvailableMyInventoryColumn('iStatusValue') && checkpermission('ACTION:CanStatusInventory')==true" ng-click="GoToNextMobile(3)"><span>Update</span><a style=" background-color: #583782" class="waves-effect btn-info btn decrease" data-dismiss="modal"> <i class="fa fa-pencil"></i>  </a></li>
+                <li data-dismiss="modal" ng-click="filterrecords()" class="bottomlink"><span class="FilterCartItems">Filter cart Records</span><a class=" waves-effect btn-success btn decrease" data-dismiss="modal"> <i class="fa fa-filter"></i>  </a></li>
+                <li data-dismiss="modal" ng-if="SelectedZeroRecordIDs.length!=0" ng-click="Clearzerorecords()" class="bottomlink"><span>Clear Zero records</span><a class=" waves-effect btn-warning btn decrease" data-dismiss="modal"> <i class="fa fa-trash-o"></i>  </a></li>
+                <li ng-click="SelectAll()" class="bottomlink"><span>Select All</span><a class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-check"></i>  </a></li>
+                <li class="bottomlink" data-dismiss="modal" ng-click="DeselectAll()"><span>Deselect All</span><a class=" waves-effect btn-danger btn decrease" data-dismiss="modal"> <i class="fa fa-square-o"></i>  </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <a data-backdrop="static" style="text-decoration:none;" ng-click="OpentransactionModal()" class="animated {{CurrentActiveClass}} cartbtn waves-effect btn-floating" ng-if="mainObjectToSend.length>0">
+        <span class="cartcounter" style="font-size:32px;"> {{mainObjectToSend.length}}</span>
+        <i style="display:none;" class="cartcrossicon fa fa-times"></i>
+    </a>
+</div>
+<script>
+
+    var offset = 50;
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    var offset_opacity = 1200;
+    //duration of the top scrolling animation (in ms)
+    var scroll_top_duration = 700;
+    //grab the "back to top" link
+    var $back_to_top = $('.cd-top');
+
+    function scrollToTop() {
+
+        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
+    }
+
+
+
+    $(window).scroll(function () {
+        ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if ($(this).scrollTop() > offset_opacity) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+</script>
+
+<script>
+    var _count = 0;
+    function sticky_relocate() {
+        var window_top = $(window).scrollTop();
+        var div_top = $('#sticky-anchor').offset().top;
+        if (window_top > div_top + 22) {
+            $('#sticky').addClass('stick');
+            $('.page-header').fadeOut(1000);
+
+        } else {
+            $('#sticky').removeClass('stick');
+            $('.page-header').fadeIn(1000);
+        }
+    }
+
+   
+    $(function () {
+        $(window).scroll(sticky_relocate);
+        sticky_relocate();
+    });
+
+
+  
+  
+   
+
+</script>

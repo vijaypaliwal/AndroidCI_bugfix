@@ -1,0 +1,69 @@
+﻿
+<link href="css/login.css" rel="stylesheet" />
+
+
+    <form class="login-form" role="form" name="myform">
+        <div class="row">
+        <div class="col-md-12">
+             <div class="formarea">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Account Name</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"> <i class="fa fa-briefcase"></i></span>
+                                <input type="text" class="form-control" placeholder="Account" data-ng-model="loginData.account" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"> <i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"> <i class="fa fa-key"></i></span>
+                                <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <button type="button"  class="waves-effect waves-light btn-primary animated center bouncein delay-6"  ng-if="!myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In</button>
+                        <a  class="btn btn-gray animated center bouncein delay-6"  disabled="disabled" ng-if="myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In </a>
+                        <a class="pull-right signuplink" href="#/signup">Sign Up </a>
+                     
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+
+<style>
+    #slide-out-left
+    {
+        display:none !important;
+    }
+</style>
+
+
+

@@ -1,0 +1,274 @@
+﻿<link href="css/setting.css" rel="stylesheet" />
+
+<style>
+    .btn-indigo {
+        background-color: #3f51b5 !important;
+        color:#fff !important;
+    }
+
+    .btn-purple {
+        background-color: #9c27b0 !important;
+        color: #fff !important;
+    }
+
+    .restricted {
+        color: brown !important;
+        background-color: pink !important;
+    }
+
+    .lime {
+        background: #cddc39 !important; 
+    }
+</style>
+
+<div class="title-header">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext">Manage setting</h4>
+        </div>
+    </div>
+</div>
+<a href="#/FindItems" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+
+<div class="top50">
+    <br />
+   
+    <button ng-if="checkpermission('URL:Manage/UnitOfMeasure')==true" type="button" ng-click="GoTo('/uom')" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6">
+
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-cog"></i> Manage UOM
+            </div>
+
+
+            <div class="col-xs-3">
+
+                <div ng-if="IsUOMLoading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="IsUOMLoading == false">
+                    {{UOMList.length}}
+                </div>
+            </div>
+
+        </div>
+
+    </button>
+    <button ng-if="checkpermission('URL:Manage/UnitOfMeasure')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 restricted">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Manage UOM
+            </div>
+
+
+        </div>
+
+    </button>
+
+    <button ng-if="checkpermission('URL:Manage/ItemGroup')==true" type="button" ng-click="GoTo('/itemgroup')" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 lime">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-users"></i> Manage Item Group
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="IsUOMLoading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="IsUOMLoading == false">
+                    {{Itemgrouplist.length}}
+                </div>
+            </div>
+        </div>
+    </button>
+    <button ng-if="checkpermission('URL:Manage/ItemGroup')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Manage Item Group
+            </div>
+
+        </div>
+    </button>
+
+    <button ng-if="checkpermission('URL:Manage/Location')==true" type="button" ng-click="GoTo('/Location')" class="waves-effect waves-light btn-large btn-danger width-100 animated bouncein delay-6">
+
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-map-marker"></i>  Manage Location
+
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="IsLocationLoading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="IsLocationLoading == false">
+                    {{LocationList.length}}
+                </div>
+            </div>
+        </div>
+
+    </button>
+    <button ng-if="checkpermission('URL:Manage/Location')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-danger width-100 animated bouncein delay-6 restricted">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i>  Manage Location
+
+            </div>
+
+
+        </div>
+
+    </button>
+ 
+    <button ng-if="checkpermission('URL:Manage/Status')==true" type="button" ng-click="GoTo('/status')" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-check-circle-o"> </i> Manage Status
+
+            </div>
+
+
+            <div class="col-xs-3">
+
+                <div ng-if="IsStatusLoading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="IsStatusLoading == false">
+                    {{StatusList.length}}
+                </div>
+            </div>
+        </div>
+    </button>
+    <button ng-if="checkpermission('URL:Manage/Status')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-ban"> </i> Manage Status
+
+            </div>
+
+
+            
+        </div>
+    </button>
+
+  
+    <button ng-if="checkpermission('URL:Admin/MyInventoryColumn')==true" type="button" ng-click="GoTo('/selectcolumns')" class="waves-effect waves-light btn-large btn-indigo width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-check"></i> Select Inventory Columns
+
+            </div>
+
+
+            <div class="col-xs-3">
+
+                <div ng-if="Iscolumnloading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="Iscolumnloading == false">
+                    {{columnlist.length}}
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </button>
+    <button ng-if="checkpermission('URL:Admin/MyInventoryColumn')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-indigo width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Select Inventory Columns
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </button>
+  
+    <button type="button" ng-if="checkpermission('URL:Admin/MyInventoryColumn')==true" ng-click="GoTo('/mobileorder')" class="waves-effect waves-light btn-large btn-warning width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-sort-alpha-asc"></i> Arrange Inventory Columns
+
+            </div>
+
+
+            <div class="col-xs-3">
+
+                <div ng-if="Iscolumnloading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+                <div ng-if="Iscolumnloading == false">
+                    {{ columnlist2.length}}
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </button>
+    <button type="button" ng-if="checkpermission('URL:Admin/MyInventoryColumn')==false" ng-click="restricted()" class="waves-effect waves-light btn-large btn-warning width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Arrange Inventory Columns
+
+            </div>
+
+        </div>
+
+
+    </button>
+
+    <button ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true && checkpermission('URL:configure/CustomFieldItemList.aspx')==true" type="button" ng-click="GoTo('/customfield')" class="waves-effect waves-light btn-large btn-purple width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-eye-slash"></i>    Manage Custom fields
+
+            </div>
+
+
+            <div class="col-xs-3">
+
+                <div ng-if="IsCustomfieldLoading == true"> <img height="30" width="30" src="img/loader1.gif" alt="Alternate Text" /></div>
+
+                <div ng-if="IsCustomfieldLoading == false">{{customfiledcounter}}</div>
+
+
+            </div>
+
+        </div>
+
+
+
+    </button>
+    <button ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==false || checkpermission('URL:configure/CustomFieldItemList.aspx')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-purple width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-ban"></i>    Manage Custom fields
+
+            </div>
+
+        </div>
+
+
+
+    </button>
+    <div>
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">Go to Report</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>

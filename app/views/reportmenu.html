@@ -1,0 +1,218 @@
+﻿
+<link href="css/setting.css" rel="stylesheet" />
+<style>
+    .restricted {
+        color: brown !important;
+        background-color: pink !important;
+    }
+</style>
+
+<div class="title-header">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext">All Reports</h4>
+        </div>
+    </div>
+</div>
+
+<a href="#/FindItems" class="newbackbtn ng-scope"> <i class="fa fa-arrow-left"></i> </a>
+
+<div class="top50">
+    <br />
+    <a ng-if="checkpermission('URL:report/inventory/views')==true" href="#/currentinventory" ng-click="GoTo('/currentinventory')" class="waves-effect waves-light btn-large primary-color width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> Current Inventory
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter1==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+
+                <div ng-if="loadcounter1==true">
+                    {{InventoryViews.length}}
+                </div>
+
+            </div>
+
+        </div>
+
+    </a>
+    <a ng-if="checkpermission('URL:report/inventory/views')==false" ng-click="restricted()" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Current Inventory
+            </div>
+        </div>
+    </a>
+
+    <a ng-if="checkpermission('URL:report/inventory/totals')==true" href="#/inventorysummary" style="color:#fff" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6">
+
+
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> Inventory summary
+
+            </div>
+
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter6==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+
+                <div ng-if="loadcounter6==true">
+                    {{SummaryViews.length}}
+                </div>
+
+            </div>
+
+        </div>
+
+    </a>
+    <a ng-if="checkpermission('URL:report/inventory/totals')==false" ng-click="restricted()" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6 restricted">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Inventory summary
+            </div>
+
+        </div>
+
+    </a>
+
+    <a ng-if="checkpermission('URL:report/activity/Views')==true" href="#/inventoryactivity" class="waves-effect waves-light btn-large btn-danger width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> Inventory Activity
+
+            </div>
+
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter2==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+
+                <div ng-if="loadcounter2==true">
+                    {{ActivityViews.length}}
+                </div>
+
+            </div>
+
+        </div>
+
+    </a>
+    <a ng-if="checkpermission('URL:report/activity/Views')==false" ng-click="restricted()" class="waves-effect waves-light btn-large btn-danger width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Inventory Activity
+
+            </div>
+
+
+            
+
+        </div>
+
+    </a>
+
+    
+    <a ng-if="checkpermission('URL:report/restock/global')==true" href="#/GlobalRestock" class="waves-effect btn-large waves-light accent-color width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> Global Restock
+
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter4==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+                <div ng-if="loadcounter4==true">
+                    {{GlobalViews.length}}
+                </div>
+
+            </div>
+        </div>
+
+    </a>
+    <a ng-if="checkpermission('URL:report/restock/global')==false" ng-click="restricted()" class="waves-effect btn-large waves-light accent-color width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Global Restock
+
+            </div>
+
+            
+        </div>
+
+    </a>
+    
+    <a ng-if="checkpermission('URL:report/restock/local')==true" href="#/LocalRestock" class="waves-effect btn-large waves-light btn-warning  width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> Local Restock
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter5==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+
+                <div ng-if="loadcounter5==true">
+                    {{LocalViews.length}}
+                </div>
+            </div>
+        </div>
+    </a>
+    <a ng-if="checkpermission('URL:report/restock/local')==false" ng-click="restricted()" class="waves-effect btn-large waves-light btn-warning  width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> Local Restock
+            </div>
+        </div>
+    </a>
+
+    <a ng-if="checkpermission('URL:report/item/views')==true" href="#/itemreport" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-th-list"></i> All Items
+            </div>
+
+            <div class="col-xs-3">
+                <div ng-if="loadcounter3==false">
+                    <img style="height:35px; width:35px;" src="img/loader1.gif" alt="Alternate Text" />
+                </div>
+
+                <div ng-if="loadcounter3==true">
+                    {{ItemViews.length}}
+                </div>
+            </div>
+        </div>
+    </a>
+    <a ng-if="checkpermission('URL:report/item/views')==false" ng-click="restricted()" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="fa fa-ban"></i> All Items
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li ng-if="checkpermission('URL:Manage/Location')==true"> <a href="#/Location"><span class="newinv">Manage Location</span></a>  <a href="#/Location" class=" waves-effect btn-success btn"> <i class="fa fa-map-marker"></i> </a></li>
+            <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
+            <li  class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>

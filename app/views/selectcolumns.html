@@ -1,0 +1,155 @@
+﻿
+
+<link href="css/mobileorder.css" rel="stylesheet" />
+
+
+
+<div class="title-header">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <h4 class="titletext">Select <small>Inventory Columns</small> </h4>
+        </div>
+    </div>
+</div>
+
+<a href="#/setting" class="newbackbtn ng-scope"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-click="saveColumns()" class="waves-effect btn btn-danger roundbtntitle"> <i class="fa fa-check"></i> </a>
+
+<div class="top50">
+    
+    <div ng-if="LocationsLoaded==false">
+
+        <div class="modal-backdrop fade in"></div>
+        <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+            <img src="img/loader.gif" alt="Alternate Text" />
+        </div>
+    </div>
+
+
+    <table class="table gridTable table-striped bs-item">
+
+
+        <tbody class="dragarea"  ng-model="MyInventorycolumns">
+            <tr data-ng-repeat="obj in MyInventorycolumns" class="MoveCursor" >
+                <td>
+                    <div class="infoareas">
+
+                        <div class="row">
+
+                            <div class="col-xs-2">
+                                <a class="btn text btn-warning">{{$index+1}} </a>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <a class="text">{{obj.ColumnLabel}} </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <div ng-if="obj.ColumnLabel != 'Item Name'" class="btn-group custombtnGroup">
+
+                                    <label class="switch1">
+                                        <input type="checkbox" ng-model="obj.originalMobileOrder">
+                                        <div class="slider round"></div>
+                                    </label>
+                                    <!--<input ng-model="obj.originalMobileOrder"  type="checkbox" bootstrap-switch />-->
+
+                                </div>
+
+                                <div class="pull-right" ng-if="obj.ColumnLabel == 'Item Name'">
+                                    <p style="color:brown;">*Required</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            <tr class="unsortable" style="border:transparent !important; height:15px;">
+                <td>
+                    <a></a>
+                </td>
+            </tr>
+
+        </tbody>
+
+
+    </table>
+</div>
+
+
+<div></div>
+
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect btn-info">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">Go to Reports</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>
+
+
+<a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
+
+<script>    
+    $('.myLinkToTop').click(function () {
+        $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+        return false;
+    });
+
+    $('.myMenuLink').click(function () {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        return false;
+    });
+</script>
+<script>
+
+    var offset = 50;
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    var offset_opacity = 1200;
+    //duration of the top scrolling animation (in ms)
+    var scroll_top_duration = 700;
+    //grab the "back to top" link
+    var $back_to_top = $('.cd-top');
+
+    function scrollToTop() {
+
+        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
+    }
+
+
+
+    $(window).scroll(function () {
+        ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if ($(this).scrollTop() > offset_opacity) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

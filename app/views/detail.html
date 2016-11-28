@@ -1,0 +1,362 @@
+﻿<link href="css/itemdetail.css" rel="stylesheet" />
+
+<div class="title-header">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 ng-click="getitemimage()" class="titletext">Details</h4>
+        </div>
+    </div>
+</div>
+
+<a href="#/FindItems" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-if="IsEditMode==false && checkpermission('URL:Manage/Item')==true && IsActiveItemLibrary==true" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-pencil"></i> </a>
+
+<a ng-if="IsEditMode==true && checkpermission('URL:Manage/Item')==true  && IsActiveItemLibrary==true" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
+<a ng-if="IsActiveItemLibrary==false" ng-click="locked()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-lock"></i> </a>
+
+
+<div id="content" class="top50 grey-blue" >
+    <div ng-if="IsEditMode==false">
+              <div class="swiper-container">
+
+                        <div class="swiper-wrapper">
+
+                            <div ng-if="ImageListdetail.length > 0" ng-repeat="obj in ImageListdetail" class="swiper-slide">
+
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+
+                                <table style="display:none;" class="imagesection">
+                                    <tr>
+                                        <td>
+                                            <span class="arrow-left" ng-show="slide != 0"><i class="fa fa-angle-left"></i></span>
+                                            <span class="arrow-left" style="pointer-events:none; color:#ccc" ng-if="slide == 0"><i class="fa fa-angle-left"></i></span>
+                                        </td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <img style=" border: 1px solid #ccc; height:60px; width:60px;" ng-click="OpenImageModal(obj)" src="{{obj.LargeImageURI}}" alt="" />
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <span class="arrow-right" ng-show="slide+1 != Totalslides"><i class="fa fa-angle-right"></i></span>
+                                            <span style="pointer-events: none; color: #ccc" ng-if="slide+1 == Totalslides"><i class="fa fa-angle-right"></i></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div ng-if="ImageListdetail.length == 0" class="swiper-slide">
+
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+
+
+                                <table style="display:none;" class="imagesection">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <img style="height:70px; width:70px; border: 1px solid #ccc;" src="img/default.png" alt="" />
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+        <!--<div style="display:none; margin-top:20px;" class="viewimage">
+            <span  ng-repeat="_obj in ImageList" ng-if="ImageList.length>0">
+
+                <img src="{{_obj.bytestring}}" height="60" width="60" alt="Alternate Text" />
+                <a class="btn btn-danger removeImage" altid="{{_obj.ImageID}}" ng-click="RemoveFromImageList(_obj.ImageID)"><i class="fa fa-trash-o"></i></a>
+
+            </span>
+            <button type="button" ng-if="ImageList.length>0" ng-click="saveimage()" class="btn btn-primary" style="width:90%; margin-top:7px;"> <i class="fa fa-upload"></i> Upload</button>
+
+        </div>-->
+
+              
+         <div style="position:absolute; margin-top:-33px; right:30px;" class="floating-button animated bouncein delay-3">
+
+          </div>
+                <!--<div class="banner-title" style="color:black;">{{CurrentInventory.pPart}}</div>-->
+         
+     
+        <!-- Profile Content -->
+        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;">
+            <div class="c-widget">
+                <div class="c-widget-figure primary-color">
+                    <i class="fa fa-info udt"></i>
+                </div>
+                <div class="c-widget-body">
+                    <p class="m-0" style="color:black;"> <span>Name:</span> {{itemlabel}} </p>
+                    <p class="m-0" style="color:black;"> <span>Description:</span> {{CurrentInventory.pDescription}} </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;">
+            <div class="c-widget">
+                <div class="c-widget-figure primary-color">
+                   
+                    <i class="fa fa-map-marker udt"></i>
+                </div>
+                <div class="c-widget-body">
+                    <p class="m-0" style="color:black;"> <span>Quantity:</span> {{CurrentInventory.iQty}} {{CurrentInventory.uomUOM}} </p>
+                    <p class="m-0"> <span>Location:</span> {{CurrentInventory.lLoc}} </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;">
+            <div class="c-widget">
+                <div class="c-widget-figure primary-color">
+                    <i class="fa fa-list udt"></i>
+                </div>
+                <div class="c-widget-body">
+                  
+                    <p class="m-0" ng-if="CurrentInventory.iStatusValue!=''"> <span>Status:</span> {{CurrentInventory.iStatusValue}} </p>
+                
+
+                    <p class="m-0" ng-if="CurrentInventory.iReqValue != ''">
+                        <span> {{GetUnitDataLabel('iReqValue')}}:</span> {{CurrentInventory.iReqValue}}
+                    </p>
+                    <p class="m-0" ng-if="CurrentInventory.iUnitTag2 != ''">
+                        <span> {{GetUnitDataLabel('iUnitTag2')}}:</span> {{CurrentInventory.iUnitTag2}}
+                    </p>
+
+                    <p class="m-0" ng-if="CurrentInventory.iUnitTag3 != ''">
+                        <span>{{GetUnitDataLabel('iUnitTag3')}}:</span> {{CurrentInventory.iUnitTag3}}
+                    </p>
+
+
+                    <p class="m-0" ng-if="CurrentInventory.iUniqueDate != null">
+                        <span> {{GetUnitDataLabel('iUniqueDate')}}:</span> {{CurrentInventory.iUniqueDate}}
+                    </p>
+
+                    <p class="m-0" ng-if="CurrentInventory.iUnitDate2 != null">
+                        <span> {{GetUnitDataLabel('iUnitDate2')}}: </span>{{CurrentInventory.iUnitDate2}}
+                    </p>
+
+                    <p class="m-0" ng-if="CurrentInventory.iUnitNumber1 != null">
+                        <span> {{GetUnitDataLabel('iUnitNumber1')}}: </span>{{CurrentInventory.iUnitNumber1}}
+                    </p>
+
+                    <p class="m-0" ng-if="CurrentInventory.iUnitNumber2 != null">
+                        <span> {{GetUnitDataLabel('iUnitNumber2')}}: </span>{{CurrentInventory.iUnitNumber2}}
+                    </p>
+                  
+                </div>
+
+            </div>
+          
+
+
+         
+
+        </div>
+
+<br /><br />
+
+    </div>
+
+
+
+
+    <div class="scaninfo animated bounceInUp" id="scaninfo">
+
+        <h4>Use <strong>{{itemscanvalue}}</strong> Record</h4>
+        <br />
+        <a class="btn btn-success" ng-click="Takeitem()"> <i class="fa fa-check"></i>  </a>
+
+        <a class="btn btn-danger" ng-click="closebottoarea()"> <i class="fa fa-times-circle"></i>  </a>
+
+        <br />
+
+    </div>
+
+    <div id="content" class="grey-blue">
+        <div class="" ng-if="IsEditMode==true">
+
+            <h4 style="color:#000; padding-left:12px; text-align:left;">
+                Edit Item -
+
+                <small style=" color: #000 !important; font-size: 12px !important;">
+                    {{CurrentInventory.iQty}} Of {{CurrentInventory.pPart}} {{CurrentInventory.uomUOM}} @@ {{CurrentInventory.lLoc}}
+                </small>
+            </h4>
+
+            <div style="text-align:left; color:#000; padding:10px;" class="editsection maincontent" ng-if="IsEditMode==true">
+                <div class="form-group">
+                    <label>Item Name <span class="redText">*</span></label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="CurrentInventory.pPart" />
+                        <span class="input-group-addon last">
+                            <a ng-click="Scanitem()"><i class="fa fa-barcode" style=" color: #2196F3; font-weight: 400;"></i></a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Item Description</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="CurrentInventory.pDescription" />
+                        <span class="input-group-addon last">
+                            <a ng-click="Scandescription()"><i class="fa fa-barcode" style=" color: #2196F3; font-weight: 400;"></i></a>
+                        </span>
+                    </div>
+                </div>
+
+          
+                <br/>
+
+                <div style="display:none; margin-top:20px;" class="viewimage">
+                    <span ng-repeat="_obj in ImageList" ng-if="ImageList.length>0">
+
+                        <img src="{{_obj.bytestring}}" height="60" width="60" alt="Alternate Text" />
+                        <a class="btn btn-danger removeImage" altid="{{_obj.ImageID}}" ng-click="RemoveFromImageList(_obj.ImageID)"><i class="fa fa-trash-o"></i></a>
+
+                    </span>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br />
+                            <br />
+                        </div>
+
+                    </div>
+                </div>
+
+                
+                
+                <button ng-click="OpenBox()" class="waves-effect btn btn-primary"> <i class="fa fa-plus"></i> Add Images  </button>
+                <button type="button" ng-click="UpdateInventory()" ng-if="SavingData==false" ng-disabled="CurrentInventory.pPart==''" class="waves-effect btn btn-primary"> <i class="fa fa-pencil"></i> Update</button>
+                <button type="button" ng-if="SavingData==true" disabled class="waves-effect btn btn-primary"> <i class="fa fa-pencil fa-spin"></i> Update</button>
+              
+
+            </div>
+        </div>
+
+        </div>
+    <div>
+        <br />
+        <br />
+    </div>
+
+    <!--<input type="file" id="files" name="files" />-->
+    <div id="bottommenumodal" class="modal fade bottommenu">
+
+        <div class="modal-body">
+            <ul class="animated slideInUp" id="selectAction">
+              
+                <li ng-click="viewhistory()"><span>View history</span><a href="#/InventoryHistory" class="waves-effect btn-primary btn"> <i class="fa fa-file-text"></i> </a></li>
+                <li ng-click="showinventory()"><span>Show all Inventory</span><a href="#/FindItems" class="waves-effect btn-danger btn"> <i class="fa fa-dollar"></i> </a></li>
+                <li ng-click="addtocart(CurrentInventory)" ng-show="CanAddIntoCart==false"><span>Select for cart</span><a class="waves-effect btn-success btn" data-dismiss="modal"> <i class="fa fa-shopping-cart"></i> </a></li>
+                <li ng-click="removecart(CurrentInventory)" ng-show="CanAddIntoCart==true"><span>Remove from cart</span><a class="waves-effect btn-danger btn" data-dismiss="modal"> <i class="fa fa-trash-o"></i> </a></li>
+                <li ng-if="IsActiveItemLibrary==true && IsEditMode==false && checkpermission('URL:Manage/Item')==true" ng-click="ToggleEditView()" data-dismiss="modal"><span>Edit Item details</span><a class="waves-effect btn bgm-orange" data-dismiss="modal"> <i class="fa fa-pencil"></i> </a></li>
+                <li ng-if="IsActiveItemLibrary==true && IsEditMode==true && checkpermission('URL:Manage/Item')==true" ng-click="ToggleEditView()" data-dismiss="modal"><span>Show Item details</span><a class="waves-effect btn bgm-orange" data-dismiss="modal"> <i class="fa fa-info"></i> </a></li>
+                <li ng-if="IsActiveItemLibrary==false" ng-click="locked()" data-dismiss="modal"><span>Show Item details</span><a class="waves-effect btn bgm-orange" data-dismiss="modal"> <i class="fa fa-lock"></i> </a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="myModalforlist" class="modal bottom-sheet bottom-modal fade" role="dialog">
+        <!-- Modal content-->
+        <div class="modal-body">
+
+            <ul>
+                <li>
+                   <!--<input id="files" type="file" name="name" value=" " />-->
+                    <a ng-click="capturePhotoNew();"> <i class="fa fa-camera"></i> Capture Photo</a>
+                </li>
+                <li>
+
+                    <!--<a ng-click="triggerFileClick()"><i class="fa fa-picture-o"></i> From Photo Library</a>-->
+                    <a ng-click="getPhoto()"><i class="fa fa-picture-o"></i> From Photo Library</a>
+                </li>
+            </ul>
+
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn width-100 btn-gray" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+        </div>
+
+    </div>
+
+
+    <div style="background:#fff;" id="imagemodal" class="modal animated bounceIn">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+            <h4>Uploaded images</h4>
+        </div>
+
+        <div style="padding:5px;" class="modal-body">
+            <br />
+            <span ng-repeat="_obj in ImageList" class="pull-left" ng-if="ImageList.length>0">
+
+                <img style="border:1px solid #ccc;" src="{{_obj.bytestring}}" height="80" width="80" alt="Alternate Text" />
+                <a class="btn btn-danger removeImage" altid="{{_obj.ImageID}}" ng-click="RemoveFromImageList(_obj.ImageID)"><i class="fa fa-trash-o"></i></a>
+            </span>
+
+        </div>
+    </div>
+
+
+    <a ng-click="Openbottommenu()" class="waves-effect menubtn btn-info">
+        <i class="fa fa-bars"></i>
+    </a>
+
+
+    <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div style="background:#fff;" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+                <h4>Image</h4>
+            </div>
+
+                <div class="modal-body">
+                    <img src="{{CurrentActiveImage.LargeImageURI}}" id="imagepreview" style="max-height:250px;max-width:250px;">
+                </div>
+
+    </div>
+    </div>
+        <div id="overlay"></div>
+
+
+ <style>
+     .udt
+     {
+         padding-top:13px;
+     }
+     .h-banner
+     {
+         height:150px !important
+
+     }
+ </style>
