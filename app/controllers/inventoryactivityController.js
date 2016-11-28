@@ -132,7 +132,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
         if (_isDate1Ok && _isDate2Ok) {
 
-            if (_dateStart >= _dateEnd) {
+            if (_dateStart > _dateEnd) {
                 $scope.IsWrongDate = true;
 
             }
