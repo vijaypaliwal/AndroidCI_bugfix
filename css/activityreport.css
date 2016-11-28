@@ -1,5 +1,18 @@
 
+.updiv {
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: 42px !important;
+    line-height: 22px !important;
+}
 
+.dropdown-listcustom {
+    width: 100%;
+    z-index: 1500;
+    max-height: 250px;
+    overflow-y: auto;
+}
 
 
  .sortIcon {
