@@ -17,127 +17,132 @@
  * under the License.
  */
 * {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
 body {
- 
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:20px;
-
-    text-transform:uppercase;
-    background:#fff;
-   
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    background: #fff;
 }
-.loginlogo
-{
-  width:125px;
+
+.loginlogo {
+    width: 125px;
 }
 
 /* Portrait layout (default) */
 .app {
-   
-padding:20px;
+    padding: 20px;
 }
 
-.header
-{
-    width:100%;
-    position:fixed;
-    top:0;
-    left:0;
-    background:#4487c9;
-    text-align:center;
-    font-weight:100;
-
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #4487c9;
+    text-align: center;
+    font-weight: 100;
 }
 
-.header h3
-{
-    color:#fff;
-    font-size:17px;
-     font-weight:100;
-     margin:10px;
-}
-body
-{
-    padding-top:25px;
+    .header h3 {
+        color: #fff;
+        font-size: 17px;
+        font-weight: 100;
+        margin: 10px;
+    }
+
+body {
+    padding-top: 25px;
 }
 
-.topcoat-button
-{
-    width:100%;
-    padding:10px;
-    background:#128ece;
-    color:#fff;
-    font-size:15px;
-    text-decoration:none;
-    display:block;
-    text-align:center;
+.topcoat-button {
+    width: 100%;
+    padding: 10px;
+    background: #128ece;
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
 }
 
-.summarytable th, td
-{
-    border:1px solid #ccc;
-    padding:5px;
-    font-size:14px;
-    text-align:center
+.summarytable th, td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
 }
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
-        background-position:left center;
-     
+        background-position: left center;
     }
 }
 
 h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
 }
 
 .event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
- 
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 12px;
 }
 
-.event.listening {
- display: block;
-    color: #000;
-    font-size: 17px;
-}
+    .event.listening {
+        display: block;
+        color: #000;
+        font-size: 17px;
+    }
 
-.event.received {
-    color:#4caf50;
-    display:none;
-}
+    .event.received {
+        color: #4caf50;
+        display: none;
+    }
 
 @keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+    from {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1.0;
+    }
 }
- 
+
 @-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+    from {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1.0;
+    }
 }
- 
+
 .blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
-    border-bottom:1px solid #ccc;
+    animation: fade 3000ms infinite;
+    -webkit-animation: fade 3000ms infinite;
+    border-bottom: 1px solid #ccc;
 }

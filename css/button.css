@@ -83,9 +83,9 @@
 .c-widget-figure {
     margin-right: 20px;
     width: 48px;
-    min-width:48px;
+    min-width: 48px;
     height: 48px;
-    min-height:48px;
+    min-height: 48px;
     color: #fff;
     border-radius: 50%;
     line-height: 51px;
@@ -105,11 +105,11 @@
 .input-group-addon .fa-minus {
     padding-left: 14px !important;
     padding-right: 14px !important;
-    padding-top:14px !important;
+    padding-top: 14px !important;
 }
 
 .input-group-addon .fa-barcode {
- padding-left: 12px !important;
+    padding-left: 12px !important;
     padding-right: 12px !important;
     padding-top: 13px !important;
     padding-bottom: 11px !important;
@@ -383,81 +383,74 @@
 }
 
 
-   #filtermodal
-        {
-        background:#fff;
-     padding:0px;
-      overflow-x:hidden;
-         overflow-x:hidden !important;
-          left:initial !important;
-          position:fixed;
-          right:0 !important;
-          width:295px;
-          font-size:13px;
-          box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2); 
-          z-index:25000;
-        }
-
-        #filtermodal .modal-header
-        {
-      background: #2196F3;
-      color: #fff;
-      
-        }
-
-            #filtermodal .modal-header i
-        {
-    font-size:22px;
-    margin-top:10px;
-    color:#fff !important;
-      
-        }
-
-            #filtermodal .width-100
-            {
-                width:initial !important;
-            }
-     
-
-        #filtermodal h4
-        {
-            font-size:15px;
-        }
-
-#filtermodal img {
+#filtermodal {
     background: #fff;
-    border-radius: 100%;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-x: hidden !important;
+    left: initial !important;
+    position: fixed;
+    right: 0 !important;
+    width: 295px;
+    font-size: 13px;
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2);
+    z-index: 25000;
 }
 
-#filtermodal .input-group-addon {
-    background: #2196F3;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-}
+    #filtermodal .modal-header {
+        background: #2196F3;
+        color: #fff;
+    }
+
+        #filtermodal .modal-header i {
+            font-size: 22px;
+            margin-top: 10px;
+            color: #fff !important;
+        }
+
+    #filtermodal .width-100 {
+        width: initial !important;
+    }
 
 
-#filtermodal .dropdown-menu img {
-    background: transparent;
-    border: 1px solid #ccc;
-}
+    #filtermodal h4 {
+        font-size: 15px;
+    }
 
-#filtermodal .form-control {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-left: transparent;
-}
+    #filtermodal img {
+        background: #fff;
+        border-radius: 100%;
+    }
 
-#filtermodal #firstDiv .fa-calendar {
-    padding: 6px !important;
-    color: #000 !important;
-    background: #fff !important;
-    border-radius: 100% !important;
-}
+    #filtermodal .input-group-addon {
+        background: #2196F3;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
 
-#filtermodal #firstDiv .input-group-addon {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-}
+
+    #filtermodal .dropdown-menu img {
+        background: transparent;
+        border: 1px solid #ccc;
+    }
+
+    #filtermodal .form-control {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-left: transparent;
+    }
+
+    #filtermodal #firstDiv .fa-calendar {
+        padding: 6px !important;
+        color: #000 !important;
+        background: #fff !important;
+        border-radius: 100% !important;
+    }
+
+    #filtermodal #firstDiv .input-group-addon {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
 
 .finditems img {
     background: #fff;
@@ -479,7 +472,7 @@
 
 
 .finditems .fa-caret-down {
-  background: #fff;
+    background: #fff;
     color: #000 !important;
     padding: 1px !important;
     padding-top: 2px !important;
@@ -498,9 +491,8 @@
     top: 0;
 }
 
-.tagarrow .fa-tag
-{
-    margin-top:13px !important;
+.tagarrow .fa-tag {
+    margin-top: 13px !important;
 }
 
 .toast-success {
@@ -508,55 +500,46 @@
     color: #fff !important;
 }
 
-.bootbox .modal-dialog
-{
-    width:94%;
-      border-radius:10px;
+.bootbox .modal-dialog {
+    width: 94%;
+    border-radius: 10px;
 }
 
-.bootbox .modal-content
-{
-   background:#fff;
-   box-shadow:none;
-   border:transparent;
- 
+.bootbox .modal-content {
+    background: #fff;
+    box-shadow: none;
+    border: transparent;
 }
 
-.bootbox .modal-body
-{
- background: #d6d6d6;
+.bootbox .modal-body {
+    background: #d6d6d6;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    padding-bottom:5px;
+    padding-bottom: 5px;
 }
 
-.bootbox
-{
-    position:fixed;
-    bottom:0;
-    top:initial;
-}
-
-
-.bootbox .modal-footer {
-    background: #fff;
-    padding: 0px;
-    margin-top: 0px;
-    border: transparent;
-    padding-bottom: 10px;
-    margin-top:10px;
-    padding-left:7px;
-    padding-right:7px;
+.bootbox {
+    position: fixed;
+    bottom: 0;
+    top: initial;
 }
 
 
-.bootbox .btn {
-  width:100%;
-  margin-bottom:10px;
-  margin-left:0px !important;
-  text-align:left;
-}
+    .bootbox .modal-footer {
+        background: #fff;
+        padding: 0px;
+        margin-top: 0px;
+        border: transparent;
+        padding-bottom: 10px;
+        margin-top: 10px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
 
 
-
-
+    .bootbox .btn {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-left: 0px !important;
+        text-align: left;
+    }

@@ -1,203 +1,194 @@
+#myModal2 {
+    position: fixed;
+    right: 13px;
+    font-size: 18px;
+    text-align: right;
+    bottom: 80px;
+    display: none;
+    background: transparent;
+    overflow: hidden;
+}
 
-  
+.maincontent {
+    background: #fff;
+}
 
-
-    #myModal2 {
-        position: fixed;
-        right: 13px;
-        font-size: 18px;
-        text-align: right;
-        bottom: 80px;
-        display: none;
-        background: transparent;
-        overflow: hidden;
-    }
-
-    .maincontent
-    {
-        background:#fff;
-    }
-
-        #myModal2 span {
-            font-size: 14px;
-            padding: 3px;
-            margin-right: 7px;
-        }
+#myModal2 span {
+    font-size: 14px;
+    padding: 3px;
+    margin-right: 7px;
+}
 
 
-        #myModal2 .modal-body {
-            background: transparent;
-        }
+#myModal2 .modal-body {
+    background: transparent;
+}
 
 
-    .Addbtn {
-        position: fixed;
-        bottom: 23px;
-        right: 13px;
-        background: #f44336 !important;
-        z-index: 13000;
+.Addbtn {
+    position: fixed;
+    bottom: 23px;
+    right: 13px;
+    background: #f44336 !important;
+    z-index: 13000;
+    color: #fff !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 50px;
+}
+
+    .Addbtn .fa {
+        font-size: 24px;
+        margin-top: 13px;
         color: #fff !important;
-        height: 50px;
-        width: 50px;
+    }
+
+#selectAction {
+    position: fixed;
+    bottom: 75px;
+    right: 25px;
+}
+
+
+    #selectAction li {
+        list-style-type: none;
+    }
+
+
+        #selectAction li span {
+            color: #000;
+        }
+
+    #selectAction .btn {
+        height: 36px;
+        width: 36px;
+        padding: 0px;
         border-radius: 100%;
         text-align: center;
-        line-height: 50px;
+        line-height: 35px;
+        border: transparent;
+        margin-bottom: 5px;
+        color: #fff;
     }
 
-        .Addbtn .fa {
-            font-size: 24px;
-            margin-top: 13px;
-            color: #fff !important;
-        }
+.bgm-red {
+    background: #f44336;
+}
 
-    #selectAction {
-        position: fixed;
-        bottom: 75px;
-        right: 25px;
-    }
-
-
-        #selectAction li {
-            list-style-type: none;
-        }
-
-
-            #selectAction li span {
-             color: #000;
-            }
-
-        #selectAction .btn {
-            height: 36px;
-            width: 36px;
-            padding: 0px;
-            border-radius: 100%;
-            text-align: center;
-            line-height: 35px;
-            border: transparent;
-            margin-bottom: 5px;
-            color: #fff;
-        }
-
-    .bgm-red {
-        background: #f44336;
-    }
-   .bgm-orange {
+.bgm-orange {
     background-color: #f8c217 !important;
 }
-    .container {
-        width: 100% !important;
-        padding-left: 0px;
-        padding-right: 0px;
+
+.container {
+    width: 100% !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+body {
+    background: #fff;
+    font-family: Verdana;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.imagesection i {
+    font-size: 35px;
+}
+
+.imagesection {
+    text-align: center;
+    background: #eee;
+    min-height: 100px;
+}
+
+    .imagesection img {
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 
-    body 
-    {
-       background: #fff;
-       font-family: Verdana;
-       text-align: center;
-       overflow-x: hidden;
-    }
-    .imagesection i {
-        font-size: 35px;
-    }
+.redText {
+    color: red !important;
+}
 
-    .imagesection {
+.scaninfo {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background: #fafafa;
+    border-top: 1px solid #ccc;
+    display: none;
+    padding-top: 15px;
+    z-index: 10000;
+}
+
+    .scaninfo .btn {
+        border-radius: 100%;
+        padding: 0px;
+        height: 40px;
+        width: 40px;
         text-align: center;
-        background: #eee;
-        min-height:100px;
+        line-height: 37px;
+        margin-bottom: 10px;
     }
 
-        .imagesection img
-         {
-           margin-top: 5px;
-           margin-bottom: 5px;
-        }
+.parallax img {
+    position: relative;
+    left: 50%;
+    bottom: 0;
+    width: 10px !important;
+    height: 75px !important;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transform: translateX(-50%);
+    min-height: 100px !important;
+    min-width: 100px !important;
+}
 
-        .redText {
-        color: red !important;
-    }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 5000;
+}
 
-    .scaninfo {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        background: #fafafa;
-        border-top: 1px solid #ccc;
-        display: none;
-        padding-top: 15px;
-        z-index: 10000;
-    }
+.modal-backdrop.in {
+    opacity: 0.8;
+}
 
-        .scaninfo .btn {
-            border-radius: 100%;
-            padding: 0px;
-            height: 40px;
-            width: 40px;
-            text-align: center;
-            line-height: 37px;
-            margin-bottom: 10px;
-        }
+.c-widget-body {
+    text-align: left;
+}
 
-    .parallax img {
-        position: relative;
-        left: 50%;
-        bottom: 0;
-        width: 10px !important;
-        height: 75px !important;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        transform: translateX(-50%);
-        min-height:100px !important;
-        min-width:100px !important;
-    }
+.m-0 span {
+    color: #808080;
+}
 
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #000;
-        filter: alpha(opacity=50);
-        -moz-opacity: 0.5;
-        -khtml-opacity: 0.5;
-        opacity: 0.5;
-        z-index: 5000;
-    }
+.m-0 {
+    text-transform: capitalize;
+}
 
-    .modal-backdrop.in {
-        opacity: 0.8;
-    }
+.title-header {
+    text-align: left;
+}
 
-    .c-widget-body
-    {
-        text-align:left;
-    }
+.newbackbtn {
+    left: 0px;
+}
 
-    .m-0 span
-    {
-        color:#808080;
-    }
+.top50 {
+    padding-top: 35px;
+}
 
-    .m-0
-    {
-        text-transform:capitalize;
-    }
-
-    .title-header
-    {
-        text-align:left;
-    }
-
-    .newbackbtn
-    {
-        left:0px;
-    }
-    .top50 {
-        padding-top: 35px;
-    }
-
-    .swiper-slide
-    {
-        height:auto !important;
-    }
+.swiper-slide {
+    height: auto !important;
+}
