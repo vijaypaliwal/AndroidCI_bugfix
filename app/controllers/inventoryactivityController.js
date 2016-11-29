@@ -421,22 +421,31 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
     // get custom column according to ID 
     $scope.GetCustomFieldByID = function (ID) {
-        
+
         for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            if($scope.CustomItemDataList[i].cfdID==ID)
-            {
+            if ($scope.CustomItemDataList[i].cfdID == ID) {
                 if ($scope.CustomItemDataList[i].cfdCustomFieldType == "Part") {
 
                     return "i" + $scope.CustomItemDataList[i].ColumnMap;
                 }
+            }
+        }
 
-                if ($scope.CustomItemDataList[i].cfdCustomFieldType == "Inventory") {
 
-                    return $scope.CustomItemDataList[i].ColumnMap;
+        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+            if ($scope.CustomActivityDataList[i].cfdID == ID) {
+
+
+                if ($scope.CustomActivityDataList[i].cfdCustomFieldType == "Inventory") {
+
+                    return $scope.CustomActivityDataList[i].ColumnMap;
                 }
             }
 
         }
+
+
+
     }
 
     // get custom column by column map

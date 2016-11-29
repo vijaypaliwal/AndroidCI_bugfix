@@ -1716,11 +1716,14 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
+
+
+
     function BuildCustomArrayData() {
         var _array = [];
 
         // process all custom fields that are NOT checkboxes
-        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), select[cfd-id]:not(":hidden"), textarea[cfd-id]:not(":hidden")'), function () {
+        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), select[cfd-id], textarea[cfd-id]:not(":hidden")'), function () {
 
 
             _array.push({ "CfdID": $(this).attr('cfd-id'), "Value": $(this).val(), "DataType": $(this).attr('custom-data-type') });
