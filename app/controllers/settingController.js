@@ -59,7 +59,7 @@ app.controller('settingController', ['$scope', 'localStorageService', 'authServi
 
                    }
                    else {
-                       $scope.ShowErrorMessage("Getting Status count", 1, 1, response.GetStatusResult.Message)
+                       $scope.ShowErrorMessage("Getting Status count", 1, 1, response.GetStatusResult.Message);
 
                    }
                    $scope.IsStatusLoading = false;
@@ -270,15 +270,10 @@ app.controller('settingController', ['$scope', 'localStorageService', 'authServi
               },
               error: function (err, textStatus, errorThrown) {
                   $scope.IsCustomfieldLoading = false;
-                  if (err.readyState == 0 || err.status == 0) {
-
-                  }
-                  else {
+                  $scope.IsCustomfieldLoading = false;
+                  if (textStatus != "timeout") {
                       $scope.IsCustomfieldLoading = false;
-                      if (textStatus != "timeout") {
-                          $scope.IsCustomfieldLoading = false;
-                          $scope.ShowErrorMessage("Getting look ups", 2, 1, err.statusText);
-                      }
+                      $scope.ShowErrorMessage("Getting look ups", 2, 1, err.statusText);
                   }
 
 

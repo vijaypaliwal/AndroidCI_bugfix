@@ -17,7 +17,7 @@ app.controller('reportmenuController', ['$scope',  'localStorageService', 'authS
     $("body").removeClass("modal-open");
 
     $('#bottommenumodal').on('hidden.bs.modal', function () {
-        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
+        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
     });
 
 
@@ -26,7 +26,7 @@ app.controller('reportmenuController', ['$scope',  'localStorageService', 'authS
         if ($("body").hasClass("modal-open")) {
             $("#bottommenumodal").modal('hide');
 
-            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
+            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
 
 
         }

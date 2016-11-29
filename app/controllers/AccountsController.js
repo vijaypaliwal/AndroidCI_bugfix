@@ -1,8 +1,6 @@
 ﻿'use strict';
 
-app.controller('AccountsController', ['$scope', '$location', 'authService','localStorageService', 'ngAuthSettings', 'log', function ($scope, $location, authService,localStorageService, ngAuthSettings, log) {
-
-
+app.controller('AccountsController', ['$scope', '$location', 'authService','localStorageService', 'ngAuthSettings', function ($scope, $location, authService,localStorageService, ngAuthSettings) {
 
  
     $(".modal-backdrop").remove();
@@ -53,7 +51,7 @@ app.controller('AccountsController', ['$scope', '$location', 'authService','loca
                     }
                 }
                 else {
-                    $scope.ShowErrorMessage("Get user Accounts", 1, 1, data.GetUserAccountsResult.Message)
+                    $scope.ShowErrorMessage("Get user Accounts", 1, 1, data.GetUserAccountsResult.Message);
 
 
                 }

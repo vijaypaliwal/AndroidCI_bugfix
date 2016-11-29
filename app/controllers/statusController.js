@@ -24,30 +24,25 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
     }
 
     $scope.mainObjectToSend = [];
-    function init() {
-
-        $scope.getstatus();
-
-
-
-        $scope.$apply();
+    function init()
+    {
+    $scope.getstatus();
+    $scope.$apply();
     }
 
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
 
 
-    $scope.keepformopen = function (check) {
-
-
+    $scope.keepformopen = function (check)
+    {
         $scope.check = check;
         $scope.$apply();
     }
 
 
-    $scope.logOut = function () {
-
-
+    $scope.logOut = function ()
+    {
         authService.logOut();
         $location.path('/login');
 

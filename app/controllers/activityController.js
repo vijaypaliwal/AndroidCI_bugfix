@@ -38,7 +38,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         if (!$scope.$$phase) {
             $scope.$apply();
         }
-    };
+    }
     var mySwiper;
 
     $(".modal-backdrop").remove();
@@ -295,53 +295,24 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         $("#menu1").hide()
 
-
     }
-
-
-
-
 
 
 
     $scope.relateddata = function () {
-        $(".relateddatamenu").addClass("active")
-        $(".cartitemmenu").removeClass("active")
-
-        $("#home").hide()
-
-        $("#menu1").show()
+        $(".relateddatamenu").addClass("active");
+        $(".cartitemmenu").removeClass("active");
+        $("#home").hide();
+        $("#menu1").show();
     }
 
 
-
-
-    //$scope.$watch('CurrentCart', function () {
-    //    // do something here
-    //    var i = 0;
-    //    if ($scope.IsSingleMode == false) {
-    //        if ($scope.CurrentCart != null && $scope.CurrentCart.length > 0) {
-    //            for (i = 0; i < $scope.CurrentCart.length; i++) {
-    //                $scope.CurrentCart[i].IncreaseDecreaseVMData = angular.copy($scope.CurrentCart[0].IncreaseDecreaseVMData);
-    //                $scope.CurrentCart[i].MoveTransactionData = angular.copy($scope.CurrentCart[0].MoveTransactionData);
-    //                $scope.CurrentCart[i].UpdateTransactionData = angular.copy($scope.CurrentCart[0].UpdateTransactionData);
-    //                $scope.CurrentCart[i].ApplyTransactionData = angular.copy($scope.CurrentCart[0].ApplyTransactionData);
-    //                $scope.CurrentCart[i].ConvertTransactionData = angular.copy($scope.CurrentCart[0].ConvertTransactionData);
-    //                $scope.CurrentCart[i].IsLineItemData = angular.copy($scope.CurrentCart[0].IsLineItemData);
-    //            }
-    //        }
-
-    //    }
-    //}, true);
-
-    function getuom() {
-
-
+    function getuom()
+    {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
-
         $.ajax
            ({
                type: "POST",
@@ -567,11 +538,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         if ($scope.CurrentHref != "") {
             if ($scope.CurrentHref.indexOf("#") > -1) {
                 $scope.CurrentHref = $scope.CurrentHref.replace('#', '');
-
             }
-            else {
-
-            }
+          
             $location.path($scope.CurrentHref);
         }
         else {
@@ -2951,10 +2919,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                                 return true;
                                 break;
                             }
-                            else {
-
-                            }
-
                         }
 
                     }

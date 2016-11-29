@@ -14,7 +14,7 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
     $scope.isSaving = false;
     function init() {
         $scope.CurrentInventory = localStorageService.get("CurrentDetailObject");
-        console.log($scope.CurrentInventory);
+       
         $scope.CurrentAccount = localStorageService.get('AccountID');
         $scope.Getuserinfo();
         $scope.$apply();
@@ -44,21 +44,21 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
                    if (response.GetUserInfoResult.Success == true) {
                        
                        
-                       $scope.firstname = response.GetUserInfoResult.Payload[0].FirstName
+                       $scope.firstname = response.GetUserInfoResult.Payload[0].FirstName;
                    $scope.lastname = response.GetUserInfoResult.Payload[0].LastName;
-                   $scope.email = response.GetUserInfoResult.Payload[0].Email
-                   $scope.phone = response.GetUserInfoResult.Payload[0].Phone
-                   $scope.organization = response.GetUserInfoResult.Payload[0].Organization
-                   $scope.username = response.GetUserInfoResult.Payload[0].UserName
+                   $scope.email = response.GetUserInfoResult.Payload[0].Email;
+                   $scope.phone = response.GetUserInfoResult.Payload[0].Phone;
+                   $scope.organization = response.GetUserInfoResult.Payload[0].Organization;
+                   $scope.username = response.GetUserInfoResult.Payload[0].UserName;
                    $scope.myprofileimage = response.GetUserInfoResult.Payload[0].ProfilePic;
 
 
-                   $scope.firstnameLabel = response.GetUserInfoResult.Payload[0].FirstName
+                   $scope.firstnameLabel = response.GetUserInfoResult.Payload[0].FirstName;
                    $scope.lastnameLabel = response.GetUserInfoResult.Payload[0].LastName;
-                   $scope.emailLabel = response.GetUserInfoResult.Payload[0].Email
-                   $scope.phoneLabel = response.GetUserInfoResult.Payload[0].Phone
-                   $scope.organizationLabel = response.GetUserInfoResult.Payload[0].Organization
-                   $scope.usernameLabel = response.GetUserInfoResult.Payload[0].UserName
+                   $scope.emailLabel = response.GetUserInfoResult.Payload[0].Email;
+                   $scope.phoneLabel = response.GetUserInfoResult.Payload[0].Phone;
+                   $scope.organizationLabel = response.GetUserInfoResult.Payload[0].Organization;
+                   $scope.usernameLabel = response.GetUserInfoResult.Payload[0].UserName;
 
                    if (response.GetUserInfoResult.Payload[0].ProfilePic != null && response.GetUserInfoResult.Payload[0].ProfilePic != "") {
 
@@ -82,7 +82,6 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
                error: function (err) {
 
                    $scope.ShowErrorMessage("User Info", 2, 1, err.statusText);
-
 
                }
            });
@@ -177,7 +176,7 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
     {
         authService.logOut();
         $location.path('/login');
-        CheckScopeBeforeApply();
+      
     }
 
 
