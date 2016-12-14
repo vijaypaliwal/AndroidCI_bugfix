@@ -196,7 +196,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
             $scope.$apply();
-
+            $(".uniqueunitData").first().trigger("blur");
+            var $inputs = $(".uniqueunitData");
+            $inputs.trigger('blur');
 
         }, function (error) {
             log.error("Scanning failed: ", error);
