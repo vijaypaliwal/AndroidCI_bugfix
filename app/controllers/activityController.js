@@ -21,7 +21,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.isLineItemColumnNames = [];
     $scope.IsQuantityUpdated = false;
     $scope.IsSingleMode = false;
-
+    $scope.CustomAutoClear = false;
     $scope.CanIncrease = 'true';
     $scope.CanDecrease = 'true';
     $scope.CanConvert = 'true';
@@ -59,6 +59,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         $scope.$apply();
 
+    }
+
+
+    $scope.UpdateAutoClear = function (autoclearvalue) {
+
+        $scope.CustomAutoClear = autoclearvalue;
+        localStorageService.set('CustomAutoClear', $scope.CustomAutoClear);
     }
 
     $scope.ScanTagItem = function (Type, Id, index, inventoryID) {
@@ -296,6 +303,578 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $("#menu1").hide()
 
     }
+    //#region Check unit data area
+    $scope.CheckIsAllowDuplicate = function (ColumnName) {
+        for (var i = 0; i < $scope.UnitDataList.length; i++) {
+            if ($scope.UnitDataList[i].FieldName == ColumnName) {
+                return $scope.UnitDataList[i].IsUnique;
+            }
+
+        }
+        return false;
+    }
+
+
+    $scope.CheckUnitDataFieldValueAll = function (ColumnName, IsAllowDuplicate) {
+        if (IsAllowDuplicate == true) {
+
+            var value = "";
+            var _Count = 1;
+            var defaultValueOfColumn = "";
+            switch (ColumnName) {
+                case "iReqValue":
+                case "ReqValue":
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitTag1;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitTag1;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                debugger;
+                                if (CheckUnitDataDuplicate(ColumnName, value) == false) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitTag1;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+                        }
+
+
+                    }
+
+
+                    break;
+                case "iUnitTag2":
+                case "UnitTag2":
+                    $scope.UnitDataTag2 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitTag2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitTag2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitTag2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+                    }
+
+
+                    break;
+                case "iUnitTag3":
+                case "UnitTag3":
+                    $scope.UnitDataTag3 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitTag3;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitTag3;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitTag3;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+                        }
+                    }
+
+
+
+                    break;
+                case "iUnitNumber1":
+                case "UnitNumber1":
+                    $scope.UnitDataNumber1 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitNumber1;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitNumber1;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitNumber1;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                    }
+
+
+
+                    break;
+                case "iUnitNumber2":
+                case "UnitNumber2":
+                    $scope.UnitDataNumber2 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitNumber2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitNumber2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitNumber2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+                    }
+
+
+
+                    break;
+                case "iUnitDate2":
+                case "UnitDate2":
+                    $scope.UnitDataDate2 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+
+
+                        if ($scope.CurrentOperation == "Apply") {
+
+
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UnitDate2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UnitDate2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].MoveUpdateTagTransactionData.UnitDate2;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+                        }
+
+
+                    }
+
+
+                    break;
+                case "iUniqueDate":
+                case "UniqueDate":
+                    $scope.UnitDataDate1 = value;
+
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+
+                        if ($scope.CurrentOperation == "Apply") {
+                            value = $scope.CurrentCart[k].ApplyTransactionData.UniqueDate;
+                            defaultValueOfColumn = $scope.CurrentCartBkup[k].ApplyTransactionData.UniqueDate;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate_date;
+                            defaultValueOfColumn = $scope.GroupCopy[k].MoveUpdateTagTransactionData.UniqueDate_date;
+
+                            if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
+
+                                if (!CheckUnitDataDuplicate(ColumnName, value)) {
+                                    _Count = _Count * 0;
+                                }
+                                else {
+                                    _Count = _Count * 1;
+                                }
+                            }
+                            else {
+                                _Count = _Count * 1;
+                            }
+
+                        }
+
+                    }
+
+
+                    break;
+            }
+        }
+
+
+        if (_Count == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+
+    }
+
+
+    $scope.CheckUnitDataFieldValue = function (ColumnName, IsAllowDuplicate, index) {
+        if (IsAllowDuplicate == true) {
+
+            var value = "";
+            var oldValue = "";
+
+            switch (ColumnName) {
+                case "iReqValue":
+                case "ReqValue":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitTag1;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitTag1;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitTag1;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitTag1;
+
+                    }
+
+
+                    break;
+                case "iUnitTag2":
+                case "UnitTag2":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitTag2;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitTag2;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitTag2;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitTag2;
+
+                    }
+
+                    break;
+                case "iUnitTag3":
+                case "UnitTag3":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitTag3;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitTag3;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitTag3;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitTag3;
+
+                    }
+
+
+
+                    break;
+                case "iUnitNumber1":
+                case "UnitNumber1":
+
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitNumber1;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitNumber1;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitNumber1;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitNumber1;
+
+                    }
+
+                    break;
+                case "iUnitNumber2":
+                case "UnitNumber2":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitNumber2;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitNumber2;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitNumber2;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitNumber2;
+
+                    }
+
+
+                    break;
+                case "iUnitDate2":
+                case "UnitDate2":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UnitDate2;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UnitDate2;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UnitDate2;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UnitDate2;
+
+                    }
+
+                    break;
+                case "iUniqueDate":
+                case "UniqueDate":
+                    if ($scope.CurrentOperation == "Apply") {
+                        value = $scope.CurrentCart[index].ApplyTransactionData.UniqueDate;
+                        oldValue = $scope.CurrentCartBkup[index].ApplyTransactionData.UniqueDate;
+
+                    }
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        value = $scope.CurrentCart[index].MoveUpdateTagTransactionData.UniqueDate;
+                        oldValue = $scope.CurrentCartBkup[index].MoveUpdateTagTransactionData.UniqueDate;
+
+                    }
+
+
+                    break;
+            }
+        }
+
+        if ($.trim(value) != "" && value != oldValue) {
+            var _returnVar = CheckUnitDataDuplicate(ColumnName, value);
+
+            return _returnVar;
+        }
+        else {
+            return true;
+        }
+
+    }
+    $scope.GetActiveUnitDataField = function () {
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetActiveUnitDataFields',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'text json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+                   if (response.GetActiveUnitDataFieldsResult.Success == true) {
+                       $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
+                       CheckScopeBeforeApply()
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Active unit data columns", 1, 1, response.GetActiveUnitDataFieldsResult.Message)
+
+                   }
+
+               },
+               error: function (err, textStatus, errorThrown) {
+                   if (err.readyState == 0 || err.status == 0) {
+
+                   }
+                   else {
+                       if (textStatus != "timeout") {
+                           //log.error(response.statusText);
+                           $scope.ShowErrorMessage("Active unit data columns", 2, 1, err.statusText);
+                       }
+                   }
+
+               }
+           });
+    }
+
+    function CheckUnitDataDuplicate(ColumnName, value) {
+        var _returnVar = true;
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax({
+            url: serviceBase + 'CheckDuplicateUnitData',
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "ColumnName": ColumnName, "Value": value }),
+            async: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'text json',
+            success: function (result) {
+                if (result.CheckDuplicateUnitDataResult.Success == true) {
+                    if (result.CheckDuplicateUnitDataResult.Payload == 1) {
+                        _returnVar = false;
+
+                    }
+                    else {
+                        _returnVar = true;
+                    }
+
+
+
+                } else {
+                    log.error(result.ex);
+                }
+            },
+            error: function (req, status, error) {
+                log.error(error);
+            }
+        });
+
+        return _returnVar;
+    }
+    //#endregion check unit data
 
 
 
@@ -1301,6 +1880,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         $scope.CurrentCart = localStorageService.get("ActivityCart");
         var _CurrentAction = localStorageService.get("SelectedAction");
+        var _autoClear = localStorageService.get('CustomAutoClear');
+
+        $scope.CustomAutoClear = _autoClear == "true" || _autoClear == true ? true : false;
         _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
 
         $scope._CurrentAction = _CurrentAction;
@@ -1350,8 +1932,24 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         GetCustomDataField(1);
         getuom();
-        $scope.getstatus()
-
+        $scope.getstatus();
+        $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
+        $scope.GetActiveUnitDataField();
+        if (localStorageService.get('AllowNegativeQuantity') != null && localStorageService.get('AllowNegativeQuantity') != undefined) {
+            var _temp = localStorageService.get('AllowNegativeQuantity');
+            if (_temp == 'true' || _temp == true) {
+                $scope.AllowNegative = true;
+                _AllowNegative = 'True';
+            }
+            else {
+                $scope.AllowNegative = false;
+                _AllowNegative = 'False';
+            }
+        }
+        else {
+            $scope.AllowNegative = false;
+            _AllowNegative = 'False';
+        }
 
         CheckScopeBeforeApply();
 
@@ -2143,7 +2741,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             default:
 
         }
-
+        $(".uniqueunitData").first().trigger("blur");
+        var $inputs = $(".uniqueunitData");
+        $inputs.trigger('blur');
     }
 
     $scope.GetColumnLabel = function (ColumnID) {
@@ -2648,7 +3248,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     contentType: 'application/json; charset=utf-8',
 
                     dataType: 'json',
-                    data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "data": _mdata }),
+                    data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "data": _mdata, "CustomAutoClear": $scope.CustomAutoClear }),
                     success: function (response) {
 
                         localStorageService.set("ActivityCart", "");
@@ -3351,26 +3951,95 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             break;
                         }
 
-                        else if (_AllowNegative != null && _AllowNegative != "True") {
-                            if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
 
+                        else if ($scope.CheckIsAllowDuplicate('ReqValue') == true || $scope.CheckIsAllowDuplicate('UnitTag2') == true || $scope.CheckIsAllowDuplicate('UnitTag3') == true || $scope.CheckIsAllowDuplicate('UniqueDate') == true || $scope.CheckIsAllowDuplicate('UnitDate2') == true || $scope.CheckIsAllowDuplicate('UnitNumber1') == true || $scope.CheckIsAllowDuplicate('UnitNumber2') == true) {
+                            var _count = 1;
+
+                            if ($scope.CheckUnitDataFieldValue('ReqValue', $scope.CheckIsAllowDuplicate('ReqValue'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitTag2', $scope.CheckIsAllowDuplicate('UnitTag2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UniqueDate', $scope.CheckIsAllowDuplicate('UniqueDate'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitTag3', $scope.CheckIsAllowDuplicate('UnitTag3'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitDate2', $scope.CheckIsAllowDuplicate('UnitDate2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitNumber1', $scope.CheckIsAllowDuplicate('UnitNumber1'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitNumber2', $scope.CheckIsAllowDuplicate('UnitNumber2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if (_count == 0) {
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+
+
+                                    log.error("Seems like some cart items is having duplicate unit data, please update");
                                 }
                                 else {
-                                    if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
-                                        $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
-
-                                    }
+                                    log.error("Seems like some cart items is having duplicate unit data, please update");
                                     $scope.GoToStep(k);
 
                                 }
-
                                 return true;
-                                break;
                             }
-                            else {
+
+
+                            else if (_AllowNegative != null && _AllowNegative != "True") {
+                                debugger;
+                                if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
+
+                                    if ($scope.IsSingleMode == false) {
+                                        $scope.GoToStep(0);
+                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    }
+                                    else {
+                                        if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
+                                            $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
+
+                                        }
+                                        $scope.GoToStep(k);
+
+                                    }
+
+                                    return true;
+                                    break;
+                                }
 
                             }
                         }
@@ -3391,28 +4060,95 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             break;
                         }
-                        else if (_AllowNegative != null && _AllowNegative != "True") {
+                        else if ($scope.CheckIsAllowDuplicate('ReqValue') == true || $scope.CheckIsAllowDuplicate('UnitTag2') == true || $scope.CheckIsAllowDuplicate('UnitTag3') == true || $scope.CheckIsAllowDuplicate('UniqueDate') == true || $scope.CheckIsAllowDuplicate('UnitDate2') == true || $scope.CheckIsAllowDuplicate('UnitNumber1') == true || $scope.CheckIsAllowDuplicate('UnitNumber2') == true) {
+                            var _count = 1;
+                            if ($scope.CheckUnitDataFieldValue('ReqValue', $scope.CheckIsAllowDuplicate('ReqValue'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
 
+                            if ($scope.CheckUnitDataFieldValue('UnitTag2', $scope.CheckIsAllowDuplicate('UnitTag2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
 
-                            if ($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
+                            if ($scope.CheckUnitDataFieldValue('UniqueDate', $scope.CheckIsAllowDuplicate('UniqueDate'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
 
+                            if ($scope.CheckUnitDataFieldValue('UnitTag3', $scope.CheckIsAllowDuplicate('UnitTag3'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitDate2', $scope.CheckIsAllowDuplicate('UnitDate2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitNumber1', $scope.CheckIsAllowDuplicate('UnitNumber1'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if ($scope.CheckUnitDataFieldValue('UnitNumber2', $scope.CheckIsAllowDuplicate('UnitNumber2'), k) == false) {
+                                _count = _count * 0;
+                            }
+                            else {
+                                _count = _count * 1;
+                            }
+
+                            if (_count == 0) {
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+
+
+                                    log.error("Seems like some cart items is having duplicate unit data, please update");
                                 }
                                 else {
-                                    if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
-                                        $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
-
-                                    }
+                                    log.error("Seems like some cart items is having duplicate unit data, please update");
                                     $scope.GoToStep(k);
 
                                 }
                                 return true;
-                                break;
                             }
-                            else {
 
+                            else if (_AllowNegative != null && _AllowNegative != "True") {
+                                debugger;
+
+                                if ($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
+
+                                    if ($scope.IsSingleMode == false) {
+                                        $scope.GoToStep(0);
+                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    }
+                                    else {
+                                        if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
+                                            $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
+
+                                        }
+                                        $scope.GoToStep(k);
+
+                                    }
+                                    return true;
+                                    break;
+                                }
+                                else {
+
+                                }
                             }
                         }
 

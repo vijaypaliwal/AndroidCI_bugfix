@@ -13,6 +13,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.CurrentActiveFieldDatatype = "";
     $scope.Totalslides = 0;
     $scope.CurrentCount = 0;
+    $scope.UnitDataColumnWithError = "";
     $scope.IsFormDataloaded = false;
     $scope.Isopendiv = true;
     $scope.InventoryObject = {
@@ -935,240 +936,244 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.addinventory = function () {
-        if ($scope.IsItemChose == true) {
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            $scope.SecurityToken = authData.token;
-        }
-
-       
-
-
-        $('#addinventories').addClass("disabled");
-        $('#addinventories').find(".fa").addClass("fa-spin");
+        if ($scope.CheckUnitDataFieldValueAll() == true) {
+            if ($scope.IsItemChose == true) {
+                var authData = localStorageService.get('authorizationData');
+                if (authData) {
+                    $scope.SecurityToken = authData.token;
+                }
 
 
-        var _TempObj = $scope.InventoryObject;
-
-        var ImageData = $("#list123").find("img").attr("src");
-        $.each(_TempObj, function (datakey, datavalue) {
-
-            if (datakey != "CustomPartData" && datakey != "CustomTxnData") {
-                if (datakey == "ItemID" && _TempObj.AutoID == true) {
 
 
-                    datakey = "Inv_" + datakey;
-                    localStorageService.set(datakey, "");
+                $('#addinventories').addClass("disabled");
+                $('#addinventories').find(".fa").addClass("fa-spin");
+
+
+                var _TempObj = $scope.InventoryObject;
+
+                var ImageData = $("#list123").find("img").attr("src");
+                $.each(_TempObj, function (datakey, datavalue) {
+
+                    if (datakey != "CustomPartData" && datakey != "CustomTxnData") {
+                        if (datakey == "ItemID" && _TempObj.AutoID == true) {
+
+
+                            datakey = "Inv_" + datakey;
+                            localStorageService.set(datakey, "");
+
+                        }
+                        else {
+                            datakey = "Inv_" + datakey;
+                            localStorageService.set(datakey, "");
+                            localStorageService.set(datakey, datavalue);
+                        }
+
+                    }
+
+                    else {
+                        if (datavalue.length > 0) {
+                            for (var i = 0; i < datavalue.length; i++) {
+
+                                datakey = "Inv_" + datavalue[i].CfdID;
+                                localStorageService.set(datakey, "");
+                                localStorageService.set(datakey, datavalue[i].Value);
+
+                            }
+
+                        }
+                    }
+                });
+
+
+                if ($.trim($scope.InventoryObject.ItemID) == "") {
+                    $scope.InventoryObject.AutoID = true;
+                    $scope.InventoryObject.ItemID = "Automated";
+                }
+                if ($scope.InventoryObject.UnitNumber1 == "") {
+                    $scope.InventoryObject.UnitNumber1 = null;
+                }
+                if ($scope.InventoryObject.UnitNumber2 == "") {
+                    $scope.InventoryObject.UnitNumber2 = null;
+                }
+                $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity == "" ? 0 : $scope.InventoryObject.Quantity;
+                var _updateDateval = $scope.InventoryObject.UniqueDate;
+
+                if (_updateDateval != null && _updateDateval != "") {
+                    var wcfDateStr123 = null;
+                    var dsplit1 = _updateDateval.split("-");
+
+                    var d122 = new Date(dsplit1[0], dsplit1[1] - 1, dsplit1[2]);
+
+                    var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
+
+                    d122.setDate(d122.getDate() + _genVar);
+                    var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
+                    wcfDateStr123 = d122.toMSJSON();
+
+                    $scope.InventoryObject.UniqueDate = wcfDateStr123;
+                }
+                else {
+                    $scope.InventoryObject.UniqueDate = null;
+                }
+
+
+
+                var dateObj = new Date();
+                var month = dateObj.getUTCMonth() + 1; //months from 1-12
+                var day = dateObj.getUTCDate();
+                var year = dateObj.getUTCFullYear();
+
+
+
+
+                var _updatedate = new Date(year, month, day);
+                if (_genVar == 0) {
+
+                    _updatedate.setDate(_updatedate.getDate() + 1);
+                }
+                else {
+
+                    _updatedate.setDate(_updatedate.getDate());
+                }
+                var _d1122 = new Date(Date.UTC(_updatedate.getFullYear(), _updatedate.getMonth() - 1, _updatedate.getDate(), 0, 0, 0, 0))
+
+                var wcfDateStrUpd = _d1122.toMSJSON();
+
+
+                var _updateDateval1 = $scope.InventoryObject.UnitDate2;
+
+                $scope.InventoryObject.UpdateDate = wcfDateStrUpd;
+
+                if (_updateDateval1 != null && _updateDateval1 != "") {
+
+                    var wcfDateStr1234 = null;
+                    var dsplit12 = _updateDateval1.split("-");
+
+                    var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+
+                    d1222.setDate(d1222.getDate() + _genVar);
+                    var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), 0, 0, 0, 0))
+
+                    wcfDateStr1234 = d1222.toMSJSON();
+
+                    $scope.InventoryObject.UnitDate2 = wcfDateStr1234;
+
+
+
 
                 }
                 else {
-                    datakey = "Inv_" + datakey;
-                    localStorageService.set(datakey, "");
-                    localStorageService.set(datakey, datavalue);
+                    $scope.InventoryObject.UnitDate2 = null;
                 }
+                var _sum = 0;
 
-            }
 
-            else {
-                if (datavalue.length > 0) {
-                    for (var i = 0; i < datavalue.length; i++) {
+                var _toSendImages = []
+                _toSendImages = angular.copy($scope.ImageList);
 
-                        datakey = "Inv_" + datavalue[i].CfdID;
-                        localStorageService.set(datakey, "");
-                        localStorageService.set(datakey, datavalue[i].Value);
+
+
+                for (var i = 0; i < _toSendImages.length; i++) {
+
+                    if (_toSendImages[i].bytestring != null && _toSendImages[i].bytestring != undefined) {
+                        _toSendImages[i].bytestring = removePaddingCharacters(_toSendImages[i].bytestring);
+                        if (_toSendImages[i].size != null && _toSendImages[i].size != undefined) {
+                            _sum = _sum + parseFloat(_toSendImages[i].size);
+                        }
+
 
                     }
 
                 }
-            }
-        });
 
+                //  log.success("Total Image after" + _toSendImages.length)
 
-        if ($.trim($scope.InventoryObject.ItemID) == "") {
-            $scope.InventoryObject.AutoID = true;
-            $scope.InventoryObject.ItemID = "Automated";
-        }
-        if ($scope.InventoryObject.UnitNumber1 == "") {
-            $scope.InventoryObject.UnitNumber1 = null;
-        }
-        if ($scope.InventoryObject.UnitNumber2 == "") {
-            $scope.InventoryObject.UnitNumber2 = null;
-        }
-        $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity == "" ? 0 : $scope.InventoryObject.Quantity;
-        var _updateDateval = $scope.InventoryObject.UniqueDate;
-
-        if (_updateDateval != null && _updateDateval != "") {
-            var wcfDateStr123 = null;
-            var dsplit1 = _updateDateval.split("-");
-
-            var d122 = new Date(dsplit1[0], dsplit1[1] - 1, dsplit1[2]);
-
-            var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
-
-            d122.setDate(d122.getDate() + _genVar);
-            var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
-            wcfDateStr123 = d122.toMSJSON();
-
-            $scope.InventoryObject.UniqueDate = wcfDateStr123;
-        }
-        else {
-            $scope.InventoryObject.UniqueDate = null;
-        }
-
-
-
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
-
-
-
-
-        var _updatedate = new Date(year, month, day);
-        if (_genVar == 0) {
-
-            _updatedate.setDate(_updatedate.getDate() + 1);
-        }
-        else {
-
-            _updatedate.setDate(_updatedate.getDate());
-        }
-        var _d1122 = new Date(Date.UTC(_updatedate.getFullYear(), _updatedate.getMonth() - 1, _updatedate.getDate(), 0, 0, 0, 0))
-
-        var wcfDateStrUpd = _d1122.toMSJSON();
-
-
-        var _updateDateval1 = $scope.InventoryObject.UnitDate2;
-
-        $scope.InventoryObject.UpdateDate = wcfDateStrUpd;
-
-        if (_updateDateval1 != null && _updateDateval1 != "") {
-
-            var wcfDateStr1234 = null;
-            var dsplit12 = _updateDateval1.split("-");
-
-            var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
-
-            d1222.setDate(d1222.getDate() + _genVar);
-            var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), 0, 0, 0, 0))
-
-            wcfDateStr1234 = d1222.toMSJSON();
-
-            $scope.InventoryObject.UnitDate2 = wcfDateStr1234;
-
-
-
-
-        }
-        else {
-            $scope.InventoryObject.UnitDate2 = null;
-        }
-        var _sum = 0;
-
-      
-        var _toSendImages =[]
-        _toSendImages= angular.copy($scope.ImageList);
-
-      
-
-        for (var i = 0; i < _toSendImages.length; i++) {
-
-            if (_toSendImages[i].bytestring != null && _toSendImages[i].bytestring != undefined) {
-                _toSendImages[i].bytestring = removePaddingCharacters(_toSendImages[i].bytestring);
-                if (_toSendImages[i].size != null && _toSendImages[i].size != undefined)
-                {
-                    _sum = _sum + parseFloat(_toSendImages[i].size);
+                if (_sum > 5000000) {
+                    log.warning("You are trying to upload more than one image, it may take some time to upload, please be patient.")
                 }
 
-              
-            }
 
-        }
+                ShowWaitingInv();
+                $.ajax
+                  ({
+                      type: "POST",
+                      url: serviceBase + 'AddInventoryData',
+                      contentType: 'application/json; charset=utf-8',
 
-        //  log.success("Total Image after" + _toSendImages.length)
+                      dataType: 'json',
 
-        if (_sum > 5000000) {
-            log.warning("You are trying to upload more than one image, it may take some time to upload, please be patient.")
-        }
+                      data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Data": $scope.InventoryObject, "ImageList": _toSendImages }),
+                      // data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Data": $scope.InventoryObject }),
+                      success: function (response) {
+                          if (response.AddInventoryDataResult.Success == true) {
 
+                              //  log.success("New Inventory Added Successfully.")
 
-        ShowWaitingInv();
-        $.ajax
-          ({
-              type: "POST",
-              url: serviceBase + 'AddInventoryData',
-              contentType: 'application/json; charset=utf-8',
+                              ShowSuccess("Saved");
 
-              dataType: 'json',
-             
-              data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Data": $scope.InventoryObject, "ImageList": _toSendImages }),
-              // data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Data": $scope.InventoryObject }),
-              success: function (response) {
-                  if (response.AddInventoryDataResult.Success == true) {
-
-                      //  log.success("New Inventory Added Successfully.")
-
-                      ShowSuccess("Saved");
-
-                      if (_toSendImages.length > 0)
-                      {
-                          var _tempArray = []
-                          _tempArray = _toSendImages;
+                              if (_toSendImages.length > 0) {
+                                  var _tempArray = []
+                                  _tempArray = _toSendImages;
 
 
-                          // log.info("Image upload started it will continue in backend you can do other work.")
-                          //  $scope.UploadImage(response.AddInventoryDataResult.Payload, _tempArray);
-                      }
-                      ImageListAndroid = [];
+                                  // log.info("Image upload started it will continue in backend you can do other work.")
+                                  //  $scope.UploadImage(response.AddInventoryDataResult.Payload, _tempArray);
+                              }
+                              ImageListAndroid = [];
 
-                      // $scope.resetObject();
+                              // $scope.resetObject();
 
-                      $scope.movetolist();
-                      // $location.path('/inventory');
+                              $scope.movetolist();
+                              // $location.path('/inventory');
 
-                      CheckScopeBeforeApply()
-                  }
-                  else {
-                      $scope.ShowErrorMessage("New Inventory", 3, 1, response.AddInventoryDataResult.Message)
+                              CheckScopeBeforeApply()
+                          }
+                          else {
+                              $scope.ShowErrorMessage("New Inventory", 3, 1, response.AddInventoryDataResult.Message)
 
 
-                  }
-                  HideWaitingInv();
-
-                  $('#addinventories').removeClass("disabled");
-                  $('#addinventories').find(".fa").removeClass("fa-spin");
-              },
-              fail: function (jqXHR, textStatus, errorThrown) {
-                  console.log("jqxhr");
-                  console.log(jqXHR);
-              },
-              error: function (err, textStatus, errorThrown) {
-                  if (err.readyState == 0 || err.status == 0) {
-
-                  }
-                  else {
-                      if (textStatus != "timeout") {
-
+                          }
                           HideWaitingInv();
 
-                          $scope.ShowErrorMessage("New Inventory", 2, 1, err.statusText);
+                          $('#addinventories').removeClass("disabled");
+                          $('#addinventories').find(".fa").removeClass("fa-spin");
+                      },
+                      fail: function (jqXHR, textStatus, errorThrown) {
+                          console.log("jqxhr");
+                          console.log(jqXHR);
+                      },
+                      error: function (err, textStatus, errorThrown) {
+                          if (err.readyState == 0 || err.status == 0) {
 
-                          $scope.Inventoryerrorbox(errorThrown);
+                          }
+                          else {
+                              if (textStatus != "timeout") {
 
+                                  HideWaitingInv();
+
+                                  $scope.ShowErrorMessage("New Inventory", 2, 1, err.statusText);
+
+                                  $scope.Inventoryerrorbox(errorThrown);
+
+
+                              }
+                          }
+                          $('#addinventories').removeClass("disabled");
+                          $('#addinventories').find(".fa").removeClass("fa-spin");
 
                       }
-                  }
-                  $('#addinventories').removeClass("disabled");
-                  $('#addinventories').find(".fa").removeClass("fa-spin");
-
-              }
-          });
+                  });
 
 
+            }
+            else {
+                log.error("Please select an item from available items list, you are not authorized to create new item.")
+            }
         }
         else {
-            log.error("Please select an item from available items list, you are not authorized to create new item.")
+            $scope.getstep(0, $scope.UnitDataColumnWithError);
+            log.error("Please enter unique values in unit data columns.")
         }
     }
 
@@ -1744,6 +1749,293 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
+    $scope.CheckIsAllowDuplicate = function (ColumnName) {
+        for (var i = 0; i < $scope.UnitDataList.length; i++) {
+            if ($scope.UnitDataList[i].FieldName == ColumnName) {
+                return $scope.UnitDataList[i].IsUnique;
+            }
+
+        }
+        return false;
+    }
+    $scope.CheckUnitDataFieldValueAll = function () {
+        var _FieldArray = ["iReqValue", "iUnitTag2", "iUnitTag3", "iUniqueDate", "iUnitDate2", "iUnitNumber1", "iUnitNumber2"];
+        var _FieldArray1 = ["ReqValue", "UnitTag2", "UnitTag3", "UniqueDate", "UnitDate2", "UnitNumber1", "UnitNumber2"];
+        var value = "";
+        var _returnVar = true;
+        var _count = 1;
+        for (var i = 0; i < _FieldArray.length; i++) {
+            if ($scope.IsAvailableMyInventoryColumn(_FieldArray[i]) == true && $scope.CheckIsAllowDuplicate(_FieldArray1[i]) == true) {
+                var ColumnName = _FieldArray[i];
+                switch (ColumnName) {
+                    case "iReqValue":
+                    case "ReqValue":
+
+                        value = $scope.InventoryObject.UniqueTag;
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+
+                        break;
+                    case "iUnitTag2":
+                    case "UnitTag2":
+                        value = $scope.InventoryObject.UnitTag2;
+
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+                        break;
+                    case "iUnitTag3":
+                    case "UnitTag3":
+                        value = $scope.InventoryObject.UnitTag3;
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+
+                        break;
+                    case "iUnitNumber1":
+                    case "UnitNumber1":
+                        value = $scope.InventoryObject.UnitNumber1;
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+
+                        break;
+                    case "iUnitNumber2":
+                    case "UnitNumber2":
+                        value = $scope.InventoryObject.UnitNumber2;
+
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+                        break;
+                    case "iUnitDate2":
+                    case "UnitDate2":
+                        value = $scope.InventoryObject.UnitDate2;
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+                        break;
+                    case "iUniqueDate":
+                    case "UniqueDate":
+                        value = $scope.InventoryObject.UniqueDate;
+                        if ($.trim(value) != "") {
+
+                            var _sample = CheckUnitDataDuplicate(ColumnName, value);
+                            if (_sample == false) {
+                                _count = _count * 0;
+                                $scope.UnitDataColumnWithError = ColumnName;
+
+                            }
+                            else {
+                                _count = _count * 1;
+
+                            }
+                        }
+                        else {
+                            _count = _count * 1;
+                        }
+
+                        break;
+                }
+            }
+        }
+
+        if (_count == 0) {
+            _returnVar = false;
+        }
+        else {
+            _returnVar = true;
+        }
+
+        return _returnVar;
+
+    }
+
+    $scope.CheckUnitDataFieldValue = function (ColumnName, IsAllowDuplicate) {
+        if (IsAllowDuplicate == true) {
+
+            var value = "";
+
+            switch (ColumnName) {
+                case "iReqValue":
+                case "ReqValue":
+                    value = $scope.InventoryObject.UniqueTag;
+
+
+                    break;
+                case "iUnitTag2":
+                case "UnitTag2":
+                    value = $scope.InventoryObject.UnitTag2;
+
+
+                    break;
+                case "iUnitTag3":
+                case "UnitTag3":
+                    value = $scope.InventoryObject.UnitTag3;
+
+
+
+                    break;
+                case "iUnitNumber1":
+                case "UnitNumber1":
+                    value = $scope.InventoryObject.UnitNumber1;
+
+
+
+                    break;
+                case "iUnitNumber2":
+                case "UnitNumber2":
+                    value = $scope.InventoryObject.UnitNumber2;
+
+
+
+                    break;
+                case "iUnitDate2":
+                case "UnitDate2":
+                    value = $scope.InventoryObject.UnitDate2;
+
+
+                    break;
+                case "iUniqueDate":
+                case "UniqueDate":
+                    value = $scope.InventoryObject.UniqueDate;
+
+
+                    break;
+            }
+        }
+
+        if ($.trim(value) != "") {
+
+            return CheckUnitDataDuplicate(ColumnName, value);
+        }
+        else {
+            return true;
+        }
+
+    }
+
+
+    function CheckUnitDataDuplicate(ColumnName, value) {
+        var _returnVar = true;
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax({
+            url: serviceBase + 'CheckDuplicateUnitData',
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "ColumnName": ColumnName, "Value": value }),
+            async: false,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'text json',
+            success: function (result) {
+                if (result.CheckDuplicateUnitDataResult.Success == true) {
+                    if (result.CheckDuplicateUnitDataResult.Payload == 1) {
+                        _returnVar = false;
+
+                    }
+                    else {
+                        _returnVar = true;
+                    }
+
+
+
+                } else {
+                    log.error(result.ex);
+                }
+            },
+            error: function (req, status, error) {
+                log.error(error);
+            }
+        });
+
+        return _returnVar;
+    }
+
+
     $scope.GetActiveUnitDataField = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -2080,6 +2372,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.IsLocationLibrary = $scope.checkpermission('URL:Manage/Location');
         $scope.IsUOMLibrary = $scope.checkpermission('URL:Manage/UnitOfMeasure');
         $scope.IsStatusLibrary = $scope.checkpermission('URL:Manage/Status');
+        $scope.GetActiveUnitDataField();
         CheckScopeBeforeApply();
 
 

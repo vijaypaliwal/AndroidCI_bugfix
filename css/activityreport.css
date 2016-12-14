@@ -513,18 +513,12 @@ input[type=text]:focus {
 }
 
 .MoveTagUpdate {
-    background-color: rgba(198,94,40,0.4) !important;
+    background-color: rgba(140,105,0,0.4) !important;
 }
 
 .bgm-MoveTagUpdate {
-    background-color: #C65E28;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#C65E28, endColorstr=#0D190F);
-    background-image: -moz-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -webkit-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -o-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -ms-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -webkit-gradient(linear, right top, right bottom, color-stop(29%,#C65E28), color-stop(55%,#0D190F),color-stop(83%,#583782));
+    background-color: #8C6900;
+  
 }
 
 .Update {
@@ -563,13 +557,7 @@ input[type=text]:focus {
 
 .morebtn.MoveTagUpdate {
     background-color: #C65E28;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#C65E28, endColorstr=#0D190F);
-    background-image: -moz-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -webkit-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -o-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -ms-linear-gradient(top, #C65E28 29%, #0D190F 55%,#583782 83%);
-    background-image: -webkit-gradient(linear, right top, right bottom, color-stop(29%,#C65E28), color-stop(55%,#0D190F),color-stop(83%,#583782));
+   
 }
 
 

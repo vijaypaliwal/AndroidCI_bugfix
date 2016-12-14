@@ -369,48 +369,47 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
 
   
 
-    $scope.UpdateUnitData = function (TagID, IsActive) {
+    $scope.UpdateUnitData = function (TagID, IsActive, IsUnique) {
 
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
         ShowWaitingInv();
-        
-            $.ajax
-         ({
-             type: "POST",
-             url: serviceBase + 'UpdateUnitDataColumn',
-             contentType: 'application/json; charset=utf-8',
-             dataType: 'json',
-             data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "TagID": TagID, "IsActive": IsActive }),
-             success: function (response) {
-                 debugger;
-                 HideWaitingInv();
-                 if (response.UpdateUnitDataColumnResult.Success == true) {
 
-                     setTimeout(function () {
-                         ShowSuccess("Saved");
-                     },1000)
-                   
-                     $scope.getUnitDataColumns(false);
-                 }
-                 else {
-                     $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.UpdateUnitDataColumnResult.Message)
+        $.ajax
+     ({
+         type: "POST",
+         url: serviceBase + 'UpdateUnitDataColumn',
+         contentType: 'application/json; charset=utf-8',
+         dataType: 'json',
+         data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "TagID": TagID, "IsActive": IsActive, "IsUnique": IsUnique }),
+         success: function (response) {
+             HideWaitingInv();
+             if (response.UpdateUnitDataColumnResult.Success == true) {
 
-                 }
+                 setTimeout(function () {
+                     ShowSuccess("Saved");
+                 }, 1000)
 
-
-
-                 CheckScopeBeforeApply();
-             },
-             error: function (err) {
-                 HideWaitingInv();
-                 $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
-
+                 $scope.getUnitDataColumns(false);
+             }
+             else {
+                 $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.UpdateUnitDataColumnResult.Message)
 
              }
-         });
+
+
+
+             CheckScopeBeforeApply();
+         },
+         error: function (err) {
+             HideWaitingInv();
+             $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
+
+
+         }
+     });
 
 
     }

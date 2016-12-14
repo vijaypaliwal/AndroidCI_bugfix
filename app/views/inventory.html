@@ -272,62 +272,115 @@
                                     </div>
                                 </div>
 
-                                <div ng-if="obj.ColumnName=='iReqValue'" class="form-group">
-                                    <label>{{obj.ColumnLabel}}</label>
+                        <div ng-if="obj.ColumnName=='iReqValue'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
 
-                                    <div class="input-group">
-                                        <input id="UniqueTag" type="text" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />
+                            <div class="input-group">
+                                <input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />
+                                <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
 
-                                    </div>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitTag2'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
+                            <div class="input-group">
+                                <input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" value="" />
+                                <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitTag3'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <div class="input-group">
+                                <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+                                <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUniqueDate'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
+
+                            <div class="input-group">
+                                <input id="UniqueDate" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" value="" />
+                                <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitDate2'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+
+                            <div class="input-group">
+                                <input id="UnitDate2" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" value="" />
+                                <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitNumber1'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
+                            <div class="input-group">
+                                <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber1" />
+                                <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitNumber2'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+
+                            <div class="input-group">
+
+                                <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
+                                <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-if="CheckInCommonArray(obj.ColumnName)!=true">
+                            <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></label>
+
+                            <div ng-if="obj.cfdDataType=='string'" class="input-group">
+
+                                <input id="CustomItem_{{obj.cfdID}}" type="text" ng-model="InventoryObject.CustomPartData[$index].Value" class="form-control" value="{{obj.CfValue}}" />
+
+                            </div>
+
+                            <div ng-if="obj.cfdDataType=='checkbox'">
+
+                                <div class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input id="CustomItem_{{obj.cfdID}}" ng-checked="InventoryObject.CustomPartData[$index].Value==true" type="checkbox" ng-model="InventoryObject.CustomPartData[$index].Value">
+                                        <div class="slider round"></div>
+                                    </label>
                                 </div>
-                                <div ng-if="obj.ColumnName=='iUnitTag2'" class="form-group">
-                                    <label>{{obj.ColumnLabel}}</label>
-                                    <div class="input-group">
-                                        <input id="UnitTag2" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" value="" />
 
-                                    </div>
+                            </div>
+
+                            <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
+
+                                <div class="select">
+                                    <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
+
+                                        <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                                    </select>
                                 </div>
-                                <div ng-if="obj.ColumnName=='iUnitTag3'" class="form-group">
 
-                                    <label>{{obj.ColumnLabel}}</label>
-                                    <div class="input-group">
-                                        <input id="UnitTag3" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
 
-                                    </div>
-                                </div>
-                                <div ng-if="obj.ColumnName=='iUniqueDate'" class="form-group">
-                                    <label>{{obj.ColumnLabel}}</label>
+                            </div>
 
-                                    <div class="input-group">
-                                        <input id="UniqueDate" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" value="" />
+                            <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
+                                <input id="CustomItem_{{obj.cfdID}}" type="date" class="form-control customFieldDatePicker FormDateType" ng-model="InventoryObject.CustomPartData[$index].Value" />
 
-                                    </div>
-                                </div>
-                                <div ng-if="obj.ColumnName=='iUnitDate2'" class="form-group">
+                            </div>
 
-                                    <label>{{obj.ColumnLabel}}</label>
+                            <div ng-if="obj.cfdDataType=='number'" class="input-group">
+                                <input id="CustomItem_{{obj.cfdID}}" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" value="{{obj.CfValue}}" />
 
-                                    <div class="input-group">
-                                        <input id="UnitDate2" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" value="" />
+                            </div>
 
-                                    </div>
-                                </div>
-                                <div ng-if="obj.ColumnName=='iUnitNumber1'" class="form-group">
-                                    <label>{{obj.ColumnLabel}}</label>
-                                    <div class="input-group">
-                                        <input id="UnitNumber1" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber1" />
-                                    </div>
-                                </div>
-                                <div ng-if="obj.ColumnName=='iUnitNumber2'" class="form-group">
 
-                                    <label>{{obj.ColumnLabel}}</label>
+                            <div ng-if="obj.cfdDataType=='currency'" class="input-group">
 
-                                    <div class="input-group">
+                                <input id="CustomItem_{{obj.cfdID}}" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
-                                        <input id="UnitNumber2" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
-
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
                                 <div class="form-group" ng-if="CheckInCommonArray(obj.ColumnName)!=true">
                                     <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></label>

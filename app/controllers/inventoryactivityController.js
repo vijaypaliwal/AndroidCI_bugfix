@@ -1104,9 +1104,21 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
     }
 
+    $scope.GetParentActionClass=function(_cssclass)
+    {
+        if(_cssclass=="Move, Tag, & Update")
+        {
+             _cssclass="MoveTagUpdate";
+            return _cssclass;
+        }
+        else {
+            return _cssclass;
+        }
+    }
 
     // update parent action
     $scope.UpdateParentAction = function (index, Action) {
+        debugger;
         if ($scope.FilterArray[index].SearchValue == Action) {
             $scope.FilterArray[index].SearchValue = "";
         }
@@ -1131,6 +1143,8 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
         $scope.filterVal = "";
          
         if ($scope.CurrentView != undefined) {
+
+            debugger;
 
 
 
@@ -1214,6 +1228,8 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             }, 1000);
 
             $scope.isDataLoading = false;
+
+        
 
             var _searchParameter = $scope.filterVal;
             $.ajax
