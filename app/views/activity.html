@@ -157,7 +157,7 @@
 
 
                                             <div ng-if="CurrentActiveObject.MoveTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                <span ng-if="AllowNegative!=null && AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                                <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-4 col-md-4" ng-if="$index==0">
@@ -301,7 +301,7 @@
                                             <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
 
                                                 <span ng-if=" CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply'">Quantity can't be greater than original quantity</span>
-                                                <span ng-if=" AllowNegative!=null &&  AllowNegative!='True' &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
+                                                <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
                                             </span>
                                         </div>
                                     </div>
@@ -639,7 +639,7 @@
                                                 </div>
                                             </div>
                                             <div ng-if=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                <span ng-if=" AllowNegative!=null &&  AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                                <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> Quantity can't be greater than original quantity</span>
 
                                             </div>
 
@@ -780,7 +780,7 @@
 
 
                                             <div ng-if="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                <span ng-if="AllowNegative!=null && AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                                <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-4 col-md-4" ng-if="$index==0">
@@ -1511,7 +1511,7 @@
 
 
                                     <div ng-if="CurrentActiveObject.MoveTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                        <span ng-if="AllowNegative!=null && AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                        <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                     </div>
 
 
@@ -1644,7 +1644,7 @@
 
 
                                     <div ng-if="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                        <span ng-if="AllowNegative!=null && AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                        <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-md-4" ng-if="$index==0">
@@ -1951,7 +1951,7 @@
                                     <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
 
                                         <span ng-if=" CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply'">Quantity can't be greater than original quantity</span>
-                                        <span ng-if=" AllowNegative!=null &&  AllowNegative!='True' &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
+                                        <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
                                     </span>
                                 </div>
                             </div>
@@ -2276,7 +2276,7 @@
                                         </div>
                                     </div>
                                     <div ng-if=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                        <span ng-if=" AllowNegative!=null &&  AllowNegative!='True'"> Quantity can't be greater than original quantity</span>
+                                        <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> Quantity can't be greater than original quantity</span>
 
                                     </div>
 
