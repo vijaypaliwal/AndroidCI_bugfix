@@ -279,6 +279,19 @@
 
 
     </button>
+
+    <button ng-if="checkpermission('URL:configure/default.aspx')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-purple width-100 animated bouncein delay-6 restricted">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-ban"></i>   Manage Setting
+
+            </div>
+
+        </div>
+
+
+
+    </button>
     <div>
         <br />
         <br />

@@ -128,11 +128,11 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
 
     $scope.Openbottommenu = function () {
 
-        if ($("body").hasClass("modal-open")) {
+        if ($("body").hasClass("modal-open"))
+        {
             $("#bottommenumodal").modal('hide');
 
             $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
-
 
         }
         else {
