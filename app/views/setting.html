@@ -19,6 +19,11 @@
     .lime {
         background: #cddc39 !important; 
     }
+
+    .btn-lightgreen {
+        background: #FF5722;
+        color: #fff;
+    }
 </style>
 
 <div class="title-header">
@@ -243,6 +248,29 @@
         <div class="row">
             <div class="col-xs-9">
                 <i class="fa fa-ban"></i>    Manage Custom fields
+
+            </div>
+
+        </div>
+
+
+
+    </button>
+
+    <button type="button" ng-if="checkpermission('URL:configure/default.aspx')==true" ng-click="GoTo('/configuresetting')" class="waves-effect waves-light btn-large btn-lightgreen width-100 animated bouncein delay-6">
+        <div class="row">
+            <div class="col-xs-9">
+                <i class="fa fa-cog"></i>    Manage Setting
+
+            </div>
+
+
+            <div class="col-xs-3">
+
+
+
+                <div>2</div>
+
 
             </div>
 

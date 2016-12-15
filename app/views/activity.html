@@ -2769,7 +2769,7 @@
                         <div ng-if="IsSummary==false">
 
                             <br />
-                            <div class="row" ng-if="CurrentOperation!='Increase'">
+                            <div class="row" ng-if="CanAutoClear==false">
                                 <div class=" col-xs-9">
                                     If processing the cart results in a record with "0" quantity, clear the record.
                                 </div>
@@ -3074,10 +3074,10 @@
    
 
     <div ng-if="IsSingleMode==false">
-        <div class="form-inputs row"  ng-if="CurrentOperation!='Increase'">
+        <div class="form-inputs row" ng-if="CanAutoClear==false">
             <div class=" col-xs-9">
                 <span style="font-size:12px;"> If processing the cart results in a record with "0" quantity, clear the record. </span>
-        </div>
+            </div>
             <div class="col-xs-3">
                 <label class="switch1">
                     <input type="checkbox" ng-model="CustomAutoClear" ng-change="UpdateAutoClear(CustomAutoClear)">

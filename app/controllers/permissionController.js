@@ -217,8 +217,6 @@ app.controller('permissionController', ['$scope', 'localStorageService', 'authSe
         $location.path(url);
     }
     $scope.logOut = function () {
-
-
         authService.logOut();
         $location.path('/login');
         CheckScopeBeforeApply();
@@ -240,15 +238,12 @@ app.controller('permissionController', ['$scope', 'localStorageService', 'authSe
         $scope.$apply();
     }
 
-
     $scope.Openbottommenu = function () {
 
         if ($("body").hasClass("modal-open")) {
             $("#bottommenumodal").modal('hide');
 
-            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
-
-
+            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
         }
         else {
             $("#bottommenumodal").modal('show');
@@ -257,19 +252,17 @@ app.controller('permissionController', ['$scope', 'localStorageService', 'authSe
     }
 
 
-    function init() {
-
+    function init()
+    {
         $scope.GetPermission(1);
-
         $scope.GetPermission(3);
         $scope.GetPermission(4);
         $scope.GetPermission(5);
 
         $scope.GetAccountuser();
     }
-
-
     init();
+
 
     app.directive('customSwipe', [
         function () {
@@ -288,9 +281,7 @@ app.controller('permissionController', ['$scope', 'localStorageService', 'authSe
                                     element.find("input").trigger("click");
 
 
-
-
-                                }, 10)
+                                }, 10);
                             }
                         },
                         threshold: 100

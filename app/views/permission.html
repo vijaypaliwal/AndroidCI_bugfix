@@ -53,6 +53,7 @@
     }
 </style>
 
+
 <div class="title-header">
     <div class="row">
         <div class="col-xs-12">
@@ -97,15 +98,15 @@
         <li class="list-group-item" ng-repeat="obj in Userlist" ng-if="obj.UnitOfMeasureName != ''">
             <div class="row">
                 <div class="col-xs-2">
-                 <a class="btn text btn-success accent-color">{{$index+1}}</a>
+                    <a class="btn text btn-success accent-color">{{$index+1}}</a>
                 </div>
                 <div class="col-xs-8">
-                 <a class="text">{{obj.FirstName}}</a>
-                 <a style="font-size:12px; margin-top:-13px; color:#656565; " class="text">{{obj.Email}}</a>
+                    <a class="text">{{obj.FirstName}}</a>
+                    <a style="font-size:12px; margin-top:-13px; color:#656565; " class="text">{{obj.Email}}</a>
                 </div>
                 <div class="col-xs-2">
 
-                    
+
                     <a ng-if="obj.AccountOwner==true" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:100%;" class="btn btn-success pull-right btnUom">
                         <i class="fa fa-users"></i>
                     </a>
@@ -216,7 +217,7 @@
 
                 </td>
             </tr>
-            <tr ng-repeat="_obj in Permissions3" ng-if="IsAdminopen==true && (_obj.PermissionName == 'MyInventory Columns' || _obj.PermissionName == 'Custom Item Fields' || _obj.PermissionName == 'Custom Transaction Fields' || _obj.PermissionName == 'Unit Data Fields')">
+            <tr ng-repeat="_obj in Permissions3" ng-if="IsAdminopen==true && (_obj.PermissionCode == 'URL:configure/default.aspx'|| _obj.PermissionName == 'MyInventory Columns' || _obj.PermissionName == 'Custom Item Fields' || _obj.PermissionName == 'Custom Transaction Fields' || _obj.PermissionName == 'Unit Data Fields')">
                 <td>
                     <div class="infoareas">
                         <div class="row">
@@ -261,28 +262,34 @@
             <tr ng-repeat="_obj in Permissions4" ng-if="IsGlobalopen==true && (_obj.PermissionName == 'Increase Item Quantities' || _obj.PermissionName == 'Decrease  Item Quantities' || _obj.PermissionName == 'Move Items Among Locations' || _obj.PermissionName == 'Convert Items to Different Units of Measure' || _obj.PermissionName == 'Apply Unique Tags to Items' || _obj.PermissionName == 'Can Change Inventory Status' ||_obj.PermissionCode == 'ACTION:CanMoveTagUpdate')">
                 <td>
                     <div class="infoareas">
+
                         <div class="row">
                             <div class="col-xs-2">
                                 <a class="btn text btn-warning ng-binding">{{$index}}</a>
                             </div>
+
                             <div class="col-xs-6">
                                 <a class="text ng-binding">{{_obj.PermissionName }} </a>
                             </div>
                             <div class="col-xs-4">
                                 <div ng-if="_obj.IsTurnedOn==false" class="btn-group custombtnGroup">
                                     <label class="switch1">
+
                                         <input ng-change="UpdatePermission(_obj.PermissionCode,1,'See')" type="checkbox" ng-model="_obj.IsTurnedOn">
                                         <div class="slider round"></div>
                                     </label>
                                 </div>
+
                                 <div ng-if="_obj.IsTurnedOn==true" class="btn-group custombtnGroup">
                                     <label class="switch1">
+
                                         <input ng-change="UpdatePermission(_obj.PermissionCode,1,'Hide')" type="checkbox" ng-model="_obj.IsTurnedOn">
                                         <div class="slider round"></div>
                                     </label>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </td>
             </tr>
@@ -367,10 +374,10 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <a class="btn btn-primary" ng-click="FilterDataColumns()" ><i  class="fa fa-filter"></i> Filter</a>
+                <a class="btn btn-primary" ng-click="FilterDataColumns()"><i class="fa fa-filter"></i> Filter</a>
             </div>
             <div class="col-xs-6">
-                <a class="btn btn-gray" ><i class="fa fa-times"></i> Clear</a>
+                <a class="btn btn-gray"><i class="fa fa-times"></i> Clear</a>
             </div>
         </div>
 
@@ -400,3 +407,4 @@
         }
     });
 </script>
+

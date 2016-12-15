@@ -127,6 +127,7 @@ app.controller('AccountsController', ['$scope', '$location', 'authService','loca
         $scope.IsLoading = true;
 
         var authData = localStorageService.get('authorizationData');
+        localStorageService.set('AccountDBID', AccountID);
         if (authData) {
             $scope.SecurityToken = authData.token;
         }

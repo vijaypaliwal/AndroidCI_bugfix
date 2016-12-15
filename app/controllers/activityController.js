@@ -1885,6 +1885,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         var _autoClear = localStorageService.get('CustomAutoClear');
 
         $scope.CustomAutoClear = _autoClear == "true" || _autoClear == true ? true : false;
+
+        var _autoClear1 = localStorageService.get('AutoClear');
+
+        $scope.CanAutoClear = _autoClear1 == "true" || _autoClear1 == true ? true : false;
         _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
 
         $scope._CurrentAction = _CurrentAction;

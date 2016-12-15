@@ -1,0 +1,113 @@
+﻿<link href="css/setting.css" rel="stylesheet" />
+<link href="css/mobileorder.css" rel="stylesheet" />
+<link href="css/customfield.css" rel="stylesheet" />
+<style>
+    .well {
+        padding-top:7px;
+        padding-bottom:7px;
+        margin-top:20px;
+    }
+</style>
+
+
+<div class="title-header">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext">Manage Setting</h4>
+        </div>
+    </div>
+</div>
+<a href="#/setting" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-if="Issearch==false" ng-click="showfilter()" class="waves-effect btn roundbtntitle"><i class="fa fa-search"></i> </a>
+
+<a ng-if="Issearch==true" ng-click="hidefilter()" class="waves-effect btn roundbtntitle"><i class="fa fa-times"></i> </a>
+
+<div class="top45">
+
+    <div class="well">
+    
+
+            <div class="row">
+                <div class="col-xs-8">
+
+                    <a class="text">Manage Auto Clear</a>
+                    <!--<small class="smallText">{{_obj.Show}}</small>-->
+                </div>
+                <div class="col-xs-4">
+                    <div class="btn-group custombtnGroup">
+                        <label class="switch1">
+
+                            <input type="checkbox" ng-change="UpdateSettings(SettingsVm.AutoClear,1)" ng-model="SettingsVm.AutoClear">
+                            <div class="slider round"></div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <p style="font-size:13px; color:#888">When 'On' this removes records when an activity causes their quantity to reach '0'. Most users should leave this 'On'.</p>
+                </div>
+            </div>
+
+          
+
+      
+    </div>
+
+    <div class="well">
+        <div class="row">
+
+
+            <div class="col-xs-8">
+
+                <a class="text">Allow Negative Quantity</a>
+
+            </div>
+            <div class="col-xs-4">
+                <div class="btn-group custombtnGroup">
+                    <label class="switch1">
+
+                        <input type="checkbox" ng-change="UpdateSettings(SettingsVm.AllowNegative,2)" ng-model="SettingsVm.AllowNegative">
+                        <div class="slider round"></div>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <p style="font-size:13px; color:#888">Allow moving, tagging, converting, or updating units to result in negative quantities.</p>
+            </div>
+        </div>
+
+       
+    </div>
+
+
+    
+    
+  
+
+</div>
+
+
+
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">Go to Report</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+

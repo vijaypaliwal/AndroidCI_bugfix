@@ -157,6 +157,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    localStorageService.set('LockLibrary', response.GetUserInfoResult.Payload[0]);
                    localStorageService.set('AllowNegativeQuantity', response.GetUserInfoResult.Payload[0].AllowNegativeQuantity);
 
+                   localStorageService.set('AutoClear', response.GetUserInfoResult.Payload[0].AutoClear);
+
+                   localStorageService.set('DefaultQty', response.GetUserInfoResult.Payload[0].DefaultQty);
+
                    IsActiveLocationLibrary = response.GetUserInfoResult.Payload[0].IsActiveLocationLibrary;
                    IsActiveStatusLibrary = response.GetUserInfoResult.Payload[0].IsActiveStatusLibrary;
                    IsActiveUOMLibrary = response.GetUserInfoResult.Payload[0].IsActiveUOMLibrary;
