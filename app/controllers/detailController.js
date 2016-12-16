@@ -619,7 +619,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             iReqValue: v.iReqValue,
             iCostPerUnit: v.pDefaultCost,
         }
-
+        var _defaultQty = $scope.GetDefaultQty();
         _cartData.push({
             InventoryID: mainObjectToSend.uId,
             IsLineItemData: [],
@@ -629,11 +629,11 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             AdjustActionQuantity: "",
             AdjustCalculation: "",
             InventoryDataList: mainObjectToSend,
-            IncreaseDecreaseVMData: ({ ActionQuantity: "" }),
-            MoveTransactionData: ({ ActionQuantity: "", StatusToUpdate: mainObjectToSend.iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
-            UpdateTransactionData: ({ ActionQuantity: "", StatusToUpdate: mainObjectToSend.iStatusValue }),
-            ApplyTransactionData: ({ ActionQuantity: "", UnitTag1: mainObjectToSend.iReqValue, UnitTag2: mainObjectToSend.iUnitTag2, UnitTag3: mainObjectToSend.iUnitTag3, UniqueDate: mainObjectToSend.iUniqueDate_date, UnitDate2: mainObjectToSend.iUnitDate2_date, UnitNumber1: mainObjectToSend.iUnitNumber1, UnitNumber2: mainObjectToSend.iUnitNumber2 }),
-            ConvertTransactionData: ({ ActionFromQuantity: "", ActionToQuantity: "", ToUOMID: 0 }),
+            IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
+            MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend.iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
+            UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend.iStatusValue }),
+            ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend.iReqValue, UnitTag2: mainObjectToSend.iUnitTag2, UnitTag3: mainObjectToSend.iUnitTag3, UniqueDate: mainObjectToSend.iUniqueDate_date, UnitDate2: mainObjectToSend.iUnitDate2_date, UnitNumber1: mainObjectToSend.iUnitNumber1, UnitNumber2: mainObjectToSend.iUnitNumber2 }),
+            ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0 }),
         });
 
         localStorageService.set("ActivityCart", "");

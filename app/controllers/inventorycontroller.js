@@ -920,6 +920,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         };
         $scope.ImageList = [];
 
+        $scope.InventoryObject.Quantity = $scope.GetDefaultQty();
+
         // $("#defaultimg").remove();
 
         //if ($scope.IsAvailableMyInventoryColumn('Image') == true) {
@@ -2350,6 +2352,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     function init() {
         $("#slide-out-left").hide();
         $scope.GetAllData();
+
+        $scope.InventoryObject.Quantity = $scope.GetDefaultQty();
 
         $scope.IsItemLibrary = $scope.checkpermission('URL:Manage/Item');
         if ($scope.IsItemLibrary == true && $scope.IsActiveItemLibrary == true) {

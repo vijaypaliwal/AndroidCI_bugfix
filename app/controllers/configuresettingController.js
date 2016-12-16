@@ -2,7 +2,7 @@
 app.controller('configuresettingController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
   
 
-    $scope.SettingsVm = {AutoClear:"",AllowNegative:""}
+    $scope.SettingsVm = {AutoClear:"",AllowNegative:"",DefaultQty:""}
     $scope.accountID = 0;
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
@@ -101,7 +101,10 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
         if (Type == 2) {
             $scope.SettingsVm.AllowNegative = value;
         }
-
+        if (Type == 3) {
+            $scope.SettingsVm.DefaultQty = value;
+        }
+        
         CheckScopeBeforeApply();
         $.ajax
         ({
@@ -116,7 +119,14 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
                 }, 100);
                 localStorageService.set('AllowNegativeQuantity', $scope.SettingsVm.AllowNegative);
                 localStorageService.set('AutoClear', $scope.SettingsVm.AutoClear);
+                if ($scope.SettingsVm.DefaultQty == true) {
 
+                    localStorageService.set('DefaultQty', "1");
+                }
+                else {
+                    localStorageService.set('DefaultQty', "0");
+
+                }
                 $scope.UpdateSecurityToken($scope.accountID);
             },
             error: function (response) {
@@ -146,6 +156,7 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
     {
         $scope.accountID  = localStorageService.get('AccountDBID');
         var _autoClear = localStorageService.get('AutoClear');
+        var _DefaultQty = localStorageService.get('DefaultQty');
         var _allowNegative = localStorageService.get('AllowNegativeQuantity');
 
         if (_allowNegative != null && _allowNegative != undefined) {
@@ -159,6 +170,20 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
         else {
             $scope.SettingsVm.AllowNegative = false;
         }
+
+        if (_DefaultQty != null && _DefaultQty != undefined) {
+            if (_DefaultQty == '1' || _DefaultQty == 1) {
+                $scope.SettingsVm.DefaultQty = true;
+            }
+            else {
+                $scope.SettingsVm.DefaultQty = false;
+            }
+        }
+        else {
+            $scope.SettingsVm.DefaultQty = false;
+        }
+
+        
         $scope.SettingsVm.AutoClear = _autoClear == "true" || _autoClear == true ? true : false;
         CheckScopeBeforeApply();
 
