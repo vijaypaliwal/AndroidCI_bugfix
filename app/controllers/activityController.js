@@ -29,7 +29,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.CanMoveTagUpdate = 'true';
     $scope.CanStatus = 'true';
     $scope.CanApply = 'true';
-    $scope.CanCost = 'true';
+    $scope.CanCost = 'True';
     $scope.CanPUpdateStatus = 'true';
     $scope.AffectedItemIds = [];
     $scope.CurrentHref = "";
