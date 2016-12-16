@@ -300,7 +300,7 @@
 
                                             <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
 
-                                                <span ng-if=" CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply'">Quantity can't be greater than original quantity</span>
+                                                <span ng-if="AllowNegative!=null &&  AllowNegative!=true &&(CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply')">Quantity can't be greater than original quantity</span>
                                                 <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
                                             </span>
                                         </div>
@@ -1950,7 +1950,7 @@
 
                                     <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
 
-                                        <span ng-if=" CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply'">Quantity can't be greater than original quantity</span>
+                                        <span ng-if="AllowNegative!=null &&  AllowNegative!=true &&(CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply')">Quantity can't be greater than original quantity</span>
                                         <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
                                     </span>
                                 </div>
