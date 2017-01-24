@@ -927,6 +927,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         CheckScopeBeforeApply();
     }
 
+   
+
     $scope.FillQuantity = function (value, id, type) {
 
         $scope.ActionQuantityValue = value;

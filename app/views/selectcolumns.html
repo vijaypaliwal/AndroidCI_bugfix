@@ -19,7 +19,7 @@
 <a ng-click="saveColumns()" class="waves-effect btn btn-danger roundbtntitle"> <i class="fa fa-check"></i> </a>
 
 <div class="top50">
-    
+
     <div ng-if="LocationsLoaded==false">
 
         <div class="modal-backdrop fade in"></div>
@@ -32,37 +32,30 @@
     <table class="table gridTable table-striped bs-item">
 
 
-        <tbody class="dragarea"  ng-model="MyInventorycolumns">
-            <tr data-ng-repeat="obj in MyInventorycolumns" class="MoveCursor" >
+        <tbody class="dragarea" ng-model="MyInventorycolumns">
+            <tr data-ng-repeat="obj in MyInventorycolumns" class="MoveCursor">
                 <td>
                     <div class="infoareas">
-
                         <div class="row">
-
                             <div class="col-xs-2">
                                 <a class="btn text btn-warning">{{$index+1}} </a>
                             </div>
-
                             <div class="col-xs-6">
                                 <a class="text">{{obj.ColumnLabel}} </a>
                             </div>
                             <div class="col-xs-4">
                                 <div ng-if="obj.ColumnLabel != 'Item Name'" class="btn-group custombtnGroup">
-
                                     <label class="switch1">
                                         <input type="checkbox" ng-model="obj.originalMobileOrder">
                                         <div class="slider round"></div>
                                     </label>
                                     <!--<input ng-model="obj.originalMobileOrder"  type="checkbox" bootstrap-switch />-->
-
                                 </div>
-
                                 <div class="pull-right" ng-if="obj.ColumnLabel == 'Item Name'">
                                     <p style="color:brown;">*Required</p>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </td>
             </tr>
@@ -76,6 +69,7 @@
 
 
     </table>
+    <br /><br />
 </div>
 
 
@@ -100,7 +94,7 @@
 
 <a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
 
-<script>    
+<script>
     $('.myLinkToTop').click(function () {
         $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
         return false;

@@ -125,10 +125,10 @@ app.controller('selectcolumnsController', ['$scope', 'localStorageService', 'aut
                   $scope.MyInventorycolumns = [];
 
                   var _myinventorycols = response.GetMyInventoryColumnsResult.Payload;
-                  for (var i = 0; i <_myinventorycols.length; i++) {
-                      if (_myinventorycols[i].ColumnName != "HasConversion" && _myinventorycols[i].ColumnName != "ActionQty")
+                  for (var i = 0; i < _myinventorycols.length; i++) {
+                      var obj= _myinventorycols[i];
+                      if (obj.ColumnName != "HasConversion" && obj.ColumnName != "ActionQty" && obj.ColumnName != 'iUpdateQty' && obj.ColumnName != 'iUpdateDate' && obj.ColumnName != 'iLastAction')
                       {
-                          debugger;
                           _myinventorycols[i].Show = _myinventorycols[i].Show == "True" ? true : false;
 
                           $scope.MyInventorycolumns.push(_myinventorycols[i]);

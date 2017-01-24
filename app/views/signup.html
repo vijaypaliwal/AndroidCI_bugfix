@@ -17,66 +17,96 @@
     </tr>
 </table>
 
-<form name="signup">
-
+<form name="signup" id="signup">
     <h4>Account Info</h4>
+    <div class="form-group">
 
-            <div class="form-group">
-             
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-male"></i></span>
-                    <input type="text" class="form-control" placeholder="Your Name" data-ng-model="registration.Name" required autofocus>
-                </div>
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-male"></i></span>
+            <input type="text" class="form-control" name="FullName" placeholder="Your Name" data-ng-model="registration.Name" required autofocus>
+          
+        </div>
+        <span class="redColor" ng-if="signup.$submitted && signup.FullName.$valid==false && signup.FullName.$error.required">
+            Name is required.
+        </span>
+    </div>
+    <div class="form-group">
 
-            </div>
-            <div class="form-group">
-               
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-globe"></i></span>
-                    <input type="text" class="form-control" placeholder="Company Name" data-ng-model="registration.Company" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Email Address" data-ng-model="registration.Email" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-briefcase"></i></span>
-                    <input type="text" class="form-control" placeholder="Account Name" data-ng-model="registration.Account" required>
-                </div>
-            </div>
-           <h4>Login Info</h4>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" placeholder="Username" data-ng-model="registration.UserName" required>
-                </div>
-            </div>
-            <div class="form-group">
-              
-                <div class="input-group">
-                    <span class="input-group-addon"> <i class="fa fa-key"></i></span>
-                    <input type="password" ng-minlength="7" name="Password" class="dotfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
-                    <input style="display:none" type="text" ng-minlength="7" class="textfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-globe"></i></span>
+            <input type="text" class="form-control" placeholder="Company Name" name="Company" data-ng-model="registration.Company" required>
+        </div>
+        <span class="redColor" ng-if="signup.$submitted && signup.Company.$valid==false && signup.Company.$error.required">
+            Company Name is required.
+        </span>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-envelope"></i></span>
+            <input type="text" class="form-control" name="Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Email Address" data-ng-model="registration.Email" required>
+        </div>
+
+        <span class="redColor" ng-if="signup.$submitted && signup.Email.$valid==false && signup.Email.$error.required">
+            Email is required.
+        </span>
+        <span class="redColor" ng-if="signup.$submitted && signup.Email.$error.pattern">
+            Please fill correct email.
+        </span>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-briefcase"></i></span>
+            <input type="text" class="form-control" placeholder="Account Name" name="Account" data-ng-model="registration.Account" required>
+        </div>
+        <span class="redColor" ng-if="signup.$submitted && signup.Account.$valid==false && signup.Account.$error.required">
+            Account is required.
+        </span>
+    </div>
+    <h4>Login Info</h4>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="Username" name="Username" data-ng-model="registration.UserName" required>
+           
+         
+        </div>
+       
+        <span class="redColor" ng-if="signup.$submitted && signup.Username.$valid==false && signup.Username.$error.required">
+            Username is required.
+        </span>
 
 
-                    <span ng-click="showpassword();" class="showbtn input-group-addon last">Show</span>
-                    <span ng-click="hidepassword();" style="display:none; min-width:67px;" class="hidebtn input-group-addon last">Hide</span>
-                </div>
+       
+    </div>
+    <div class="form-group">
 
-                <span style="color:red;" ng-if="signup.Password.$error.minlength">
-                    Minimum 7 characters required.
-                </span>
-            </div>
- 
-    <button class="waves-effect waves-light btn btn-primary" type="button" id="signUpBtn" ng-disabled="signup.$invalid" data-ng-click="signUp()"><i class="fa fa-sign-in" ng-class="{'fa-spin':IsProcessing==true}"></i> Sign Up</button>
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-key"></i></span>
+            <input type="password" ng-minlength="7" name="Password" class="dotfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
+            <input style="display:none" type="text" ng-minlength="7" class="textfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
+
+            <span ng-click="showpassword();" class="showbtn input-group-addon last">Show</span>
+            <span ng-click="hidepassword();" style="display:none; min-width:67px;" class="hidebtn input-group-addon last">Hide</span>
+        </div>
+        <span class="redColor" ng-if="signup.$submitted && signup.Password.$error.minlength">
+            Minimum 7 characters required.
+        </span>
+
+        <span class="redColor" ng-if="signup.$submitted && signup.Password.$error.required">
+            Password is required.
+        </span>
+    </div>
+
+    <button class="waves-effect waves-light btn btn-primary" type="button" id="signUpBtn" data-ng-click="signup.$submitted=true;signup.$valid && signUp()"><i class="fa fa-sign-in" ng-class="{'fa-spin':IsProcessing==true}"></i> Sign Up</button>
     <a class="waves-effect waves-light btn-gray btn" href="#/login"><i class="fa fa-times"></i> Cancel</a>
 </form>
 
 <style>
+
+    .redColor {
+        color: brown;
+        margin-left:52px;
+    }
 
     form
     {
