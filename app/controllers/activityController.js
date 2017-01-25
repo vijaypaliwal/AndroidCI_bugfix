@@ -3783,7 +3783,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
 
-    setTimeout(function () { $('#itUpdateDate').val(today); }, 1000);
+    setTimeout(function () { $('.itUpdateDate').val(today); }, 1000);
 
     setTimeout(function () { $('.FormDateType').val(today); }, 1000);
 

@@ -1,3 +1,5 @@
+
+
 .btn-primary {
     background-color: #2196F3 !important;
     border: transparent !important;
@@ -260,17 +262,17 @@
 }
 
 .filtercross {
-    font-size: 35px;
-    color: brown;
+    font-size: 25px;
+    padding-top: 5px;
+    color: #ccc;
     padding: 6px;
     margin-top: 3px;
-    padding-top: 0px;
+  
     z-index: 10;
     position: absolute;
     right: 0px;
     cursor: pointer;
 }
-
 .right47 {
     right: 47px;
 }

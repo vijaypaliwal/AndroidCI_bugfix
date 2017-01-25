@@ -44,6 +44,11 @@
         overflow-x: hidden !important;
     }
 
+    .form-group
+    {
+        margin-bottom:0;
+    }
+
 
 </style>
 
@@ -106,7 +111,7 @@
     <div class="maincontent">
 
         <div ng-if="_IsLoading==true">
-            <div class="modal-backdrop fade in"></div>
+            <div class="modal-backdrop fade in" ></div>
             <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
                 <img src="img/loader.gif" alt="Alternate Text" />
             </div>
@@ -1172,7 +1177,7 @@
                     <div class="form-group">
                         <label>Activity Date <span>*</span> </label>
                         <div class="input-group">
-                            <input type="date" class="form-control" id="itUpdateDate" />
+                            <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                         </div>
 
@@ -1265,7 +1270,7 @@
                         <div class="form-group">
                             <label>Activity Date <span>*</span> </label>
                             <div class="input-group">
-                                <input type="date" class="form-control" id="itUpdateDate" />
+                                <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                             </div>
 
@@ -1357,7 +1362,7 @@
                         <div class="form-group">
                             <label>Activity Date <span>*</span> </label>
                             <div class="input-group">
-                                <input type="date" class="form-control" id="itUpdateDate" />
+                                <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                             </div>
 
@@ -2496,7 +2501,7 @@
                             <div class="form-group activityfields" style="margin-top:80px;">
                                 <label>Activity Date <span>*</span> </label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="itUpdateDate" />
+                                    <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                                 </div>
 
@@ -2587,7 +2592,7 @@
                                 <div class="form-group">
                                     <label>Activity Date <span>*</span> </label>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="itUpdateDate" />
+                                        <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                                     </div>
 
@@ -2676,7 +2681,7 @@
                                 <div class="form-group">
                                     <label>Activity Date <span>*</span> </label>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="itUpdateDate" />
+                                        <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
                                     </div>
 
@@ -3137,7 +3142,7 @@
         </div>
     </div>
 
-    <div id="locationlistmodal" class="modal animated bounceIn">
+    <div id="locationlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
             <h4>select Location <span style="font-size:11px;" ng-if="LocationSearchList.length > 0">{{LocationSearchList.length}} Location(s) found</span></h4>
@@ -3181,7 +3186,7 @@
     </div>
 
 
-    <div id="selecteditemlistmodal" class="modal animated bounceIn">
+    <div id="selecteditemlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
             <h4>Selected Item list - <span>{{CurrentCart.length}}</span></h4>
@@ -3214,7 +3219,7 @@
 
 </div>
 
-<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated bounceIn">
+<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div style="background:#fff;" class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
         <h5 class="modal-title" id="myModalLabel">What do you want to do about your cart? </h5>

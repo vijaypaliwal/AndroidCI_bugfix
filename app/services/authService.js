@@ -60,6 +60,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 $("#loginBtn").removeClass("disabled");
                 $(".fa-sign-in").removeClass("fa-spin");
                 $("#myloginModal").removeClass('bounceIn').addClass('bounceOut');
+                $("#myloginModal").hide();
                 $(".side-nav").show();
                 if (response.LoginResult.Success == true) {
 

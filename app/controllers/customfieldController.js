@@ -10,6 +10,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
 
     $scope.IsActivityOpen = false;
     $scope.IsItemOpen = false;
+    $scope.IsSaving = false;
     $scope.IsUnitDataOpen = true;
     $scope.LocalCustomItemFieldsList = [];
     $scope.LocalCustomActivityFieldsList = [];
@@ -85,15 +86,14 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
     }
 
     $scope.searchData = function (item) {
-        debugger;
-        if (!$scope.SearchString || (item.ColumnLabel.toLowerCase().indexOf($scope.SearchString) != -1) || (item.Show.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1)) {
+        if (!$scope.SearchString || (item.ColumnLabel.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1) || (item.Show.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1)) {
             return true;
         }
         return false;
     };
 
     $scope.searchData1 = function (item) {
-        if (!$scope.SearchString || (item.Name.toLowerCase().indexOf($scope.SearchString) != -1) || (item.Datatype.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1)) {
+        if (!$scope.SearchString || (item.Name.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1) || (item.Datatype.toLowerCase().indexOf($scope.SearchString.toLowerCase()) != -1)) {
             return true;
         }
         return false;
@@ -367,7 +367,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
 
 
 
-  
+   
 
     $scope.UpdateUnitData = function (TagID, IsActive, IsUnique) {
 
@@ -376,40 +376,41 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
             $scope.SecurityToken = authData.token;
         }
         ShowWaitingInv();
+        
+            $.ajax
+         ({
+             type: "POST",
+             url: serviceBase + 'UpdateUnitDataColumn',
+             contentType: 'application/json; charset=utf-8',
+             dataType: 'json',
+             data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "TagID": TagID, "IsActive": IsActive, "IsUnique": IsUnique }),
+             success: function (response) {
+                 debugger;
+                 HideWaitingInv();
+                 if (response.UpdateUnitDataColumnResult.Success == true) {
 
-        $.ajax
-     ({
-         type: "POST",
-         url: serviceBase + 'UpdateUnitDataColumn',
-         contentType: 'application/json; charset=utf-8',
-         dataType: 'json',
-         data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "TagID": TagID, "IsActive": IsActive, "IsUnique": IsUnique }),
-         success: function (response) {
-             HideWaitingInv();
-             if (response.UpdateUnitDataColumnResult.Success == true) {
+                     setTimeout(function () {
+                         ShowSuccess("Saved");
+                     },1000)
+                   
+                     $scope.getUnitDataColumns(false);
+                 }
+                 else {
+                     $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.UpdateUnitDataColumnResult.Message)
 
-                 setTimeout(function () {
-                     ShowSuccess("Saved");
-                 }, 1000)
+                 }
 
-                 $scope.getUnitDataColumns(false);
+
+
+                 CheckScopeBeforeApply();
+             },
+             error: function (err) {
+                 HideWaitingInv();
+                 $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
+
+
              }
-             else {
-                 $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.UpdateUnitDataColumnResult.Message)
-
-             }
-
-
-
-             CheckScopeBeforeApply();
-         },
-         error: function (err) {
-             HideWaitingInv();
-             $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
-
-
-         }
-     });
+         });
 
 
     }
@@ -422,7 +423,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
-
+        $scope.IsSaving = true;
         var _TempObj = angular.copy(Obj);
         _TempObj.mobileorder=1;
         var _toSendObj={
@@ -441,7 +442,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
             cfdID:_TempObj.cfdid
         }
 
-        ShowWaitingInv();
+        //ShowWaitingInv();
         $.ajax
      ({
          type: "POST",
@@ -452,11 +453,12 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
          success: function (response) {
              debugger;
              HideWaitingInv();
+             $scope.IsSaving = false;
+
              if (response.UpdateCustomColumnResult.Success == true) {
                  setTimeout(function () {
                      ShowSuccess("Saved");
-
-                     // $scope.GetAllData(false);
+                    $scope.GetAllData(true);
 
                  },1000);
              }
@@ -470,6 +472,8 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
          },
          error: function (err) {
              HideWaitingInv();
+             $scope.IsSaving = false;
+
              $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
 
 
@@ -530,6 +534,8 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
                dataType: 'json',
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
                success: function (response) {
+
+
                    $scope.UnitDataColumns = [];
                    if (response.GetUnitDataColumnsResult.Success == true) {
                        var _unitDataColumns = response.GetUnitDataColumnsResult.Payload;
@@ -542,7 +548,8 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
                        }
 
                    }
-                   else {
+                   else
+                   {
                        $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.GetUnitDataColumnsResult.Message)
 
                    }

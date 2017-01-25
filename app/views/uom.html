@@ -98,8 +98,8 @@
       
 
         <div class="input-group">
-            <input style="border-radius:0px; border-bottom:transparent;" ng-change="FilterRecordsLength.length=(UOMList | filter:SearchData.test).length" class="form-control" placeholder="Type to search" type="text" ng-model="SearchData.test">
-            <i ng-if="SearchData.test!=''" id="btnClearSearch" ng-click="ClearFilter()" class="fa filtercross fa-times"></i>
+            <input style="border-radius:0px; border-bottom:transparent;" ng-change="FilterRecordsLength.length=(UOMList | filter:SearchData.test).length" class="form-control hideaddclear" placeholder="Type to search" type="text" ng-model="SearchData.test">
+            <i ng-if="SearchData.test!=''" id="btnClearSearch" ng-click="ClearFilter()" class="fa filtercross fa-times-circle"></i>
         </div>
 
         <ul class="list-group">

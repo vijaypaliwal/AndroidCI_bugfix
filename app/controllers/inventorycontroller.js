@@ -17,7 +17,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.IsFormDataloaded = false;
     $scope.Isopendiv = true;
     $scope.InventoryObject = {
-        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
+        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
         UpdateDate: "/Date(1320825600000-0800)/", Status: "", ItemGroup: "", UniqueDate: null, UnitDate2: null, UnitNumber1: "", UnitNumber2: "", UnitTag2: "",
         UnitTag3: "", CustomPartData: [], CustomTxnData: []
     };
@@ -77,7 +77,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         }
     });
 
-    $scope.CommonArray = ['Image', 'iUnitNumber1', 'iUnitNumber2', 'iUniqueDate', 'iUnitDate2', 'iUnitTag3', 'iUnitTag2', 'iReqValue', 'pPart', 'pDescription', 'iQty', 'lLoc', 'lZone', 'iStatusValue', 'uomUOM', 'pCountFrq', 'iCostPerUnit'];
+    $scope.CommonArray = ['Image', 'DefaultItemUOM', 'pDefaultCost', 'pReorderQty', 'pTargetQty', 'DefaultItemLocation', 'iUnitNumber1', 'iUnitNumber2', 'iUniqueDate', 'iUnitDate2', 'iUnitTag3', 'iUnitTag2', 'iReqValue', 'pPart', 'pDescription', 'iQty', 'lLoc', 'lZone', 'iStatusValue', 'uomUOM', 'pCountFrq', 'iCostPerUnit'];
 
     $scope.LocationList = [{ LocationName: "dhdd", LocationZone: "", LocationID: 678325 },
                            { LocationName: "Here", LocationZone: "", LocationID: 678323 },
@@ -185,6 +185,33 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
     });
 
+    $scope.GetUOMName = function (ID) {
+        var _id = ID != null && ID != undefined ? parseInt(ID) : 0;
+
+        if ($scope.UOMList.length > 0) {
+
+            for (var i = 0; i < $scope.UOMList.length; i++) {
+                if ($scope.UOMList[i].UnitOfMeasureID == _id) {
+                    return $scope.UOMList[i].UnitOfMeasureName;
+                }
+            }
+        }
+
+        return "";
+    }
+
+    $scope.GetLocationName = function (ID) {
+        var _id = ID != null && ID != undefined ? parseInt(ID) : 0;
+        if ($scope.LocationList.length > 0) {
+            for (var i = 0; i < $scope.LocationList.length; i++) {
+                if ($scope.LocationList[i].LocationID == _id) {
+                    return $scope.LocationList[i].LocationName;
+                }
+            }
+        }
+
+        return "";
+    }
 
     $scope.OpenmenuModal = function () {
 
@@ -456,6 +483,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.GetLastValue('Inv_UnitDate2', '#UnitDate2');
         $scope.GetLastValue('Inv_UnitNumber1', '#UnitNumber1');
         $scope.GetLastValue('Inv_UnitNumber2', '#UnitNumber2');
+
+        $scope.GetLastValue('Inv_DefaultItemLocationID', '#DefaultItemLocationID');
+        $scope.GetLastValue('Inv_pTargetQty', '#pTargetQty');
+        $scope.GetLastValue('Inv_pReorderQty', '#pReorderQty');
+        $scope.GetLastValue('Inv_pDefaultCost', '#pDefaultCost');
+        $scope.GetLastValue('Inv_DefaultItemUOM', '#DefaultItemUOM');
         if ($scope.CustomItemDataList.length > 0) {
 
             for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
@@ -567,7 +600,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $scope.InventoryObject.lZone = obj.DefaultLocationGroup;
         $scope.InventoryObject.ItemGroup = obj.ItemGroup;
+        $scope.InventoryObject.pDefaultCost = obj.DefaultCost;
+        $scope.InventoryObject.pTargetQty = obj.pTargetQty;
+        $scope.InventoryObject.pReorderQty = obj.pReorderQty;
+        $scope.InventoryObject.DefaultItemLocationID = obj.DefaultLocationID;
 
+        $scope.InventoryObject.DefaultItemUOM = obj.DefaultUomID;
         $scope.IsItemChose = true;
 
 
@@ -914,7 +952,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.resetObject = function () {
         $scope.InventoryObject = {
-            IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
+            IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
             UpdateDate: "/Date(1320825600000-0800)/", Status: "", ItemGroup: "", UniqueDate: null, UnitDate2: null, UnitNumber1: "", UnitNumber2: "", UnitTag2: "",
             UnitTag3: "", CustomPartData: [], CustomTxnData: []
         };
@@ -2534,7 +2572,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.IsinavailableInventoryField = function (field) {
-        var _FieldArray = ["iReqValue", "iUnitTag2", "iUnitTag3", "iUniqueDate", "iUnitDate2", "iUnitNumber1", "iUnitNumber2", "pDescription", "pPart", "lLoc", "uomUOM", "iQty", "iStatusValue", "pCountFrq", "lZone"]
+        var _FieldArray = ["iReqValue", "iUnitTag2", "iUnitTag3", "iUniqueDate", "pDefaultCost", "pReorderQty", "pTargetQty", "iUnitDate2", "iUnitNumber1", "iUnitNumber2", "pDescription", "pPart", "lLoc", "uomUOM", "iQty", "iStatusValue", "pCountFrq", "lZone"]
 
 
 

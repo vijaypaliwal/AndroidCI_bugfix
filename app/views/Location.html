@@ -102,12 +102,12 @@
                                 <div style="position:relative" class="fg-line">
 
 
-                                    <input style="border-radius:0px;" id="MasterSearch" type="text" ng-model="SearchData.SearchValue" class="form-control" placeholder="Type location to Search">
+                                    <input style="border-radius:0px;" id="MasterSearch" type="text" ng-model="SearchData.SearchValue" class="form-control hideaddclear" placeholder="Type location to Search">
 
 
                                     <i></i>
                                 </div>
-                                <i ng-if="SearchData.SearchValue!=''" id="btnClearSearchNew" ng-click="ClearFilter()" class="fa right47 filtercross fa-times"></i>
+                                <i ng-if="SearchData.SearchValue!=''" id="btnClearSearchNew" ng-click="ClearFilter()" class="fa right47 filtercross fa-times-circle"></i>
 
                                 <a class="input-group-addon last textData" style="margin-top: 0px;  width: 37px;" id="btnMasterSearch" ng-click="GetLocations()"><i class="fa fa-search" style="font-size:20px;"></i> </a>
                             </div>

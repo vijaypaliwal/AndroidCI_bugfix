@@ -13,6 +13,7 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
     Password:"",
     TAndC:false
     };
+    $scope.dataType = "password";
 
     $scope.IsProcessing = false;
     $scope.signUp = function () {
@@ -61,19 +62,18 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
     };
 
     $scope.showpassword = function () {
-        $(".dotfield").hide();
-        $(".textfield").show();
         $(".showbtn").hide();
         $(".hidebtn").show();
+        $("#Password").attr("type","text");
+        $scope.$apply();
        
     }
 
 
     $scope.hidepassword = function () {
-        $(".dotfield").show();
-        $(".textfield").hide();
         $(".showbtn").show();
         $(".hidebtn").hide();
+        $("#Password").attr("type", "password");
 
     }
 
