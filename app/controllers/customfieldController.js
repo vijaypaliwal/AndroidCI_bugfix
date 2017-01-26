@@ -453,12 +453,12 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
          success: function (response) {
              debugger;
              HideWaitingInv();
-             $scope.IsSaving = false;
 
              if (response.UpdateCustomColumnResult.Success == true) {
                  setTimeout(function () {
                      ShowSuccess("Saved");
                     $scope.GetAllData(true);
+                    $scope.IsSaving = false;
 
                  },1000);
              }
