@@ -1,4 +1,15 @@
 
+.container .row
+{
+    margin-left:0;
+    margin-right:0;
+}
+
+.form-control
+{
+ border-radius:5px !important;
+}
+
 .summaryClearbtn {
     background: transparent;
     border: 1px solid transparent;

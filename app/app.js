@@ -184,7 +184,6 @@ app.config(function ($routeProvider) {
 
 //var serviceBaseUrl = 'http://localhost:7440/';
 //var serviceBase = 'http://localhost:7440/API/ClearlyInventoryAPI.svc/';
-
 var serviceBaseUrl = 'https://test.inventory4.com/';
 var serviceBase = 'https://test.inventory4.com/API/ClearlyInventoryAPI.svc/';
 

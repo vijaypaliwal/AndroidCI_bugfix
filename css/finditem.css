@@ -3,6 +3,11 @@
     font-size:21px;
 }
 
+.list-group-item-heading .pull-right span {
+
+    text-transform:none;
+}
+
 
 #sticky {
     width: 100%;
@@ -644,6 +649,7 @@ body {
     box-shadow: none !important;
     padding-left: 3px;
     font-size: 13px;
+    text-transform:none;
 }
 
 .multiselect-container {
