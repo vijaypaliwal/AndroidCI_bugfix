@@ -50,6 +50,15 @@
         margin-bottom:0;
     }
 
+    .smallBtn {
+        padding: 0px;
+        height: 40px;
+        width: 40px;
+        background: #128ece;
+        border-radius: 100%;
+        color: #fff !important;
+    }
+
 
 </style>
 
@@ -353,7 +362,7 @@
 
                                 <div ng-if="CurrentOperation=='Update'">
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <!--<div class="fg-line">
@@ -402,6 +411,15 @@
                                             </div>
 
 
+                                        </div>
+
+                                        <div class="col-xs-2 col-md-2">
+                                            <div ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true">
+                                                <label>&nbsp;</label>
+                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="col-xs-4 col-md-4" ng-if="$index==0">
                                             <div class="pull-right">
@@ -714,7 +732,7 @@
 
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-6 col-md-6">
 
                                             <div class="form-group">
 
@@ -756,6 +774,16 @@
 
 
                                         </div>
+
+                                        <div class="col-xs-2 col-md-2">
+                                            <div ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true">
+                                                <label>&nbsp;</label>
+                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <div class="col-xs-4 col-md-4" ng-if="$index==0">
                                             <div class="pull-right">
                                                 <label>&nbsp;</label>
@@ -829,7 +857,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <!--<div class="fg-line">
@@ -879,6 +907,16 @@
                                             </div>
 
                                         </div>
+
+                                        <div class="col-xs-2 col-md-2">
+                                            <div ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true">
+                                                <label>&nbsp;</label>
+                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <div class="col-xs-4 col-md-4" ng-if="$index==0">
                                             <label>&nbsp;</label>
                                             <div class="pull-right">
@@ -2349,7 +2387,7 @@
                             <br />
 
                             <div class="row">
-                                <div class="col-xs-8 col-md-8">
+                                <div class="col-xs-6 col-md-6">
 
                                     <div class="form-group">
                                         <label>New Unit of Measure <span>*</span></label>
@@ -2389,6 +2427,16 @@
 
 
                                 </div>
+
+                                <div class="col-xs-2 col-md-2">
+                                    <div ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true">
+                                        <label>&nbsp;</label>
+                                        <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div class="col-xs-4 col-md-4">
                                     <div class="pull-right">
                                         <label>&nbsp;</label>
@@ -3168,7 +3216,7 @@
                 <div style="text-align: center; border: 1px solid #eeeeee;">
                     <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
                     <h4 style="font-size:15px;">We can't find the location you're looking for</h4>
-
+                    <h5 ng-if="TrimValue(SearchLocationValue)!='' && IsActiveLocationLibrary==true && checkpermission('URL:Manage/Location')==true">click to <span ng-click="filllocationAutoComplete()" style="cursor:pointer; color:#0083C7; font-size:20px;">{{SearchLocationValue}}</span>  for add in your list.</h5>
                 </div>
             </div>
 
@@ -3286,6 +3334,38 @@
             <li class="bottomlink" data-dismiss="modal" data-ng-click=" changeMode()"><span>Switch mode</span><a style="background-color: #616161" class="btn waves-effect-info btn decrease"> <i class="fa fa-undo"></i>  </a></li>
 
         </ul>
+    </div>
+</div>
+
+<div style="background:#fff;" id="createnewlabel" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+        <h4>Create new <span ng-if="CreateType==1">Unit of measure</span> <span ng-if="CreateType==2">Status</span></h4>
+    </div>
+
+    <div style="padding:15px;" class="modal-body">
+
+        <div class="form-group">
+            <label>Enter new <newtag ng-if="CreateType==1">Unit of measure</newtag> <newtag ng-if="CreateType==2">Status</newtag> </label>
+
+            <div class="input-group">
+                <input type="text" ng-model="CreateNewLabel" class="form-control" value="" />
+
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button ng-disabled="CreateNewLabel==''" ng-click="SaveLabel(CreateType)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+
+                    <a href="#" data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+                </div>
+
+
+            </div>
+        </div>
+
     </div>
 </div>
 
