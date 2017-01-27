@@ -3,6 +3,12 @@
 
 <link href="css/customfield.css" rel="stylesheet" />
 
+<style>
+    .clearicon {
+        color:#ccc;
+    }
+</style>
+
 
 <div class="title-header">
     <div class="row">
@@ -37,8 +43,8 @@
     </div>
 
     <div ng-show="Issearch==true" class="row rowMargin">
-        <input type="text" placeholder="Type Name, datatype to search" ng-model="SearchString" class="form-control" name="name" value=" " />
-        <i class="fa fa-times clearicon" ng-if="GetTrimmedStringData(SearchString)!=''" ng-click="ClearFilter()"></i>
+        <input type="text" placeholder="Type Name, datatype to search" ng-model="SearchString" class="form-control hideaddclear" name="name" value=" " />
+        <i class="fa fa-times-circle clearicon" ng-if="GetTrimmedStringData(SearchString)!=''" ng-click="ClearFilter()"></i>
     </div>
 
 
