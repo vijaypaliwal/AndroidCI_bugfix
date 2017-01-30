@@ -34,6 +34,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.AffectedItemIds = [];
     $scope.CurrentHref = "";
     $scope.ColumnList = [];
+    $scope.CreateNewLabel = "";
 
      
 
@@ -168,9 +169,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
     $scope.SaveLabel = function (Type) {
+      
+
+      
         if ($scope.checkDuplicate(Type)) {
 
-            debugger;
+        
             if (Type == 1) {
                 var _uomobj = { UnitOfMeasureName: $scope.CreateNewLabel, UnitOfMeasureID: -2 };
                 $scope.UOMList.push(_uomobj);
