@@ -345,6 +345,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
             $scope.$apply();
+            $(_ID).trigger("input");
             $(".uniqueunitData").first().trigger("blur");
             var $inputs = $(".uniqueunitData");
             $inputs.trigger('blur');
@@ -431,7 +432,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             }
 
             $scope.$apply();
-
+            $(_ID).trigger("input");
 
         }, function (error) {
             log.error("Scanning failed: ", error);
@@ -3302,6 +3303,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 _MyObjdata.Targets.ToUom = _TempUOM;
                 _MyObjdata1.Targets.ToUom = _TempUOM;
                 _MyObjdata2.Targets.ToUom = _TempUOM;
+
+                _MyObjdata.Targets.ToUomID = $scope.CurrentCart[k].ConvertTransactionData.ToUOMID;
+                _MyObjdata1.Targets.ToUomID = $scope.CurrentCart[k].ConvertTransactionData.ToUOMID;
+                _MyObjdata2.Targets.ToUomID = $scope.CurrentCart[k].ConvertTransactionData.ToUOMID;
             }
 
             if ($scope.CurrentOperation == "Adjust") {
