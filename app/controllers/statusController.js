@@ -24,25 +24,30 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
     }
 
     $scope.mainObjectToSend = [];
-    function init()
-    {
-    $scope.getstatus();
-    $scope.$apply();
+    function init() {
+
+        $scope.getstatus();
+
+
+
+        $scope.$apply();
     }
 
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
 
 
-    $scope.keepformopen = function (check)
-    {
+    $scope.keepformopen = function (check) {
+
+
         $scope.check = check;
         $scope.$apply();
     }
 
 
-    $scope.logOut = function ()
-    {
+    $scope.logOut = function () {
+
+
         authService.logOut();
         $location.path('/login');
 
@@ -163,7 +168,7 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
 
                     if (result.CreateEditStatusResult.Success == true) {
                    
-                    if (result.CreateEditStatusResult.Payload == 1) {
+                    if (result.CreateEditStatusResult.Payload.ID == 1) {
                         if ($scope.mode == 2) {
                             ShowSuccess("Added");
                             if ($scope.check == true || $scope.check == "true") {
@@ -192,11 +197,61 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
 
                     }
 
-                    if (result.CreateEditStatusResult.Payload == 0) {
+                    if (result.CreateEditStatusResult.Payload.ID == 0) {
+                        if ($scope.mode == 3) {
+                            var _headerText = result.CreateEditStatusResult.Payload.OldStatus + " into " + result.CreateEditStatusResult.Payload.NewStatus + " ?"
+                            var _OldStatus = result.CreateEditStatusResult.Payload.OldStatus;
+                            var _NewStatus = result.CreateEditStatusResult.Payload.NewStatus;
+                            var box = bootbox.confirm(_headerText, function (result) {
+                                if (result) {
 
-                        log.warning("Already exist");
-                        $scope.IsProcessing = false;
-                        $scope.$apply();
+                                    $.ajax({
+                                        url: serviceBase + "MergeStatus",
+                                        type: 'POST',
+                                        data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "OldStatus": _OldStatus, "NewStatus": _NewStatus }),
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        success: function (result) {
+
+                                            if (result.MergeStatusResult.Success == true) {
+
+                                                ShowSuccess("Merged");
+                                                $scope.getstatus();
+
+                                                $scope.mode = 1;
+
+                                            }
+                                            else {
+                                                $scope.ShowErrorMessage("Merging status", 1, 1, result.MergeStatusResult.Message)
+
+                                            }
+
+                                        },
+                                        error: function (err) {
+                                            $scope.ShowErrorMessage("Merging status", 2, 1, err.statusText);
+
+
+
+                                        },
+                                        complete: function () {
+                                        }
+
+                                    });
+                                }
+                            });
+
+                            var _msg = "The new status name you have chosen is already in use.  If you like, you may merge all existing records at the status, " + _OldStatus + ", into the existing unit of measure called " + _NewStatus + ".<br /><br />If you proceed, all existing references to " + _OldStatus + " will be removed.  <strong>This may take up to a minute, and the action cannot be undone.</strong><br /><br /> Would you like to proceed?"
+
+                            box.on("shown.bs.modal", function () {
+                                $(".mybootboxbody").html(_msg);
+
+                            });
+                        }
+                        if ($scope.mode == 2) {
+                            log.warning("Already exist");
+                            $scope.IsProcessing = false;
+                            $scope.$apply();
+                        }
                     }
                     }
                     else {

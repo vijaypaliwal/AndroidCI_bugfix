@@ -184,16 +184,60 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
 
                         }
                       
-                        if ($scope.mode == 3) {
-                            ShowSuccess("Updated");
-                            $scope.getItemgroup();
-                            $scope.mode = 1;
-                        }
+                      
 
                         if (result.CreateEditItemGroupResult.Payload.pcfID == 0)
                         {
 
-                          
+                            if ($scope.mode == 3) {
+                                var _headerText = result.CreateEditItemGroupResult.Payload.OldpcfCountFrq + " into " + result.CreateEditItemGroupResult.Payload.pcfCountFrq + " ?"
+                                var _OldGroup = result.CreateEditItemGroupResult.Payload.OldpcfCountFrq;
+                                var _NewGroup = result.CreateEditItemGroupResult.Payload.pcfCountFrq;
+                                var box = bootbox.confirm(_headerText, function (result) {
+                                    if (result) {
+
+                                        $.ajax({
+                                            url: serviceBase + "MergeItemGroup",
+                                            type: 'POST',
+                                            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "OldItemGroup": _OldGroup, "NewItemGroup": _OldGroup }),
+                                            dataType: 'json',
+                                            contentType: 'application/json',
+                                            success: function (result) {
+
+                                                if (result.MergeItemGroupResult.Success == true) {
+
+                                                    ShowSuccess("Merged");
+                                                    $scope.getItemgroup();
+
+                                                    $scope.mode = 1;
+
+                                                }
+                                                else {
+                                                    $scope.ShowErrorMessage("Merging Group", 1, 1, result.MergeItemGroupResult.Message)
+
+                                                }
+
+                                            },
+                                            error: function (err) {
+                                                $scope.ShowErrorMessage("Merging Group", 2, 1, err.statusText);
+
+
+
+                                            },
+                                            complete: function () {
+                                            }
+
+                                        });
+                                    }
+                                });
+
+                                var _msg = "The new Item Group name you have chosen is already in use.  If you like, you may merge all existing records at the Item Group, " + _OldGroup + ", into the existing Item Group called " + _NewGroup + ".<br /><br />If you proceed, all existing references to " + _OldGroup + " will be removed.  <strong>This may take up to a minute, and the action cannot be undone.</strong><br /><br /> Would you like to proceed?"
+
+                                box.on("shown.bs.modal", function () {
+                                    $(".mybootboxbody").html(_msg);
+
+                                });
+                            }
 
                             if ($scope.mode == 2) {
                                 log.warning("Already Exist, please update");

@@ -29,7 +29,7 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
 
     $('#bottommenumodal').on('hidden.bs.modal', function () {
-        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
+        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
     });
 
 
@@ -80,7 +80,9 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
         if (!$scope.$$phase) {
             $scope.$apply();
         }
-    };
+    }
+
+
     $scope.FilterArray = [
        { ColumnName: 'lLoc', FilterOperator: 'cn', SearchValue: $('#lLoc-filter').val() },
         { ColumnName: 'lDescription', FilterOperator: 'cn', SearchValue: $('#lDescription-filter').val() },
@@ -114,10 +116,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
                     CheckScopeBeforeApply();
                     $scope.GetLocations();
                 }
-                else {
-                    // log.info("You have already loaded all data.")
-                }
-
             }
         }
 
@@ -212,13 +210,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
                     }
                     else {
                         $(".norecords").hide();
-
-
-                    }
-
-                    if ($scope.ActualTotalRecords) {
-                    } else {
-                    
                     }
                 }
                 else {
@@ -264,6 +255,8 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
     $scope.editlocation = function (obj) {
 
+
+
         $scope.mode = 3;
 
         $scope.locationdata.LocationName = obj.LocationName;
@@ -296,10 +289,10 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
             success: function (result) {
                 $scope.IsProcessing = false;
                 debugger;
-
                 if (result.CreateEditLocationResult.Success == true) {
 
-                    if (result.CreateEditLocationResult.Payload == 1) {
+                    
+                        if (result.CreateEditLocationResult.Payload.ID == 1) {
                         if ($scope.mode == 2) {
                             ShowSuccess("Added");
 
@@ -324,7 +317,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
                         if ($scope.mode == 3) {
 
-                            debugger;
 
 
                             $scope.similar = false;
@@ -332,7 +324,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
                             for (var i = 0; i < $scope.Locations.length; i++) {
 
-                                debugger;
 
                                 if ($scope.Locations[i].LocationName === $scope.locationdata.LocationName) {
                                     log.warning("Already exist or change some value");
@@ -346,16 +337,11 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
                                 $scope.mode = 1;
                                 $scope.GetLocations();
                             }
-                           
+
                         }
 
 
-
-
-
-                      
-
-                     //   $scope.SearchData.SearchValue = "";
+                      //  $scope.SearchData.SearchValue = "";
                         $scope.FilterArray[0].SearchValue = "";
                         $scope.FilterArray[1].SearchValue = "";
                         $scope.FilterArray[2].SearchValue = "";
@@ -366,12 +352,67 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
                     }
 
-                    if (result.CreateEditLocationResult.Payload == 0) {
+                    if (result.CreateEditLocationResult.Payload.ID == 0) {
+                        if ($scope.mode == 3) {
 
-                        log.warning("Already exist");
+                            var _headerText = result.CreateEditLocationResult.Payload.OldLoc + " into " + result.CreateEditLocationResult.Payload.NewLoc + " ?"
+                            var _OldLoc = result.CreateEditLocationResult.Payload.OldLoc;
+                            var _NewLoc = result.CreateEditLocationResult.Payload.NewLoc;
+                            var _NewDesc = result.CreateEditLocationResult.Payload.NewDescription;
+                            var _NewZone = result.CreateEditLocationResult.Payload.NewZone;
+                            var box = bootbox.confirm(_headerText, function (result) {
+                                if (result) {
+
+                                    $.ajax({
+                                        url: serviceBase + "MergeLocation",
+                                        type: 'POST',
+                                        data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "OldLoc": _OldLoc, "NewLoc": _NewLoc, "NewDescription": _NewDesc, "NewZone": _NewZone }),
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        success: function (result) {
+
+                                            if (result.MergeLocationResult.Success == true) {
+
+                                                ShowSuccess("Merged");
+                                                $scope.GetLocations();
+
+                                                $scope.mode = 1;
+
+                                            }
+                                            else {
+                                                $scope.ShowErrorMessage("Merging Location", 1, 1, result.MergeLocationResult.Message)
+
+                                            }
+
+                                        },
+                                        error: function (err) {
+                                            $scope.ShowErrorMessage("Merging Location", 2, 1, err.statusText);
+
+
+
+                                        },
+                                        complete: function () {
+                                        }
+
+                                    });
+                                }
+                            });
+
+                            var _msg = "The new Location name you have chosen is already in use.  If you like, you may merge all existing records at the Location, " + _OldLoc + ", into the existing Location called " + _NewLoc + ".<br /><br />If you proceed, all existing references to " + _OldLoc + " will be removed.  <strong>This may take up to a minute, and the action cannot be undone.</strong><br /><br /> Would you like to proceed?"
+
+                            box.on("shown.bs.modal", function () {
+                                $(".mybootboxbody").html(_msg);
+
+                            });
+                        }
+                        if ($scope.mode == 2) {
+                            log.warning("Already Exist, please update");
+                        }
                         $scope.IsProcessing = false;
                         $scope.$apply();
                     }
+
+
 
 
                 }
@@ -431,8 +472,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
                             setTimeout(function () {
                                 $scope.GetLocations();
                             }, 400)
-
-                         
 
                         }
 
