@@ -997,6 +997,23 @@
 
             $(this).trigger("change");
         });
+
+        $(document).on('change', 'input[type="text"],input[type="number"]', function () {
+
+
+            $('input[type="text"]').not(".hideaddclear").addClear({
+                symbolClass: "fa fa-times-circle"
+            });
+            $('input[type="number"]').addClear({
+                symbolClass: "fa fa-times-circle"
+            });
+
+            $('input[type="password"]').addClear({
+                symbolClass: "fa fa-times-circle"
+            });
+
+
+        });
         $(".signoutbtn").click(function () {
             $("#sidenav-overlay").hide();
             $(".side-nav").hide();
