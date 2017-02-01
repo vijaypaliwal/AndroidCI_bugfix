@@ -110,7 +110,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             if (authData) {
                 $scope.SecurityToken = authData.token;
             }
-            $scope.IsProcessing = true;
             var datatosend = { "StatusId": 0, "StatusValue": $scope.StatusToCreate };
 
 
@@ -122,7 +121,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 contentType: 'application/json',
                 success: function (result) {
 
-                    $scope.IsProcessing = false;
 
                     if (result.CreateEditStatusResult.Success == true) {
 
@@ -150,13 +148,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                 },
                 error: function (err) {
-                    $scope.IsProcessing = false;
                     $scope.ShowErrorMessage("Updating Status", 2, 1, err.statusText);
 
 
                 },
                 complete: function () {
-                    $scope.IsProcessing = false;
                 }
 
             });
