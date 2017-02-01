@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 app.controller('activityController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
     $scope.CurrentCart = [];
     $scope.SavingData = false;
@@ -99,7 +99,73 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         return true;
     }
 
+    $scope.savestatus = function (Statusvalue) {
 
+        var _StatusValue = $.trim(Statusvalue);
+
+        if (_StatusValue != "") {
+
+            $scope.StatusToCreate = Statusvalue;
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                $scope.SecurityToken = authData.token;
+            }
+            $scope.IsProcessing = true;
+            var datatosend = { "StatusId": 0, "StatusValue": $scope.StatusToCreate };
+
+
+            $.ajax({
+                url: serviceBase + "CreateEditStatus",
+                type: 'POST',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "_StatusVM": datatosend }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+
+                    $scope.IsProcessing = false;
+
+                    if (result.CreateEditStatusResult.Success == true) {
+
+                        if (result.CreateEditStatusResult.Payload == 1) {
+                            if ($scope.mode == 2) {
+                                ShowSuccess("Added");
+
+                            }
+
+
+
+
+                        }
+
+                        if (result.CreateEditStatusResult.Payload == 0) {
+
+                            log.warning("Already exist");
+                            $scope.$apply();
+                        }
+                    }
+                    else {
+                        $scope.ShowErrorMessage("Updating status", 3, 1, result.CreateEditStatusResult.Message)
+
+                    }
+
+                },
+                error: function (err) {
+                    $scope.IsProcessing = false;
+                    $scope.ShowErrorMessage("Updating Status", 2, 1, err.statusText);
+
+
+                },
+                complete: function () {
+                    $scope.IsProcessing = false;
+                }
+
+            });
+
+            $scope.$apply();
+
+        }
+
+    }
     $scope.saveUOM = function (value, _index) {
 
         var _StatusValue = $.trim(value);
