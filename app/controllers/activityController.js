@@ -4446,6 +4446,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
                                 $scope.IssueType = 3;
+                                return true;
+
+                                break;
                             }
 
 
@@ -4519,6 +4522,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
                                 $scope.IssueType = 3;
+                                return true;
+
+                                break;
                             }
 
 
@@ -4611,7 +4617,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
                             else if (_AllowNegative != null && _AllowNegative != "True") {
-                                debugger;
                                 if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
 
                                     if ($scope.IsSingleMode == false) {
