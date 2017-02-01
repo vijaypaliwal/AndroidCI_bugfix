@@ -179,7 +179,12 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
                                     $scope.mode = 1;
                                 }
                             }
-
+                            if ($scope.mode == 3) {
+                                $scope.IsProcessing = false;
+                                ShowSuccess("Updated");
+                                $scope.getItemgroup();
+                                $scope.mode = 1;
+                            }
                         
 
                         }
