@@ -114,7 +114,7 @@
 
     <div ng-if="IsSingleMode==false" onclick="cartitems()" class="collapsible-header">
         <span class="checkout-price">Show Cart summary</span>
-        <i class="ion-android-arrow-dropdown"></i>
+        <i id="updownIcon" class="ion-android-arrow-dropdown"></i>
         <span ng-click="selecteditemlist()" class="checkout-price right">{{CurrentCart.length}} Items</span>
     </div>
 
@@ -3444,12 +3444,15 @@
                 $(".bottomarrow").hide();
                 $(".rightarrow").show();
                 $(".customActivityData").css("padding-top", "50px");
-
+                $("#updownIcon").attr("class", "");
+                $("#updownIcon").addClass("ion-android-arrow-dropup");
             }
             else {
                 $(".bottomarrow").show();
                 $(".rightarrow").hide();
                 $(".customActivityData").css("padding-top", "10px");
+                $("#updownIcon").attr("class", "");
+                $("#updownIcon").addClass("ion-android-arrow-dropdown");
             }
         }, 500);
 

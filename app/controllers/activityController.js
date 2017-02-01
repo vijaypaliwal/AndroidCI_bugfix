@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 app.controller('activityController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
     $scope.CurrentCart = [];
     $scope.SavingData = false;
@@ -100,88 +100,131 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
 
-    $scope.savestatus = function (Statusvalue) {
+    $scope.saveUOM = function (value, _index) {
 
-        var _StatusValue = $.trim(Statusvalue);
+        var _StatusValue = $.trim(value);
+        var _UOM = { ID: 0, value: "" };
 
         if (_StatusValue != "") {
 
-            $scope.StatusToCreate = Statusvalue;
+
+
+            $scope.UOMToCreate = value;
             var authData = localStorageService.get('authorizationData');
             if (authData) {
                 $scope.SecurityToken = authData.token;
             }
-            $scope.IsProcessing = true;
-            var datatosend = { "StatusId": 0, "StatusValue": $scope.StatusToCreate };
+
+            var datatosend = { "UomID": 0, "UOM": $scope.UOMToCreate };
 
 
             $.ajax({
-                url: serviceBase + "CreateEditStatus",
+                url: serviceBase + "CreateEditUOM",
                 type: 'POST',
-                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "_StatusVM": datatosend }),
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "UOMModel": datatosend }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (result) {
 
-                    $scope.IsProcessing = false;
 
-                    if (result.CreateEditStatusResult.Success == true) {
+                    if (result.CreateEditUOMResult.Success == true) {
 
-                        if (result.CreateEditStatusResult.Payload == 1) {
-                            if ($scope.mode == 2) {
-                                ShowSuccess("Added");
+                        if (result.CreateEditUOMResult.Payload.ID == 1) {
 
-                            }
+                            _UOM.ID = result.CreateEditUOMResult.Payload.NewUOM;
+                            _UOM.value = result.CreateEditUOMResult.Payload.OldUOM;
 
-
-
-
+                            $scope.CurrentCart[_index].ConvertTransactionData.ToUOM = _UOM.value;
+                            $scope.CurrentCart[_index].ConvertTransactionData.ToUOMID = _UOM.ID;
+                            var _uomobj = { UnitOfMeasureName: _UOM.value, UnitOfMeasureID: _UOM.ID };
+                            $scope.UOMList.push(_uomobj);
+                            CheckScopeBeforeApply();
                         }
 
-                        if (result.CreateEditStatusResult.Payload == 0) {
 
-                            log.warning("Already exist");
-                            $scope.$apply();
+
+                        if (result.CreateEditUOMResult.Payload.ID == 0) {
+
+
+
+                            var _headerText = result.CreateEditUOMResult.Payload.OldUOM + " into " + result.CreateEditUOMResult.Payload.NewUOM + " ?"
+                            var _OldUOM = result.CreateEditUOMResult.Payload.OldUOM;
+                            var _NewUOM = result.CreateEditUOMResult.Payload.NewUOM;
+                            var box = bootbox.confirm(_headerText, function (result) {
+                                if (result) {
+
+                                    $.ajax({
+                                        url: serviceBase + "MergeUOM",
+                                        type: 'POST',
+                                        data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "OldUOM": _OldUOM, "NewUOM": _NewUOM }),
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        success: function (result) {
+
+                                            if (result.MergeUOMResult.Success == true) {
+
+
+                                            }
+                                            else {
+                                                $scope.ShowErrorMessage("Merging UOM", 1, 1, result.MergeUOMResult.Message)
+
+                                            }
+
+                                        },
+                                        error: function (err) {
+                                            $scope.ShowErrorMessage("Merging UOM", 2, 1, err.statusText);
+
+
+
+                                        },
+                                        complete: function () {
+                                        }
+
+                                    });
+                                }
+                            });
+
+                            var _msg = "The new unit of measure name you have chosen is already in use.  If you like, you may merge all existing records at the unit of measure, " + _OldUOM + ", into the existing unit of measure called " + _NewUOM + ".<br /><br />If you proceed, all existing references to " + _OldUOM + " will be removed.  <strong>This may take up to a minute, and the action cannot be undone.</strong><br /><br /> Would you like to proceed?"
+
+                            box.on("shown.bs.modal", function () {
+                                $(".mybootboxbody").html(_msg);
+
+                            });
+
+
+
+                            CheckScopeBeforeApply();
                         }
                     }
                     else {
-                        $scope.ShowErrorMessage("Updating status", 3, 1, result.CreateEditStatusResult.Message)
+                        $scope.ShowErrorMessage("Updating UOM", 1, 1, result.CreateEditUOMResult.Message)
 
                     }
-
                 },
                 error: function (err) {
                     $scope.IsProcessing = false;
-                    $scope.ShowErrorMessage("Updating Status", 2, 1, err.statusText);
+                    $scope.ShowErrorMessage("Updating UOM", 2, 1, err.statusText);
+
 
 
                 },
                 complete: function () {
                     $scope.IsProcessing = false;
                 }
-
             });
-
-            $scope.$apply();
-
         }
 
+        return _UOM;
     }
-
     $scope.SaveLabel = function (Type) {
-      
-
-      
         if ($scope.checkDuplicate(Type)) {
 
-        
             if (Type == 1) {
-                var _uomobj = { UnitOfMeasureName: $scope.CreateNewLabel, UnitOfMeasureID: -2 };
-                $scope.UOMList.push(_uomobj);
+
                 CheckScopeBeforeApply();
                 if ($scope.CurrentNewLabelIndex != -1) {
-                    $scope.CurrentCart[$scope.CurrentNewLabelIndex].ConvertTransactionData.ToUOM = $scope.CreateNewLabel;
-                    $scope.CurrentCart[$scope.CurrentNewLabelIndex].ConvertTransactionData.ToUOMID = -2;
+                    $scope.saveUOM($scope.CreateNewLabel, $scope.CurrentNewLabelIndex);
+
                 }
             }
 
@@ -345,7 +388,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
             $scope.$apply();
-            $(_ID).trigger("input");
+           // $(_ID).trigger("input");
             $(".uniqueunitData").first().trigger("blur");
             var $inputs = $(".uniqueunitData");
             $inputs.trigger('blur');
@@ -432,7 +475,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             }
 
             $scope.$apply();
-            $(_ID).trigger("input");
+          //  $(_ID).trigger("input");
 
         }, function (error) {
             log.error("Scanning failed: ", error);
@@ -2654,29 +2697,86 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     };
 
+    $scope.savelocation = function (value) {
+
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        var datatosend = { "LocationID": 0, "LocationName": value, "LocationZone": "", "LocationDescription": "" };
+
+        $scope.IsProcessing = true;
+
+        $.ajax({
+            url: serviceBase + "CreateEditLocation",
+            type: 'POST',
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "_Location": datatosend }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $scope.IsProcessing = false;
+
+                if (result.CreateEditLocationResult.Success == true) {
+
+                    if (result.CreateEditLocationResult.Payload.ID == 1) {
+
+
+                        $scope.OnChangeLocationNameFunction();
+
+                    }
+
+                    if (result.CreateEditLocationResult.Payload.ID == 0) {
+
+                        log.warning("Already exist");
+                    }
+
+
+                }
+                else {
+                    $scope.ShowErrorMessage("Updating location", 1, 1, result.CreateEditLocationResult.Message)
+
+                }
+
+            },
+            error: function (err) {
+                $scope.ShowErrorMessage("Updating location", 2, 1, err.statusText);
+
+
+
+            },
+            complete: function () {
+            }
+
+        });
+
+
+
+    }
     $scope.filllocationAutoComplete = function () {
 
-        var k = 0;
-        for (k = 0; k < $scope.CurrentCart.length; k++) {
 
-            if ($scope.CurrentOperation == "MoveTagUpdate" && $scope.CurrentCart[k].InventoryID == $scope.currentinventoryid) {
-                $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocationText = $scope.SearchLocationValue;
-                $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocation = 0;
-                break;
-            }
+        $scope.savelocation($scope.SearchLocationValue);
+        //var k = 0;
+        //for (k = 0; k < $scope.CurrentCart.length; k++) {
 
-            if ($scope.CurrentOperation == "Move" && $scope.CurrentCart[k].InventoryID == $scope.currentinventoryid) {
+        //    if ($scope.CurrentOperation == "MoveTagUpdate" && $scope.CurrentCart[k].InventoryID == $scope.currentinventoryid) {
+        //        $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocationText = $scope.SearchLocationValue;
+        //        $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocation = 0;
+        //        break;
+        //    }
 
-                debugger;
+        //    if ($scope.CurrentOperation == "Move" && $scope.CurrentCart[k].InventoryID == $scope.currentinventoryid) {
+        //        $scope.CurrentCart[k].MoveTransactionData.MoveToLocationText = $scope.SearchLocationValue;
+        //        $scope.CurrentCart[k].MoveTransactionData.MoveToLocation = 0;
+        //        break;
+        //    }
 
-                $scope.CurrentCart[k].MoveTransactionData.MoveToLocationText = $scope.SearchLocationValue;
-                $scope.CurrentCart[k].MoveTransactionData.MoveToLocation = 0;
-                break;
-            }
 
-        }
-        $("#locationlistmodal").modal('hide');
-        $(".activitycontent").show();
+        //}
+        //$("#locationlistmodal").hide();
+        // $(".activitycontent").show();
         CheckScopeBeforeApply()
 
     }
