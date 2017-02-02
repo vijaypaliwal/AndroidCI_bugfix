@@ -1127,6 +1127,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     log.warning("You are trying to upload more than one image, it may take some time to upload, please be patient.")
                 }
 
+                $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity == "" || $scope.InventoryObject.Quantity == null || $scope.InventoryObject.Quantity==undefined ? 0 : $scope.InventoryObject.Quantity;
 
                 ShowWaitingInv();
                 $.ajax
