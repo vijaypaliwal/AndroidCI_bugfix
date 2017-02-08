@@ -1,93 +1,14 @@
 ﻿
 
+<link href="css/account.css" rel="stylesheet" />
 
 
-<style>
-  
-    body {
-        background: #2196F3;
-    }
-
-    #toolbar
-    {
-        display:none;
-    }
-    .gray-color {
-       color: rgba(136, 136, 136, 0.5) !important;
-    }
-
-    .maincontent
-    {
-        background:#fff;
-    }
-
-    .modal
-    {
-        background:#fff;
-    }
-    .modal-footer
-    {
-        text-align:left;
-    }
-
-    .list-group-item
-    {
-        border:transparent;
-        border-bottom:2px solid #eee;
-    }
-    .list-group-item.selected {
-        background: #e3e3e3;
-    }
-    
-    
-     .btn-warning {
-        height: 50px;
-        width: 50px;
-        line-height: 50px;
-        border-radius: 100%;
-        padding: 0px;
-        text-align: center;
-    }
-
-    .list-group h4 {
-        margin-top: 0px;
-        font-size: 15px;
-        color: #333;
-        margin-bottom: 4px;
-    }
-
-    .list-group p {
-        color: #8e8e8e;
-        font-size:11px;
-        margin-bottom:1px;
-    }
-
-
-    .list-group .fa-angle-right {
-        font-size: 50px;
-        position: absolute;
-        right: 0px;
-        top: 0;
-        color: #ccc;
-    }
-
-    .loaderanimation {
-        text-align: center;
-        position: fixed;
-        top: 22%;
-        z-index: 10;
-        width: 100%;
-    }
-
-    #slide-out-left
-    {
-        display:none !important;
-    }
-</style>
 
 <div style="text-align:center; margin-bottom:15px;">
+
     <img style="height:75px; width:75px;" src="img/u2.png" alt="Alternate Text" />
- </div>
+
+</div>
 
 <div class="animated slideInDown maincontent">
 
@@ -99,22 +20,29 @@
     </div>
 
     <ul class="list-group">
-        <li ng-repeat="_obj in AccountsList"  class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.AccountName)==true}">
-            <a style="display:block" ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)">
+        <li ng-repeat="_obj in AccountsList" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.AccountName)==true}">
 
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div ng-class="{'accent-color': $index % 2 === 0 }" class="btn btn-warning"> {{$index+1}} </div>
-                    </div>
-                    <div ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)" class="col-xs-9">
-                        <h4>{{_obj.AccountName}} <small style="color:brown !important; font-size:11px !important;"> - {{_obj.CustomerType}}</small> </h4>
-                        <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
-                        <p>{{_obj.Email}}</p>
 
-                        <i class="fa fa-angle-right"></i>
-                    </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <div ng-class="{'accent-color': $index % 2 === 0 }" class="btn btn-warning"> {{$index+1}} </div>
                 </div>
-            </a>
+
+                <div ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)" class="col-xs-7">
+                    <h4>{{_obj.AccountName}} <small style="color:brown !important; font-size:11px !important;"> - {{_obj.CustomerType}}</small> </h4>
+                    <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
+                    <p>{{_obj.Email}}</p>
+
+                </div>
+
+                <div class="col-xs-2" ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)">
+                    <a class="btn btn-next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
         </li>
     </ul>
 </div>

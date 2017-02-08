@@ -1,9 +1,9 @@
+.Reusedisabled{
+pointer-events: none;
+    opacity: 0.4;
+cursor:not-allowed;
+}
 
-/*.bknext
-{
-        padding-left: 4px;
-    padding-right: 6px;
-}*/
 
 .innerCols {
     background: #eeeeee;
@@ -40,6 +40,7 @@ body {
 html, body {
     margin: 0 !important;
     padding: 0 !important;
+    height: 100% !important;
 }
 
 
@@ -537,6 +538,8 @@ html, body {
 .rotate {
     -ms-transform: rotate(42deg);
     -webkit-transform: rotate(42deg);
+    -moz-transform: rotate(42deg);
+    -o-transform: rotate(42deg);
     transform: rotate(42deg);
 }
 
@@ -667,6 +670,22 @@ html, body {
     padding-top: 5px;
 }
 
+.detailheight {
+   height: 110px !important;
+    overflow-y: auto;
+    max-height: 140px;
+    background: #fff;
+}
+
+.laststepbtn{
+    width:100% !important;
+    margin-right:15px;
+    max-width:140px !important;
+}
+.darkblue {
+    background-color: rgb(0, 99, 177) !important;
+}
+
 .switch1 {
     position: relative;
     display: inline-block;
@@ -687,6 +706,8 @@ html, body {
     bottom: 0;
     background-color: #fff;
     -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
     transition: .4s;
 }
 
@@ -700,6 +721,8 @@ html, body {
         bottom: 0px;
         background-color: white;
         -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
         transition: .4s;
     }
 
@@ -714,6 +737,8 @@ input:focus + .slider {
 input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
+    -moz-transform: translateX(26px);
+    -o-transform: translateX(26px);
     transform: translateX(26px);
 }
 
@@ -743,6 +768,8 @@ input:checked + .slider:before {
     background-color: #fff;
     border: 1px solid #ccc;
     -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
     transition: .4s;
 }
 
@@ -756,5 +783,7 @@ input:checked + .slider:before {
         bottom: 0px;
         background-color: white;
         -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
         transition: .4s;
     }

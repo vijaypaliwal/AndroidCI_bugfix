@@ -3,17 +3,19 @@
 <link href="css/inventory.css" rel="stylesheet" />
 
 <style>
-    .detailheight {
-        height: 93px !important;
-        overflow-y: auto;
-        max-height: 93px;
-        background: #eee;
+    .iamgebtn {
+        width: 100%;
+        height: 36px;
+        line-height: 36px;
+        font-size: 12px;
+        margin-top: 5px;
     }
 
-    .darkblue {
-        background-color: rgb(0, 99, 177) !important;
-    }
+        .iamgebtn i {
+            font-size:14px;
+        }
 </style>
+
 
 
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
@@ -21,8 +23,9 @@
 
 
 <div class="maincontent animated slideInLeft">
-    <form id="myform" name="myform">
 
+
+    <form id="myform" name="myform">
         <div class="device">
 
             <div class="spinner" style="text-align:center">
@@ -70,7 +73,7 @@
 
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide myCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-if="obj.ColumnName!='HasConversion' && obj.ColumnName!='ActionQty' && obj.ColumnName!='ExtendedCost'" ng-repeat="obj in MyinventoryFields" end-repeat>
+                    <div class="swiper-slide myCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-if="obj.ColumnName!='HasConversion' && obj.ColumnName!='ActionQty'" ng-repeat="obj in MyinventoryFields" end-repeat>
 
                         <div class=" form-group" ng-if="obj.ColumnName=='pPart'">
 
@@ -93,7 +96,7 @@
 
                                         </div>
 
-
+                                        <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                     </div>
 
@@ -147,7 +150,7 @@
 
                             <div class="input-group">
 
-                                <input ng-model="InventoryObject.Quantity" id="iQty" min="0" class="form-control" type="number" pattern="[0-9]*" inputmode="numeric" name="Quantity" value="" />
+                                <input ng-model="InventoryObject.Quantity" id="iQty" min="0" class="form-control" type="number" name="Quantity" value="" />
 
 
                             </div>
@@ -161,7 +164,9 @@
                                 <select ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
                                     <option mytag="{{obj.LocationZone}}" value="{{obj.LocationName}}" ng-selected="CheckSelectedValues(InventoryObject.Location,obj.LocationName)?true:false" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
                                 </select>
+                                <span ng-if="IsActiveLocationLibrary==true" ng-click="CreateNew(1)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
+                                <span ng-click="locationlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
                             </div>
 
 
@@ -184,7 +189,7 @@
                                     <option value="">None</option>
                                     <option value="{{obj.StatusValue}}" ng-selected="obj.StatusValue==InventoryObject.Status" ng-repeat="obj in StatusList">{{obj.StatusValue}}</option>
                                 </select>
-
+                                <span ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
                             </div>
                         </div>
 
@@ -197,11 +202,10 @@
                                 <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
                                     <option value="{{obj.UnitOfMeasureName}}" ng-selected="CheckSelectedValues(InventoryObject.Uom,obj.UnitOfMeasureName)?true:false" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
                                 </select>
-
+                                <span ng-if="IsActiveUOMLibrary==true" ng-click="CreateNew(2)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
                             </div>
                         </div>
-
                         <div class="form-group" ng-if="obj.ColumnName=='DefaultItemUOM'">
                             <label>Default UOM</label>
                             <div class="input-group">
@@ -209,7 +213,7 @@
                                 <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.DefaultItemUOM" id="DefaultItemUOM">
                                     <option value="{{obj.UnitOfMeasureID}}" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
                                 </select>
-
+                            
 
                             </div>
                         </div>
@@ -249,35 +253,40 @@
 
                             </div>
                         </div>
-
                         <div class="form-group" ng-if="obj.ColumnName=='pCountFrq'">
-
                             <div class="row">
                                 <div class="col-xs-12">
                                     <label>Item Group </label>
                                     <div class="input-group" ng-if="IsItemGroupLibrary==true && IsActiveItemGroupLibrary==true">
-                                        <input class="form-control" id="itemgroup" ng-model="InventoryObject.ItemGroup" type="text" name="name" value=" " />
+                                        <select class="form-control" id="itemgroup" ng-model="InventoryObject.ItemGroup">
+                                            <option ng-repeat="obj in Itemgrouplist" value="{{obj.pcfCountFrq}}">{{obj.pcfCountFrq}}</option>
+                                        </select>
+
+                                        <span ng-if="IsActiveItemGroupLibrary==true" ng-click="CreateNew(4)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
+
+                                        <span ng-click="Itemgrouplistmodal()" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                     </div>
 
+                                    
+                  
+                                            <div ng-if="IsItemGroupLibrary==false || IsActiveItemGroupLibrary==false">
+                                                <div class="row requiredfields" style="font-size:12px;padding:2px;" ng-if="(IsItemGroupLibrary==false|| IsActiveItemGroupLibrary==false) && IsItemGroupChose==false">
+                                                    <div class="col-md-12">
 
-                                    <div ng-if="IsItemGroupLibrary==false || IsActiveItemGroupLibrary==false">
-                                        <div class="row requiredfields" style="font-size:12px;padding:2px;" ng-if="(IsItemGroupLibrary==false|| IsActiveItemGroupLibrary==false) && IsItemGroupChose==false">
-                                            <div class="col-md-12">
+                                                        <a ng-if="IsItemGroupLibrary==false">
+                                                            You are not permitted to add new item group so please select item group from item list.
+                                                        </a>
+                                                        <a ng-if="IsActiveItemGroupLibrary==false">
+                                                            Your item group library is locked so please select item group from item list.
+                                                        </a>
+                                                    </div>
 
-                                                <a ng-if="IsItemGroupLibrary==false">
-                                                    You are not permitted to add new item group so please select item group from item list.
-                                                </a>
-                                                <a ng-if="IsActiveItemGroupLibrary==false">
-                                                    Your item group library is locked so please select item group from item list.
-                                                </a>
+                                                </div>
+
+                                                <label>{{InventoryObject.ItemGroup}}</label>
+
                                             </div>
-
-                                        </div>
-
-                                        <label>{{InventoryObject.ItemGroup}}</label>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +295,7 @@
                             <label>Cost per ({{InventoryObject.Uom}})</label>
 
                             <div class="input-group">
-                                <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" pattern="[0-9]*" inputmode="numeric" name="cost" value="" />
+                                <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
 
                             </div>
 
@@ -297,7 +306,21 @@
 
                             <div class="row">
 
-                                <div class="col-xs-12">
+                                <div class="col-xs-4">
+                                    <div ng-if="CurrentActiveField=='Image'">
+                                        <div>
+                                            <a class="btn btn btn-gray iamgebtn" ng-click="OpenBox()">
+                                                <i class="fa fa-picture-o"></i> Add
+                                                <input type="file" style="visibility:hidden" id="files" accept="image/*;" />
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8">
+
+                                    
 
                                     <h4 style="text-align:center;" ng-if="ImageList.length==0">No Image seleceted</h4>
 
@@ -306,8 +329,8 @@
 
                                         <span ng-repeat="_obj in ImageList" ng-if="ImageList.length>0">
 
-                                            <img src="{{_obj.bytestring}}" ng-if="$index<4" height="60" width="60" ng-class="{'lessOpacity':$index==3}" alt="Alternate Text" />
-                                            <span class="moreCounter" ng-if="ImageList.length>3 && $index==3">3+</span>
+                                            <img src="{{_obj.bytestring}}" ng-if="$index<2" height="60" width="60" ng-class="{'lessOpacity':$index==1}" alt="Alternate Text" />
+                                            <span class="moreCounter" ng-if="ImageList.length>1 && $index==1">3+</span>
                                         </span>
 
                                     </div>
@@ -363,7 +386,7 @@
                         <div ng-if="obj.ColumnName=='iUnitNumber1'" class="form-group">
                             <label>{{obj.ColumnLabel}}</label>
                             <div class="input-group">
-                                <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber1" />
+                                <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" class="form-control" value="" ng-model="InventoryObject.UnitNumber1" />
                                 <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                             </div>
                         </div>
@@ -373,7 +396,7 @@
 
                             <div class="input-group">
 
-                                <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
+                                <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
                                 <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                             </div>
                         </div>
@@ -417,200 +440,214 @@
                             </div>
 
                             <div ng-if="obj.cfdDataType=='number'" class="input-group">
-                                <input id="CustomItem_{{obj.cfdID}}" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" value="{{obj.CfValue}}" />
+                                <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" value="{{obj.CfValue}}" />
 
                             </div>
 
 
                             <div ng-if="obj.cfdDataType=='currency'" class="input-group">
 
-                                <input id="CustomItem_{{obj.cfdID}}" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
+                                <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                             </div>
                         </div>
-
-
                     </div>
 
 
 
-                            <div ng-repeat="obj in CustomActivityDataList" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" class="swiper-slide CustomActivityCols" end-repeat3>
+                    <div ng-repeat="obj in CustomActivityDataList" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" class="swiper-slide CustomActivityCols" end-repeat3>
 
-                                <div class="form-group">
-                                    <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></label>
-                                    <div ng-if="obj.cfdDataType=='string'" class="input-group">
-                                        <input id="CustomActivity_{{obj.cfdID}}" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control stringType" value="{{obj.CfValue}}" />
+                        <div class="form-group">
+                            <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></label>
+                            <div ng-if="obj.cfdDataType=='string'" class="input-group">
+                                <input id="CustomActivity_{{obj.cfdID}}" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control stringType" value="{{obj.CfValue}}" />
 
-                                    </div>
-
-
-                                    <div ng-if="obj.cfdDataType=='checkbox'" class="">
-
-                                        <div class="btn-group custombtnGroup">
-                                            <label class="switch1">
-                                                <input id="CustomActivity_{{obj.cfdID}}" ng-checked="InventoryObject.CustomTxnData[$index].Value==true" type="checkbox" ng-model="InventoryObject.CustomTxnData[$index].Value">
-                                                <div class="slider round"></div>
-                                            </label>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
-
-
-                                        <div class="select">
-                                            <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
-
-                                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
-
-                                            </select>
-                                        </div>
-
-
-                                    </div>
-
-
-                                    <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
-                                        <input id="CustomActivity_{{obj.cfdID}}" type="date" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control customFieldDatePicker FormDateType" />
-
-                                    </div>
-
-                                    <div ng-if="obj.cfdDataType=='number'" class="input-group">
-                                        <input id="CustomActivity_{{obj.cfdID}}" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" value="{{obj.CfValue}}" />
-
-                                    </div>
-
-                                    <div ng-if="obj.cfdDataType=='currency'" class="input-group">
-                                        <input id="CustomActivity_{{obj.cfdID}}" type="text" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
-
-                                    </div>
-                                </div>
                             </div>
 
 
+                            <div ng-if="obj.cfdDataType=='checkbox'" class="">
 
-                            <div ng-class="{'detailheight': slide==Totalslides }" class="swiper-slide" ng-show="Isopendiv==true">
-                                <div ng-if="slide==Totalslides" class="allfields">
-                                    <div class="myCols innerCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-repeat="obj in MyinventoryFields" end-repeat>
-
-                                        <div ng-if="obj.ColumnName=='iReqValue'" ng-click="getstep(0,'iReqValue')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueTag}}</span>
-
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUnitTag2'" ng-click="getstep(0,'iUnitTag2')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag2}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUnitTag3'" ng-click="getstep(0,'iUnitTag3')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag3}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUniqueDate'" ng-click="getstep(0,'iUniqueDate')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueDate}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUnitDate2'" ng-click="getstep(0,'iUnitDate2')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate2}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUnitNumber1'" ng-click="getstep(0,'iUnitNumber1')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber1}}</span>
-
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iUnitNumber2'" ng-click="getstep(0,'iUnitNumber2')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber2}}</span>
-
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='iCostPerUnit'" ng-click="getstep(0,'iCostPerUnit')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.Cost}}</span>
-
-                                        </div>
-
-
-                                        <div ng-if="obj.ColumnName=='DefaultItemUOM'" ng-click="getstep(0,'DefaultItemUOM')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{GetUOMName(InventoryObject.DefaultItemUOM)}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='DefaultItemLocation'" ng-click="getstep(0,'DefaultItemLocation')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{GetLocationName(InventoryObject.DefaultItemLocationID)}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='pDefaultCost'" ng-click="getstep(0,'pDefaultCost')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pDefaultCost}}</span>
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='pReorderQty'" ng-click="getstep(0,'pReorderQty')" class="form-group">
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pReorderQty}}</span>
-
-                                        </div>
-                                        <div ng-if="obj.ColumnName=='pTargetQty'" ng-click="getstep(0,'pTargetQty')" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pTargetQty}}</span>
-
-                                        </div>
-
-
-
-                                        <div ng-if="CheckInCommonArray(obj.ColumnName)!=true" ng-click="getstep(0,obj.ColumnName)" class="form-group">
-
-                                            <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.CustomPartData[$index].Value}}</span>
-
-                                        </div>
-
-                                    </div>
-
-
-
-
-
-
-
-
-                                    <div class="innerCols" ng-repeat="obj in CustomActivityDataList" ng-click="getstepCustom(2,obj.ColumnMap)" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" end-repeat3>
-
-
-
-
-
-                                        <div ng-if="obj.cfdDataType=='string'">
-
-
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-
-
-                                        </div>
-
-
-                                        <div ng-if="obj.cfdDataType=='checkbox'">
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-
-                                        </div>
-
-                                        <div ng-if="obj.cfdDataType=='combobox'">
-
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-
-                                        </div>
-
-
-                                        <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'">
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                                        </div>
-
-                                        <div ng-if="obj.cfdDataType=='number'">
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                                        </div>
-
-                                        <div ng-if="obj.cfdDataType=='currency'">
-                                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                                        </div>
-
-
-                                    </div>
-
+                                <div class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input id="CustomActivity_{{obj.cfdID}}" ng-checked="InventoryObject.CustomTxnData[$index].Value==true" type="checkbox" ng-model="InventoryObject.CustomTxnData[$index].Value">
+                                        <div class="slider round"></div>
+                                    </label>
                                 </div>
+
+
+                            </div>
+
+                            <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
+
+
+                                <div class="select">
+                                    <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
+
+                                        <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+
+                            <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
+                                <input id="CustomActivity_{{obj.cfdID}}" type="date" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control customFieldDatePicker FormDateType" />
+
+                            </div>
+
+                            <div ng-if="obj.cfdDataType=='number'" class="input-group">
+                                <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" value="{{obj.CfValue}}" />
+
+                            </div>
+
+                            <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+                                <input id="CustomActivity_{{obj.cfdID}}" type="text" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
+
                             </div>
                         </div>
+                    </div>
+
+                    <div class="swiper-slide" data-column="UpdateDate">
+                        <div class="form-group">
+                            <label>Activity Date</label>
+
+                            <div class="input-group">
+                                <input ng-model="InventoryObject.UpdateDate" id="UpdateDate" class="form-control" type="date" name="UpdateDate" value="" />
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div ng-class="{'detailheight': slide==Totalslides }" class="swiper-slide" ng-show="Isopendiv==true">
+                        <div ng-if="slide==Totalslides" class="allfields">
+                            <div class="myCols innerCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-repeat="obj in MyinventoryFields" end-repeat>
+
+                                <div ng-if="obj.ColumnName=='iReqValue'" ng-click="getstep(0,'iReqValue')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueTag}}</span>
+
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag2'" ng-click="getstep(0,'iUnitTag2')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag2}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag3'" ng-click="getstep(0,'iUnitTag3')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag3}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUniqueDate'" ng-click="getstep(0,'iUniqueDate')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueDate}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitDate2'" ng-click="getstep(0,'iUnitDate2')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate2}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitNumber1'" ng-click="getstep(0,'iUnitNumber1')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber1}}</span>
+
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitNumber2'" ng-click="getstep(0,'iUnitNumber2')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber2}}</span>
+
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iCostPerUnit'" ng-click="getstep(0,'iCostPerUnit')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.Cost}}</span>
+
+                                </div>
+
+
+                                <div ng-if="obj.ColumnName=='DefaultItemUOM'" ng-click="getstep(0,'DefaultItemUOM')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{GetUOMName(InventoryObject.DefaultItemUOM)}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='DefaultItemLocation'" ng-click="getstep(0,'DefaultItemLocation')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{GetLocationName(InventoryObject.DefaultItemLocationID)}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='pDefaultCost'" ng-click="getstep(0,'pDefaultCost')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pDefaultCost}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='pReorderQty'" ng-click="getstep(0,'pReorderQty')" class="form-group">
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pReorderQty}}</span>
+
+                                </div>
+                                <div ng-if="obj.ColumnName=='pTargetQty'" ng-click="getstep(0,'pTargetQty')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.pTargetQty}}</span>
+
+                                </div>
+
+
+                                <div ng-if="CheckInCommonArray(obj.ColumnName)!=true" ng-click="getstep(0,obj.ColumnName)" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.CustomPartData[$index].Value}}</span>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="innerCols" ng-repeat="obj in CustomActivityDataList" ng-click="getstepCustom(2,obj.ColumnMap)" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" end-repeat3>
+
+
+
+
+
+                                <div ng-if="obj.cfdDataType=='string'">
+
+
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+
+                                </div>
+
+
+                                <div ng-if="obj.cfdDataType=='checkbox'">
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+                                </div>
+
+                                <div ng-if="obj.cfdDataType=='combobox'">
+
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+                                </div>
+
+
+                                <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'">
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                                </div>
+
+                                <div ng-if="obj.cfdDataType=='number'">
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                                </div>
+
+                                <div ng-if="obj.cfdDataType=='currency'">
+                                    <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
                 <div class="btnarea">
                     <table style="width:100%;">
                         <tr>
@@ -634,7 +671,14 @@
                                     <a ng-click="UpDownValue('Quantity',true)" class="btn btn-gray"><i class="fa fa-plus"></i>Increase</a>
                                 </div>
                             </td>
+                            <td ng-if="CurrentActiveField=='UpdateDate'">
 
+                              
+                                <div class="alignright">
+                                    <a ng-click="GetLastValue('Inv_UpdateDate','#UpdateDate')" test-case condition="GetLastValueData('Inv_UpdateDate')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+                            </td>
+                            
 
                             <td ng-if="CurrentActiveField=='iQty'">
 
@@ -644,132 +688,132 @@
                             </td>
 
 
-                            <td ng-if="CurrentActiveField=='pPart'">
+                            <!--<td ng-if="CurrentActiveField=='pPart'">
 
                                 <div class="aligncenter">
-                                    <a ng-click="itemlist()" class="btn btn-gray"><i class="fa fa-search"></i>Find</a>
+                                    <a ng-click="itemlist()" class="btn btn-gray waves-effect"><i class="fa fa-search"></i>Find</a>
                                 </div>
 
 
-                            </td>
+                            </td>-->
 
 
 
-                            <td ng-if="CurrentActiveField=='lLoc'">
+                            <!--<td ng-if="CurrentActiveField=='lLoc'">
 
                                 <div class="aligncenter">
-                                    <a ng-click="locationlist()" class="btn btn-gray"><i class="fa fa-search"></i>Find</a>
+                                    <a ng-click="locationlist()" class="btn btn-gray waves-effect"><i class="fa fa-search"></i>Find</a>
                                 </div>
 
 
-                            </td>
+                            </td>-->
 
-                            <td ng-if="CurrentActiveField=='pCountFrq'">
+                            <!--<td ng-if="CurrentActiveField=='pCountFrq'">
 
                                 <div class="aligncenter">
-                                    <a ng-click="Itemgrouplistmodal()" class="btn btn-gray"><i class="fa fa-search"></i>Find</a>
+                                    <a ng-click="Itemgrouplistmodal()" class="btn btn-gray waves-effect"><i class="fa fa-search"></i>Find</a>
                                 </div>
 
 
-                            </td>
+                            </td>-->
 
-                            <td ng-if="CurrentActiveField=='iStatusValue' && checkpermission('URL:Manage/Status')==true">
+
+                            <!--<td ng-if="CurrentActiveField=='iStatusValue' && checkpermission('URL:Manage/Status')==true">
                                 <div class="aligncenter">
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)"><i class="fa fa-plus"></i>Add</a>
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveStatusLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>Add</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)"><i class="fa fa-plus"></i>New</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveStatusLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>New</a>
                                 </div>
                             </td>
                             <td ng-if="CurrentActiveField=='lLoc' && checkpermission('URL:Manage/Location')==true">
                                 <div class="aligncenter">
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveLocationLibrary==true" ng-click="CreateNew(1)"><i class="fa fa-plus"></i>Add</a>
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveLocationLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>Add</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveLocationLibrary==true" ng-click="CreateNew(1)"><i class="fa fa-plus"></i>New</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveLocationLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>New</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='uomUOM' && checkpermission('URL:Manage/UnitOfMeasure')==true">
                                 <div class="aligncenter">
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveUOMLibrary==true" ng-click="CreateNew(2)"><i class="fa fa-plus"></i>Add</a>
-                                    <a class="scanbtn btn btn-gray" ng-if="IsActiveUOMLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>Add</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveUOMLibrary==true" ng-click="CreateNew(2)"><i class="fa fa-plus"></i>New</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveUOMLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>New</a>
                                 </div>
 
-                            </td>
-                            <td ng-if="CurrentActiveField=='Image'">
-                                <div style="text-align:center;">
-                                    <a class="btn btn btn-gray" ng-click="OpenBox()">
-                                        <i class="fa fa-picture-o"></i> Add Image
-                                        <input type="file" style="visibility:hidden" id="files" accept="image/*;" />
-                                    </a>
+                            </td>-->
+                            <!--<td ng-if="CurrentActiveField=='pCountFrq' && checkpermission('URL:Manage/ItemGroup')==true">
+                                <div class="aligncenter">
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveItemGroupLibrary==true" ng-click="CreateNew(4)"><i class="fa fa-plus"></i>New</a>
+                                    <a class="scanbtn btn btn-gray waves-effect" ng-if="IsActiveItemGroupLibrary==false" ng-click="locked()"><i class="fa fa-lock"></i>New</a>
                                 </div>
 
-                            </td>
-
+                            </td>-->
 
                             <td ng-if="CurrentActiveField=='pPart'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_ItemID','#ItemName')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
                             <td ng-if="CurrentActiveField=='pDefaultCost'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_pDefaultCost','#pDefaultCost')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_pDefaultCost','#pDefaultCost')" test-case condition="GetLastValueData('Inv_pDefaultCost')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='pReorderQty'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_pReorderQty','#pReorderQty')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_pReorderQty','#pReorderQty')" test-case condition="GetLastValueData('Inv_pReorderQty')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='pTargetQty'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_pTargetQty','#pTargetQty')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_pTargetQty','#pTargetQty')" test-case condition="GetLastValueData('Inv_pTargetQty')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='DefaultItemLocation'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_DefaultItemLocationID','#DefaultItemLocationID')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_DefaultItemLocationID','#DefaultItemLocationID')" test-case condition="GetLastValueData('Inv_DefaultItemLocationID')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='DefaultItemUOM'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_DefaultItemUOM','#DefaultItemUOM')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_DefaultItemUOM','#DefaultItemUOM')" test-case condition="GetLastValueData('Inv_DefaultItemUOM')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
+
+
                             <td ng-if="CurrentActiveField=='pDescription'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_Description','#pDescriptionForm')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_Description','#pDescriptionForm')" test-case condition="GetLastValueData('Inv_Description')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
                             <td ng-if="CurrentActiveField=='lZone'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_lZone','#lZone')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_lZone','#lZone')" test-case condition="GetLastValueData('Inv_lZone')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='pCountFrq'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_ItemGroup','#itemgroup')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_ItemGroup','#itemgroup')" test-case condition="GetLastValueData('Inv_ItemGroup')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iStatusValue'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_Status','#Status')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_Status','#Status')" test-case condition="GetLastValueData('Inv_Status')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='lLoc'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_Location','#Location')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_Location','#Location')" test-case condition="GetLastValueData('Inv_Location')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
@@ -777,92 +821,89 @@
 
                             <td ng-if="CurrentActiveField=='uomUOM'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_Uom','#UOM')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_Uom','#UOM')" test-case condition="GetLastValueData('Inv_Uom')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
                             <td ng-if="CurrentActiveField=='iCostPerUnit'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_Cost','#Costperunit')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_Cost','#Costperunit')" test-case condition="GetLastValueData('Inv_Cost')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iReqValue'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iUnitTag2'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iUnitTag3'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
                             <td ng-if="CurrentActiveField=='iUniqueDate'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UniqueDate','#UniqueDate')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UniqueDate','#UniqueDate')" test-case condition="GetLastValueData('Inv_UniqueDate')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iUnitDate2'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UnitDate2','#UnitDate2')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UnitDate2','#UnitDate2')" test-case condition="GetLastValueData('Inv_UnitDate2')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iUnitNumber1'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
                             <td ng-if="CurrentActiveField=='iUnitNumber2'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
 
                             <td ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && obj.ColumnMap==CurrentActiveField && CurrentActiveFieldType=='Inventory'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValueCustom(obj.cfdID,1)" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
 
                             </td>
                             <td ng-repeat="obj in CustomActivityDataList" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)==true && obj.ColumnMap==CurrentActiveField && CurrentActiveFieldType=='Activity'">
                                 <div class="alignright">
-                                    <a ng-click="GetLastValueCustom(obj.cfdID,2)" class="btn btn-gray"><i class="fa fa-undo"></i>Reuse</a>
+                                    <a ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
-
                             </td>
 
-                            <td ng-if="slide == Totalslides">
-
-                                <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Add Inventory</a>
-
-                            </td>
 
 
                             <td ng-if="slide == Totalslides">
                                 <div class="alignright">
-                                    <a ng-click="movetoback()" class="laststepbtn btn btn-gray animated fadeInUp"> <i class="fa fa-times"></i>Cancel</a>
-                                </div>
+                                    <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Process</a>
+                                    </div>
+</td>
+
+
+                            <td ng-if="slide == Totalslides">
+                                
+                                    <a ng-click="movetoback()" class="pull-left laststepbtn btn btn-gray animated fadeInUp"> <i class="fa fa-times"></i>Cancel</a>
+                                
 
                             </td>
-
-
-
-
                         </tr>
                     </table>
                 </div>
@@ -874,6 +915,7 @@
                     <table style="width:100%;">
                         <tr>
                             <td>
+
                                 <button type="button" ng-disabled="slide==0 || slide==1000" class="waves-effect btn btn-primary arrow-left bknext"><i class="fa fa-angle-left"></i> Back</button>
                             </td>
                             <!--<td style="text-align:center;" ng-hide=" slide==Totalslides">
@@ -940,8 +982,9 @@
 
 
         </div>
-
     </form>
+
+
 
 
 </div>
@@ -989,7 +1032,9 @@
 
 <div id="itemlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+        <button type="button" class="close" data-dismiss="modal">
+            <span> <i class="fa fa-times"></i> </span>
+        </button>
         <h4>Select Item <span style="font-size:11px;" ng-if="SearchList.length > 0">{{SearchList.length}} Item(s) found</span> </h4>
         <div class="form-group">
             <div class="input-group">
@@ -1017,7 +1062,7 @@
             </div>
         </div>
 
-
+        <span ng-if="IsFromSlideChange==true">This Item is already available please choose from below list.</span>
         <ul class="searchresultlist" ng-if="ItemSearching==false">
             <li ng-click="SetItemData(obj)" ng-repeat="obj in SearchList">
                 <a><span ng-bind-html="HighLightTerm(SearchItemValue,obj.ItemID)"></span><i class="fa fa-angle-right"></i></a>
@@ -1038,7 +1083,7 @@
         <div class="form-group">
 
             <div class="input-group">
-                <input type="text" id="searchlocation" placeholder="Type Keyword to find locations" ng-change="OnChangeLocationNameFunction()" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
+                <input type="text" id="searchlocation" placeholder="Type Keyword to find locations" ng-change="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
                 <span class="input-group-addon waves-effect last">
                     <a ng-click="ScanLocationsearch()"><i class="fa fa-barcode"></i></a>
                 </span>
@@ -1052,7 +1097,7 @@
             <i class="fa fa-spin fa-spinner"></i> searching please wait..
         </div>
 
-        <div ng-if="isnolocationmsg == true" class="noitem">
+        <div ng-if="FilterRecordsLength.length==0" class="noitem">
             <div style="text-align: center; border: 1px solid #eeeeee;">
                 <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
                 <h4 style="font-size:15px;">We can't find the location you're looking for</h4>
@@ -1073,6 +1118,7 @@
 
     </div>
 </div>
+
 
 <div style="background:#fff;" id="Itemgrouplistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div class="modal-header">
@@ -1105,6 +1151,8 @@
 
     </div>
 </div>
+
+
 <div id="uomlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
@@ -1149,15 +1197,13 @@
 </div>
 
 
-
-<div style="background:#fff;" id="infomodal" class="modal animated bounceInRight" >
+<div style="background:#fff;" id="infomodal" class="modal animated bounceInRight">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
         <h4>View all summary</h4>
     </div>
 
-
-    <div class="modal-body">
+    <div style="padding:0px;" class="modal-body">
 
         <div style="box-shadow:none; margin-bottom:0px;" class="">
 
@@ -1208,6 +1254,8 @@
                     <span class="mylabel">Description</span>  <span> {{ InventoryObject.Description }} </span>
 
                 </div>
+
+
             </div>
 
 
@@ -1402,7 +1450,6 @@
                 <a ng-click="confirmmove()"> <i class="fa fa-shopping-cart"></i> Go to inventory.</a>
             </li>
 
-
         </ul>
 
 
@@ -1414,14 +1461,15 @@
 </div>
 
 
-<div style="background:#fff;" id="imagemodal" data-backdrop="static" data-keyboard="false" class="modal animated bounceIn">
+<div style="background:#fff;" id="imagemodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
         <h4>Uploaded images</h4>
     </div>
 
     <div style="padding:12px;" class="modal-body">
-     
+
         <span ng-repeat="_obj in ImageList" class="pull-left" ng-if="ImageList.length>0">
 
             <img style="border:1px solid #ccc;" src="{{_obj.bytestring}}" height="80" width="80" alt="Alternate Text" />
@@ -1431,16 +1479,17 @@
     </div>
 </div>
 
-<div style="background:#fff;" id="createnewlabel" data-backdrop="static" data-keyboard="false" class="modal animated bounceIn">
+<div style="background:#fff;" id="createnewlabel" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-        <h4>Create new <span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of measure</span><span ng-if="CreateType==3">Status</span></h4>
+
+        <h4>Create new  <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of measure</span> <span ng-if="CreateType==3">Status</span></h4>
     </div>
 
     <div style="padding:12px;" class="modal-body">
-      
+
         <div class="form-group">
-            <label>Enter new <span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of measure</span> <span ng-if="CreateType==3">Status</span> </label>
+            <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of measure</span> <span ng-if="CreateType==3">Status</span> </label>
 
             <div class="input-group">
                 <input type="text" ng-model="CreateNewLabel" class="form-control" value="" />
@@ -1450,7 +1499,7 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <button ng-disabled="CreateNewLabel==''" ng-click="SaveLabel(CreateType)" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+                    <button ng-disabled="CreateNewLabel==''" ng-click="SaveLabel(CreateType)" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
 
                     <a href="#" data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
                 </div>
@@ -1464,7 +1513,7 @@
 
 <div id="Inventoryerror" class="modal bottom-modal bottom-sheet animated bounceIn">
     <div style="padding-top:0px; padding-bottom:0px;" class="modal-header">
-        <h4 style="color:brown; font-size:14px;">Opps some thing went wrong !!</h4>
+        <h4 style="color:brown; font-size:14px;">Oops some thing went wrong !!</h4>
 
     </div>
 
@@ -1509,7 +1558,7 @@
 </script>
 
 
-
+<script src="scripts/jquery.ui.touch-punch.js"></script>
 
 
 

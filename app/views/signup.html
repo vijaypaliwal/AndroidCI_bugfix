@@ -80,14 +80,22 @@
     </div>
     <div class="form-group">
 
-        <div class="input-group">
-            <span class="input-group-addon"> <i class="fa fa-key"></i></span>
-            <input type="password" ng-minlength="7" id="Password" name="Password" class="dotfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
-            
+        <div class="row" style="margin-right:0">
+            <div class="col-xs-8" style="padding-right:0;">
+                <div class="input-group">
+                    <span class="input-group-addon"> <i class="fa fa-key"></i></span>
+                    <input type="password" ng-minlength="7" id="Password" name="Password" class="dotfield form-control" placeholder="Password" data-ng-model="registration.Password" required>
 
-            <span ng-click="showpassword();" class="showbtn input-group-addon last">Show</span>
-            <span ng-click="hidepassword();" style="display:none; min-width:67px;" class="hidebtn input-group-addon last">Hide</span>
+                </div>
+            </div>
+
+            <div class="col-xs-4" style=" padding-left: 5px;">
+                <a ng-click="showpassword();" class="showbtn btn-gray btn"><i class="fa fa-eye"></i> Show</a>
+                <a ng-click="hidepassword();" style="display:none;" class="hidebtn btn-gray btn"><i class="fa fa-eye-slash"></i> Hide</a>
+            </div>
         </div>
+
+        
         <span class="redColor" ng-if="signup.$submitted && signup.Password.$error.minlength">
             Minimum 7 characters required.
         </span>
@@ -258,8 +266,11 @@
 
     body
     {
-        padding-top:0px;
+        padding-top:0;
     }
 
-
+    .container .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
 </style>

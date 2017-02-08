@@ -123,7 +123,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
             return 1;
         }
         else {
-            return 0;
+            return "";
         }
 
     }
@@ -139,7 +139,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $scope.IsActiveUOMLibrary = IsActiveUOMLibrary;
         $scope.IsActiveItemLibrary = IsActiveItemLibrary;
         $scope.IsActiveItemGroupLibrary = IsActiveItemGroupLibrary;
-
+        $scope.GetProfileData();
 
 
 

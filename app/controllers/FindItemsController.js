@@ -33,7 +33,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     var _IsActuallySorting = 0;
     var _IsActuallySearching = 0;
     var _IsSetSelectedIfAny = 0;
-    var _IsFromActivitySuccess = 0;
     var SelectedCartItemIds = [];
     var _IsFilterCartItems = 0;
     $scope.UnitDataList = [];
@@ -200,6 +199,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     $scope.ClearFilter = function () {
 
+
         ClearFilterArray();
         $scope.SearchValue = "";
         $scope.SearchStatusValue = "";
@@ -261,6 +261,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     $('#mylist').on('swipedown', function () {
 
+
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
             if ($(window).scrollTop() < 500) {
                 //if (_PageSize < $scope.totalrecords)
@@ -312,6 +313,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
 
+
         switch ($scope.CurrentActiveSearchType) {
             case 1:
                 _Value = $.trim($('#MasterSearch').val());
@@ -348,6 +350,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     $scope.OpenmenuModal = function () {
 
+
         if ($("body").hasClass("modal-open")) {
             $("#myModal2").modal('hide');
 
@@ -360,6 +363,15 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             $(".menubtn .fa").removeClass('fa-bars').addClass('fa-times');
 
         }
+
+
+        if ($scope.ActualTotalRecords == 0) {
+          
+
+            $(".modal-backdrop").hide();
+
+        }
+
     }
 
 
@@ -384,6 +396,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     $scope.showhidezerorecord = function (showzero) {
+
 
         $scope.myinventoryColumnLoaded = false;
         CheckScopeBeforeApply();
@@ -415,13 +428,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $(window).scroll(function () {
         var _SearchValue = $.trim($("#MasterSearch").val());
 
-        var _tempIsActivityData = localStorageService.get("IsFromActivitySuccess");
-
-        if (_tempIsActivityData != null && _tempIsActivityData != undefined) {
-
-            _IsFromActivitySuccess = parseInt(_tempIsActivityData);
-        }
-        if (_IsFromActivitySuccess==0 && _IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
+        if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 if (_PageSize < $scope.totalrecords) {
                     _IsLazyLoadingUnderProgress = 1;
@@ -626,7 +633,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 $scope.mainObjectToSend.splice(i, 1);
             }
         }
-
+       
 
         CheckScopeBeforeApply();
 
@@ -1061,7 +1068,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             $scope.myinventoryColumnLoaded = false;
 
         }
-
+        $("#arrow").hide();
 
 
         var authData = localStorageService.get('authorizationData');
@@ -1150,9 +1157,18 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     }
 
                     if ($scope.ActualTotalRecords) {
+                        $("#arrow").attr("style", "");
+
+                        $("#arrow").hide();
                     } else {
                         $scope.OpenmenuModal();
                         $(".searchtable").addClass("disablepointer");
+                        $("#arrow").attr("style", "");
+                        $("#arrow").show();
+                        
+                     
+
+                      
                     }
 
 
@@ -1181,9 +1197,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             },
             complete: function () {
                 _IsLazyLoadingUnderProgress = 0;
-                _IsFromActivitySuccess = 0;
-
-                localStorageService.set("IsFromActivitySuccess",0);
                 $cordovaKeyboard.disableScroll(false);
                 SetSelectedIfAny();
             }
@@ -1399,8 +1412,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         return false;
     }
     $scope.PopulateInventoryItems = function () {
-        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
-        
+
         $scope.GetMyinventoryColumns();
         $scope.getstatus();
         $scope.GetUnitDataColumns();
@@ -1416,19 +1428,16 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     $scope.ScanItemSearch = function () {
-        $scope.isSanned = false;
 
+        $scope.isSanned = false;
+    
         var scanner = cordova.plugins.barcodeScanner;
 
         scanner.scan(function (result) {
             $scope.SearchValue = result.text;
 
             CheckScopeBeforeApply();
-
-            console.log("Scanner result: \n" +
-                 "text: " + result.text + "\n" +
-                 "format: " + result.format + "\n" +
-                 "cancelled: " + result.cancelled + "\n");
+            $scope.GetInventories();
 
 
 
@@ -1830,12 +1839,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     function init() {
         //   $cordovaKeyboard.disableScroll(false);
         var _myItemsList = localStorageService.get("ActivityCart");
-        var _tempIsActivityData = localStorageService.get("IsFromActivitySuccess");
-
-        if (_tempIsActivityData != null && _myItemsList != undefined) {
-
-            _IsFromActivitySuccess = parseInt(_tempIsActivityData);
-        }
         _myItemsList = _myItemsList != null && _myItemsList != undefined ? _myItemsList : [];
         if (_myItemsList.length > 0) {
 
@@ -1954,6 +1957,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
 
     init();
+
+    
     function GetDataToSend(mainObjectToSend) {
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
@@ -1971,7 +1976,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                     UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
                     ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: mainObjectToSend[i].iUniqueDate_date, UnitDate2: mainObjectToSend[i].iUnitDate2_date, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
-                    ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
+                    ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0,ToUOM:"" }),
                     MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: mainObjectToSend[i].iUniqueDate_date, UnitDate2: mainObjectToSend[i].iUnitDate2_date, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                 });
             }
@@ -2113,6 +2118,28 @@ app.directive('imageonload', function () {
             element.bind('load', function () {
                 element[0].nextElementSibling.remove();
                 element[0].style.display = "";
+                var image = new Image();
+                image.src = $(element).attr("src");
+                image.onload = function () {
+                    
+                    var _height = this.height;
+                    var _Width = this.width;
+
+                    if (_height < _Width)
+                    {
+                        _Width = _height;
+                    }
+
+                    if (_Width < _height) {
+                        _height = _Width;
+                    }
+
+
+
+                    $(element).css("height", _height+"px");
+                    $(element).css("width", _Width + "px");
+                };
+                
             });
             element.bind('error', function () {
             });

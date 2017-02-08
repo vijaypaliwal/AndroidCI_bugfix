@@ -12,8 +12,12 @@
                 <br />
             </div>
 
+            <img  ng-if="_isProfileLoading==true" src="img/loader1.gif" class="loadingImage" alt="loading.." />
+            <img src="{{picURl}}" ng-click="PreviewImage()" class="myimg" id="myimg" ng-if="_isProfileLoading==false" alt="Alternate Text" />
 
-            <img src="{{picURl}}" alt="Alternate Text" />
+            <div ng-click="openModel()">
+                <i class="fa fa-pencil"></i>
+            </div>
             <div>
                 <br />
             </div>
@@ -28,7 +32,6 @@
                             <i class="fa fa-long-arrow-left"></i>
                         </a>
                     </td>
-
                     <td>
                         <h4>{{firstnameLabel}} {{lastnameLabel}}</h4>
                     </td>
@@ -61,7 +64,10 @@
 
         <a ng-click="detailmode()" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
-      
+
+        <a ng-click="detailmode()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
+
+
 
         <form name="myForm">
             <br /><br /><br />
@@ -95,10 +101,18 @@
         
         
     </div>
-
+    <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div style="background:#fff;" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+            <h4>Image</h4>
+        </div>
+        <div class="modal-body">
+            <img src="{{picURl}}" id="imagepreview" style="max-height:250px;max-width:250px;">
+        </div>
+    </div>
 </div>
 
-
+<input type="file" style="visibility:hidden" id="files" accept="image/*;" />
 
 <a ng-click="Openbottommenu()" class="menubtn waves-effect btn-info">
     <i class="fa fa-bars"></i>
@@ -114,7 +128,29 @@
         </ul>
     </div>
 </div>
+<div id="myModalforlist" class="modal bottom-sheet bottom-modal fade" role="dialog">
+    <!-- Modal content-->
+    <div class="modal-body">
 
+        <ul>
+            <li>
+                <a ng-click="capturePhotoNew();"> <i class="fa fa-camera"></i> Capture Photo</a>
+            </li>
+            <li>
+
+                <!--<a ng-click="triggerFileClick()"><i class="fa fa-picture-o"></i> From Photo Library</a>-->
+                <a ng-click="getPhoto()"><i class="fa fa-picture-o"></i> From Photo Library</a>
+            </li>
+        </ul>
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn width-100 btn-gray" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+    </div>
+
+</div>
 <script>
  
 

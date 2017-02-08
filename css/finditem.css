@@ -1,11 +1,29 @@
-.bgm-MoveTagUpdate {
-    background-color: #8C6900;
-    font-size:21px;
+@-webkit-keyframes arrow-jump {
+  0%   { opacity: 0;}
+  100% { opacity: 1; 
+        -webkit-transform: translateY(10px);
+        -moz-transform: translateY(10px);
+        -0-transform: translateY(10px);
+        transform: translateY(10px);
+    }
+  
+}
+#arrow {
+  -webkit-animation: arrow-jump 1s infinite; /* Safari 4+ */
+  -moz-animation:    arrow-jump 1s infinite; /* Fx 5+ */
+  -o-animation:      arrow-jump 1s infinite; /* Opera 12+ */
+  animation:         arrow-jump 1s infinite; /* IE 10+, Fx 29+ */
+
+      height: 100px;
+    float: right;
+    position: fixed;
+    bottom: 135px;
+    right: 17px;
 }
 
-.list-group-item-heading .pull-right span {
-
-    text-transform:none;
+.bgm-MoveTagUpdate {
+    background-color: #8C6900;
+  font-size:21px;
 }
 
 
@@ -25,6 +43,7 @@
         -webkit-animation: cssAnimation 1s 16 ease;
         -moz-animation: cssAnimation 1s 16 ease;
         -o-animation: cssAnimation 1s 16 ease;
+        animation: cssAnimation 1s 16 ease;
     }
 
 .checkicon {
@@ -120,12 +139,14 @@ label {
     padding-bottom: 7px;
 }
 
+
 .widget-products li .product {
     display: block;
     margin-left: 80px;
     margin-top: 7px;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid #d5d5d5;
     padding-bottom: 10px;
+    min-height:68px;
 }
 
 .widget-products li > a {
@@ -136,7 +157,15 @@ label {
     padding: 3px 10px;
     position: relative;
     -webkit-transition: border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s;
+    -moz-transition: border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s;
+    -o-transition: border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s;
     transition: border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s;
+}
+
+.searchsection {
+    background:#fff;
+    padding:10px;
+    margin-top:-14px;
 }
 
 
@@ -152,7 +181,7 @@ label {
     margin: 0;
     padding: 0;
     min-height: 175px;
-    background: #fff;
+    background: #edecec;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -285,10 +314,13 @@ label {
 
 .text {
     overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     display: -webkit-inline-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    -ms-word-break: break-all;
     word-break: break-all;
     margin-bottom: 0;
     line-height: 1.3;
@@ -497,6 +529,8 @@ h5.list-group-item-heading {
 .rotate {
     -ms-transform: rotate(42deg);
     -webkit-transform: rotate(42deg);
+    -moz-transform: rotate(42deg);
+    -o-transform: rotate(42deg);
     transform: rotate(42deg);
 }
 
@@ -574,7 +608,7 @@ h5.list-group-item-heading {
 }
 
 body {
-    background: #fff;
+    background: #edecec;
 }
 
 .finditem {
@@ -585,15 +619,15 @@ body {
 .img {
     height: 66px;
     width: 67px;
-    border: 1px solid #ccc;
+   
     white-space: nowrap;
     text-align: center;
     margin: 1em 0;
     float: left;
     margin-top: 5px;
-    border-radius: 100%;
+    /*border-radius: 100%;*/
     position: fixed;
-    background: #70b9f3 !important;
+  
 }
 
 .imghelper {
@@ -606,15 +640,15 @@ body {
 
 .img .thumbimg {
     vertical-align: middle;
-    height: auto !important;
-    width: auto !important;
+  
     border: transparent !important;
     opacity: 1 !important;
     margin-left: -4px;
-    max-height: 48px;
-    max-width: 48px;
-    border-radius: 0px;
+    max-height: 60px;
+    max-width: 60px;
+    border-radius: 100%;
 }
+
 
 .disablepointer {
     pointer-events: none;
@@ -625,10 +659,17 @@ body {
 }
 
 .cartImage {
-    font-size: 35px;
-    color: #fff;
+  font-size: 35px;
+    color: #9c9a9a;
     margin: 15px;
-    margin-left: 6px;
+    margin-left: 0px;
+    background: #f2f2f2;
+    padding: 12px;
+    padding-left: 14px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    padding-right: 14px;
+    margin-top: 5px;
 }
 
 .drag-target {
@@ -651,6 +692,13 @@ body {
     font-size: 13px;
     text-transform:none;
 }
+
+
+.list-group-item-heading .pull-right span {
+     text-transform:none;
+}
+
+
 
 .multiselect-container {
     width: 100%;
