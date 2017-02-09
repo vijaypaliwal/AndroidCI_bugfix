@@ -54,7 +54,7 @@
         padding: 0px;
         height: 40px;
         width: 40px;
-        background: #128ece;
+        background: #2196F3;
         border-radius: 100%;
         color: #fff !important;
     }
@@ -156,7 +156,7 @@
                                 <div ng-if="CurrentOperation=='Move'">
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
 
                                             <div class="form-group">
@@ -167,6 +167,18 @@
                                                     <div class="fg-line">
                                                         <input placeholder1="Fill Quantity" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" ng-model="CurrentActiveObject.MoveTransactionData.ActionQuantity" />
                                                     </div>
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button data-toggle="dropdown" aria-expanded="false" id="movebutton_{{CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+
+
+                                                        <ul class="dropdown-menu">
+                                                            <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
+                                                            <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        </ul>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -175,26 +187,12 @@
                                                 <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-
-                                                <label>&nbsp;</label>
-                                                <button data-toggle="dropdown" aria-expanded="false" id="movebutton_{{CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                    <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
 
@@ -208,6 +206,13 @@
                                                         <input ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" type="text" class="form-control" placeholder1="Select Location" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocationText" />
 
                                                         <span class="input-group-addon last" ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)"><i class="fa fa-search"></i></span>
+
+                                                        <span class="input-group-addon last" ng-if="$index==0">
+                                                            <button id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveTransactionData.MoveToLocation,CurrentActiveObject.MoveTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
+                                                                <i class="fa fa-thumb-tack"></i>
+                                                            </button>
+                                                        </span>
+
                                                     </div>
 
 
@@ -219,73 +224,70 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveTransactionData.MoveToLocation,CurrentActiveObject.MoveTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
 
-                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                    {{CurrentActiveObject.MoveTransactionData.StatusToUpdate}}
-                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+
+                                                <div class="input-group">
+
+                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                        {{CurrentActiveObject.MoveTransactionData.StatusToUpdate}}
+                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                    </div>
+                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                                                        <li>
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=''">None</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+                                                        <li ng-repeat="_optionValue in StatusList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+
+                                                    </ul>
+
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+
                                                 </div>
-                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-                                                    <li>
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=''">None</td>
-
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-                                                    <li ng-repeat="_optionValue in StatusList">
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-                                                                 </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-
-                                                </ul>
 
                                             </div>
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-
-                                            <label>&nbsp;</label>
-                                            <div class="pull-right">
-                                                <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                 </div>
 
 
                                 <div class="row" ng-if=" CurrentOperation!='Convert' &&  CurrentOperation!='Move' &&  CurrentOperation!='MoveTagUpdate'">
-                                    <div class="col-xs-8 col-md-8">
+                                    <div class="col-xs-12 col-md-12">
 
                                         <div class="form-group">
                                             <label>
@@ -299,8 +301,18 @@
                                                 </span>
 
                                             </label>
-                                            <div class="fg-line">
+                                            <div class="input-group">
                                                 <input type="number" pattern="[0-9]*" inputmode="numeric" placeholder1="Fill Quantity" ng-change="UpdateQty(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity,$index)" ng-blur="UpdateQty(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity,$index)" ng-model="CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity" class="input-mini form-control  WholeNumbersOnly NumberType" />
+
+                                                <span ng-if="$index==0" class="input-group-addon last">
+                                                    <button data-toggle="dropdown" aria-expanded="false" id="mybutton_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
+                                                        <i class="fa fa-thumb-tack"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
+                                                        <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                    </ul>
+                                                </span>
                                             </div>
 
 
@@ -321,48 +333,35 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                        <label>&nbsp;</label>
-                                        <div class="pull-right">
-                                            <button data-toggle="dropdown" aria-expanded="false" id="mybutton_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
-                                                <i class="fa fa-thumb-tack"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
 
                                 <div class="row" ng-if=" CurrentOperation=='Increase'&&  CanCost=='True'">
 
-                                    <div class="col-xs-8 col-md-8">
+                                    <div class="col-xs-12 col-md-12">
                                         <div class="form-group" ng-if="_groupRow.ActionPerformed!=-1">
                                             <label>Cost/unit</label>
-                                            <div class="fg-line">
+                                            <div class="input-group">
 
                                                 <input type="number" pattern="[0-9]*" inputmode="numeric" placeholder1="Fill Cost per unit" class="form-control NumberType FormControlType" ng-model=" CurrentActiveObject.iCostPerItem" />
 
+                                                <span ng-if="$index==0" class="input-group-addon last">
+                                                    <button id="mybuttonCost_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillCost( CurrentActiveObject.iCostPerItem, CurrentActiveObject.InventoryDataList.uId)">
+                                                        <i class="fa fa-thumb-tack"></i>
+                                                    </button>
+                                                </span>
                                             </div>
                                         </div>
 
 
                                     </div>
-                                    <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                        <div class="pull-right">
-                                            <label>&nbsp;</label>
-                                            <button id="mybuttonCost_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillCost( CurrentActiveObject.iCostPerItem, CurrentActiveObject.InventoryDataList.uId)">
-                                                <i class="fa fa-thumb-tack"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                                 <div ng-if="CurrentOperation=='Update'">
                                     <div class="row">
-                                        <div class="col-xs-6 col-md-6">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <!--<div class="fg-line">
@@ -374,60 +373,61 @@
                                                     </div>
                                                 </div>-->
 
-                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                    {{CurrentActiveObject.UpdateTransactionData.StatusToUpdate}}
-                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                <div class="input-group">
+                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                        {{CurrentActiveObject.UpdateTransactionData.StatusToUpdate}}
+                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                    </div>
+                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+                                                        <li>
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=''">None</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+                                                        <li ng-repeat="_optionValue in StatusList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+
+                                                    </ul>
+
+                                                    <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
+                                                        <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </button>
+                                                    </span>
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="status_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems(CurrentActiveObject.UpdateTransactionData.StatusToUpdate, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+
+                                                    </span>
+
                                                 </div>
-                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li>
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=''">None</td>
 
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-                                                    <li ng-repeat="_optionValue in StatusList">
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-
-                                                </ul>
+                                               
 
                                             </div>
 
 
-                                        </div>
-
-                                        <div class="col-xs-2 col-md-2">
-                                            <div ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true">
-                                                <label>&nbsp;</label>
-                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
-                                                    <i class="fa fa-plus-circle"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="status_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems(CurrentActiveObject.UpdateTransactionData.StatusToUpdate, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -438,7 +438,7 @@
                                 <div ng-if="CurrentOperation=='Apply'">
 
                                     <div class="row" ng-if=" IsMyInventoryColumns('iReqValue')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iReqValue')}}</label>
                                                 <div class="input-group">
@@ -449,29 +449,22 @@
                                                         <span ng-if="tvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                     </div>
                                                     <span class="input-group-addon last" ng-click="ScanTagItem('iReqValue',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iReqValue', CurrentActiveObject.ApplyTransactionData.UnitTag1, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                 </div>
-
-                                            </div>
-
-
-
-
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <label>&nbsp;</label>
-                                            <div class="pull-right">
-                                                <button id="unittag1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iReqValue', CurrentActiveObject.ApplyTransactionData.UnitTag1, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
                                             </div>
                                         </div>
+                                        
 
 
                                     </div>
 
                                     <div class="row" ng-if=" IsMyInventoryColumns('iUnitTag2')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUnitTag2')}}</label>
 
@@ -484,25 +477,23 @@
                                                         <span ng-if="tvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                     </div>
                                                     <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag2', CurrentActiveObject.ApplyTransactionData.UnitTag2,  CurrentActiveObject.InventoryDataList.uId)">
+
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                 </div>
                                             </div>
 
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unittag2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag2', CurrentActiveObject.ApplyTransactionData.UnitTag2,  CurrentActiveObject.InventoryDataList.uId)">
-
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
 
                                     </div>
                                     <div class="row" ng-if=" IsMyInventoryColumns('iUnitTag3')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUnitTag3')}}</label>
 
@@ -516,72 +507,63 @@
 
                                                     </div>
                                                     <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag3',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag3_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag3', CurrentActiveObject.ApplyTransactionData.UnitTag3, CurrentActiveObject.InventoryDataList.uId)">
+
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+
                                                 </div>
                                             </div>
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unittag3_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag3', CurrentActiveObject.ApplyTransactionData.UnitTag3, CurrentActiveObject.InventoryDataList.uId)">
-
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
 
 
                                     </div>
 
                                     <div class="row" ng-if="IsMyInventoryColumns('iUniqueDate')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUniqueDate')}}</label>
-                                                <div class="fg-line">
+                                                <div class="input-group">
                                                     <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UniqueDate" />
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitdate_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUniqueDate', CurrentActiveObject.ApplyTransactionData.UniqueDate, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                     <span ng-if="tvar4==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
                                             </div>
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitdate_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUniqueDate', CurrentActiveObject.ApplyTransactionData.UniqueDate, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
 
 
                                     </div>
                                     <div class="row" ng-if=" IsMyInventoryColumns('iUnitDate2')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUnitDate2')}}</label>
-                                                <div class="fg-line">
+                                                <div class="input-group">
                                                     <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitDate2" />
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitdate2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitDate2', CurrentActiveObject.ApplyTransactionData.UnitDate2, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                     <span ng-if="tvar5==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
                                             </div>
-
-
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitdate2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitDate2', CurrentActiveObject.ApplyTransactionData.UnitDate2, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-
                                     </div>
                                     <div class="row" ng-if=" IsMyInventoryColumns('iUnitNumber1')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUnitNumber1')}}</label>
@@ -595,25 +577,24 @@
                                                         <span ng-if="tvar6==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                     </div>
                                                     <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber1',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+
+                                                        <button id="unitnumber1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber1', CurrentActiveObject.ApplyTransactionData.UnitNumber1, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                 </div>
                                             </div>
 
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitnumber1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber1', CurrentActiveObject.ApplyTransactionData.UnitNumber1, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
 
 
                                     </div>
                                     <div class="row" ng-if=" IsMyInventoryColumns('iUnitNumber2')==true">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
                                                 <label>{{ GetColumnLabel('iUnitNumber2')}}</label>
@@ -627,19 +608,17 @@
                                                         <span ng-if="tvar7==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                     </div>
                                                     <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitnumber2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber2', CurrentActiveObject.ApplyTransactionData.UnitNumber2, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+</div>
                                             </div>
 
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitnumber2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber2', CurrentActiveObject.ApplyTransactionData.UnitNumber2, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
 
                                     </div>
                                 </div>
@@ -648,7 +627,7 @@
 
                                 <div ng-if="CurrentOperation=='Convert'">
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Quantity</label>
 
@@ -659,7 +638,19 @@
 
                                                     </div>
 
-                                                    <span class="input-group-addon last text" style=" max-width: 100px; white-space: nowrap;"> {{ CurrentActiveObject.InventoryDataList.uomUOM}}</span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button data-toggle="dropdown" aria-expanded="false" id="convertqty_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+
+
+                                                        <ul class="dropdown-menu">
+                                                            <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
+                                                            <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        </ul>
+                                                    </span>
+
+                                                    <!--<span class="input-group-addon last text" style=" max-width: 100px; white-space: nowrap;"> {{ CurrentActiveObject.InventoryDataList.uomUOM}}</span>-->
                                                 </div>
                                             </div>
                                             <div ng-if=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
@@ -668,38 +659,35 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-
-                                                <label>&nbsp;</label>
-
-                                                <button data-toggle="dropdown" aria-expanded="false" id="convertqty_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                    <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
 
                                     </div>
 
 
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
 
                                                 <label>New Quantity <span>*</span></label>
 
-                                                <div class="fg-line" ng-class=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity==''?'':''">
+                                                <div class="input-group" ng-class=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity==''?'':''">
 
                                                     <input type="number" pattern="[0-9]*" inputmode="numeric" class="form-control WholeNumbersOnly NumberType" placeholder1="This value is required" ng-model=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity" />
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button data-toggle="dropdown" aria-expanded="false" id="convertqty2_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
 
+
+                                                        <ul class="dropdown-menu">
+                                                            <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
+                                                            <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this quantity</a></li>
+                                                            <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this Quantity</a></li>
+                                                            <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        </ul>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -708,23 +696,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-
-                                                <label>&nbsp;</label>
-                                                <button data-toggle="dropdown" aria-expanded="false" id="convertqty2_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                    <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this quantity</a></li>
-                                                    <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this Quantity</a></li>
-                                                    <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
 
 
                                     </div>
@@ -732,7 +704,7 @@
 
 
                                     <div class="row">
-                                        <div class="col-xs-6 col-md-6">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
 
@@ -747,51 +719,48 @@
                                                     </div>
                                                 </div>-->
 
-                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                    {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
-                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                <div class="input-group">
+                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                        {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
+                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                    </div>
+                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                        <li ng-repeat="_optionValue in UOMList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+
+                                                    </ul>
+
+                                                    <span ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true" class="input-group-addon last">
+                                                        <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </button>
+                                                    </span>
+
+                                                    <span class="input-group-addon last" ng-if="$index==0">
+                                                        <button id="uom_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUOMLineItems( CurrentActiveObject.ConvertTransactionData.ToUOMID, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
                                                 </div>
-                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
-
-                                                    <li ng-repeat="_optionValue in UOMList">
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
-
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-
-                                                </ul>
+                                              
                                             </div>
 
-
-
                                         </div>
-
-                                        <div class="col-xs-2 col-md-2">
-                                            <div ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true">
-                                                <label>&nbsp;</label>
-                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
-                                                    <i class="fa fa-plus-circle"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="uom_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUOMLineItems( CurrentActiveObject.ConvertTransactionData.ToUOMID, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
 
@@ -800,7 +769,7 @@
 
                                 <div ng-if="CurrentOperation=='MoveTagUpdate'">
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
 
                                             <div class="form-group">
                                                 <label>Quantity</label>
@@ -808,6 +777,17 @@
                                                     <div class="fg-line">
                                                         <input placeholder1="Fill Quantity" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity" />
                                                     </div>
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button data-toggle="dropdown" aria-expanded="false" id="movebutton_{{CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu">
+                                                            <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
+                                                            <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        </ul>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -817,23 +797,11 @@
                                                 <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button data-toggle="dropdown" aria-expanded="false" id="movebutton_{{CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                    <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-8 col-md-8">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
 
                                                 <label>Location</label>
@@ -842,22 +810,20 @@
                                                     <div class="input-group">
                                                         <input ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" type="text" class="form-control" placeholder1="Select Location" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText" />
                                                         <span class="input-group-addon last" ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)"><i class="fa fa-search"></i></span>
+                                                        <span class="input-group-addon last">
+                                                            <button ng-if="$index==0" id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
+                                                                <i class="fa fa-thumb-tack"></i>
+                                                            </button>
+                                                        </span>
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-6 col-md-6">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <!--<div class="fg-line">
@@ -870,281 +836,30 @@
                                                     </div>
                                                 </div>-->
 
-
-                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                    {{CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate}}
-                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
-                                                </div>
-                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li>
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=''">None</td>
-
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-                                                    <li ng-repeat="_optionValue in StatusList">
-                                                        <a>
-                                                            <table style="width: 100%">
-                                                                <tr>
-                                                                    <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-
-
-                                                                </tr>
-                                                            </table>
-                                                        </a>
-
-                                                    </li>
-
-
-                                                </ul>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-xs-2 col-md-2">
-                                            <div ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true">
-                                                <label>&nbsp;</label>
-                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
-                                                    <i class="fa fa-plus-circle"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <label>&nbsp;</label>
-                                            <div class="pull-right">
-                                                <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" ng-if="IsMyInventoryColumns('iReqValue')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iReqValue')}}</label>
                                                 <div class="input-group">
-                                                    <div class="fg-line">
-                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
-                                                        <span ng-if="mtuvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                    </div>
-                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iReqValue',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <label>&nbsp;</label>
-                                            <div class="pull-right">
-                                                <button id="unittag1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iReqValue', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitTag2')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUnitTag2')}}</label>
-
-                                                <div class="input-group">
-                                                    <div class="fg-line">
-                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
-                                                        <span ng-if="mtuvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                    </div>
-                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unittag2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2,  CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitTag3')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUnitTag3')}}</label>
-
-                                                <div class="input-group">
-                                                    <div class="fg-line">
-                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" type="text" data-type="string" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
-                                                        <span ng-if="mtuvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                    </div>
-                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag3',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unittag3_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag3', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUniqueDate')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUniqueDate')}}</label>
-                                                <div class="fg-line">
-                                                    <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
-                                                    <span ng-if="mtuvar4==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitdate_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUniqueDate', CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitDate2')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUnitDate2')}}</label>
-                                                <div class="fg-line">
-                                                    <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
-                                                    <span ng-if="mtuvar5==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitdate2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitDate2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitNumber1')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUnitNumber1')}}</label>
-
-                                                <div class="input-group">
-                                                    <div class="fg-line">
-                                                        <input id="unitnumbertext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'),$index)" type="number" data-type="number" pattern="[0-9]*" inputmode="numeric" class="form-control NumberType uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitNumber1')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber1" />
-                                                        <span ng-if="mtuvar6==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                    </div>
-                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber1',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitnumber1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber1', CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber1, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitNumber2')==true">
-                                        <div class="col-xs-8 col-md-8">
-                                            <div class="form-group">
-                                                <label>{{ GetColumnLabel('iUnitNumber2')}}</label>
-
-
-                                                <div class="input-group">
-                                                    <div class="fg-line">
-                                                        <input id="unitnumbertext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'),$index)" type="number" data-type="number" pattern="[0-9]*" inputmode="numeric" class="form-control NumberType uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitNumber2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber2" />
-                                                        <span ng-if="mtuvar7==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
-                                                    </div>
-                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" ng-if="$index==0">
-                                            <div class="pull-right">
-                                                <label>&nbsp;</label>
-                                                <button id="unitnumber2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber2, CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" ng-if="isLineItemColumnNames.length>0 && IsActiveTransactionField(CurrentActiveObject.IsLineItemData[$index].cfdID)" ng-init="parentIndexData=$index" data-ng-repeat="_columns in isLineItemColumnNames">
-
-
-                                    <div class="col-xs-8 col-md-8">
-                                        <div class="form-group">
-                                            <label>{{_columns}} <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
-                                            <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
-
-                                                <input placeholder1="fill {{_columns}}" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" type="text" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='string'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
-
-                                                <div ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='checkbox'" class="">
-
-                                                    <div class="btn-group custombtnGroup">
-                                                        <label class="switch1">
-                                                            <input type="checkbox" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue">
-                                                            <div class="slider round"></div>
-                                                        </label>
-                                                    </div>
-
-                                                    <!--<input type="checkbox" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" bootstrap-switch>-->
-
-                                                </div>
-
-                                                <div ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='combobox'">
-                                                    <!--<div class="fg-line">
-
-
-
-                                                        <div class="select">
-                                                            <select class="form-control" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue">
-
-                                                                <option value="{{_optionValue}}" ng-repeat="_optionValue in CurrentActiveObject.IsLineItemData[$index].cfdComboValues track by $index">{{_optionValue}}</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>-->
-
                                                     <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                        {{CurrentActiveObject.IsLineItemData[$index].CfValue}}
-
+                                                        {{CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate}}
                                                         <i class="caret pull-right" style="margin-top: 8px"></i>
                                                     </div>
                                                     <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                                                        <li ng-repeat="_optionValue in CurrentActiveObject.IsLineItemData[parentIndexData].cfdComboValues track by $index">
+                                                        <li>
                                                             <a>
                                                                 <table style="width: 100%">
                                                                     <tr>
-                                                                        <td ng-click="CurrentActiveObject.IsLineItemData[parentIndexData].CfValue=_optionValue;CheckScopeBeforeApply();">  {{_optionValue}}</td>
+                                                                        <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=''">None</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+                                                        <li ng-repeat="_optionValue in StatusList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
 
 
                                                                     </tr>
@@ -1155,36 +870,272 @@
 
 
                                                     </ul>
+                                                    <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
+
+                                                        <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </button>
+                                                    </span>
+
+                                                    <span class="input-group-addon last" ng-if="$index==0">
+                                                        <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+
+                                              
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" ng-if="IsMyInventoryColumns('iReqValue')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iReqValue')}}</label>
+                                                <div class="input-group">
+                                                    <div class="fg-line">
+                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
+                                                        <span ng-if="mtuvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                    </div>
+                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iReqValue',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iReqValue', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitTag2')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUnitTag2')}}</label>
+
+                                                <div class="input-group">
+                                                    <div class="fg-line">
+                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
+                                                        <span ng-if="mtuvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                    </div>
+                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2,  CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitTag3')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUnitTag3')}}</label>
+
+                                                <div class="input-group">
+                                                    <div class="fg-line">
+                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" type="text" data-type="string" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
+                                                        <span ng-if="mtuvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                    </div>
+                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitTag3',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unittag3_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitTag3', CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUniqueDate')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUniqueDate')}}</label>
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitdate_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUniqueDate', CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                    <span ng-if="mtuvar4==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitDate2')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUnitDate2')}}</label>
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control unitDatePicker uniqueunitData" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
+
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitdate2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitDate2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+
+                                                    <span ng-if="mtuvar5==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                     
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitNumber1')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUnitNumber1')}}</label>
+
+                                                <div class="input-group">
+                                                    <div class="fg-line">
+                                                        <input id="unitnumbertext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'),$index)" type="number" data-type="number" pattern="[0-9]*" inputmode="numeric" class="form-control NumberType uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitNumber1')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber1" />
+                                                        <span ng-if="mtuvar6==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                    </div>
+                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber1',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitnumber1_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber1', CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber1, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                       
+
+                                    </div>
+                                    <div class="row" ng-if="IsMyInventoryColumns('iUnitNumber2')==true">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>{{ GetColumnLabel('iUnitNumber2')}}</label>
+
+
+                                                <div class="input-group">
+                                                    <div class="fg-line">
+                                                        <input id="unitnumbertext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'),$index)" type="number" data-type="number" pattern="[0-9]*" inputmode="numeric" class="form-control NumberType uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitNumber2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber2" />
+                                                        <span ng-if="mtuvar7==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
+                                                    </div>
+                                                    <span class="input-group-addon last" ng-click="ScanTagItem('iUnitNumber2',CurrentActiveObject.InventoryDataList.uId,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                    <span ng-if="$index==0" class="input-group-addon last">
+                                                        <button id="unitnumber2_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUnitData('iUnitNumber2', CurrentActiveObject.MoveUpdateTagTransactionData.UnitNumber2, CurrentActiveObject.InventoryDataList.uId)">
+                                                            <i class="fa fa-thumb-tack"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-if="isLineItemColumnNames.length>0 && IsActiveTransactionField(CurrentActiveObject.IsLineItemData[$index].cfdID)" ng-init="parentIndexData=$index" data-ng-repeat="_columns in isLineItemColumnNames">
+
+
+                                    <div class="col-xs-8 col-md-8">
+                                        <div class="form-group">
+                                            <label>{{_columns}} <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
+
+                                            <div class="input-group" >
+                                                <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
+
+                                                    <input placeholder1="fill {{_columns}}" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" type="text" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='string'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
+
+                                                    <div ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='checkbox'" class="">
+
+                                                        <div class="btn-group custombtnGroup">
+                                                            <label class="switch1">
+                                                                <input type="checkbox" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue">
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
+
+                                                        <!--<input type="checkbox" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" bootstrap-switch>-->
+
+                                                    </div>
+
+                                                    <div ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='combobox'">
+                                                        <!--<div class="fg-line">
+
+
+
+                <div class="select">
+                    <select class="form-control" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue">
+
+                        <option value="{{_optionValue}}" ng-repeat="_optionValue in CurrentActiveObject.IsLineItemData[$index].cfdComboValues track by $index">{{_optionValue}}</option>
+
+                    </select>
+                </div>
+            </div>-->
+
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{CurrentActiveObject.IsLineItemData[$index].CfValue}}
+
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                        </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                            <li ng-repeat="_optionValue in CurrentActiveObject.IsLineItemData[parentIndexData].cfdComboValues track by $index">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.IsLineItemData[parentIndexData].CfValue=_optionValue;CheckScopeBeforeApply();">  {{_optionValue}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
+
+                                                    </div>
+                                                    <input type="date" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='date'||CurrentActiveObject.IsLineItemData[$index].cfdDataType=='datetime'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control customFieldDatePicker" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
+                                                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='number'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
+                                                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='currency'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" ng-change="ConvertZeroCurrency(CurrentActiveObject.InventoryDataList.uId,$index)" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
+
+                                                    <span class="input-group-addon last" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'" ng-click="ScanLineItem(1,CurrentActiveObject.IsLineItemData[$index].cfdID,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
+                                                </div>
+                                                <div>
+
+                                                    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true && TrimValue(CurrentActiveObject.IsLineItemData[$index].CfValue)=='' " class="errorMessage">
+                                                        {{CurrentActiveObject.IsLineItemData[$index].cfdName }} field is required.
+
+                                                    </span>
+
 
                                                 </div>
-                                                <input type="date" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='date'||CurrentActiveObject.IsLineItemData[$index].cfdDataType=='datetime'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control customFieldDatePicker" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
-                                                <input type="number" pattern="[0-9]*" inputmode="numeric" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='number'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
-                                                <input type="number" pattern="[0-9]*" inputmode="numeric" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='currency'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" ng-change="ConvertZeroCurrency(CurrentActiveObject.InventoryDataList.uId,$index)" value="{{CurrentActiveObject.IsLineItemData[$index].CfValue}}" />
-
-                                                <span class="input-group-addon last" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'" ng-click="ScanLineItem(1,CurrentActiveObject.IsLineItemData[$index].cfdID,$index,CurrentActiveObject.InventoryID)"><i class="fa fa-barcode"></i></span>
-                                            </div>
-                                            <div>
-
-                                                <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true && TrimValue(CurrentActiveObject.IsLineItemData[$index].CfValue)=='' " class="errorMessage">
-                                                    {{CurrentActiveObject.IsLineItemData[$index].cfdName }} field is required.
-
+                                                <span class="input-group-addon last" ng-if="parentIndex==0">
+                                                    <button ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'" id="lineitem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}_{{CurrentActiveObject.IsLineItemData[$index].InventoryID}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLineItem($index,CurrentActiveObject.IsLineItemData[$index].cfdID,CurrentActiveObject.IsLineItemData[$index].CfValue,CurrentActiveObject.IsLineItemData[$index].InventoryID)">
+                                                        <i class="fa fa-thumb-tack"></i>
+                                                    </button>
                                                 </span>
-
-
                                             </div>
+
+                                           
                                         </div>
                                     </div>
 
 
-                                    <div class="col-xs-4 col-md-4" ng-if="parentIndex==0">
-                                        <label>&nbsp;</label>
-                                        <div class="pull-right">
-
-                                            <button ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'" id="lineitem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}_{{CurrentActiveObject.IsLineItemData[$index].InventoryID}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLineItem($index,CurrentActiveObject.IsLineItemData[$index].cfdID,CurrentActiveObject.IsLineItemData[$index].CfValue,CurrentActiveObject.IsLineItemData[$index].InventoryID)">
-                                                <i class="fa fa-thumb-tack"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
 
 
                                 </div>

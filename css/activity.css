@@ -18,6 +18,16 @@
     font-size: 20px;
 }
 
+.smallBtn i
+{
+    padding:0;
+}
+
+.singlePanel .col-xs-12
+{
+    padding-left:0;
+}
+
     .summaryClearbtn i {
         font-size: 29px;
     }
@@ -93,14 +103,13 @@
 }
 
 
-.mycartitem:nth-child(odd) {
-    background: #F5F5F5;
-    padding-top: 10px;
-}
-
-.mycartitem:nth-child(even) {
+.mycartitem{
     background: #ffffff;
     padding-top: 10px;
+    padding-left: 7px;
+    margin-bottom: 12px;
+    padding-right: 7px;
+    padding-bottom:12px;
 }
 
 
@@ -208,10 +217,16 @@ label {
     white-space: nowrap;
 }
 
+.singlePanel .rotateData i
+{
+    padding:0;
+}
+
+
 .rotateData {
     padding: 0px;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background: #128ece;
     border-radius: 100%;
     color: #fff !important;
