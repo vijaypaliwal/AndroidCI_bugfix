@@ -6,7 +6,7 @@
         height: 35px;
         width: 35px;
         line-height: 35px;
-        border-radius: 100%;
+       
         padding: 0px;
         text-align: center;
     }
@@ -160,7 +160,7 @@
         <form name="status">
 
             <div style="background:#fff;padding:10px; margin-top:7px;">
-                <h4 ng-if="mode == 2">Fill below value to add new</h4>
+                <h4 ng-if="mode == 2">Enter New Status in the Field Below</h4>
                 <h4 ng-if="mode == 3">Update below value to update status</h4>
                 <div class="form-group">
                     <label>Status <span>*</span></label>
@@ -172,7 +172,7 @@
                     <label for="test1">Keep form open</label>
                 </div>
 
-                <button type="button" ng-disabled="GetTrimmedString('#StatusToCreate')||IsProcessing==true" ng-click="savestatus()" ng-if="mode == 2" class="btn btn-primary"> <i class="fa fa-plus-circle" ng-class="{'fa-spin':IsProcessing==true}"></i> Add</button>
+                <button type="button" ng-disabled="GetTrimmedString('#StatusToCreate')||IsProcessing==true" ng-click="savestatus()" ng-if="mode == 2" class="btn btn-primary"> <i class="fa fa-plus-circle" ng-class="{'fa-spin':IsProcessing==true}"></i> Create</button>
                 <button type="button" ng-disabled="GetTrimmedString('#StatusToCreate')||IsProcessing==true" ng-click="savestatus()" ng-if="mode == 3" class="btn btn-primary"> <i class="fa fa-pencil" ng-class="{'fa-spin':IsProcessing==true}"></i> Update</button>
                 <a ng-click="leaveform()" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
 

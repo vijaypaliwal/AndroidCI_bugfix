@@ -2,6 +2,13 @@
 
 <link href="css/finditem.css" rel="stylesheet" />
 
+<style>
+    .form-group.has-feedback {
+        margin-bottom:0;
+    }
+
+</style>
+
 
 <div class="title-header">
 
@@ -13,16 +20,14 @@
     </div>
 </div>
 
-<a ng-if="isshowsearch==false" ng-click="showsearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-search"></i> </a>
+<!--<a ng-if="isshowsearch==false" ng-click="showsearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-search"></i> </a>
 
-<a ng-if="isshowsearch==true" ng-click="hidesearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
+<a ng-if="isshowsearch==true" ng-click="hidesearch()" class="btn btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>-->
 <!--<a href="#/Accounts" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>-->
 <div>
     <br /><br /><br />
 
     <a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
-
-
 
 
     <div ng-if="myinventoryColumnLoaded==false">
@@ -35,7 +40,7 @@
         </div>
     </div>
     <div id="sticky-anchor"></div>
-    <div class="searchsection"  ng-if="isshowsearch==true" id="">
+    <div class="searchsection" >
         <table class="searchtable">
             <tbody>
                 <tr>
@@ -111,16 +116,17 @@
 
                                 <span ng-if="CurrentActiveSearchType==1">
 
-                                    <input style="border-radius:0px;" id="MasterSearch" type="text" ng-model="SearchValue" class="form-control hideaddclear" placeholder="Type to Search">
+                                    <input id="MasterSearch" type="text" ng-model="SearchValue" class="form-control hideaddclear" placeholder="Search">
                                 </span>
+
 
                                 <span ng-if="CurrentActiveSearchType==3">
 
-                                    <input style="border-radius: 0px;" id="MasterSearchDate" type="date" ng-model="SearchDateValue" class="form-control" placeholder="Type to Search">
+                                    <input style="font-size:10px;" id="MasterSearchDate" type="date" ng-model="SearchDateValue" class="form-control" placeholder="Search">
                                 </span>
                                 <span ng-if="CurrentActiveSearchType==2">
 
-                                    <input style="border-radius: 0px; " id="MasterSearchNumber" type="number" ng-model="SearchNumberValue" class="form-control hideaddclear" placeholder="Type to Search">
+                                    <input  id="MasterSearchNumber" type="number" ng-model="SearchNumberValue" class="form-control hideaddclear" placeholder="Search">
                                 </span>
                                 <span ng-if="CurrentActiveSearchType==4">
 

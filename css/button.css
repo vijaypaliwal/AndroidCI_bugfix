@@ -421,8 +421,7 @@
     }
 
     #filtermodal img {
-        background: #fff;
-        border-radius: 100%;
+     margin-top:-3px;
     }
 
     #filtermodal .input-group-addon {
@@ -455,16 +454,22 @@
         padding-right: 12px !important;
     }
 
-.finditems img {
-    background: #fff;
-    border-radius: 100%;
-}
+
 
 .finditems.input-group-addon {
     background: #2196F3;
     padding-left: 8px !important;
     padding-right: 8px !important;
+ 
+}
+
+.finditems.input-group-addon a {
+    background: #2196F3;
+    padding: 6px;
+    padding-top: 11px;
+    padding-bottom: 11px;
     border-right: 1px solid #fff;
+    border-radius: 100% !important;
 }
 
 
@@ -475,13 +480,21 @@
 
 
 .finditems .fa-caret-down {
-    background: #fff;
-    color: #000 !important;
+    color: #fff !important;
+    background: transparent;
     padding: 1px !important;
     padding-top: 2px !important;
-    padding-left: 7px !important;
-    font-size: 24px !important;
-    padding-right: 7px !important;
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+}
+
+.finditems.input-group-addon ul li a {
+    background: transparent;
+}
+
+.finditems img
+{
+    margin-top:-3px;
 }
 
 #toast-container {

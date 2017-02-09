@@ -43,6 +43,8 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
 
     $scope.Getuserinfo = function () {
 
+        debugger;
+
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
@@ -58,6 +60,8 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
                dataType: 'text json',
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
                success: function (response) {
+
+                   debugger;
                    if (response.GetUserInfoResult.Success == true) {
                        
                        
@@ -79,9 +83,24 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
 
                    if (response.GetUserInfoResult.Payload[0].ProfilePic != null && response.GetUserInfoResult.Payload[0].ProfilePic != "") {
 
-                       $scope.picURl = response.GetUserInfoResult.Payload[0].ProfilePic;
 
-                       $scope.ProfilePicURl = $scope.picURl;
+                       if (response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("png") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpeg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("gif") != -1) {
+                           $scope.picURl = response.GetUserInfoResult.Payload[0].ProfilePic;
+
+                           $scope.ProfilePicURl = $scope.picURl;
+                       }
+
+                       else {
+                           $scope.picURl = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+
+                           $scope.ProfilePicURl = "img/dummy-user48.png";
+
+
+                       }
+
+
+                      
+                    
                    }
 
                    else {
@@ -98,6 +117,10 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
                        $scope.ShowErrorMessage("User Info", 1, 1, response.GetUserInfoResult.Message)
 
                    }
+
+                 
+
+
                    $scope.$apply();
 
                    var d = new Date();

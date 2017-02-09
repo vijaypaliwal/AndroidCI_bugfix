@@ -185,7 +185,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
                    if (response.GetUserInfoResult.Payload[0].ProfilePic != null && response.GetUserInfoResult.Payload[0].ProfilePic != "") {
 
-                       _UserInfo.picURl = response.GetUserInfoResult.Payload[0].ProfilePic;
+                       if (response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("png") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpeg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("gif") != -1) {
+                           _UserInfo.picURl = response.GetUserInfoResult.Payload[0].ProfilePic
+                       }
+
+                       else {
+
+                           _UserInfo.picURl = "img/dummy-user48.png";
+
+                       }
                        
                    }
 

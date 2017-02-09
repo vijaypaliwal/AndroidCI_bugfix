@@ -163,11 +163,18 @@ label {
 }
 
 .searchsection {
-    background:#fff;
-    padding:10px;
-    margin-top:-14px;
+    background: #d5d5d5;
+    padding: 10px;
+    margin-top: -18px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
+    .searchsection .input-group-addon {
+         background: #d5d5d5;
+         padding-left:3px;
+         padding-right:3px;
+    }
 
 
 
@@ -681,16 +688,17 @@ body {
 }
 
 .multiselect {
-    width: 100% !important;
+   width: 100% !important;
     background: #fff !important;
     text-align: left !important;
     height: 42px !important;
-    border-top: 1px solid #ccc !important;
-    border-bottom: 1px solid #ccc !important;
+  
     box-shadow: none !important;
     padding-left: 3px;
     font-size: 13px;
-    text-transform:none;
+    text-transform: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 

@@ -2,6 +2,20 @@
 
 <link href="css/profile.css" rel="stylesheet" />
 
+<style>
+    .btn-openimage {
+        height: 40px;
+        width: 40px;
+        background: #d6b40d;
+        display: inline-block;
+        line-height: 43px;
+        position: absolute;
+        border-radius: 100%;
+        margin-top: -31px;
+        color:#fff !important;
+    }
+</style>
+
 <div style="display:none;" class="profilepage">
 
     <div class="detailmode">
@@ -16,7 +30,8 @@
             <img src="{{picURl}}" ng-click="PreviewImage()" class="myimg" id="myimg" ng-if="_isProfileLoading==false" alt="Alternate Text" />
 
             <div ng-click="openModel()">
-                <i class="fa fa-pencil"></i>
+                <a class="btn-openimage"><i class="fa fa-pencil"></i></a>
+               
             </div>
             <div>
                 <br />
