@@ -2555,7 +2555,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.GetActiveUnitDataField();
         CheckScopeBeforeApply();
 
-
+        $("#slide-out-left").hide()
     }
 
 

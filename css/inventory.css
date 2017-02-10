@@ -1,3 +1,8 @@
+#slide-out-left{
+display:none;
+}
+
+
 .Reusedisabled{
 pointer-events: none;
     opacity: 0.4;

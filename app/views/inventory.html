@@ -259,6 +259,7 @@
                                     <label>Item Group </label>
                                     <div class="input-group" ng-if="IsItemGroupLibrary==true && IsActiveItemGroupLibrary==true">
                                         <select class="form-control" id="itemgroup" ng-model="InventoryObject.ItemGroup">
+                                            <option value="">None</option>
                                             <option ng-repeat="obj in Itemgrouplist" value="{{obj.pcfCountFrq}}">{{obj.pcfCountFrq}}</option>
                                         </select>
 

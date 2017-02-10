@@ -528,7 +528,7 @@ label {
 .changebtn {
     height: 60px;
     width: 60px;
-    bottom: 75px;
+    bottom: 40px;
     position: fixed !important;
     border-radius: 60px;
     line-height: 60px;

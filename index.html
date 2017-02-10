@@ -678,7 +678,8 @@
 
         <div class="dropdown open-right">
             <a style="padding-left: 0;" data-toggle="dropdown" class="dropdown-toggle ">
-                <img id="myimgProfile" src="{{picURl}}" alt="" style=" height: 50px; width:50px;  border: 2px solid #ccc;" class="circle">
+                <img id="myimgProfile" src="{{ProfilePicURl}}" alt="" style=" height: 50px; width:50px;  border: 2px solid #ccc;" class="circle">
+                
             </a>
             <ul class="top-menu dropdown-menu">
                 <li><a ng-class="getClass('/profile')" href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
@@ -704,7 +705,7 @@
             <div class="sidenav-header primary-color">
 
                 <div class="nav-avatar">
-                    <img class="circle avatar" src="{{picURl}}" alt="">
+                    <img class="circle avatar" id="myimgProfile1" src="{{ProfilePicURl}}" alt="">
                     <div class="avatar-body">
                         <h3>{{username}}</h3>
                         <p>Clearly USER</p>
@@ -1103,11 +1104,12 @@
             $(".formenuopen").remove();
 
         });
-
+      
 
         $("#slide-out-left a").click(function (e) {
             $(".formenuopen").remove();
             $("#slide-out-left").hide();
+
 
         });
 
@@ -1525,7 +1527,7 @@
                 hideOnBlur: false,
                 clearOnEscape: true,
                 wrapperClass: '',
-                zindex: 100
+                zindex: 99
             };
 
         })(jQuery, window, document);
