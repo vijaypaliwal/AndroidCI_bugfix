@@ -481,7 +481,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 console.log($scope.UserInfoData);
                 $scope.username = $scope.UserInfoData.username;
                 $scope.myprofileimage = $scope.UserInfoData.myprofileimage;
-                $scope.picURl = $scope.UserInfoData.picURl;
+                $scope.ProfilePicURl = $scope.UserInfoData.picURl;
                 $scope.$apply();
             }
         }, 1000)
