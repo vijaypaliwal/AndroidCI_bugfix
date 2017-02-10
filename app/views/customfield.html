@@ -126,7 +126,15 @@
 
                 </td>
             </tr>
+            <tr ng-show="IsItemOpen==true">
+                <td>
 
+                    <div class="infoareas" style=" color: #756262; padding: 5px;">
+                        You can create new fields in the web version of Clearly Inventory and they will appear here.
+                    </div>
+                </td>
+
+            </tr>
             <tr ng-repeat="_obj in  _LocalCustomItemFieldsList= (LocalCustomItemFieldsList |  filter: searchData1)" ng-show="IsItemOpen==true">
                 <td>
                     <div class="infoareas">
@@ -165,6 +173,7 @@
                     </div>
                 </td>
             </tr>
+       
             <tr>
                 <td>
                     <div class="infoareas columnHeader" ng-click="openClosePanel(3)">
@@ -174,7 +183,15 @@
                     </div>
                 </td>
             </tr>
+            <tr ng-show="IsActivityOpen==true">
+                <td>
 
+                    <div class="infoareas" style=" color: #756262; padding: 5px;">
+                        You can create new fields in the web version of Clearly Inventory and they will appear here.
+                    </div>
+                </td>
+
+            </tr>
             <tr ng-repeat="_obj in  _LocalCustomActivityFieldsList= (LocalCustomActivityFieldsList | filter: searchData1)" ng-show="IsActivityOpen==true">
 
                 <td>
