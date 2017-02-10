@@ -514,6 +514,8 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
         return bytes;
     }
 
+    
+
     $scope.saveimage = function () {
 
         $(".viewimage").hide();
@@ -539,7 +541,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
           dataType: 'json',
           data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "ImageList": _toSendImages, "txnID": 0, "pID": $scope.CurrentInventory.pID }),
           success: function (response) {
-              log.success("Image has been uploaded success fully for last inventory record.");
+              log.success("Image has been uploaded successfully for last inventory record.");
               window.location.reload();
 
               if (response.UploadImageResult.Success == true) {

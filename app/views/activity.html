@@ -202,11 +202,30 @@
 
 
                                                     <div class="input-group">
-                                                        <div class="select">
-                                                            <select class="form-control" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocation">
-                                                                <option ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                            </select>
+                                                       
+
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{GetLocationByID(CurrentActiveObject.MoveTransactionData.MoveToLocation)}}
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
                                                         </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+                                                            
+
+                                                            <li ng-repeat="_optionValue in LocationDataList">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.MoveTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
 
                                                         <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
@@ -233,61 +252,7 @@
                                         
                                     </div>
 
-                                    <!--<div class="row">
-                                        <div class="col-xs-12 col-md-12">
-                                            <div class="form-group">
-                                                <label>Status</label>
-
-
-                                                <div class="input-group">
-
-                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                        {{CurrentActiveObject.MoveTransactionData.StatusToUpdate}}
-                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
-                                                    </div>
-                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-                                                        <li>
-                                                            <a>
-                                                                <table style="width: 100%">
-                                                                    <tr>
-                                                                        <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=''">None</td>
-
-
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-
-                                                        </li>
-                                                        <li ng-repeat="_optionValue in StatusList">
-                                                            <a>
-                                                                <table style="width: 100%">
-                                                                    <tr>
-                                                                        <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-
-                                                        </li>
-
-
-                                                    </ul>
-
-
-                                                    <span ng-if="$index==0" class="input-group-addon last">
-                                                        <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
-                                                            <i class="fa fa-thumb-tack"></i>
-                                                        </button>
-                                                    </span>
-
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                        
-                                    </div>-->
+                                    
 
                                 </div>
 
@@ -370,14 +335,7 @@
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <!--<div class="fg-line">
-                                                    <div class="select">
-                                                        <select class="form-control" ng-model="CurrentActiveObject.UpdateTransactionData.StatusToUpdate">
-                                                            <option value="">None</option>
-                                                            <option ng-repeat="_optionValue in StatusList" ng-selected="CheckStatusValues(CurrentActiveObject.UpdateTransactionData.StatusToUpdate,_optionValue.StatusValue)?true:false" value="{{_optionValue.StatusValue}}">{{_optionValue.StatusValue}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>-->
+                                             
 
                                                 <div class="input-group">
                                                     <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
@@ -817,13 +775,29 @@
 
 
                                                     <div class="input-group">
-                                                        <div class="select">
-
-                                                            <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation">
-                                                                <option ng-selected="CheckUOMValues(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,obj.LocationID)?true:false" ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                            </select>
+                                                      
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{GetLocationByID(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation)}}
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
                                                         </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
+
+                                                            <li ng-repeat="_optionValue in LocationDataList">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
                                                         <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span ng-click="CreateNewModal(3,$index)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
                                                         <span ng-if="$index==0" class="input-group-addon last">
@@ -1570,11 +1544,28 @@
 
 
                                             <div class="input-group">
-                                                <div class="select">
-                                                    <select class="form-control" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocation">
-                                                        <option ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                    </select>
+                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                    {{GetLocationByID(CurrentActiveObject.MoveTransactionData.MoveToLocation)}}
+                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
                                                 </div>
+                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                    <li ng-repeat="_optionValue in LocationDataList">
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="CurrentActiveObject.MoveTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
 
                                                 <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
@@ -1600,64 +1591,7 @@
 
                             </div>
                             <br />
-                            <!--<div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                      
-
-                                        <div class="input-group">
-
-                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                                {{CurrentActiveObject.MoveTransactionData.StatusToUpdate}}
-                                                <i class="caret pull-right" style="margin-top: 8px"></i>
-                                            </div>
-                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-                                                <li>
-                                                    <a>
-                                                        <table style="width: 100%">
-                                                            <tr>
-                                                                <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=''">None</td>
-
-
-                                                            </tr>
-                                                        </table>
-                                                    </a>
-
-                                                </li>
-                                                <li ng-repeat="_optionValue in StatusList">
-                                                    <a>
-                                                        <table style="width: 100%">
-                                                            <tr>
-                                                                <td ng-click="CurrentActiveObject.MoveTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-
-
-                                                            </tr>
-                                                        </table>
-                                                    </a>
-
-                                                </li>
-
-
-                                            </ul>
-
-                                            <span class="input-group-addon last">
-                                                <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
-                                                    <i class="fa fa-thumb-tack"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-
-                                       
-
-
-                                    </div>
-
-
-                                </div>
-                                
-                            </div>-->
+                            
                           
                         </div>
 
@@ -1705,12 +1639,28 @@
 
 
                                             <div class="input-group">
-                                                <div class="select">
-
-                                                    <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation">
-                                                        <option ng-selected="CheckUOMValues(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,obj.LocationID)?true:false" ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                    </select>
+                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                    {{GetLocationByID(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation)}}
+                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
                                                 </div>
+                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                    <li ng-repeat="_optionValue in LocationDataList">
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
 
                                                 <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span ng-click="CreateNewModal(3,$index)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
@@ -2353,64 +2303,60 @@
                             <br />
 
                             <div class="row">
-                                <div class="col-xs-6 col-md-6">
+                                <div class="col-md-12 col-xs-12">
 
                                     <div class="form-group">
                                         <label>New Unit of Measure <span>*</span></label>
-                                        <!--<div class="fg-line" ng-class=" CurrentActiveObject.ConvertTransactionData.ToUOMID==''?'':''">
-                                            <div class="select">
-                                                <select class="form-control" ng-model=" CurrentActiveObject.ConvertTransactionData.ToUOMID">
-                                                    <option value="">None</option>
-                                                    <option ng-repeat="_optionValue in  UOMList" value="{{_optionValue.UnitOfMeasureID}}">{{_optionValue.UnitOfMeasureName}}</option>
-                                                </select>
+                                        
+
+                                        <div class="input-group">
+
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
                                             </div>
-                                        </div>-->
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
-                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                            {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
-                                            <i class="caret pull-right" style="margin-top: 8px"></i>
+
+                                                <li ng-repeat="_optionValue in UOMList">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
+
+
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+                                            <span ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true" class="input-group-addon last">
+                                       
+
+                                                    <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                    </button>
+                                             
+                                            </span>
+                                            <span class="input-group-addon last">
+                                                <button id="uom_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUOMLineItems( CurrentActiveObject.ConvertTransactionData.ToUOMID, CurrentActiveObject.InventoryDataList.uId)">
+                                                    <i class="fa fa-thumb-tack"></i>
+                                                </button>
+                                            </span>
                                         </div>
-                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                                            <li ng-repeat="_optionValue in UOMList">
-                                                <a>
-                                                    <table style="width: 100%">
-                                                        <tr>
-                                                            <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
-
-
-                                                        </tr>
-                                                    </table>
-                                                </a>
-
-                                            </li>
-
-
-                                        </ul>
                                     </div>
 
 
 
                                 </div>
 
-                                <div class="col-xs-2 col-md-2">
-                                    <div ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true">
-                                        <label>&nbsp;</label>
-                                        <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
-                                            <i class="fa fa-plus-circle"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-4 col-md-4">
-                                    <div class="pull-right">
-                                        <label>&nbsp;</label>
-                                        <button id="uom_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUOMLineItems( CurrentActiveObject.ConvertTransactionData.ToUOMID, CurrentActiveObject.InventoryDataList.uId)">
-                                            <i class="fa fa-thumb-tack"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                             
+                                
                             </div>
 
 
@@ -3153,15 +3099,14 @@
 
         </div>
     </div>
-
-    <div id="locationlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+    <div style="display:none;" id="locationlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-            <h4>select Location <span style="font-size:11px;" ng-if="LocationSearchList.length > 0">{{LocationSearchList.length}} Location(s) found</span></h4>
+            <button ng-click="hidelocationmodal();" type="button" class="close"><span> <i class="fa fa-times"></i> </span></button>
+            <h4>select Location <span style="font-size:11px;" ng-if="FilterRecordsLength.length > 0">{{FilterRecordsLength.length}} Location(s) found</span></h4>
             <div class="form-group">
 
                 <div class="input-group">
-                    <input style="height:47px;" type="text" id="searchlocation" placeholder1="Type Keyword to find locations" ng-change="OnChangeLocationNameFunction()" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
+                    <input type="text" id="searchlocation" placeholder1="Type Keyword to find locations" ng-blur="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" ng-change="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
                     <span class="input-group-addon last" ng-click="ScanLocationsearch()">
                         <i class="fa fa-barcode"></i>
                     </span>
@@ -3171,11 +3116,8 @@
 
         <div class="modal-body">
 
-            <div ng-if="LocationSearching==true">
-                <i class="fa fa-spin fa-spinner"></i> searching please wait..
-            </div>
 
-            <div ng-if="isnolocationmsg == true" class="noitem">
+            <div ng-if="FilterRecordsLength.length==0 && $.trim(SearchLocationValue)!=''" class="noitem">
                 <div style="text-align: center; border: 1px solid #eeeeee;">
                     <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
                     <h4 style="font-size:15px;">We can't find the location you're looking for</h4>
@@ -3183,8 +3125,8 @@
                 </div>
             </div>
 
-            <ul class="searchresultlist" ng-if="LocationSearching==false">
-                <li ng-click="LocationSetItemData(obj)" ng-repeat="obj in LocationSearchList">
+            <ul class="searchresultlist">
+                <li ng-click="LocationSetItemData(obj)" ng-repeat="obj in LocationSearchList | filter : SearchLocationValue">
                     <a>
                         <span ng-bind-html="HighLightTerm(SearchLocationValue,obj.LocationName)"></span>
 
@@ -3196,6 +3138,7 @@
 
         </div>
     </div>
+    
 
 
     <div id="selecteditemlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
@@ -3384,7 +3327,7 @@
 
 
 
-<script src="scripts/jquery.ui.touch-punch.js"></script>
+
 
 <script>
 

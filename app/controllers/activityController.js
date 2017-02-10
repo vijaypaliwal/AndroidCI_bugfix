@@ -1550,18 +1550,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.locationlist = function (inventoryid, locationid, locationtext) {
 
 
-
+        $(".activitycontent").hide();
 
         $scope.currentinventoryid = inventoryid
-
         $scope.currentlocationid = locationid
 
-
-        $("#locationlistmodal").modal('show');
-        $scope.LocationSearchList = [];
-        $scope.SearchLocationValue = "";
-        $scope.SearchLocationValue = locationtext;
-        $scope.OnChangeLocationNameFunction();
+        $("#locationlistmodal").show();
         $scope.isnolocationmsg = false
         $('html,body').animate({ scrollTop: 0 }, 800);
 
@@ -1721,11 +1715,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.LocationSetItemData = function (obj) {
 
 
+
         var k = 0;
 
         for (k = 0; k < $scope.CurrentCart.length; k++) {
             if ($scope.CurrentCart[k].InventoryDataList.uId == $scope.currentinventoryid) {
-
                 if ($scope.CurrentOperation == "Move") {
 
                     if ($scope.CurrentCart[k].InventoryDataList.iLID !== obj.LocationID) {
@@ -1751,14 +1745,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
 
-        CheckScopeBeforeApply();;
 
 
 
-
-        $("#locationlistmodal").modal('hide');
+        $("#locationlistmodal").hide();
         CheckScopeBeforeApply()
     }
+
 
     $scope.FillUOMLineItems = function (value, myid) {
         $scope.ToUOMID = value;
@@ -1859,6 +1852,21 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 }
             }
         }
+    }
+    $scope.GetLocationByID = function (LID) {
+        if ($scope.LocationDataList.length > 0) {
+            var _idData = parseInt(LID);
+            for (var i = 0; i < $scope.LocationDataList.length; i++) {
+                if ($scope.LocationDataList[i].LocationID == _idData) {
+                    return $scope.LocationDataList[i].LocationName;
+                }
+            }
+        }
+    }
+    $scope.hidelocationmodal = function () {
+
+        $("#locationlistmodal").hide();
+        CheckScopeBeforeApply()
     }
     $scope.changeMode = function () {
         $scope.IsSingleMode = !$scope.IsSingleMode;
