@@ -227,12 +227,13 @@ label {
     padding: 0px;
     height: 40px;
     width: 40px;
-    background: #128ece;
+    background: #2196F3;
     border-radius: 100%;
     color: #fff !important;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+    line-height:initial;
 }
 
 .movepin {

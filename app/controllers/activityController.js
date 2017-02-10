@@ -34,6 +34,17 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.AffectedItemIds = [];
     $scope.CurrentHref = "";
     $scope.ColumnList = [];
+    $scope.CurrentCartBkup = [];
+    $scope.UnitDataList = [];
+    $scope.CreateType = 0;
+    $scope.CanAutoClear = false;
+    $scope.CurrentNewLabelIndex = -1;
+    $scope.TempNewLabelIndex = -1;
+    $scope.CurrentLocationIndex = -1;
+    $scope.CreateNewLabel = "";
+    $scope.LocationSearchList = [];
+    $scope.LocationList = [];
+    $scope.TempLocationID = -1;
     $scope.CreateNewLabel = "";
 
      
@@ -97,6 +108,75 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
         return true;
+    }
+
+    $scope.getlocation = function () {
+        $scope.LocationDataList = [];
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetLocations',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'text json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+                   if (response.GetLocationsResult.Success == true) {
+                       $scope.LocationDataList = response.GetLocationsResult.Payload;
+                       $scope.LocationSearchList = angular.copy($scope.LocationDataList);
+
+                       $("#searchlocation").trigger("change");
+                       $("#searchlocation").trigger("blur");
+                       CheckScopeBeforeApply()
+                   }
+
+                   else {
+                       $scope.ShowErrorMessage("Getting locations", 1, 1, response.GetLocationsResult.Message)
+
+                   }
+
+
+               },
+               error: function (err, textStatus, errorThrown) {
+                   if (err.readyState == 0 || err.status == 0) {
+
+                   }
+                   else {
+                       if (textStatus != "timeout") {
+
+
+                           $scope.ShowErrorMessage("Getting locations", 2, 1, err.statusText);
+                       }
+                   }
+
+
+               },
+
+               complete: function () {
+                   if ($scope.TempNewLabelIndex != -1 && $scope.TempLocationID != -1) {
+
+
+                       if ($scope.CurrentOperation == "Move") {
+
+                           $scope.CurrentCart[$scope.TempNewLabelIndex].MoveTransactionData.MoveToLocation = $scope.TempLocationID;
+                       }
+                       if ($scope.CurrentOperation == "MoveTagUpdate") {
+
+                           $scope.CurrentCart[$scope.TempNewLabelIndex].MoveUpdateTagTransactionData.MoveToLocation = $scope.TempLocationID;
+                       }
+                       $scope.TempNewLabelIndex = -1;
+                       $scope.TempLocationID = -1;
+                   }
+
+                   CheckScopeBeforeApply();
+
+               }
+           });
+
     }
 
     $scope.savestatus = function (Statusvalue) {
@@ -279,40 +359,59 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         return _UOM;
     }
     $scope.SaveLabel = function (Type) {
-        if ($scope.checkDuplicate(Type)) {
+        if (Type != 3) {
 
-            if (Type == 1) {
+            if ($scope.checkDuplicate(Type)) {
 
+                if (Type == 1) {
+
+                    CheckScopeBeforeApply();
+                    if ($scope.CurrentNewLabelIndex != -1) {
+                        $scope.saveUOM($scope.CreateNewLabel, $scope.CurrentNewLabelIndex);
+
+                    }
+                }
+
+
+                if (Type == 2) {
+                    var _statusobj = { StatusValue: $scope.CreateNewLabel };
+                    $scope.StatusList.push(_statusobj);
+                    if ($scope.CurrentNewLabelIndex != -1) {
+                        if ($scope.CurrentOperation == "MoveTagUpdate") {
+                            $scope.CurrentCart[$scope.CurrentNewLabelIndex].MoveUpdateTagTransactionData.StatusToUpdate = $scope.CreateNewLabel;
+                        }
+                        if ($scope.CurrentOperation == "Update") {
+                            $scope.CurrentCart[$scope.CurrentNewLabelIndex].UpdateTransactionData.StatusToUpdate = $scope.CreateNewLabel;
+                        }
+                    }
+
+                    $scope.savestatus($scope.CreateNewLabel);
+                }
+
+
+                $scope.CreateNewLabel = "";
+                $scope.CurrentNewLabelIndex = -1;
                 CheckScopeBeforeApply();
-                if ($scope.CurrentNewLabelIndex != -1) {
-                    $scope.saveUOM($scope.CreateNewLabel, $scope.CurrentNewLabelIndex);
+                $("#createnewlabel").modal('hide');
+            }
+            else {
+                log.error("This value already exist.");
+            }
+        }
 
-                }
+        if (Type == 3) {
+            $scope.TempNewLabelIndex = -1;
+            if ($scope.CurrentNewLabelIndex != -1) {
+                $scope.TempNewLabelIndex = $scope.CurrentNewLabelIndex;
             }
 
-
-            if (Type == 2) {
-                var _statusobj = { StatusValue: $scope.CreateNewLabel };
-                $scope.StatusList.push(_statusobj);
-                if ($scope.CurrentNewLabelIndex != -1) {
-                    if ($scope.CurrentOperation == "MoveTagUpdate") {
-                        $scope.CurrentCart[$scope.CurrentNewLabelIndex].MoveUpdateTagTransactionData.StatusToUpdate = $scope.CreateNewLabel;
-                    }
-                    if ($scope.CurrentOperation == "Update") {
-                        $scope.CurrentCart[$scope.CurrentNewLabelIndex].UpdateTransactionData.StatusToUpdate = $scope.CreateNewLabel;
-                    }
-                }
-
-                $scope.savestatus($scope.CreateNewLabel);
-            }
+            $scope.savelocation($scope.CreateNewLabel);
             $scope.CreateNewLabel = "";
             $scope.CurrentNewLabelIndex = -1;
             CheckScopeBeforeApply();
             $("#createnewlabel").modal('hide');
         }
-        else {
-            log.error("This value already exist.");
-        }
+
     }
 
 
@@ -2218,6 +2317,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $scope.getstatus();
         $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
         $scope.GetActiveUnitDataField();
+
+        $scope.getlocation();
+
         if (localStorageService.get('AllowNegativeQuantity') != null && localStorageService.get('AllowNegativeQuantity') != undefined) {
             var _temp = localStorageService.get('AllowNegativeQuantity');
             if (_temp == 'true' || _temp == true) {
@@ -2785,7 +2887,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     if (result.CreateEditLocationResult.Payload.ID == 1) {
 
 
-                        $scope.OnChangeLocationNameFunction();
+                        $scope.getlocation();
+
+                        $scope.TempLocationID = result.CreateEditLocationResult.Payload.NewLocationID;
+
 
                     }
 
