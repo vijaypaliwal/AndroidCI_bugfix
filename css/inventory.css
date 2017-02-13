@@ -681,6 +681,7 @@ html, body {
     overflow-y: auto;
     max-height: 140px;
     background: #fff;
+    -webkit-overflow-scrolling: touch;
 }
 
 .laststepbtn{
