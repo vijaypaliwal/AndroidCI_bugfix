@@ -1,3 +1,20 @@
+#imagemodaldetail {
+
+    width: 100%;
+    margin: 0 auto;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+
+
+    #imagemodaldetail .modal-body {
+        overflow: auto;
+        min-height: 250px;
+        max-height: 500px;
+        padding: 7px;
+    }
 
 .editsection .btn {
     border: none;
@@ -229,4 +246,10 @@ body {
 
 .profilepage {
     display: block !important;
+}
+
+h4 {
+  word-break: break-all;
+    font-size: 15px;
+    width: auto;
 }
