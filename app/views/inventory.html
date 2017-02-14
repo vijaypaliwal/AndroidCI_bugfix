@@ -432,7 +432,7 @@
                                     </select>
                                 </div>
 
-
+                                <span ng-if="checkpermission('URL:configure/CustomFieldItemList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomItem_')"><i class="fa fa-plus"></i></span>
                             </div>
 
                             <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
@@ -489,7 +489,7 @@
                                     </select>
                                 </div>
 
-
+                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomActivity_')"><i class="fa fa-plus"></i></span>
                             </div>
 
 
@@ -1480,6 +1480,36 @@
             <img style="border:1px solid #ccc;" src="{{_obj.bytestring}}" height="80" width="80" alt="Alternate Text" />
             <a class="btn btn-danger removeImage" altid="{{_obj.ImageID}}" ng-click="RemoveFromImageList(_obj.ImageID)"><i class="fa fa-trash-o"></i></a>
         </span>
+
+    </div>
+</div>
+
+<div style="background:#fff;" id="Adddropdownvalue" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+
+    <div class="modal-header">
+        <h4>Create new Dropdown value</h4>
+    </div>
+
+    <div style="padding:15px;" class="modal-body">
+
+        <div class="form-group">
+            <label>Enter new value </label>
+
+            <div class="input-group">
+                <input type="text" ng-model="dropdownLabel" class="form-control" value="" />
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button ng-disabled="dropdownLabel==''" ng-click="SaveDropdownlabel()" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+
+                    <a href="#" data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+                </div>
+
+
+            </div>
+        </div>
 
     </div>
 </div>
