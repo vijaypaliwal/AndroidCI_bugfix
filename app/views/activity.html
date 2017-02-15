@@ -1210,12 +1210,9 @@
 
                         <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
-
                             <div class="select" style="display:none;">
                                 <select id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
-
                                     <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
-
                                 </select>
                             </div>
 
@@ -1241,7 +1238,7 @@
 
 
                             </ul>
-                            <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
+                            <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID,1)"><i class="fa fa-plus"></i></span>
                             <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                         </div>
                         
@@ -1335,7 +1332,7 @@
 
 
                                 </ul>
-                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
+                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID,2)"><i class="fa fa-plus"></i></span>
                                 <span class="input-group-addon last" ng-click="ScanLineItem(3,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                             </div>
 
@@ -1425,7 +1422,7 @@
 
 
                                 </ul>
-                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
+                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID,2)"><i class="fa fa-plus"></i></span>
                                 <span class="input-group-addon last" ng-click="ScanLineItem(4,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                             </div>
 
@@ -2562,7 +2559,7 @@
 
 
                                     </ul>
-                                    <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
+                                    <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID,1)"><i class="fa fa-plus"></i></span>
                                     <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                 </div>
 

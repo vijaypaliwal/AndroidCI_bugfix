@@ -387,6 +387,8 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Type": Type }),
                success: function (response) {
 
+                   debugger;
+
                    if (response.GetCustomFieldsDataResult.Success == true) {
                   
                    
@@ -426,7 +428,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             if ($scope.CustomItemDataList[i].cfdID == ID) {
                 if ($scope.CustomItemDataList[i].cfdCustomFieldType == "Part") {
 
-                    return "i" + $scope.CustomItemDataList[i].ColumnMap;
+                    return "i_" + $scope.CustomItemDataList[i].ColumnMap;
                 }
             }
         }
@@ -1038,6 +1040,10 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
               success: function (response)
               {
 
+                  debugger;
+
+
+
                   if (response.GetAllViewsResult.Success == true) {
               
                       $scope.ActivityViews = response.GetAllViewsResult.Payload;
@@ -1241,16 +1247,15 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                   dataType: 'json',
                   success: function (response) {
 
+
+
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
 
                        
 
-                      if (response.GetInventoryActivitiesResult.Success == true) {
-
-
-
-                    
+                      if (response.GetInventoryActivitiesResult.Success == true)
+                      {
                       
                       _TotalRecordsCurrent = response.GetInventoryActivitiesResult.Payload[0].Data.length;
                       $scope.currentrecord = response.GetInventoryActivitiesResult.Payload[0].Data.length;
@@ -1259,6 +1264,8 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                       $scope.Columns = response.GetInventoryActivitiesResult.Payload[0].Columns;
                       $scope.ActualTotalRecords = response.GetInventoryActivitiesResult.Payload[0].ActualTotalRecords;
                       $scope.FilterArray = response.GetInventoryActivitiesResult.Payload[0].Filters;
+
+                      console.log($scope.ActivityList);
                       // FillFilterArray();
                       UpdateFilterArray();
                       }

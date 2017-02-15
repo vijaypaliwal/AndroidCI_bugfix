@@ -94,7 +94,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
               $('#CustomActivity_' + $scope.currentcfdID).val($scope.dropdownLabel);
 
-              $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, 1);
+              $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, $scope.ActiveIndex);
 
               CheckScopeBeforeApply();
 
@@ -118,8 +118,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
-    $scope.Addnew = function (ID) {
+    $scope.Addnew = function (ID,Index) {
         $scope.currentcfdID = ID;
+        $scope.ActiveIndex = Index;
         CheckScopeBeforeApply();
 
 
