@@ -1232,9 +1232,7 @@
                                     <a>
                                         <table style="width: 100%">
                                             <tr>
-                                                <td ng-click="UpdateActivityDropdownData(obj.cfdID,_optionValue,1)">  {{_optionValue}}</td>
-
-
+                                             <td ng-click="UpdateActivityDropdownData(obj.cfdID,_optionValue,1)">  {{_optionValue}}</td>
                                             </tr>
                                         </table>
                                     </a>
@@ -1243,9 +1241,11 @@
 
 
                             </ul>
+                            <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
                             <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                         </div>
-
+                        
+                        <!--  -->
 
                         <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
 
@@ -1322,14 +1322,11 @@
                                 </div>
                                 <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
-
                                     <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
                                         <a>
                                             <table style="width: 100%">
                                                 <tr>
                                                     <td ng-click="UpdateActivityDropdownData(obj.cfdID,_optionValue,2)">  {{_optionValue}}</td>
-
-
                                                 </tr>
                                             </table>
                                         </a>
@@ -1338,6 +1335,7 @@
 
 
                                 </ul>
+                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
                                 <span class="input-group-addon last" ng-click="ScanLineItem(3,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                             </div>
 
@@ -1427,6 +1425,7 @@
 
 
                                 </ul>
+                                <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
                                 <span class="input-group-addon last" ng-click="ScanLineItem(4,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                             </div>
 
@@ -2563,6 +2562,7 @@
 
 
                                     </ul>
+                                    <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID)"><i class="fa fa-plus"></i></span>
                                     <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                 </div>
 
@@ -3279,7 +3279,35 @@
 
     </div>
 </div>
+<div style="background:#fff;" id="Adddropdownvalue" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
 
+    <div class="modal-header">
+        <h4>Create new </h4>
+    </div>
+
+    <div style="padding:15px;" class="modal-body">
+
+        <div class="form-group">
+            <label>Enter new value </label>
+
+            <div class="input-group">
+                <input type="text" ng-model="dropdownLabel" class="form-control" value="" />
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button ng-disabled="dropdownLabel==''" ng-click="SaveDropdownlabel()" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+
+                    <a href="#" data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <a ng-click="showallmenu()" class="btn waves-effect {{CurrentHeaderClass}} btn-sm changebtn"><i class="fa fa-ellipsis-v"></i></a>
 

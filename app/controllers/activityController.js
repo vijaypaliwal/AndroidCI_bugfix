@@ -69,6 +69,65 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
     }
 
+    $scope.dropdownLabel = "";
+
+    $scope.SaveDropdownlabel = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax({
+            url: serviceBase + "UpdateCustomDropdown",
+            type: 'POST',
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "cfdID": $scope.currentcfdID, "Value": $scope.dropdownLabel }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+
+             
+
+
+              $('#CustomActivity_' + $scope.currentcfdID).append('<option value=' + $scope.dropdownLabel + ' selected="selected"> ' + $scope.dropdownLabel + '</option>');
+
+
+              $('#CustomActivity_' + $scope.currentcfdID).val($scope.dropdownLabel);
+
+              $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, 1);
+
+              CheckScopeBeforeApply();
+
+                $("#Adddropdownvalue").modal('hide');
+
+
+            },
+            error: function (err) {
+
+                alert("error");
+                debugger;
+
+
+            },
+            complete: function () {
+
+
+            }
+
+        });
+
+    }
+
+    $scope.Addnew = function (ID) {
+        $scope.currentcfdID = ID;
+        CheckScopeBeforeApply();
+
+
+        $("#Adddropdownvalue").modal('show');
+
+    }
+
+
     $scope.CancelEdit = function () {
         $scope.IsEditMode = false;
 
@@ -1506,6 +1565,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
     $scope.UpdateActivityDropdownData = function (CustomDataID, Value, Type) {
+
+        debugger;
+
         var _ID = "#CustomActivity_" + CustomDataID;
         var _ID2 = "#CustomActivity_" + CustomDataID + "_label";
 
