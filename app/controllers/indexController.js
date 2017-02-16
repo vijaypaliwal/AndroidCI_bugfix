@@ -414,7 +414,6 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                     $("#modalerror").modal('show');
                     $("#errortext").html(exception);
                 }
-             
                
             }
         }
