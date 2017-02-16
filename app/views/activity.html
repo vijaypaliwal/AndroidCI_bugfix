@@ -2063,6 +2063,13 @@
 
 
                                             </ul>
+
+                                            <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
+                                                <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </button>
+                                            </span>
+
                                             <span class="input-group-addon last">
                                                 <button id="status_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems(CurrentActiveObject.UpdateTransactionData.StatusToUpdate, CurrentActiveObject.InventoryDataList.uId)">
                                                     <i class="fa fa-thumb-tack"></i>
