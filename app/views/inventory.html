@@ -92,7 +92,7 @@
                                     <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
                                         <div>
 
-                                            <input type="text" id="ItemName" class="form-control" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
+                                            <input type="text" id="ItemName" ng-change="Itemvaluechange()" class="form-control" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
 
                                         </div>
 
