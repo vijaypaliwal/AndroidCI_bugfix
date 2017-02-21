@@ -1,0 +1,99 @@
+﻿
+
+<div class="title-header" style=" top: 56px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext"> Help</h4>
+        </div>
+    </div>
+</div>
+<a href="#/FindItems" class="newbackbtn ng-scope" style="margin-top: -50px;"> <i class="fa fa-arrow-left"></i> </a>
+
+<div style="margin-top:56px;">
+
+    <div style="background: #fff; margin-top: 56px" class="ng-scope">
+        <ul class="collapsible animated fadeinright delay-1" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header" onclick="Toggle('#firstDiv')"><i class="fa fa-chevron-down right"></i> 1.Why can't i scan ? </div>
+                <div class="collapsible-body" id="firstDiv">
+                    <p class="fontsize2">
+                        If you’re having problems "scan", then please check camera permissions at below place.
+                        <br /><br /> <b> Go to settings > Clearly Invetory > Turn on camera</b>
+
+                    </p>
+                </div>
+            </li>
+
+            <li>
+                <div class="collapsible-header" onclick="Toggle('#SecondDiv')"><i class="fa fa-chevron-down right"></i>2. Unable to select any picture ?</div>
+                <div class="collapsible-body" id="SecondDiv">
+                    <p>
+                        If you’re having problems chossing picture, please check photos permissions at below place
+
+                        <br />
+
+                        <br />
+                        <b> Go to settings > Clearly Invetory > Turn on photos</b>
+                    </p>
+                </div>
+            </li>
+
+            <li>
+
+                <div class="collapsible-header" onclick="Toggle('#ThirdDiv')"><i class="fa fa-chevron-down right"></i>3. If you’re still having  then..</div>
+                <div class="collapsible-body" id="ThirdDiv">
+                    <p>
+                        Please contact to administrator at below email
+
+                        <br />
+
+                        <a style="color:#069;text-decoration: underline;" href="mailto:info@clearlyinventory.com">info@clearlyinventory.com</a>
+                    </p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+<style>
+    .container {
+        width: 100%;
+    }
+
+    body {
+        background: #eaeaea;
+        overflow-x: hidden !important;
+    }
+
+    .collapsible-body p {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .collapsible-header {
+        font-size: 18px !important;
+    }
+    
+</style>
+<script>
+    function Toggle(ID) {
+        $(ID).toggle("slow");
+    }
+
+    Toggle('#firstDiv');
+
+</script>
+
+
+<link href="css/activityreport.css" rel="stylesheet" />
+<link href="css/mobileorder.css" rel="stylesheet" />
+
+
+
+<style>
+    .container {
+        width: 98%;
+    }
+</style>

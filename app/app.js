@@ -19,8 +19,8 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/help", {
-        controller: "helpController",
-        templateUrl: "app/views/help.html"
+        controller: "helpNewController",
+        templateUrl: "app/views/helpNew.html"
     });
 
     $routeProvider.when("/signup", {
