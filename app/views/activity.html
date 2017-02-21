@@ -3057,6 +3057,60 @@
                                                         </span>
                                                     </span>
 
+
+                                                    <span ng-if="CurrentOperation=='MoveTagUpdate'">
+
+
+                                                        Move,Tag & Update to quantity
+                                                        <span ng-if="IsSingleMode==true"> {{_groupRow.MoveUpdateTagTransactionData.ActionQuantity}}<br /></span>
+                                                        <span ng-if="IsSingleMode==false"> {{CurrentCart[0].MoveUpdateTagTransactionData.ActionQuantity}}<br /></span>
+
+                                                        With data <br />
+
+                                                        <span ng-if="IsSingleMode==true"> Location:{{_groupRow.MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
+                                                        <span ng-if="IsSingleMode==false">Location:{{CurrentCart[0].MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
+
+
+                                                        <span ng-if="IsSingleMode==true">Status:{{_groupRow.MoveUpdateTagTransactionData.StatusToUpdate}} <br /></span>
+                                                        <span ng-if="IsSingleMode==false">Status:{{CurrentCart[0].MoveUpdateTagTransactionData.StatusToUpdate}}<br /></span>
+
+                                                        <span ng-if="IsSingleMode==true">
+                                                            <span ng-if="IsMyInventoryColumns('iReqValue')==true">{{GetColumnLabel('iReqValue')}}: {{_groupRow.MoveUpdateTagTransactionData.UnitTag1}} <br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitTag2')==true"> {{GetColumnLabel('iUnitTag2')}}:{{_groupRow.MoveUpdateTagTransactionData.UnitTag2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitTag3')==true">{{GetColumnLabel('iUnitTag3')}}: {{_groupRow.MoveUpdateTagTransactionData.UnitTag3}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitNumber1')==true"> {{GetColumnLabel('iUnitNumber1')}}:{{_groupRow.MoveUpdateTagTransactionData.UnitNumber1}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitNumber2')==true">  {{GetColumnLabel('iUnitNumber2')}}:{{_groupRow.MoveUpdateTagTransactionData.UnitNumber2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitDate2')==true"> {{GetColumnLabel('iUnitDate2')}}: {{_groupRow.MoveUpdateTagTransactionData.UnitDate2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUniqueDate')==true">  {{GetColumnLabel('iUniqueDate')}}:{{_groupRow.MoveUpdateTagTransactionData.UniqueDate}}<br /></span>
+
+
+
+                                                        </span>
+
+                                                        <span ng-if="IsSingleMode==false">
+                                                            <span ng-if="IsMyInventoryColumns('iReqValue')==true">{{GetColumnLabel('iReqValue')}}: {{CurrentCart[0].MoveUpdateTagTransactionData.UnitTag1}} <br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitTag2')==true"> {{GetColumnLabel('iUnitTag2')}}:{{CurrentCart[0].MoveUpdateTagTransactionData.UnitTag2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitTag3')==true">{{GetColumnLabel('iUnitTag3')}}: {{CurrentCart[0].MoveUpdateTagTransactionData.UnitTag3}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitNumber1')==true"> {{GetColumnLabel('iUnitNumber1')}}:{{CurrentCart[0].MoveUpdateTagTransactionData.UnitNumber1}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitNumber2')==true">  {{GetColumnLabel('iUnitNumber2')}}:{{CurrentCart[0].MoveUpdateTagTransactionData.UnitNumber2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUnitDate2')==true"> {{GetColumnLabel('iUnitDate2')}}: {{CurrentCart[0].MoveUpdateTagTransactionData.UnitDate2}}<br /></span>
+                                                            <span ng-if="IsMyInventoryColumns('iUniqueDate')==true">  {{GetColumnLabel('iUniqueDate')}}:{{CurrentCart[0].MoveUpdateTagTransactionData.UniqueDate}}<br /></span>
+
+
+
+                                                        </span>
+
+
+                                                    </span>
+
+
+
+
+
+
+
+
+
                                                 </span>
 
 

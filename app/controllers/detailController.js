@@ -15,7 +15,17 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
 
+    $scope.IsEmptyAllcheck = function (Obj) {
+        var _return = true;
 
+
+        if (Obj.iUnitNumber2 == null && Obj.iUnitNumber1 == null && Obj.iUnitDate2 == null && Obj.iUniqueDate == null && Obj.iStatusValue == "" && Obj.iReqValue == "" && Obj.iUnitTag2 == "" && Obj.iUnitTag3 == "") {
+            _return = false;
+        }
+
+        return _return;
+
+    }
     $scope.logOut = function () {
 
 
