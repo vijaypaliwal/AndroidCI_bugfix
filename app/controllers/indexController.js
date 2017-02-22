@@ -115,31 +115,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     }
 
 
-    var permissions = cordova.plugins.permissions;
-   
-
-    function checkPermissionCallback(status) {
-        var _returnVar = true;
-        if (!status.hasPermission) {
-            var errorCallback = function () {
-                alert('Camera permission is not turned on');
-            }
-
-            permissions.requestPermission(
-              permissions.CAMERA,
-              function (status) {
-                  if (!status.hasPermission) {
-
-                      errorCallback();
-                      _returnVar = false;
-                  }
-              },
-              errorCallback);
-        }
-
-        return _returnVar;
-    }
-
+    
     $scope.GetDefaultQty=function()
     {
         var _DefaultQty = localStorageService.get('DefaultQty');
