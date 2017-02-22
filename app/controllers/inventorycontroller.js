@@ -2566,28 +2566,30 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             alert(dataUri);
 
             _imageString = dataUri;
+
+            alert("3- _imageString");
+            alert(_imageString);
+
+            $('body').append($img);
+            _imageString = "data:image/jpeg;base64," + _imageString;
+
+            var id = randomStringNew(5, '0123456789');
+            _ImgObj.ImageID = id;
+
+            $(".viewimage").show();
+            $("#myModalforlist").modal("hide");
+
+
+            _ImgObj.FileName = "AndroidCapture";
+            _ImgObj.bytestring = _imageString;
+            $scope.ImageList.push(_ImgObj);
+            CheckScopeBeforeApply();
         });
+
+        $('body').append($img);
         $img.bind('error', function () {
             alert('Couldnt convert photo to data URI');
         });
-        alert("3- _imageString");
-        alert(_imageString);
-
-
-        _imageString = "data:image/jpeg;base64," + _imageString;
-
-        var id = randomStringNew(5, '0123456789');
-        _ImgObj.ImageID = id;
-
-        $(".viewimage").show();
-        $("#myModalforlist").modal("hide");
-
-
-        _ImgObj.FileName = "AndroidCapture";
-        _ImgObj.bytestring = _imageString;
-        $scope.ImageList.push(_ImgObj);
-        CheckScopeBeforeApply();
-
         // log.success("Images captured length"+$scope.ImageList.length);
 
     }
