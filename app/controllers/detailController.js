@@ -199,7 +199,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             targeHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
-            saveToPhotoAlbum: false,
+            saveToPhotoAlbum: true,
         });
     }
 

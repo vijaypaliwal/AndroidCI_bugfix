@@ -283,7 +283,7 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: true,
-            saveToPhotoAlbum: false,
+            saveToPhotoAlbum: true,
         });
     }
     $scope.uploadProfile = function () {
