@@ -2580,7 +2580,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $("#myModalforlist").modal("hide");
 
-        log.error('Failed because: ' + message);
+      //  log.error('Failed because: ' + message);
 
         $scope.errormessage = message;
         CheckScopeBeforeApply();
