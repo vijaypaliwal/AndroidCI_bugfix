@@ -2550,8 +2550,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
         var _imageString = "";
 
+        alert(imageData);
        // window.resolveLocalFileSystemURL(imageData, gotFile, null);
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+        window.requestFileSystem(window.TEMPORARY, 0, function (fs) {
 
             fs.root.getFile(imageData, { create: false, exclusive: false }, function (fileEntry) {
                 alert("file read success");
@@ -2632,7 +2633,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             correctOrientation: true,
             destinationType: destinationType.FILE_URL,
             allowEdit: false,
-            saveToPhotoAlbum: true,
+          //  saveToPhotoAlbum: true,
         });
     }
 
