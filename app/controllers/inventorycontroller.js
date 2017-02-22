@@ -2549,48 +2549,60 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.onPhotoDataSuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
         var _imageString = "";
-        alert("1- ImageData");
-        alert(imageData);
-        var $img = $('<img/>');
-        $img.attr('src', imageData);
-        $img.css({ position: 'absolute', left: '0px', top: '-999999em', maxWidth: 'none', width: 'auto', height: 'auto' });
-        $img.bind('load', function () {
-            var canvas = document.createElement("canvas");
-            canvas.width = $img.width();
-            canvas.height = $img.height();
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage($img[0], 0, 0);
-            var dataUri = canvas.toDataURL('image/png');
 
-            alert("2- DataUri");
-            alert(dataUri);
-
-            _imageString = dataUri;
-
-            alert("3- _imageString");
-            alert(_imageString);
-
-            $('body').append($img);
-            _imageString = "data:image/jpeg;base64," + _imageString;
-
-            var id = randomStringNew(5, '0123456789');
-            _ImgObj.ImageID = id;
-
-            $(".viewimage").show();
-            $("#myModalforlist").modal("hide");
-
-
-            _ImgObj.FileName = "AndroidCapture";
-            _ImgObj.bytestring = _imageString;
-            $scope.ImageList.push(_ImgObj);
-            CheckScopeBeforeApply();
-        });
-
-        $('body').append($img);
-        $img.bind('error', function () {
-            alert('Couldnt convert photo to data URI');
-        });
+        window.resolveLocalFileSystemURL(imageData, gotFile, null);
+    
         // log.success("Images captured length"+$scope.ImageList.length);
+
+    }
+
+    function gotFile(fileEntry) {
+        fileEntry.file(function (file) {
+
+            var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
+            // Loop through the FileList and render image files as thumbnails.
+          
+
+                var reader = new FileReader();
+                reader.onloadstart = function (e) {
+                    alert("load start");
+                }
+                reader.onload = function (e) {
+                    alert("load running");
+                }
+                // Closure to capture the file information.
+                reader.onloadend = (function (file) {
+                    alert("load end");
+                    var id = randomString(5, '0123456789');
+                    _ImgObj.ImageID = id;
+
+
+
+                    return function (e) {
+                        // Render thumbnail.
+                        _ImgObj.FileName = "AndroidCapture";
+                        _ImgObj.bytestring = e.target.result;
+                        _ImgObj.Size = file.size;
+
+
+                    };
+                })(f);
+
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            
+
+            setTimeout(function () {
+
+                $scope.ImageList.push(_ImgObj);
+                CheckScopeBeforeApply();
+
+
+
+            }, 100);
+          
+        });
+
 
     }
 
