@@ -238,6 +238,12 @@
         </div>
     </div>
 
+    <script>
+        window.onerror = function (msg, url, linenumber) {
+            alert('Error message: ' + msg + '\nURL: ' + url + '\nLine Number: ' + linenumber);
+            return true;
+        }
+    </script>
 
     <!-- Jquery libraries -->
     <script src="scripts/jquery-1.11.0.min.js"></script>

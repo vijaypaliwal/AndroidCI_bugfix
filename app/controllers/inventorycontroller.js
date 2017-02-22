@@ -2550,15 +2550,23 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
         var _imageString = "";
 
-        window.resolveLocalFileSystemURL(imageData, gotFile, null);
-    
+       // window.resolveLocalFileSystemURL(imageData, gotFile, null);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+            fs.root.getFile(imageData, { create: false, exclusive: false }, function (fileEntry) {
+                alert("file read success");
+                gotFile(fileEntry);
+
+            }, null);
+
+        }, null);
         // log.success("Images captured length"+$scope.ImageList.length);
 
     }
 
     function gotFile(fileEntry) {
         fileEntry.file(function (file) {
-
+            alert("into file read");
             var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
             // Loop through the FileList and render image files as thumbnails.
           
