@@ -2557,28 +2557,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.onPhotoDataSuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
-        var _imageString = "";
 
-        var $img = $('<img/>');
-        $img.attr('src', imageData);
-        $img.css({ position: 'absolute', left: '0px', top: '-999999em', maxWidth: 'none', width: 'auto', height: 'auto' });
-        $img.bind('load', function () {
-            var canvas = document.createElement("canvas");
-            canvas.width = $img.width();
-            canvas.height = $img.height();
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage($img[0], 0, 0);
-            var dataUri = canvas.toDataURL('image/png');
-            
-            _imageString = dataUri;
-        });
-        $img.bind('error', function () {
-           alert('Couldnt convert photo to data URI');
-        });
-
-
-
-        _imageString = "data:image/jpeg;base64," + _imageString;
+        imageData = "data:image/jpeg;base64," + imageData;
 
         var id = randomStringNew(5, '0123456789');
         _ImgObj.ImageID = id;
@@ -2588,7 +2568,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
         _ImgObj.FileName = "IphoneCapture";
-        _ImgObj.bytestring = _imageString;
+        _ImgObj.bytestring = imageData;
         $scope.ImageList.push(_ImgObj);
         CheckScopeBeforeApply();
 
@@ -2602,11 +2582,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
     $scope.capturePhotoNew = function () {
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
-            quality: 5,
+            quality: 10,
             targetWidth: 120,
             targeHeight: 120,
             correctOrientation: true,
-            destinationType: destinationType.FILE_URL,
+            destinationType: destinationType.DATA_URL,
             allowEdit: false,
             saveToPhotoAlbum: true,
         });
