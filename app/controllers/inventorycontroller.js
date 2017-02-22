@@ -2596,7 +2596,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: false,
-            saveToPhotoAlbum: true,
+            saveToPhotoAlbum: false,
         });
     }
 
