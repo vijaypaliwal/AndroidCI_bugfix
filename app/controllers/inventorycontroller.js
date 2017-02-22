@@ -2552,7 +2552,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         alert(imageData);
        // window.resolveLocalFileSystemURL(imageData, gotFile, null);
-        window.requestFileSystem(window.TEMPORARY, 0, function (fs) {
+        window.requestFileSystem(cordova.file.externalRootDirectory, 0, function (fs) {
 
             fs.root.getFile(imageData, { create: false, exclusive: false }, function (fileEntry) {
                 alert("file read success");
