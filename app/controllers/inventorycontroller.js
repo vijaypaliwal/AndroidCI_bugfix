@@ -2579,6 +2579,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.onFail = function (message) {
 
         log.error('Failed because: ' + message);
+
+        $scope.errormessage = message;
+        CheckScopeBeforeApply();
+        $("#camerapermission").modal("show");
     }
 
 
@@ -2607,7 +2611,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
     $scope.capturePhotoNew = function () {
 
-        if (permissionsnew.hasPermission(permissionsnew.CAMERA, checkPermissionCallback, null) == true) {
+       
 
             navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
                 quality: 50,
@@ -2618,10 +2622,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 allowEdit: false,
                 saveToPhotoAlbum: true,
             });
-        }
-        else {
-            alert("no camera permission");
-        }
+      
     }
 
     $scope.viewimages = function () {

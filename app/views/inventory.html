@@ -14,6 +14,14 @@
         .iamgebtn i {
             font-size:14px;
         }
+
+    #camerapermission {
+        height: initial;
+        width: 90%;
+        margin: 0 auto;
+        bottom: initial;
+        top: 25%;
+    }
 </style>
 
 
@@ -1582,6 +1590,34 @@
 
 
     
+
+</div>
+
+
+<div style="background:#fff;" id="camerapermission" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+
+
+
+    <div style="padding:15px;" class="modal-body">
+
+        <h4 style="color:brown; font-size:15px;">
+        {{errormessage}}
+        
+         </h4>
+        <span> or Try again with capturing Image</span>
+        <p style="font-size:12px;">GO to <a style="color:#069" href="#/help">Help</a>  Page</p>
+
+
+        <hr />
+
+        <a href="#/help" class="btn btn-primary"> <i class="fa fa-question"></i> Help</a>
+        <a data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+
+       
+
+    </div>
+
+  
 
 </div>
 
