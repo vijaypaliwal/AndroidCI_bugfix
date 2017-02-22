@@ -2578,6 +2578,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.onFail = function (message) {
 
+        $("#myModalforlist").modal("hide");
+
         log.error('Failed because: ' + message);
 
         $scope.errormessage = message;
