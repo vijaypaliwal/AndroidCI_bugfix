@@ -2582,10 +2582,32 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
-  
+    var permissionsnew = cordova.plugins.permissions;
+
+    function checkPermissionCallback(status) {
+        var _returnVar = true;
+        if (!status.hasPermission) {
+            var errorCallback = function () {
+                alert('Camera permission is not turned on');
+            }
+
+            permissionsnew.requestPermission(
+              permissionsnew.CAMERA,
+              function (status) {
+                  if (!status.hasPermission) {
+
+                      errorCallback();
+                      _returnVar = false;
+                  }
+              },
+              errorCallback);
+        }
+
+        return _returnVar;
+    }
     $scope.capturePhotoNew = function () {
 
-        if (permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null) == true) {
+        if (permissionsnew.hasPermission(permissionsnew.CAMERA, checkPermissionCallback, null) == true) {
 
             navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
                 quality: 50,
