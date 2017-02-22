@@ -2580,16 +2580,26 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         log.error('Failed because: ' + message);
     }
+
+
+  
     $scope.capturePhotoNew = function () {
-        navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
-            quality: 50,
-            targetWidth: 120,
-            targeHeight: 120,
-            correctOrientation: true,
-            destinationType: destinationType.DATA_URL,
-            allowEdit: false,
-            saveToPhotoAlbum: true,
-        });
+
+        if (permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null) == true) {
+
+            navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
+                quality: 50,
+                targetWidth: 120,
+                targeHeight: 120,
+                correctOrientation: true,
+                destinationType: destinationType.DATA_URL,
+                allowEdit: false,
+                saveToPhotoAlbum: true,
+            });
+        }
+        else {
+            alert("no camera permission");
+        }
     }
 
     $scope.viewimages = function () {
