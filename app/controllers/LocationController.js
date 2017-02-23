@@ -525,6 +525,26 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
     init();
 
+
+    $(document)
+  .on('focus', 'input,select', function () {
+
+
+      $('.menubtn').hide();
+
+   
+
+  })
+  .on('blur', 'input,select', function () {
+
+     
+      $('.menubtn').show();
+    
+
+  });
+
+
+
 }]);
 
 app.directive()
