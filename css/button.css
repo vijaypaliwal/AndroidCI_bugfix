@@ -602,3 +602,16 @@ input[type="password"]:focus
  color:#fff;
 }
 
+.side-nav .no-child.active
+{
+    color: #0d8ccb;
+    background:#eaeaea;
+   
+}
+
+.side-nav .no-child.active i
+{
+    color: #1fa67a;
+   
+}
+

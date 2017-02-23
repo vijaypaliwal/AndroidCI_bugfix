@@ -136,7 +136,7 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
 
         if (_StatusValue != "") {
 
-    
+
 
             $scope.ItemGroupToCreate = $("#ItemGroupToCreate").val();
             var authData = localStorageService.get('authorizationData');
@@ -172,7 +172,7 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
                                     $scope.$apply();
                                     $('#ItemGroupToCreate').val("");
                                     $('#ItemGroupToCreate').focus();
-                                 
+
                                 }
                                 else {
                                     $scope.getItemgroup();
@@ -180,19 +180,42 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
                                 }
                             }
                             if ($scope.mode == 3) {
+
+
                                 $scope.IsProcessing = false;
-                                ShowSuccess("Updated");
-                                $scope.getItemgroup();
-                                $scope.mode = 1;
+                                $scope.$apply();
+
+
+                                $scope.similar = false;
+
+
+                                for (var i = 0; i < $scope.Itemgrouplist.length; i++) {
+
+
+                                    if ($scope.Itemgrouplist[i].pcfCountFrq === $scope.ItemGroupToCreate) {
+                                        log.warning("Change some value");
+                                        $scope.similar = true;
+                                    }
+                                }
+
+
+                                if ($scope.similar == false) {
+                                    $scope.IsProcessing = false;
+                                    ShowSuccess("Updated");
+                                    $scope.getItemgroup();
+                                    $scope.mode = 1;
+                                }
+
+
+
                             }
-                        
+
 
                         }
-                      
-                      
 
-                        if (result.CreateEditItemGroupResult.Payload.pcfID == 0)
-                        {
+
+
+                        if (result.CreateEditItemGroupResult.Payload.pcfID == 0) {
 
                             if ($scope.mode == 3) {
                                 var _headerText = result.CreateEditItemGroupResult.Payload.OldpcfCountFrq + " into " + result.CreateEditItemGroupResult.Payload.pcfCountFrq + " ?"
@@ -251,13 +274,11 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
                             $scope.$apply();
                         }
                     }
-                    else
-                    {
+                    else {
                         $scope.ShowErrorMessage("Updating ItemGroup", 1, 1, result.CreateEditItemGroupResult.Message)
                     }
                 },
-                error: function (err)
-                {
+                error: function (err) {
                     $scope.IsProcessing = false;
                     $scope.ShowErrorMessage("Updating ItemGroup", 2, 1, err.statusText);
 
