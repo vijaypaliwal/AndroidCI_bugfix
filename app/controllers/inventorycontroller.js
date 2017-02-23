@@ -2637,6 +2637,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     function onFileSystemSuccess(fileSystem) {
         console.log(fileSystem.name);
         var directoryEntry = fileSystem.root;
+        alert("full path");
         alert(directoryEntry.fullPath);
         directoryEntry.getDirectory("newDir", { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail)
     }
@@ -2665,7 +2666,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Convert the base64 string in a Blob
         var DataBlob = b64toBlob(content, contentType);
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onFileSystemFail);
         window.resolveLocalFileSystemURL(folderpath, function (dir) {
             dir.getFile(filename, { create: true }, function (file) {
                 file.createWriter(function (fileWriter) {
@@ -2675,6 +2675,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 });
             });
         });
+
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onFileSystemFail);
+
     }
   
     $scope.capturePhotoNew = function () {
