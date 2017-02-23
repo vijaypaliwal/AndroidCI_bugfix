@@ -3751,7 +3751,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.onPhotoURISuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
-
+        alert(imageData);
         imageData = "data:image/jpeg;base64," + imageData;
 
         var id = randomStringNew(5, '0123456789');
@@ -3772,7 +3772,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Retrieve image file location from specified source
         navigator.camera.getPicture($scope.onPhotoURISuccessNew, $scope.onFail, {
             quality: 50,
-            destinationType: destinationType.DATA_URL,
+            destinationType: destinationType.FILE_URI,
             correctOrientation: true,
             sourceType: pictureSource.PHOTOLIBRARY
         });
