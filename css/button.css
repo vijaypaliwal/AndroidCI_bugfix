@@ -604,14 +604,14 @@ input[type="password"]:focus
 
 .side-nav .no-child.active
 {
-    color: #0d8ccb;
-    background:#eaeaea;
+    color: #2196F3;
+  
    
 }
 
 .side-nav .no-child.active i
 {
-    color: #1fa67a;
+    color: #2196F3;
    
 }
 
