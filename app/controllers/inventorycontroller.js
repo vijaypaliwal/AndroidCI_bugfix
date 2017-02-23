@@ -2651,11 +2651,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             for (i = 0; i < entries.length; i++) {
                 if (entries[i].name === "DCIM") {
                     var dcimReader = entries[i];
-                    alert("into dcim");
                     dcimReader.getFile(_fileName, { create: true }, function (file) {
-                        alert("into DCIM folder");
                         file.createWriter(function (fileWriter) {
-                            alert("into DCIM folder writing");
                             fileWriter.write(_blobdata);
                             // remove this to traverse through all the folders and files
 
