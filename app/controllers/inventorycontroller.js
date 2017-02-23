@@ -2555,6 +2555,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
+
+    function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+    }
+
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+    }
+
     $scope.onPhotoDataSuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
 
@@ -2565,7 +2577,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // if cordova.file is not available use instead :
         // var folderpath = "file:///storage/emulated/0/";
         var folderpath = cordova.file.externalRootDirectory;
-        var filename = "ourcodeworld.png";
+        var filename = guid()+".png";
 
        
 
@@ -2630,14 +2642,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Convert the base64 string in a Blob
         var DataBlob = b64toBlob(content, contentType);
 
-        alert("Starting to write the file :3");
 
         window.resolveLocalFileSystemURL(folderpath, function (dir) {
-           alert("Access to the directory granted succesfully");
             dir.getFile(filename, { create: true }, function (file) {
-                alert("File created succesfully.");
                 file.createWriter(function (fileWriter) {
-                    alert("Writing content to file");
                     fileWriter.write(DataBlob);
                 }, function () {
                     alert('Unable to save file in path ' + folderpath);
@@ -2651,8 +2659,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
             quality: 50,
-            targetWidth: 120,
-            targetHeight: 120,
+            //targetWidth: 120,
+            //targetHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: false,
@@ -3738,7 +3746,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         mySwiper.swipeNext()
         CheckScopeBeforeApply();
     })
-
 
 
     $scope.onPhotoURISuccessNew = function (imageData) {
