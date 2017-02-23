@@ -2634,27 +2634,45 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
+  
+
+
+    function fail() {
+        alert("failed while reading DCIM");
+    }
+
+    var _fileName = "";
+    var _blobdata = "";
     function onFileSystemSuccess(fileSystem) {
-        console.log(fileSystem.name);
-        var directoryEntry = fileSystem.root;
-        alert("full path");
-        alert(directoryEntry.fullPath);
-        directoryEntry.getDirectory("newDir", { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail)
+        alert(cordova.file.externalRootDirectory);
+        var directoryReader = fileSystem.createReader();
+        directoryReader.readEntries(function (entries) {
+            var i;
+            for (i = 0; i < entries.length; i++) {
+                if (entries[i].name === "DCIM") {
+                    var dcimReader = entries[i].createReader();
+                    alert("into dcim");
+                    dcimReader.getFile(_fileName, { create: true }, function (file) {
+                        alert("into DCIM folder");
+                        file.createWriter(function (fileWriter) {
+                            alert("into DCIM folder writing");
+                            fileWriter.write(_blobdata);
+                            // remove this to traverse through all the folders and files
+
+                        }, function () {
+                            alert('Unable to save file in path ');
+                        });
+                    });
+
+                    break;
+                }
+
+
+            }
+        }, function () {
+            alert("fail");
+        });
     }
-
-    function onDirectorySuccess(parent) {
-
-        console.log(parent);
-    }
-
-    function onDirectoryFail(error) {
-        alert("Unable to create new directory: " + error.code);
-    }
-
-    function onFileSystemFail(evt) {
-        console.log(evt.target.error.code);
-    }
-
     /**
      * Create a Image file according to its database64 content only.
      * 
@@ -2666,6 +2684,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Convert the base64 string in a Blob
         var DataBlob = b64toBlob(content, contentType);
 
+
+         _fileName = filename;
+         _blobdata = DataBlob;
+
         window.resolveLocalFileSystemURL(folderpath, function (dir) {
             dir.getFile(filename, { create: true }, function (file) {
                 file.createWriter(function (fileWriter) {
@@ -2676,7 +2698,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             });
         });
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onFileSystemFail);
+        window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory, onFileSystemSuccess, fail);
+
 
     }
   
