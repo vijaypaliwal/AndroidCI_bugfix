@@ -2577,7 +2577,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // if cordova.file is not available use instead :
         // var folderpath = "file:///storage/emulated/0/";
         //var folderpath = cordova.file.externalRootDirectory;
-        var folderpath = cordova.file.externalDataDirectory;
+        var folderpath = cordova.file.externalRootDirectory;
         var filename = guid()+".png";
 
        
@@ -2664,8 +2664,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             //targetHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
-            allowEdit: false,
-            saveToPhotoAlbum: false,
+            allowEdit: true,
+            saveToPhotoAlbum: true,
         });
     }
 
