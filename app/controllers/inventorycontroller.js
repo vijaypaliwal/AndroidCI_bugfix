@@ -2576,7 +2576,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         var contentType = "image/png";
         // if cordova.file is not available use instead :
         // var folderpath = "file:///storage/emulated/0/";
-        //var folderpath = cordova.file.externalRootDirectory;
+       // var folderpath="file:///storage/sdcard0/ClearlyInventory/";
         var folderpath = cordova.file.externalRootDirectory;
         var filename = guid()+".png";
 
@@ -2632,6 +2632,28 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return blob;
     }
 
+
+
+    function onFileSystemSuccess(fileSystem) {
+        console.log(fileSystem.name);
+        var directoryEntry = fileSystem.root;
+        alert(directoryEntry.fullPath);
+        directoryEntry.getDirectory("newDir", { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail)
+    }
+
+    function onDirectorySuccess(parent) {
+
+        console.log(parent);
+    }
+
+    function onDirectoryFail(error) {
+        alert("Unable to create new directory: " + error.code);
+    }
+
+    function onFileSystemFail(evt) {
+        console.log(evt.target.error.code);
+    }
+
     /**
      * Create a Image file according to its database64 content only.
      * 
@@ -2643,7 +2665,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Convert the base64 string in a Blob
         var DataBlob = b64toBlob(content, contentType);
 
-
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onFileSystemFail);
         window.resolveLocalFileSystemURL(folderpath, function (dir) {
             dir.getFile(filename, { create: true }, function (file) {
                 file.createWriter(function (fileWriter) {
@@ -3751,7 +3773,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.onPhotoURISuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
-        alert(imageData);
         imageData = "data:image/jpeg;base64," + imageData;
 
         var id = randomStringNew(5, '0123456789');
@@ -3772,7 +3793,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         // Retrieve image file location from specified source
         navigator.camera.getPicture($scope.onPhotoURISuccessNew, $scope.onFail, {
             quality: 50,
-            destinationType: destinationType.FILE_URI,
+            destinationType: destinationType.DATA_URL,
             correctOrientation: true,
             sourceType: pictureSource.PHOTOLIBRARY
         });
