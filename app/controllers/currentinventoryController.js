@@ -259,8 +259,11 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     $(window).scroll(function () {
         //var _SearchValue = $.trim($("#MasterSearch").val());
         if ($scope.isviewload == true) {
+            debugger;
 
             if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
+
+
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                     if (_PageSize < $scope.totalrecords) {
 
