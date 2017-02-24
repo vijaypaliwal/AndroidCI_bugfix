@@ -518,7 +518,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide" data-column="UpdateDate">
+                    <div class="swiper-slide myCols" data-column="UpdateDate">
                         <div class="form-group">
                             <label>Activity Date</label>
 
@@ -1396,14 +1396,14 @@
             <h4 ng-if='CheckCustomFields(2)==true'>
                 Activity fields
             </h4>
-            <div class="form-group">
+            <div class="form-group" ng-click="getstep(1,'UpdateDate')">
 
 
 
-                    <span class="mylabel">Activity Date <span  class="redText">*</span></span> <span>{{InventoryObject.UpdateDate}}</span>
+                <span class="mylabel">Activity Date <span class="redText">*</span></span> <span>{{InventoryObject.UpdateDate}}</span>
 
 
-                </div>
+            </div>
                 <div ng-repeat="obj in CustomActivityDataList" ng-click="getstepCustom(2,obj.ColumnMap)" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" end-repeat3>
 
 
