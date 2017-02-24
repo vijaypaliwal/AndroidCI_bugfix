@@ -197,14 +197,6 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
                                 $scope.similar = false;
 
 
-                                for (var i = 0; i < $scope.StatusList.length; i++) {
-
-
-                                    if ($scope.StatusList[i].StatusValue === $scope.StatusToCreate) {
-                                        log.warning("Change some value");
-                                        $scope.similar = true;
-                                    }
-                                }
 
 
                                 if ($scope.similar == false) {

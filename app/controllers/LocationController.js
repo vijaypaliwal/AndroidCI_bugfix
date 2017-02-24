@@ -322,14 +322,7 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
                             $scope.similar = false;
 
 
-                            for (var i = 0; i < $scope.Locations.length; i++) {
-
-
-                                if ($scope.Locations[i].LocationName === $scope.locationdata.LocationName) {
-                                    log.warning("Already exist or change some value");
-                                    $scope.similar = true;
-                                }
-                            }
+                          
 
 
                             if ($scope.similar == false) {

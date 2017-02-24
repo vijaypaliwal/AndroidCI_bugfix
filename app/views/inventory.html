@@ -1214,7 +1214,7 @@
         <h4>View all summary</h4>
     </div>
 
-    <div style="padding:0px;" class="modal-body">
+    <div  class="modal-body">
 
         <div style="box-shadow:none; margin-bottom:0px;" class="">
 
@@ -1396,51 +1396,58 @@
             <h4 ng-if='CheckCustomFields(2)==true'>
                 Activity fields
             </h4>
-
-            <div ng-repeat="obj in CustomActivityDataList" ng-click="getstepCustom(2,obj.ColumnMap)" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" end-repeat3>
-
+            <div class="form-group">
 
 
-                <div class="form-group">
 
-                    <div ng-if="obj.cfdDataType=='string'">
-
-
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                    <span class="mylabel">Activity Date <span  class="redText">*</span></span> <span>{{InventoryObject.UpdateDate}}</span>
 
 
+                </div>
+                <div ng-repeat="obj in CustomActivityDataList" ng-click="getstepCustom(2,obj.ColumnMap)" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" end-repeat3>
+
+
+
+                    <div class="form-group">
+
+                        <div ng-if="obj.cfdDataType=='string'">
+
+
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+
+                        </div>
+
+
+                        <div ng-if="obj.cfdDataType=='checkbox'">
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+                        </div>
+
+                        <div ng-if="obj.cfdDataType=='combobox'">
+
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+
+                        </div>
+
+
+                        <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'">
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                        </div>
+
+                        <div ng-if="obj.cfdDataType=='number'">
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                        </div>
+
+                        <div ng-if="obj.cfdDataType=='currency'">
+                            <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                        </div>
                     </div>
 
 
-                    <div ng-if="obj.cfdDataType=='checkbox'">
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-
-                    </div>
-
-                    <div ng-if="obj.cfdDataType=='combobox'">
-
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-
-                    </div>
-
-
-                    <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'">
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                    </div>
-
-                    <div ng-if="obj.cfdDataType=='number'">
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                    </div>
-
-                    <div ng-if="obj.cfdDataType=='currency'">
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
-                    </div>
                 </div>
 
-
             </div>
-
-        </div>
     </div>
 </div>
 

@@ -189,14 +189,7 @@ app.controller('itemgroupController', ['$scope', 'localStorageService', 'authSer
                                 $scope.similar = false;
 
 
-                                for (var i = 0; i < $scope.Itemgrouplist.length; i++) {
-
-
-                                    if ($scope.Itemgrouplist[i].pcfCountFrq === $scope.ItemGroupToCreate) {
-                                        log.warning("Change some value");
-                                        $scope.similar = true;
-                                    }
-                                }
+                              
 
 
                                 if ($scope.similar == false) {
