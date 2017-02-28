@@ -3945,9 +3945,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.SubmitAllActivities = function () {
 
-
-        if (!$scope.ValidateObjectVM()) {
-
+        var _unchangeData = $scope.UnchangedData();
+        var _validateObjectVm = $scope.ValidateObjectVM();
+        if (!_validateObjectVm && !_unchangeData) {
             if (!CheckintoCustomData(0) && IsDateValidated() == true) {
 
                 var authData = localStorageService.get('authorizationData');
@@ -3994,21 +3994,24 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 });
             }
             else {
-
-                var _dataIndex = $scope.IsSingleMode == true ? $scope.CurrentCart.length : 1;
-                $scope.GoToStep(_dataIndex, 1);
-                if (!CheckintoCustomData(0) == false) {
-                    $scope.IssueType = 5;
+                if (_validateObjectVm) {
+                    var _dataIndex = $scope.IsSingleMode == true ? $scope.CurrentCart.length : 1;
+                    $scope.GoToStep(_dataIndex, 1);
+                    if (!CheckintoCustomData(0) == false) {
+                        $scope.IssueType = 5;
+                    }
+                    else if (IsDateValidated() == false) {
+                        $scope.IssueType = 6;
+                    }
+                    $scope.ShowErrorMessage($scope.IssueType);
                 }
-                else if (IsDateValidated() == false) {
-                    $scope.IssueType = 6;
-                }
-                $scope.ShowErrorMessage($scope.IssueType);
             }
         }
 
         else {
-            $scope.ShowErrorMessage($scope.IssueType);
+            if (_validateObjectVm) {
+                $scope.ShowErrorMessage($scope.IssueType);
+            }
         }
 
 
@@ -4498,6 +4501,327 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     setTimeout(function () { $('.FormDateType').val(today); }, 1000);
 
+    function ShowErrorMessage(Action) {
+        var _MsgTitle = "DATA HAS NOT CHANGED";
+        var _Msg = "Please update at least one unit data field or change status or location to perform an activity.";
+        switch (Action) {
+            case "Move":
+                _MsgTitle = "ONE (OR MORE) LOCATIONs HAVE NOT CHANGED";
+                _Msg = "You are trying to move some units in your cart to their current locations, which is not allowed.  Please make sure that the units in each line item of your cart are moving to locations that are different from their current locations."
+                break;
+            case "Convert":
+                _MsgTitle = "ONE (OR MORE) UNITS OF MEASURE HAVE NOT CHANGED";
+                _Msg = "You are trying to convert some units in your cart to their current unit of measure, which is not allowed.  Please make sure that the units in each line item of your cart are converting to units of measure that are different than their current unit of measure."
+                break;
+            case "Update":
+                _MsgTitle = "ONE (OR MORE) STATUSES HAVE NOT CHANGED";
+                _Msg = "You are trying to update some units in your cart with to their current status, which is not allowed.  Please make sure that the units in each line item of your cart are getting updated to statuses that are different than their current status."
+                break;
+            case "Apply":
+                _MsgTitle = "ONE (OR MORE) TAGS HAVE NOT CHANGED";
+                _Msg = "You are trying to tag some units in your cart with their current values, which is not allowed.  Please make sure that the units in each line item of your cart are getting tagged with at least one value which is different than the current value."
+                break;
+            case "MoveTagUpdate":
+                _MsgTitle = "ONE (OR MORE) LOCATIONS, TAGS, AND/OR STATUSES HAVE NOT CHANGED";
+                _Msg = "You are trying to move tag & update some units in your cart without changing their location, tags, or statuses, which is not allowed.  Please make sure that the units in each line item of your cart have at least one value (location or tag or status) that is different than their current value."
+                break;
+            default:
+        }
+        //toastr.newwarning(_Msg);
+        toastr.error(_Msg, _MsgTitle, {
+            "closeButton": true,
+            "timeOut": 0,
+            "extendedTimeOut": 0
+        });
+    }
+
+    function MatchString(_Val1, _Val2) {
+        _Val1 = $.trim(_Val1) != "" ? _Val1.toLowerCase() : "";
+        _Val2 = $.trim(_Val2) != "" ? _Val2.toLowerCase() : "";
+
+        return _Val1 == _Val2;
+
+    }
+
+    function formatDate(date) {
+        if (date != null && date != undefined && date != "") {
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        else {
+            return date;
+        }
+    }
+    $scope.UnchangedData = function () {
+        var k = 0;
+        if ($scope.CurrentCart != null && $scope.CurrentCart.length > 0) {
+
+            switch ($scope.CurrentOperation) {
+                case "Convert":
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        if ($scope.CurrentCart[k].ConvertTransactionData.ToUOMID == $scope.CurrentCart[k].InventoryDataList.iUOMID) {
+                            ShowErrorMessage($scope.CurrentOperation);
+                            $scope.GoToStep(k);
+                            //$("#" + $scope.CurrentCart[k].InventoryDataList.uId).removeClass("animated shake").addClass("animated shake");
+                            return true;
+                        }
+                    }
+                    break;
+                case "MoveTagUpdate":
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        var _x1 = false;
+                        var _x2 = false;
+                        var _x3 = false;
+                        var _x4 = false;
+                        var _x5 = false;
+                        var _x6 = false;
+                        var _x7 = false;
+                        var _x8 = false;
+                        var _x9 = false;
+
+                        if ($scope.IsMyInventoryColumns('iReqValue') == true) {
+
+                            var _val1 = $scope.CurrentCart[k].InventoryDataList.iReqValue != null && $scope.CurrentCart[k].InventoryDataList.iReqValue != undefined ? $scope.CurrentCart[k].InventoryDataList.iReqValue : "";
+
+                            var _val2 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1 : "";
+
+                            _x1 = MatchString(_val1, _val2);
+                        } else {
+
+                            _x1 = true;
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitTag2') == true) {
+
+
+                            var _val11 = $scope.CurrentCart[k].InventoryDataList.iUnitTag2 != null && $scope.CurrentCart[k].InventoryDataList.iUnitTag2 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitTag2 : "";
+
+                            var _val12 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2 : "";
+
+                            _x2 = MatchString(_val11, _val12);
+
+
+
+                        } else {
+
+                            _x2 = true;
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitTag3') == true) {
+
+
+                            var _val21 = $scope.CurrentCart[k].InventoryDataList.iUnitTag3 != null && $scope.CurrentCart[k].InventoryDataList.iUnitTag3 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitTag3 : "";
+
+                            var _val22 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3 : "";
+
+                            _x3 = MatchString(_val21, _val22);
+
+                        } else {
+
+                            _x3 = true;
+                        }
+                        if ($scope.IsMyInventoryColumns('iUniqueDate') == true) {
+
+
+                            var _val23 = $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != "" && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != null && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date : null;
+
+                            var _val24 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate : null;
+
+                            _x4 = (formatDate(_val23) == _val24);
+
+
+                        }
+                        else {
+
+                            _x4 = true;
+                        }
+
+                        if ($scope.IsMyInventoryColumns('iUnitDate2') == true) {
+
+
+                            var _val25 = $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != "" && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != null && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date : null;
+
+                            var _val26 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 : null;
+
+                            _x5 = (formatDate(_val25) == _val26);
+                        }
+                        else {
+
+                            _x5 = true;
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitNumber1') == true) {
+
+
+                            var _val27 = $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != "" && $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != null && $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 : null;
+
+                            var _val28 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 : null;
+
+                            _val27 = _val27 != null ? parseFloat(_val27) : null;
+                            _val28 = _val28 != null ? parseFloat(_val28) : null;
+
+                            _x6 = (_val27 == _val28);
+
+                        }
+                        else {
+
+                            _x6 = true;
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitNumber2') == true) {
+
+                            var _val29 = $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != "" && $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != null && $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 : null;
+
+                            var _val30 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 : null;
+
+                            _val29 = _val29 != null ? parseFloat(_val29) : null;
+                            _val30 = _val30 != null ? parseFloat(_val30) : null;
+
+                            _x7 = (_val29 == _val30);
+
+                        }
+                        else {
+
+                            _x7 = true;
+                        }
+                        if (MatchString($scope.CurrentCart[k].MoveUpdateTagTransactionData.StatusToUpdate, $scope.CurrentCart[k].InventoryDataList.iStatusValue)) {
+                            _x8 = true;
+                        }
+
+                        if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocation == $scope.CurrentCart[k].InventoryDataList.iLID) {
+                            _x9 = true;
+                        }
+                        if (_x9 == false || _x8 == false || _x1 == false || _x2 == false || _x3 == false || _x4 == false || _x5 == false || _x6 == false || _x7 == false) {
+
+
+
+                        }
+                        else {
+                            $scope.GoToStep(k);
+                            ShowErrorMessage($scope.CurrentOperation);
+                            return true;
+                        }
+
+                    }
+                    break;
+                case "Update":
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        if (MatchString($scope.CurrentCart[k].UpdateTransactionData.StatusToUpdate, $scope.CurrentCart[k].InventoryDataList.iStatusValue)) {
+                            ShowErrorMessage($scope.CurrentOperation);
+                            $scope.GoToStep(k);
+                            return true;
+                        }
+                    }
+                    break;
+                case "Apply":
+                    for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        var _x1 = false;
+                        var _x2 = false;
+                        var _x3 = false;
+                        var _x4 = false;
+                        var _x5 = false;
+                        var _x6 = false;
+                        var _x7 = false;
+
+                        if ($scope.IsMyInventoryColumns('iReqValue') == true) {
+
+                            var _val1 = $scope.CurrentCart[k].InventoryDataList.iReqValue != null && $scope.CurrentCart[k].InventoryDataList.iReqValue != undefined ? $scope.CurrentCart[k].InventoryDataList.iReqValue : "";
+
+                            var _val2 = $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 : "";
+
+                            _x1 = MatchString(_val1, _val2);
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitTag2') == true) {
+
+
+                            var _val11 = $scope.CurrentCart[k].InventoryDataList.iUnitTag2 != null && $scope.CurrentCart[k].InventoryDataList.iUnitTag2 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitTag2 : "";
+
+                            var _val12 = $scope.CurrentCart[k].ApplyTransactionData.UnitTag2 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitTag2 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitTag2 : "";
+
+                            _x2 = MatchString(_val11, _val12);
+
+
+
+                        }
+                        if ($scope.IsMyInventoryColumns('iUnitTag3') == true) {
+
+
+                            var _val21 = $scope.CurrentCart[k].InventoryDataList.iUnitTag3 != null && $scope.CurrentCart[k].InventoryDataList.iUnitTag3 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitTag3 : "";
+
+                            var _val22 = $scope.CurrentCart[k].ApplyTransactionData.UnitTag3 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitTag3 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitTag3 : "";
+
+                            _x3 = MatchString(_val21, _val22);
+
+                        }
+                        if ($scope.IsMyInventoryColumns('iUniqueDate') == true) {
+
+
+                            var _val23 = $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != "" && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != null && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date : null;
+
+                            var _val24 = $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != "" && $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != null && $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UniqueDate : null;
+
+                            _x4 = (formatDate(_val23) == _val24);
+
+                        }
+
+                        if ($scope.IsMyInventoryColumns('iUnitDate2') == true) {
+
+
+                            var _val25 = $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != "" && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != null && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date : null;
+
+                            var _val26 = $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != "" && $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 : null;
+
+                            _x5 = (formatDate(_val25) == _val26);
+                        }
+
+                        if ($scope.IsMyInventoryColumns('iUnitNumber1') == true) {
+
+
+                            var _val27 = $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != "" && $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != null && $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitNumber1 : null;
+
+                            var _val28 = $scope.CurrentCart[k].ApplyTransactionData.UnitNumber1 != "" && $scope.CurrentCart[k].ApplyTransactionData.UnitNumber1 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitNumber1 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitNumber1 : null;
+
+                            _x6 = (_val27 == _val28);
+
+                        }
+
+                        if ($scope.IsMyInventoryColumns('iUnitNumber2') == true) {
+
+                            var _val29 = $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != "" && $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != null && $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitNumber2 : null;
+
+                            var _val30 = $scope.CurrentCart[k].ApplyTransactionData.UnitNumber2 != "" && $scope.CurrentCart[k].ApplyTransactionData.UnitNumber2 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitNumber2 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitNumber2 : null;
+
+                            _x7 = (_val29 == _val30);
+
+                        }
+
+                        if (_x1 == false || _x2 == false || _x3 == false || _x4 == false || _x5 == false || _x6 == false || _x7 == false) {
+
+
+
+                        }
+                        else {
+                            $scope.GoToStep(k);
+                            ShowErrorMessage($scope.CurrentOperation);
+                            return true;
+                        }
+
+                    }
+                    break;
+
+                default:
+                    return false;
+
+
+            }
+            return false;
+        }
+        return false;
+    }
 
     $scope.ValidateObjectVM = function () {
         $scope.AffectedItemIds = [];

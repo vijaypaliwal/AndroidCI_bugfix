@@ -1727,10 +1727,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                             pDescription: v.pDescription,
                             Action: '',
                             // CurrentInvObj: v,
-                            iUniqueDate_date: v.iUniqueDate,
+                            iUniqueDate_date: formatDate(v.iUniqueDate),
                             iUnitNumber2: v.iUnitNumber2,
                             iUnitNumber1: v.iUnitNumber1,
-                            iUnitDate2_date: v.iUnitDate2,
+                            iUnitDate2_date: formatDate(v.iUnitDate2),
                             iUnitTag3: v.iUnitTag3,
                             iUnitTag2: v.iUnitTag2,
                             pCountFrq: v.pCountFrq,
@@ -1958,7 +1958,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     init();
 
-    
+
     function GetDataToSend(mainObjectToSend) {
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
@@ -1975,15 +1975,35 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                     MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                     UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                    ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: mainObjectToSend[i].iUniqueDate_date, UnitDate2: mainObjectToSend[i].iUnitDate2_date, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
-                    ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0,ToUOM:"" }),
-                    MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: mainObjectToSend[i].iUniqueDate_date, UnitDate2: mainObjectToSend[i].iUnitDate2_date, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                    ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                    ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
+                    MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                 });
             }
 
         }
         return $scope.Cart;
     }
+
+    function formatDate(date) {
+        if (date != null && date != undefined && date != "") {
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        else {
+            return date;
+        }
+    }
+    
+  
 
 
 
