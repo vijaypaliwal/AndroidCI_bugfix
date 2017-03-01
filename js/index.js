@@ -704,7 +704,9 @@ document.addEventListener('click', addRippleEffect, false);
             case 4:
                 $(".errorcontent").css("background", "rgba(13,25,15,0.7)");
                 break;
-
+            case 5:
+                $(".errorcontent").css("background", "rgb(140, 105, 0,0.7)");
+                break;
             case 12:
 
                 $(".errorcontent").css("background", "rgba(248,194,23,0.7)");
