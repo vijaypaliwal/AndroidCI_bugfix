@@ -2342,44 +2342,44 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $scope._CurrentAction = _CurrentAction;
         GetActionType(_CurrentAction);
 
-        for (var i = 0; i < $scope.CurrentCart.length; i++) {
-            //   UniqueDate
-            if ($scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != undefined && $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UnitDate2) != "") {
+        //for (var i = 0; i < $scope.CurrentCart.length; i++) {
+        //    //   UniqueDate
+        //    if ($scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != undefined && $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UnitDate2) != "") {
 
-                var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
+        //        var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
 
-                var dsplit1 = _date.split("/");
-
-
+        //        var dsplit1 = _date.split("/");
 
 
-                var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
-
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
-                $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 = today;
-
-            }
 
 
-            if ($scope.CurrentCart[i].ApplyTransactionData.UniqueDate != undefined && $scope.CurrentCart[i].ApplyTransactionData.UniqueDate != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UniqueDate) != "") {
+        //        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
 
-                var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
+        //        var day = ("0" + now.getDate()).slice(-2);
+        //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                var dsplit1 = _date.split("/");
-                var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
+        //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        //        $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 = today;
 
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        //    }
 
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
-                $scope.CurrentCart[i].ApplyTransactionData.UniqueDate = today;
 
-            }
+        //    if ($scope.CurrentCart[i].ApplyTransactionData.UniqueDate != undefined && $scope.CurrentCart[i].ApplyTransactionData.UniqueDate != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UniqueDate) != "") {
 
-        }
+        //        var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
+
+        //        var dsplit1 = _date.split("/");
+        //        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
+
+        //        var day = ("0" + now.getDate()).slice(-2);
+        //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        //        $scope.CurrentCart[i].ApplyTransactionData.UniqueDate = today;
+
+        //    }
+
+        //}
         $scope.totalLength = $scope.IsSingleMode == true ? $scope.CurrentCart.length + 2 : 3;
 
         GetMyInventoryColumns();
@@ -3842,11 +3842,14 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     NewUnitNumber2: $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == undefined || $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == null ? -1500 : $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2,
                     myPostObj: _MyObjdata, IsLineItem: $scope.CurrentCart[k].IsLineItemData
                 });
+               
             }
 
         }
 
         console.log(_myData);
+
+    
         return _myData;
 
     }
@@ -3958,6 +3961,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                 var _mdata = BuildMultipleData();
 
+
+
+                debugger;
+
                
 
 
@@ -3985,6 +3992,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                         $scope.$apply();
                     },
                     error: function (err) {
+
+                        debugger;
 
                         log.error("Some error occurred");
                         $scope.errorbox(err);
