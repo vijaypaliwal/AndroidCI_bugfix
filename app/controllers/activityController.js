@@ -4743,6 +4743,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             var _val2 = $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 : "";
 
                             _x1 = MatchString(_val1, _val2);
+                        } else {
+
+                            _x1 = true;
                         }
                         if ($scope.IsMyInventoryColumns('iUnitTag2') == true) {
 
@@ -4755,6 +4758,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
 
+                        } else {
+
+                            _x2 = true;
                         }
                         if ($scope.IsMyInventoryColumns('iUnitTag3') == true) {
 
@@ -4765,6 +4771,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             _x3 = MatchString(_val21, _val22);
 
+                        } else {
+
+                            _x3 = true;
                         }
                         if ($scope.IsMyInventoryColumns('iUniqueDate') == true) {
 
@@ -4775,6 +4784,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             _x4 = (formatDate(_val23) == _val24);
 
+                        } else {
+
+                            _x4 = true;
                         }
 
                         if ($scope.IsMyInventoryColumns('iUnitDate2') == true) {
@@ -4786,7 +4798,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             _x5 = (formatDate(_val25) == _val26);
                         }
+                        else {
 
+                            _x5 = true;
+                        }
                         if ($scope.IsMyInventoryColumns('iUnitNumber1') == true) {
 
 
@@ -4796,6 +4811,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             _x6 = (_val27 == _val28);
 
+                        } else {
+
+                            _x6 = true;
                         }
 
                         if ($scope.IsMyInventoryColumns('iUnitNumber2') == true) {
@@ -4807,7 +4825,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             _x7 = (_val29 == _val30);
 
                         }
+                        else {
 
+                            _x7 = true;
+                        }
                         if (_x1 == false || _x2 == false || _x3 == false || _x4 == false || _x5 == false || _x6 == false || _x7 == false) {
 
 
