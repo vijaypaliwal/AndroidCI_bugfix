@@ -76,6 +76,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.nextstep = function () {
         $scope.itemfields = true;
+        SelectDropdownissue();
 
     }
 
