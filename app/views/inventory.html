@@ -978,7 +978,7 @@
 
                             <td ng-if="slide == Totalslides">
                                 <div class="alignright">
-                                    <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Process</a>
+                                    <a ng-click="addinventory()"  ng-disabled=" checkrequiredfield()= =true || checkcustomrequiredfields()= =true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Process</a>
                                 </div>
                             </td>
 
@@ -1724,7 +1724,7 @@
 
     <div ng-if="itemfields==false" class="row stickybtn">
         <div class="col-xs-6">
-            <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
+            <a id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
         </div>
       
         <div class="col-xs-6">
@@ -1735,7 +1735,7 @@
 
     <div ng-if="itemfields==true" class="row stickybtn">
         <div class="col-xs-4">
-            <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
+            <a id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
             
         </div>
         <div class="col-xs-4">
