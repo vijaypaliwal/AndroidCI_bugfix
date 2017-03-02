@@ -102,7 +102,7 @@
 
     .changebtn {
   position: fixed;
-    bottom: 23px;
+    bottom: 50px;
     right: 25px;
     background: #FF4081 !important;
     z-index: 13000;
@@ -1126,19 +1126,20 @@
 
                             </div>
 
-                            <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
-                                <div>
+                            <!--<div ng-show="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">-->
+                                <div  class="input-group">
+                                    <div>
 
-                                    <input type="text" id="ItemName" class="form-control" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
+                                        <input type="text" id="ItemName" class="form-control" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
+
+                                    </div>
+
+                                    <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
+                                    <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+
+                                    <span id="itemNameData"  ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
 
                                 </div>
-
-                                <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
-                                <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
-
-                                <span ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-
-                            </div>
 
                             <div ng-if="IsItemLibrary==false || IsActiveItemLibrary==false">
                                 <div class="row requiredfields" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
@@ -1407,6 +1408,7 @@
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
 
                         <span ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
+                        <span ng-click="GetLastValue('Inv_Status','#Status')" test-case condition="GetLastValueData('Inv_Status')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                     </div>
                 </div>
 
@@ -2355,11 +2357,6 @@
 <script>
 
 
-    $(init);
-
-    function init() {
-        $('.changebtn').draggable();
-    }
 
     function Toggle() {
         $("#iteminfo").toggle("slow");

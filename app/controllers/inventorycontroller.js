@@ -33,7 +33,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.mode1 = function () {
 
-        debugger;
+         
         $scope.itemfields = false;
         $scope.switchmode = false;
         $scope.currentmode = 1;
@@ -48,6 +48,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
+    function SelectDropdownissue()
+    {
+        var allSelectElements = document.getElementsByTagName('select');
+        for (var i = 0; i < allSelectElements.length; i++) {
+            allSelectElements[i].addEventListener('touchstart', function (e) {
+                //This is the important line
+                e.stopPropagation();
+            }, false);
+        }
+    }
+
     $scope.mode2 = function () {
         $scope.itemfields = false;
         $scope.switchmode = true;
@@ -55,6 +66,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         localStorageService.set("mode", $scope.currentmode);
         $cordovaKeyboard.disableScroll(false);
 
+        SelectDropdownissue();
+        
 
         CheckScopeBeforeApply();
 
@@ -135,7 +148,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.currentcfdID = ID;
         CheckScopeBeforeApply();
 
-        debugger;
+         
 
 
         $("#Adddropdownvalue").modal('show');
@@ -173,7 +186,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             error: function (err) {
 
                 alert("error");
-                debugger;
+                 
 
 
             },
@@ -308,7 +321,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.GetCustomColumn = function (ColumnMap) {
-        var _obj = {};
+        var _obj = undefined;
         for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
             if ($scope.CustomItemDataList[i].ColumnMap == ColumnMap) {
                 return $scope.CustomItemDataList[i];
@@ -401,7 +414,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return true;
     }
     $scope.saveItemGroup = function (ItemGroupValue) {
-        debugger;
+         
         var _StatusValue = $.trim(ItemGroupValue);
 
         if (_StatusValue != "") {
@@ -425,7 +438,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 contentType: 'application/json',
                 success: function (result) {
 
-                    debugger;
+                     
                     if (result.CreateEditItemGroupResult.Success == true) {
 
                         _IsSavedItemGroup = true;
@@ -667,8 +680,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         var _value = "";
         var _toCheckValue = localStorageService.get(field);
-
-
+        console.log(field);
+        console.log(_toCheckValue);
 
 
         if (_toCheckValue != null && _toCheckValue != undefined) {
@@ -696,12 +709,38 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $(id).trigger('change');
                 $(id).trigger('input');
             }
+
+            $("#secondDiv").find(id).val(_value);
+
+
+            $("#secondDiv").find(id).trigger('change');
+            $("#secondDiv").find(id).trigger('input');
+
+            $("#firstDiv").find(id).val(_value);
+
+
+            $("#firstDiv").find(id).trigger('change');
+            $("#firstDiv").find(id).trigger('input');
+
+         
         }
         else {
 
             $(id).val(_value);
             $(id).trigger('change');
             $(id).trigger('input');
+
+            $("#secondDiv").find(id).val(_value);
+
+
+            $("#secondDiv").find(id).trigger('change');
+            $("#secondDiv").find(id).trigger('input');
+
+            $("#firstDiv").find(id).val(_value);
+
+
+            $("#firstDiv").find(id).trigger('change');
+            $("#firstDiv").find(id).trigger('input');
         }
 
         CheckScopeBeforeApply()
@@ -847,6 +886,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.InventoryObject.DefaultItemUOM = obj.DefaultUomID;
 
 
+        console.log(obj);
+
+        console.log("before");
+        console.log($scope.InventoryObject.CustomPartData);
+
+        debugger;
         if ($scope.InventoryObject.CustomPartData.length > 0 && obj.CustomData.length > 0) {
 
             for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
@@ -865,7 +910,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#locationlistmodal").modal('hide');
         $("#uomlistmodal").modal('hide');
         $scope.IsItemChose = true;
-        CheckScopeBeforeApply()
+        CheckScopeBeforeApply();
+
+        console.log($scope.InventoryObject.CustomPartData);
     }
     $scope.onChangeUOMData = function () {
         $scope.InventoryObject.UomID = 0;
@@ -1021,33 +1068,36 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 },
 
                 success: function (data) {
-                    debugger;
+                     
                     if (data.SearchItemsResult.Success == true) {
                         if (data.SearchItemsResult != null && data.SearchItemsResult.Payload != null) {
                             $scope.ItemSearching = false;
                             $scope.SearchList = data.SearchItemsResult.Payload;
 
 
-                            debugger;
+                             
 
                             if ($scope.SearchList.length == 0) {
                                 $scope.isnoitemmsg = true;
                             }
                             else {
 
+                                $scope.isnoitemmsg = false;
 
                                 if ($scope.SearchList.length == 1) {
+                                    if ($scope.InventoryObject.ItemID != "" && $scope.InventoryObject.ItemID != undefined) {
 
-                                    if ($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase()) {
+                                        if (($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase())) {
 
-                                        log.info("This Item already exist, we fill all associate data.");
+                                            log.info("This Item already exist, we fill all associate data.");
 
-                                        var obj = $scope.SearchList[0];
+                                            var obj = $scope.SearchList[0];
 
-                                        $scope.SetItemData(obj);
+                                            $scope.SetItemData(obj);
 
-                                        $scope.showmessage = false;
+                                            $scope.showmessage = false;
 
+                                        }
                                     }
 
 
@@ -1582,7 +1632,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $scope.SearchList = [];
         $scope.SearchItemValue = "";
-        $scope.isnoitemmsg = false
+        $scope.isnoitemmsg = false;
         $('html,body').animate({ scrollTop: 0 }, 800);
 
     }
@@ -1617,7 +1667,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#itemlistmodal").modal('hide');
         $("#locationlistmodal").modal('show');
 
-        debugger;
+         
         $scope.LocationSearchList = angular.copy($scope.LocationList);
         CheckScopeBeforeApply();
 
@@ -1648,6 +1698,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $(ID).find(".fa-undo").each(function () {
             $(this).parent("span").trigger("click");
         });
+
+        $("#itemNameData").trigger("click");
     }
 
 
@@ -1729,7 +1781,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           }
 
                           var _CustomObj = $scope.GetCustomColumn(_tempData[i].ColumnName);
-
+                          debugger;
                           if (_CustomObj != undefined && _CustomObj != {}) {
                               _obj.cfdName = _CustomObj.cfdName;
                               _obj.cfdID = _CustomObj.cfdID;
@@ -3295,7 +3347,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.ScanNewSwitch = function (_Column) {
-        debugger;
+         
         var _id = "#";
 
 
@@ -3408,7 +3460,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     // $(_id).trigger("input");
 
 
+                    $("#secondDiv").find(_fieldid).val(_value);
 
+
+                    $("#secondDiv").find(_fieldid).trigger('change');
+                    $("#secondDiv").find(_fieldid).trigger('input');
+
+                    $("#firstDiv").find(_fieldid).val(_value);
+
+
+                    $("#firstDiv").find(_fieldid).trigger('change');
+                    $("#firstDiv").find(_fieldid).trigger('input');
 
                     CheckScopeBeforeApply();
 
@@ -3937,6 +3999,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $('.probeProbe').bootstrapSwitch('state', true);
         $(".iosbtn").show();
         $(".androidbtn").hide();
+
+
+        console.log("Inventory Object Data");
+
+        console.log($scope.InventoryObject.CustomPartData);
         //if (deviceType == 'iPhone') {
         //    $(".iosbtn").show()
 
@@ -4037,18 +4104,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
             if ($scope.currentmode == 1) {
-                $scope.switchmode = false;
-                CheckScopeBeforeApply();
+                $scope.mode1();
             }
 
             if ($scope.currentmode == 2) {
-                $scope.switchmode = true;
-                CheckScopeBeforeApply();
+                $scope.mode2();
             }
 
             setTimeout(function () {
                 $scope.changeNav();
-            }, 100)
+            }, 100);
+
         }, 10)
     }
 
