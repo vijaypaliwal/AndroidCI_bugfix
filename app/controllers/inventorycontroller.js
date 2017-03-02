@@ -3466,17 +3466,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     // $(_id).trigger("input");
 
 
-                    $("#secondDiv").find(_fieldid).val(_value);
+                    $("#secondDiv").find(_id).val(_value);
 
 
-                    $("#secondDiv").find(_fieldid).trigger('change');
-                    $("#secondDiv").find(_fieldid).trigger('input');
+                    $("#secondDiv").find(_id).trigger('change');
+                    $("#secondDiv").find(_id).trigger('input');
 
-                    $("#firstDiv").find(_fieldid).val(_value);
+                    $("#firstDiv").find(_id).val(_value);
 
 
-                    $("#firstDiv").find(_fieldid).trigger('change');
-                    $("#firstDiv").find(_fieldid).trigger('input');
+                    $("#firstDiv").find(_id).trigger('change');
+                    $("#firstDiv").find(_id).trigger('input');
 
                     CheckScopeBeforeApply();
 
