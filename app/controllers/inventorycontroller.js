@@ -4070,7 +4070,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         //window.location.reload();
         $scope.resetObject();
         $scope.getstep(0);
+        if ($scope.switchmode == true) {
 
+            $scope.mode2();
+        }
         $("#modal3").modal('hide');
 
         $(".Addbtn").show()
