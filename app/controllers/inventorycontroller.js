@@ -79,7 +79,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
        
        $('#toolbar').css("position", "absolute");
-       $('.stickybtn').css("position", "relative");
+       //$('.stickybtn').css("position", "relative");
 
    })
    .on('blur', '.switchmode input,select', function () {
@@ -87,7 +87,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
      
        $('#toolbar').css("position", "fixed");
       
-       $('.stickybtn').css("position", "fixed");
+      // $('.stickybtn').css("position", "fixed");
    });
 
 
@@ -4073,10 +4073,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.notmove = function () {
         //window.location.reload();
         $scope.resetObject();
-        $scope.getstep(0);
+       
         if ($scope.switchmode == true) {
 
             $scope.mode2();
+        }
+        else {
+            $scope.getstep(0);
         }
         $("#modal3").modal('hide');
 
