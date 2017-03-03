@@ -48,19 +48,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $("#myform .swiper-slide-active").find(".form-control:first").focus();
         }, 100);
 
-       
-       
+
+
     }
 
-    $scope.mode2 = function ()
-    {
+    $scope.mode2 = function () {
         $scope.itemfields = false;
         $scope.switchmode = true;
-        $scope.currentmode = 2 ;
+        $scope.currentmode = 2;
         localStorageService.set("mode", $scope.currentmode);
         $cordovaKeyboard.disableScroll(false);
 
-      
+
         CheckScopeBeforeApply();
 
         setTimeout(function () {
@@ -77,17 +76,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $(document)
    .on('focus', '.switchmode input,select', function () {
 
-       
+
        $('#toolbar').css("position", "absolute");
        //$('.stickybtn').css("position", "relative");
 
    })
    .on('blur', '.switchmode input,select', function () {
 
-     
+
        $('#toolbar').css("position", "fixed");
-      
-      // $('.stickybtn').css("position", "fixed");
+
+       // $('.stickybtn').css("position", "fixed");
    });
 
 
@@ -585,7 +584,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
-    $scope.UpdateCustomDropdownData = function (CustomDataID, Value, Type,_Index) {
+    $scope.UpdateCustomDropdownData = function (CustomDataID, Value, Type, _Index) {
 
         debugger;
 
@@ -603,7 +602,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 _ID2 = "#CustomActivity_" + CustomDataID + "_label";
                 $scope.InventoryObject.CustomTxnData[_Index].Value = Value;
                 break
-            
+
             default:
                 _ID = "#CustomActivity_" + CustomDataID;
                 _ID2 = "#CustomActivity_" + CustomDataID + "_label";
@@ -613,14 +612,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $(_ID).val(Value);
         $(_ID2).html(Value);
 
-        
+
         CheckScopeBeforeApply();
     }
 
     function CheckScopeBeforeApply() {
-        if (!$scope.$$phase)
-        {
-         $scope.$apply();
+        if (!$scope.$$phase) {
+            $scope.$apply();
         }
     };
 
@@ -1716,9 +1714,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.ReuseAll = function (ID) {
 
-        
-        
-        
+
+
+
         $(ID).find(".fa-undo").each(function () {
             $(this).parent("span").trigger("click");
         });
@@ -2805,11 +2803,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.IsStatusLibrary = $scope.checkpermission('URL:Manage/Status');
         $scope.GetActiveUnitDataField();
         CheckScopeBeforeApply();
-      
 
-        
 
-      
+
+
+
 
 
     }
@@ -3603,12 +3601,22 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.changeNav = function () {
 
+        $cordovaKeyboard.close();
 
-        $("#myform .swiper-slide-active input:first").focus();
-        $("#myform .swiper-slide-active select:first").focus();
-        $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("click");
-        $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("keypress");
+        if ($scope.CurrentActiveField != "Image") {
 
+            if ($("#myform .swiper-slide-active select").length > 0 || $("#myform .swiper-slide-active input[type = 'checkbox']").length > 0) {
+
+            }
+            else {
+
+                if ($("#myform .swiper-slide-active input").length > 0) {
+                    $("#myform .swiper-slide-active input:first").focus();
+                    $cordovaKeyboard.show();
+
+                }
+            }
+        }
 
     }
 
@@ -4081,7 +4089,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.notmove = function () {
         //window.location.reload();
         $scope.resetObject();
-       
+
         if ($scope.switchmode == true) {
 
             $scope.mode2();
