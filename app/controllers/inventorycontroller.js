@@ -33,50 +33,43 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.mode1 = function () {
 
-         
         $scope.itemfields = false;
         $scope.switchmode = false;
         $scope.currentmode = 1;
         localStorageService.set("mode", $scope.currentmode);
+        CheckScopeBeforeApply();
 
         $cordovaKeyboard.disableScroll(true);
 
+        $scope.changeNav();
+        InitializeSwiper();
 
-        CheckScopeBeforeApply();
+        setTimeout(function () {
+            $("#myform .swiper-slide-active").find(".form-control:first").focus();
+        }, 100);
 
-
-
+       
+       
     }
 
-    function SelectDropdownissue()
+    $scope.mode2 = function ()
     {
-        var allSelectElements = document.getElementsByTagName('select');
-        for (var i = 0; i < allSelectElements.length; i++) {
-            allSelectElements[i].addEventListener('touchstart', function (e) {
-                //This is the important line
-                e.stopPropagation();
-            }, false);
-        }
-    }
-
-    $scope.mode2 = function () {
         $scope.itemfields = false;
         $scope.switchmode = true;
-        $scope.currentmode = 2;
+        $scope.currentmode = 2 ;
         localStorageService.set("mode", $scope.currentmode);
         $cordovaKeyboard.disableScroll(false);
 
-        SelectDropdownissue();
-        
-
+      
         CheckScopeBeforeApply();
 
-
+        setTimeout(function () {
+            $("#firstDiv").find(".form-group:first").find(".form-control:first").focus();
+        }, 100);
     }
 
     $scope.nextstep = function () {
         $scope.itemfields = true;
-        SelectDropdownissue();
 
     }
 
@@ -84,18 +77,19 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $(document)
    .on('focus', '.switchmode input,select', function () {
 
-
+       
        $('#toolbar').css("position", "absolute");
        $('.stickybtn').css("position", "relative");
 
    })
    .on('blur', '.switchmode input,select', function () {
 
-
+     
        $('#toolbar').css("position", "fixed");
-
+      
        $('.stickybtn').css("position", "fixed");
    });
+
 
 
 
@@ -136,68 +130,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.SetIsOpen = function (_bool) {
         $scope.Isopendiv = _bool;
         CheckScopeBeforeApply();
-    }
-
-
-    $scope.dropdownLabel = "";
-
-    $scope.Addnew = function (ID, _Fieldtype) {
-
-        $scope.dropdownLabel = "";
-
-        $scope.fieldtype = _Fieldtype;
-        $scope.currentcfdID = ID;
-        CheckScopeBeforeApply();
-
-         
-
-
-        $("#Adddropdownvalue").modal('show');
-
-    }
-
-    $scope.SaveDropdownlabel = function () {
-
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            $scope.SecurityToken = authData.token;
-        }
-
-        $.ajax({
-            url: serviceBase + "UpdateCustomDropdown",
-            type: 'POST',
-            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "cfdID": $scope.currentcfdID, "Value": $scope.dropdownLabel }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (result) {
-
-                $('#' + $scope.fieldtype + $scope.currentcfdID).append('<option value=' + $scope.dropdownLabel + ' selected="selected"> ' + $scope.dropdownLabel + '</option>');
-
-
-                $('#' + $scope.fieldtype + $scope.currentcfdID).val($scope.dropdownLabel);
-
-                $('#' + $scope.fieldtype + $scope.currentcfdID).trigger("change");
-                $('#' + $scope.fieldtype + $scope.currentcfdID).trigger("input");
-                CheckScopeBeforeApply();
-
-                $("#Adddropdownvalue").modal('hide');
-
-
-            },
-            error: function (err) {
-
-                alert("error");
-                 
-
-
-            },
-            complete: function () {
-
-
-            }
-
-        });
-
     }
 
 
@@ -322,7 +254,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.GetCustomColumn = function (ColumnMap) {
-        var _obj = undefined;
+        var _obj = {};
         for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
             if ($scope.CustomItemDataList[i].ColumnMap == ColumnMap) {
                 return $scope.CustomItemDataList[i];
@@ -415,7 +347,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return true;
     }
     $scope.saveItemGroup = function (ItemGroupValue) {
-         
+        debugger;
         var _StatusValue = $.trim(ItemGroupValue);
 
         if (_StatusValue != "") {
@@ -439,7 +371,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 contentType: 'application/json',
                 success: function (result) {
 
-                     
+                    debugger;
                     if (result.CreateEditItemGroupResult.Success == true) {
 
                         _IsSavedItemGroup = true;
@@ -584,9 +516,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
-
     $scope.GetLastValueCustom = function (id, Type) {
 
+        debugger;
 
         var field = "Inv_" + id;
         var _fieldid = "";
@@ -607,8 +539,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         if (_toCheckValue != null && _toCheckValue != undefined) {
             _value = _toCheckValue;
 
-
             $(_fieldid).val(_value);
+
+
             $(_fieldid).trigger('change');
             $(_fieldid).trigger('input');
 
@@ -624,6 +557,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
             $("#firstDiv").find(_fieldid).trigger('change');
             $("#firstDiv").find(_fieldid).trigger('input');
+
+
+
+
+
         }
         else {
 
@@ -631,7 +569,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $(_fieldid).trigger('change');
             $(_fieldid).trigger('input');
 
-
             $("#secondDiv").find(_fieldid).val(_value);
 
 
@@ -645,14 +582,45 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $("#firstDiv").find(_fieldid).trigger('input');
 
         }
-
-
-
-
     }
+
+
+    $scope.UpdateCustomDropdownData = function (CustomDataID, Value, Type,_Index) {
+
+        debugger;
+
+        var _ID = "#CustomItem_" + CustomDataID;
+        var _ID2 = "#CustomItem_" + CustomDataID + "_label";
+
+        switch (Type) {
+            case 1:
+                _ID = "#CustomItem_" + CustomDataID;
+                _ID2 = "#CustomItem_" + CustomDataID + "_label";
+                $scope.InventoryObject.CustomPartData[_Index].Value = Value;
+                break
+            case 2:
+                _ID = "#CustomActivity_" + CustomDataID;
+                _ID2 = "#CustomActivity_" + CustomDataID + "_label";
+                $scope.InventoryObject.CustomTxnData[_Index].Value = Value;
+                break
+            
+            default:
+                _ID = "#CustomActivity_" + CustomDataID;
+                _ID2 = "#CustomActivity_" + CustomDataID + "_label";
+                break;
+        }
+
+        $(_ID).val(Value);
+        $(_ID2).html(Value);
+
+        
+        CheckScopeBeforeApply();
+    }
+
     function CheckScopeBeforeApply() {
-        if (!$scope.$$phase) {
-            $scope.$apply();
+        if (!$scope.$$phase)
+        {
+         $scope.$apply();
         }
     };
 
@@ -677,12 +645,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.GetLastValue = function (field, id) {
 
 
-
+        debugger;
 
         var _value = "";
         var _toCheckValue = localStorageService.get(field);
-        console.log(field);
-        console.log(_toCheckValue);
+
+
 
 
         if (_toCheckValue != null && _toCheckValue != undefined) {
@@ -700,6 +668,15 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $scope.InventoryObject.Location = _value;
             }
 
+            else if (id == "#DefaultItemLocationID") {
+                $(id).val(_value);
+                $scope.InventoryObject.DefaultItemLocationID = _value;
+            }
+            else if (id == "#DefaultItemUOM") {
+                $(id).val(_value);
+                $scope.InventoryObject.DefaultItemUOM = _value;
+            }
+
             else if (id == "#Status") {
                 $(id).val(_value);
                 $scope.InventoryObject.Status = _value;
@@ -710,38 +687,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $(id).trigger('change');
                 $(id).trigger('input');
             }
-
-            $("#secondDiv").find(id).val(_value);
-
-
-            $("#secondDiv").find(id).trigger('change');
-            $("#secondDiv").find(id).trigger('input');
-
-            $("#firstDiv").find(id).val(_value);
-
-
-            $("#firstDiv").find(id).trigger('change');
-            $("#firstDiv").find(id).trigger('input');
-
-         
         }
         else {
 
             $(id).val(_value);
             $(id).trigger('change');
             $(id).trigger('input');
-
-            $("#secondDiv").find(id).val(_value);
-
-
-            $("#secondDiv").find(id).trigger('change');
-            $("#secondDiv").find(id).trigger('input');
-
-            $("#firstDiv").find(id).val(_value);
-
-
-            $("#firstDiv").find(id).trigger('change');
-            $("#firstDiv").find(id).trigger('input');
         }
 
         CheckScopeBeforeApply()
@@ -864,7 +815,38 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
+    $scope.GetCustomFieldDataType = function (ID) {
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].cfdID == ID) {
+                return $scope.CustomItemDataList[i].cfdDataType;
+            }
+
+        }
+
+        return "";
+    }
+
+    function formatDate(date) {
+        if (date != null && date != undefined && date != "") {
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        else {
+            return date;
+        }
+    }
     $scope.SetItemData = function (obj) {
+
+
+
 
         $scope.InventoryObject.ItemID = obj.ItemID;
 
@@ -887,33 +869,55 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.InventoryObject.DefaultItemUOM = obj.DefaultUomID;
 
 
-        console.log(obj);
-
-        console.log("before");
-        console.log($scope.InventoryObject.CustomPartData);
-
-        debugger;
         if ($scope.InventoryObject.CustomPartData.length > 0 && obj.CustomData.length > 0) {
 
             for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
                 for (var j = 0; j < obj.CustomData.length; j++) {
                     if (obj.CustomData[j].cfdID == $scope.InventoryObject.CustomPartData[i].CfdID) {
-                        $scope.InventoryObject.CustomPartData[i].Value = obj.CustomData[j].CustomFieldValue;
+                        switch ($scope.GetCustomFieldDataType(obj.CustomData[j].cfdID)) {
+                            case "string":
+                            case "checkbox":
+                            case "combobox":
+                                $scope.InventoryObject.CustomPartData[i].Value = obj.CustomData[j].CustomFieldValue;
+
+                                break;
+                            case "currency":
+                            case "number":
+                                if (obj.CustomData[j].CustomFieldValue != undefined && obj.CustomData[j].CustomFieldValue != null && obj.CustomData[j].CustomFieldValue != "") {
+                                    $scope.InventoryObject.CustomPartData[i].Value = parseFloat(obj.CustomData[j].CustomFieldValue);
+
+                                }
+                                break;
+                            case "datetime":
+                                if (obj.CustomData[j].CustomFieldValue != undefined && obj.CustomData[j].CustomFieldValue != null && obj.CustomData[j].CustomFieldValue != "") {
+                                    $scope.InventoryObject.CustomPartData[i].Value = formatDate(obj.CustomData[j].CustomFieldValue);
+
+                                }
+                                break;
+                            default:
+                                $scope.InventoryObject.CustomPartData[i].Value = obj.CustomData[j].CustomFieldValue;
+
+                        }
                     }
                 }
 
             }
         }
 
-
+        $("#secondDiv .form-control").each(function () {
+            console.log($(this).attr("id"));
+            $(this).trigger("input");
+        });
+        $("#firstDiv .form-control").each(function () {
+            console.log($(this).attr("id"));
+            $(this).trigger("input");
+        });
         $("#itemlistmodal").modal('hide');
 
         $("#locationlistmodal").modal('hide');
         $("#uomlistmodal").modal('hide');
         $scope.IsItemChose = true;
-        CheckScopeBeforeApply();
-
-        console.log($scope.InventoryObject.CustomPartData);
+        CheckScopeBeforeApply()
     }
     $scope.onChangeUOMData = function () {
         $scope.InventoryObject.UomID = 0;
@@ -1026,12 +1030,20 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return $.trim(value);
     }
 
+
     $scope.showmessage = false;
 
     $scope.Itemvaluechange = function () {
         $scope.showmessage = true;
         CheckScopeBeforeApply();
     }
+
+
+
+
+
+
+
 
     $scope.OnChangeItemNameFunction = function () {
 
@@ -1069,36 +1081,33 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 },
 
                 success: function (data) {
-                     
+                    debugger;
                     if (data.SearchItemsResult.Success == true) {
                         if (data.SearchItemsResult != null && data.SearchItemsResult.Payload != null) {
                             $scope.ItemSearching = false;
                             $scope.SearchList = data.SearchItemsResult.Payload;
 
 
-                             
+                            debugger;
 
                             if ($scope.SearchList.length == 0) {
                                 $scope.isnoitemmsg = true;
                             }
                             else {
 
-                                $scope.isnoitemmsg = false;
 
                                 if ($scope.SearchList.length == 1) {
-                                    if ($scope.InventoryObject.ItemID != "" && $scope.InventoryObject.ItemID != undefined) {
 
-                                        if (($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase())) {
+                                    if ($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase()) {
 
-                                            log.info("This Item already exist, we fill all associate data.");
+                                        log.info("This Item already exist, we fill all associate data.");
 
-                                            var obj = $scope.SearchList[0];
+                                        var obj = $scope.SearchList[0];
 
-                                            $scope.SetItemData(obj);
+                                        $scope.SetItemData(obj);
 
-                                            $scope.showmessage = false;
+                                        $scope.showmessage = false;
 
-                                        }
                                     }
 
 
@@ -1308,8 +1317,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $('#addinventories').addClass("disabled");
                 $('#addinventories').find(".fa").addClass("fa-spin");
 
-                $('#addinventoriesnew').addClass("disabled");
-                $('#addinventoriesnew').find(".fa").addClass("fa-spin");
 
                 var _TempObj = $scope.InventoryObject;
 
@@ -1485,7 +1492,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                               if (_toSendImages.length > 0) {
                                   // log.info("Image upload started it will continue in backend you can do other work.")
-                                  // $scope.UploadImage(response.AddInventoryDataResult.Payload, _toSendImages, 0);
+                                  //$scope.UploadImage(response.AddInventoryDataResult.Payload, _toSendImages, 0);
                               }
                               ImageListAndroid = [];
 
@@ -1505,9 +1512,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                           $('#addinventories').removeClass("disabled");
                           $('#addinventories').find(".fa").removeClass("fa-spin");
-
-                          $('#addinventoriesnew').removeClass("disabled");
-                          $('#addinventoriesnew').find(".fa").removeClass("fa-spin");
                       },
                       fail: function (jqXHR, textStatus, errorThrown) {
                           console.log("jqxhr");
@@ -1638,7 +1642,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $scope.SearchList = [];
         $scope.SearchItemValue = "";
-        $scope.isnoitemmsg = false;
+        $scope.isnoitemmsg = false
         $('html,body').animate({ scrollTop: 0 }, 800);
 
     }
@@ -1673,7 +1677,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#itemlistmodal").modal('hide');
         $("#locationlistmodal").modal('show');
 
-         
+        debugger;
         $scope.LocationSearchList = angular.copy($scope.LocationList);
         CheckScopeBeforeApply();
 
@@ -1700,14 +1704,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
+
     $scope.ReuseAll = function (ID) {
         $(ID).find(".fa-undo").each(function () {
             $(this).parent("span").trigger("click");
         });
-
-        $("#itemNameData").trigger("click");
     }
-
 
     $scope.GetAllData = function () {
         var authData = localStorageService.get('authorizationData');
@@ -1787,7 +1789,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           }
 
                           var _CustomObj = $scope.GetCustomColumn(_tempData[i].ColumnName);
-                          debugger;
+
                           if (_CustomObj != undefined && _CustomObj != {}) {
                               _obj.cfdName = _CustomObj.cfdName;
                               _obj.cfdID = _CustomObj.cfdID;
@@ -2691,32 +2693,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
-
-    function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-    }
-
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-    }
-
     $scope.onPhotoDataSuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
-
-
-        var myBase64 = imageData;
-        // To define the type of the Blob
-        var contentType = "image/png";
-        // if cordova.file is not available use instead :
-        // var folderpath = "file:///storage/emulated/0/";
-        // var folderpath="file:///storage/sdcard0/ClearlyInventory/";
-        var folderpath = cordova.file.externalRootDirectory;
-        var filename = guid() + ".png";
-
-
 
         imageData = "data:image/jpeg;base64," + imageData;
 
@@ -2731,141 +2709,22 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         _ImgObj.bytestring = imageData;
         $scope.ImageList.push(_ImgObj);
         CheckScopeBeforeApply();
-        savebase64AsImageFile(folderpath, filename, myBase64, contentType);
+
         // log.success("Images captured length"+$scope.ImageList.length);
 
     }
 
     $scope.onFail = function (message) {
 
-        //log.error('Failed because: ' + message);
-        $scope.errormessage = message;
-        CheckScopeBeforeApply();
-        $("#camerapermission").modal("show");
+        log.error('Failed because: ' + message);
     }
-
-    function b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
-
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        var blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
-
-
-
-
-
-
-    function fail() {
-        alert("failed while reading DCIM");
-    }
-
-    var _fileName = "";
-    var _blobdata = "";
-    function onFileSystemSuccess(fileSystem) {
-        var directoryReader = fileSystem.createReader();
-        directoryReader.readEntries(function (entries) {
-            var i;
-            for (i = 0; i < entries.length; i++) {
-                if (entries[i].name === "DCIM") {
-                    var dcimReader = entries[i];
-
-
-                    dcimReader.getDirectory("ClearlyInventory-Images", { create: true, exclusive: false },
-
-            function (dirEntry) {
-                dirEntry.getFile(_fileName, { create: true, exclusive: false }, function (fileEntry) {
-                    fileEntry.createWriter(function (fileWriter) {
-                        fileWriter.write(_blobdata);
-                        // remove this to traverse through all the folders and files
-
-                    }, function () {
-                        alert('Unable to save file in path ');
-                    });
-
-                }, function (error) {
-                    alert(error.code);
-                });
-            }, function (error) {
-                alert(error.code);
-            });
-                    //dcimReader.getFile(_fileName, { create: true }, function (file) {
-                    //    file.createWriter(function (fileWriter) {
-                    //        fileWriter.write(_blobdata);
-                    //        // remove this to traverse through all the folders and files
-
-                    //    }, function () {
-                    //        alert('Unable to save file in path ');
-                    //    });
-                    //});
-
-                    break;
-                }
-
-
-            }
-        }, function () {
-            alert("fail");
-        });
-    }
-    /**
-     * Create a Image file according to its database64 content only.
-     * 
-     * @param folderpath {String} The folder where the file will be created
-     * @param filename {String} The name of the file that will be created
-     * @param content {Base64 String} Important : The content can't contain the following string (data:image/png[or any other format];base64,). Only the base64 string is expected.
-     */
-    function savebase64AsImageFile(folderpath, filename, content, contentType) {
-        // Convert the base64 string in a Blob
-        var DataBlob = b64toBlob(content, contentType);
-
-
-        _fileName = filename;
-        _blobdata = DataBlob;
-
-        window.resolveLocalFileSystemURL(folderpath, function (dir) {
-            dir.getFile(filename, { create: true }, function (file) {
-                file.createWriter(function (fileWriter) {
-                    fileWriter.write(DataBlob);
-                }, function () {
-                    alert('Unable to save file in path ' + folderpath);
-                });
-            });
-        });
-
-        window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory, onFileSystemSuccess, fail);
-
-
-    }
-
     $scope.capturePhotoNew = function () {
-
-
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
             quality: 50,
-            //targetWidth: 120,
-            //targetHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
-            allowEdit: false,
-            saveToPhotoAlbum: false,
+            allowEdit: true,
+            saveToPhotoAlbum: true,
         });
     }
 
@@ -2929,8 +2788,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.IsStatusLibrary = $scope.checkpermission('URL:Manage/Status');
         $scope.GetActiveUnitDataField();
         CheckScopeBeforeApply();
+      
 
-        $("#slide-out-left").hide()
+        
+
+      
+
+
     }
 
 
@@ -3116,6 +2980,147 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 break;
         }
     }
+
+    $scope.ScanNewSwitch = function (_Column) {
+        debugger;
+        var _id = "#";
+
+
+        var ControlID = _Column;
+        var _IsActiveScan = true;
+        switch (ControlID) {
+            case "iStatusValue":
+                _IsActiveScan = $scope.IsActiveStatusLibrary;
+                break;
+            case "lLoc":
+                _IsActiveScan = $scope.IsActiveLocationLibrary;
+                break;
+            case "uomUOM":
+                _IsActiveScan = $scope.IsActiveUOMLibrary;
+                break;
+            case "pCountFrq":
+                _IsActiveScan = $scope.IsActiveItemGroupLibrary;
+                break;
+            default:
+                _IsActiveScan = true;
+
+        }
+
+        if (_IsActiveScan == true) {
+
+            var scanner = cordova.plugins.barcodeScanner;
+
+            scanner.scan(function (result) {
+
+                var resultvalue = result.text;
+                var _fieldType = GetFieldType(ControlID);
+                if (_fieldType != 4) {
+
+                    resultvalue = $scope.Validation(resultvalue, _fieldType) == true ? resultvalue : "";
+                }
+                if (resultvalue != "") {
+                    switch (ControlID) {
+                        case "pPart":
+                            _id = "#ItemName";
+
+
+                            $scope.InventoryObject.ItemID = resultvalue;
+
+
+                            break;
+                        case "lLoc":
+                            _id = "#Location";
+                            $scope.InventoryObject.Location = resultvalue;
+                            break;
+                        case "uomUOM":
+                            _id = "#UOM";
+                            $scope.InventoryObject.Uom = resultvalue;
+                            break;
+                        case "iQty":
+                            _id = "#iQty";
+                            $scope.InventoryObject.Quantity = resultvalue;
+                            break;
+                        case "iStatusValue":
+                            $scope.InventoryObject.iStatusValue = resultvalue;
+                            break;
+                        case "pDescription":
+                            _id = "#pDescriptionForm";
+                            $scope.InventoryObject.Description = resultvalue;
+                            break;
+                        case "iReqValue":
+                            _id = "#UniqueTag";
+                            $scope.InventoryObject.UniqueTag = resultvalue;
+                            break;
+                        case "iUnitTag2":
+                            _id = "#UnitTag2";
+                            $scope.InventoryObject.UnitTag2 = resultvalue;
+                            break;
+                        case "iUnitTag3":
+                            _id = "#UnitTag3";
+                            $scope.InventoryObject.UnitTag3 = resultvalue;
+                            break;
+                        case "iUniqueDate":
+                            _id = "#UniqueDate";
+                            resultvalue = ConvertDatetoDate(resultvalue);
+                            $scope.InventoryObject.UniqueDate = resultvalue;
+                            break;
+                        case "iUnitDate2":
+                            _id = "#UnitDate2";
+                            resultvalue = ConvertDatetoDate(resultvalue);
+                            $scope.InventoryObject.UnitDate2 = resultvalue;
+                            break;
+                        case "iUnitNumber1":
+                            _id = "#UnitNumber1";
+                            $scope.InventoryObject.UnitNumber1 = resultvalue;
+                            break;
+                        case "iUnitNumber2":
+                            _id = "#UnitNumber2";
+                            $scope.InventoryObject.UnitNumber2 = resultvalue;
+                            break;
+                        case "pCountFrq":
+                            _id = "#itemgroup";
+                            $scope.InventoryObject.ItemGroup = resultvalue;
+                            break;
+                        case "lZone":
+                            _id = "#lZone";
+                            $scope.InventoryObject.lZone = resultvalue;
+                            break;
+                        default:
+
+                    }
+
+
+
+                    $(_id).val(resultvalue);
+                    // $(_id).trigger("input");
+
+
+
+
+                    CheckScopeBeforeApply();
+
+
+                }
+
+                else {
+
+                    $scope.ShowScanError(_fieldType);
+                }
+
+
+
+
+
+
+            }, function (error) {
+                log.error("Scanning failed: ", error);
+            });
+        }
+        else {
+            $scope.locked();
+        }
+
+    }
     $scope.ScanNew = function () {
 
 
@@ -3263,8 +3268,48 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $scope.locked();
         }
     }
+    $scope.ShowScanError = function (type) {
+        switch (type) {
+            case 1:
+                log.error("Scanned value is not proper number value.");
+                break;
+            case 2:
+                log.error("Scanned value is not proper boolean value.");
+                break;
+            case 3:
+                log.error("Scanned value is not proper date value.");
+                break;
+            default:
+                break;
+
+        }
+    }
+    $scope.GetCustomDataType = function (Type) {
+        switch (Type) {
+            case "string":
+                return 4;
+                break;
+            case "date":
+            case "datetime":
+                return 3;
+                break;
+            case "checkbox":
+                return 2;
+                break;
+            case "number":
+            case "money":
+            case "decimal":
+            case "currency":
+                return 1;
+                break;
+            default:
+                return 4;
+                break;
 
 
+
+        }
+    }
     $scope.ScanNewCustomSwitch = function (_colID, _Column, CType) {
 
         _colID = (CType == 1 ? "CustomItem_" : "CustomActivity_") + _colID;
@@ -3352,198 +3397,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         });
     }
 
-    $scope.ScanNewSwitch = function (_Column) {
-         
-        var _id = "#";
-
-
-        var ControlID = _Column;
-        var _IsActiveScan = true;
-        switch (ControlID) {
-            case "iStatusValue":
-                _IsActiveScan = $scope.IsActiveStatusLibrary;
-                break;
-            case "lLoc":
-                _IsActiveScan = $scope.IsActiveLocationLibrary;
-                break;
-            case "uomUOM":
-                _IsActiveScan = $scope.IsActiveUOMLibrary;
-                break;
-            case "pCountFrq":
-                _IsActiveScan = $scope.IsActiveItemGroupLibrary;
-                break;
-            default:
-                _IsActiveScan = true;
-
-        }
-
-        if (_IsActiveScan == true) {
-
-            var scanner = cordova.plugins.barcodeScanner;
-
-            scanner.scan(function (result) {
-
-                var resultvalue = result.text;
-                var _fieldType = GetFieldType(ControlID);
-                if (_fieldType != 4) {
-
-                    resultvalue = $scope.Validation(resultvalue, _fieldType) == true ? resultvalue : "";
-                }
-                if (resultvalue != "") {
-                    switch (ControlID) {
-                        case "pPart":
-                            _id = "#ItemName";
-
-
-                            $scope.InventoryObject.ItemID = resultvalue;
-
-
-                            break;
-                        case "lLoc":
-                            _id = "#Location";
-                            $scope.InventoryObject.Location = resultvalue;
-                            break;
-                        case "uomUOM":
-                            _id = "#UOM";
-                            $scope.InventoryObject.Uom = resultvalue;
-                            break;
-                        case "iQty":
-                            _id = "#iQty";
-                            $scope.InventoryObject.Quantity = resultvalue;
-                            break;
-                        case "iStatusValue":
-                            $scope.InventoryObject.iStatusValue = resultvalue;
-                            break;
-                        case "pDescription":
-                            _id = "#pDescriptionForm";
-                            $scope.InventoryObject.Description = resultvalue;
-                            break;
-                        case "iReqValue":
-                            _id = "#UniqueTag";
-                            $scope.InventoryObject.UniqueTag = resultvalue;
-                            break;
-                        case "iUnitTag2":
-                            _id = "#UnitTag2";
-                            $scope.InventoryObject.UnitTag2 = resultvalue;
-                            break;
-                        case "iUnitTag3":
-                            _id = "#UnitTag3";
-                            $scope.InventoryObject.UnitTag3 = resultvalue;
-                            break;
-                        case "iUniqueDate":
-                            _id = "#UniqueDate";
-                            resultvalue = ConvertDatetoDate(resultvalue);
-                            $scope.InventoryObject.UniqueDate = resultvalue;
-                            break;
-                        case "iUnitDate2":
-                            _id = "#UnitDate2";
-                            resultvalue = ConvertDatetoDate(resultvalue);
-                            $scope.InventoryObject.UnitDate2 = resultvalue;
-                            break;
-                        case "iUnitNumber1":
-                            _id = "#UnitNumber1";
-                            $scope.InventoryObject.UnitNumber1 = resultvalue;
-                            break;
-                        case "iUnitNumber2":
-                            _id = "#UnitNumber2";
-                            $scope.InventoryObject.UnitNumber2 = resultvalue;
-                            break;
-                        case "pCountFrq":
-                            _id = "#itemgroup";
-                            $scope.InventoryObject.ItemGroup = resultvalue;
-                            break;
-                        case "lZone":
-                            _id = "#lZone";
-                            $scope.InventoryObject.lZone = resultvalue;
-                            break;
-                        default:
-
-                    }
-
-
-
-                    $(_id).val(resultvalue);
-                    // $(_id).trigger("input");
-
-
-                    $("#secondDiv").find(_id).val(_value);
-
-
-                    $("#secondDiv").find(_id).trigger('change');
-                    $("#secondDiv").find(_id).trigger('input');
-
-                    $("#firstDiv").find(_id).val(_value);
-
-
-                    $("#firstDiv").find(_id).trigger('change');
-                    $("#firstDiv").find(_id).trigger('input');
-
-                    CheckScopeBeforeApply();
-
-
-                }
-
-                else {
-
-                    $scope.ShowScanError(_fieldType);
-                }
-
-
-
-
-
-
-            }, function (error) {
-                log.error("Scanning failed: ", error);
-            });
-        }
-        else {
-            $scope.locked();
-        }
-
-    }
-    $scope.ShowScanError = function (type) {
-        switch (type) {
-            case 1:
-                log.error("Scanned value is not proper number value.");
-                break;
-            case 2:
-                log.error("Scanned value is not proper boolean value.");
-                break;
-            case 3:
-                log.error("Scanned value is not proper date value.");
-                break;
-            default:
-                break;
-
-        }
-    }
-    $scope.GetCustomDataType = function (Type) {
-        switch (Type) {
-            case "string":
-                return 4;
-                break;
-            case "date":
-            case "datetime":
-                return 3;
-                break;
-            case "checkbox":
-                return 2;
-                break;
-            case "number":
-            case "money":
-            case "decimal":
-            case "currency":
-                return 1;
-                break;
-            default:
-                return 4;
-                break;
-
-
-
-        }
-    }
     $scope.ScanNewCustom = function () {
 
         var _id = "#" + _colid;
@@ -3734,39 +3587,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.changeNav = function () {
 
 
-
-        if (deviceType != "Android" && deviceType != "null") {
-
-            $("#myform .swiper-slide-active input:first").focus();
-            $("#myform .swiper-slide-active select:first").focus();
-            $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("click");
-            $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("keypress");
+        $("#myform .swiper-slide-active input:first").focus();
+        $("#myform .swiper-slide-active select:first").focus();
+        $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("click");
+        $("#myform .swiper-slide-active input:first").not("input[type='file']").not("input[type = 'checkbox']").trigger("keypress");
 
 
-        }
-        else {
-            //SoftKeyboard.hide();
-
-
-            $cordovaKeyboard.close();
-
-            if ($scope.CurrentActiveField != "Image") {
-
-                if ($("#myform .swiper-slide-active select").length > 0 || $("#myform .swiper-slide-active input[type = 'checkbox']").length > 0) {
-
-                }
-                else {
-
-                    if ($("#myform .swiper-slide-active input").length > 0) {
-                        $("#myform .swiper-slide-active input:first").focus();
-                        //  SoftKeyboard.show();
-                        $cordovaKeyboard.show();
-
-                    }
-                }
-            }
-            //
-        }
     }
 
     $(".modal-backdrop").remove();
@@ -3816,7 +3642,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.getstep = function (currentstep, ColumnName) {
-
         if (ColumnName != "" && ColumnName != null) {
             $(".myCols").each(function () {
 
@@ -3926,6 +3751,68 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
+    $scope.dropdownLabel = "";
+
+    $scope.Addnew = function (ID, _Fieldtype) {
+
+        $scope.dropdownLabel = "";
+
+        $scope.fieldtype = _Fieldtype;
+        $scope.currentcfdID = ID;
+        CheckScopeBeforeApply();
+
+        debugger;
+
+
+        $("#Adddropdownvalue").modal('show');
+
+    }
+
+    $scope.SaveDropdownlabel = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax({
+            url: serviceBase + "UpdateCustomDropdown",
+            type: 'POST',
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "cfdID": $scope.currentcfdID, "Value": $scope.dropdownLabel }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+
+                $('#' + $scope.fieldtype + $scope.currentcfdID).append('<option value=' + $scope.dropdownLabel + ' selected="selected"> ' + $scope.dropdownLabel + '</option>');
+
+
+                $('#' + $scope.fieldtype + $scope.currentcfdID).val($scope.dropdownLabel);
+
+                $('#' + $scope.fieldtype + $scope.currentcfdID).trigger("change");
+                $('#' + $scope.fieldtype + $scope.currentcfdID).trigger("input");
+                CheckScopeBeforeApply();
+
+                $("#Adddropdownvalue").modal('hide');
+
+
+            },
+            error: function (err) {
+
+
+                debugger;
+
+
+            },
+            complete: function () {
+
+
+            }
+
+        });
+
+    }
+
+
     $scope.UpdateLocationAndUOMList = function () {
         var _defaultUOM = { UnitOfMeasureID: "", UnitOfMeasureName: "units" };
 
@@ -4001,30 +3888,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return false;
     }
 
-    function AfterLoadedData() {
-        $('.probeProbe').bootstrapSwitch('state', true);
-        $(".iosbtn").show();
-        $(".androidbtn").hide();
+    function InitializeSwiper() {
 
-
-        console.log("Inventory Object Data");
-
-        console.log($scope.InventoryObject.CustomPartData);
-        //if (deviceType == 'iPhone') {
-        //    $(".iosbtn").show()
-
-        //}
-        //else {
-        //    $(".androidbtn").show()
-        //    $(".iosbtn").hide()
-        //}
-
-        $(".swiper-container").show();
-
-
-        $(".spinner").hide();
         setTimeout(function () {
+            $(".swiper-container").show();
 
+
+            $(".spinner").hide();
             mySwiper = new Swiper('.swiper-container', {
                 initialSlide: 0,
                 speed: 500,
@@ -4067,7 +3937,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     $scope.slidenumber(swiperHere.activeIndex);
 
 
-                    if (swiperHere.activeIndex != 3 && swiperHere.activeIndex != 6) {
+                    if (swiperHere.activeIndex != 100 && swiperHere.activeIndex != 101) {
 
                         $scope.changeNav();
 
@@ -4085,41 +3955,80 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
             });
 
-
-
-
             setTimeout(function () {
                 var _TempcolName = $(".swiper-slide-active").attr("data-column");
                 $scope.CurrentActiveField = _TempcolName != undefined && _TempcolName != "" ? _TempcolName : "";
                 $scope.Totalslides = mySwiper.slides.length - 1;
                 $scope.IsFormDataloaded = true;
                 $scope.CurrentActiveFieldType = "Inventory";
-                $("#files").on('change', function (event) {
-                    $scope.handleFileSelect(event);
-                });
+
 
 
 
                 CheckScopeBeforeApply();
             }, 10)
+            $scope.laststepindex = mySwiper.slides.length;
+
+            setTimeout(function () {
+                $scope.changeNav();
+
+                $('.arrow-left').on('click', function (e) {
+                    e.preventDefault()
+
+                    if ($scope.slide == 0 || $scope.slide == 1000) {
+                        // showConfirmInventory();
+
+                    }
+                    else {
+                        mySwiper.swipePrev();
+
+                    }
+
+
+                })
+                $('.arrow-right').on('click', function (e) {
+
+                    e.preventDefault()
+                    mySwiper.swipeNext()
+                    CheckScopeBeforeApply();
+                })
+            }, 100)
+        }, 100);
+    }
+    function AfterLoadedData() {
+        $('.probeProbe').bootstrapSwitch('state', true);
+        $(".iosbtn").show();
+        $(".androidbtn").hide();
+
+
+        $(".swiper-container").show();
+
+
+        $(".spinner").hide();
+        setTimeout(function () {
+
+
+            InitializeSwiper();
+
+
 
             $scope.SetDefaultObjects();
-            $scope.laststepindex = mySwiper.slides.length;
+
 
             $scope.currentmode = localStorageService.get('mode');
 
 
             if ($scope.currentmode == 1) {
-                $scope.mode1();
+                $scope.switchmode = false;
+                CheckScopeBeforeApply();
             }
 
             if ($scope.currentmode == 2) {
-                $scope.mode2();
+                $scope.switchmode = true;
+                CheckScopeBeforeApply();
+                $cordovaKeyboard.disableScroll(false);
             }
 
-            setTimeout(function () {
-                $scope.changeNav();
-            }, 100);
 
         }, 10)
     }
@@ -4156,11 +4065,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         //window.location.reload();
         $scope.resetObject();
         $scope.getstep(0);
-
-        if ($scope.switchmode == true) {
-
-            $scope.mode2();
-        }
 
         $("#modal3").modal('hide');
 
@@ -4214,8 +4118,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     })
 
 
+
     $scope.onPhotoURISuccessNew = function (imageData) {
         var _ImgObj = { ImageID: 0, FileName: "", bytestring: "", Size: 0 }
+
         imageData = "data:image/jpeg;base64," + imageData;
 
         var id = randomStringNew(5, '0123456789');

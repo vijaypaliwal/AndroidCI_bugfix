@@ -102,7 +102,7 @@
 
     .changebtn {
   position: fixed;
-    bottom: 50px;
+    bottom: 23px;
     right: 25px;
     background: #FF4081 !important;
     z-index: 13000;
@@ -118,13 +118,31 @@
     body {
     background: #edecec;
 }
+
+      .updiv {
+        background: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        height: 42px;
+        border-radius: 5px !important;
+    }
+
+      .dropdown-listcustom
+
+      {
+          max-height:160px;
+          overflow-x:auto;
+      }
+
+
+
         
 </style>
 
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
 <a href="#/mainmenu" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
-<div ng-show="switchmode==false" class="maincontent animated slideInLeft">
+<div ng-if="switchmode==false" class="maincontent animated slideInLeft">
     <form id="myform" name="myform">
         <div class="device">
 
@@ -514,13 +532,37 @@
 
                             <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
-                                <div class="select">
-                                    <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
+                               
+                                    <select style="display:none;" id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
                                         <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                     </select>
+
+
+                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                    {{InventoryObject.CustomPartData[$index].Value}}
+                                    <i class="caret pull-right" style="margin-top: 8px"></i>
                                 </div>
+                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                    <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                        <a>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td ng-click="InventoryObject.CustomPartData[$index].Value=_optionValue;CheckScopeBeforeApply();">{{_optionValue}}</td>
+
+
+                                                </tr>
+                                            </table>
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+                                
                                 <span ng-if="checkpermission('URL:configure/CustomFieldItemList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomItem_')"><i class="fa fa-plus"></i></span>
 
                             </div>
@@ -978,7 +1020,7 @@
 
                             <td ng-if="slide == Totalslides">
                                 <div class="alignright">
-                                    <a ng-click="addinventory()"  ng-disabled=" checkrequiredfield()= =true || checkcustomrequiredfields()= =true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Process</a>
+                                    <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" id="addinventories" class="btn laststepbtn waves-effect btn-success animated fadeInUp"> <i class="fa fa-plus-circle"></i>Process</a>
                                 </div>
                             </td>
 
@@ -1074,9 +1116,9 @@
 
 </div>
 
-<div ng-show="switchmode==true" class="switchmode">
+<div ng-if="switchmode==true" class="switchmode">
 
-    <div ng-if="itemfields==false" class="row tophead">
+    <div ng-show="itemfields==false" class="row tophead">
         <div class="col-xs-7">
             <div style="float:left;" ng-click="OpenBox()" class="" ng-if="IsAvailableMyInventoryColumn('Image')==true">
 
@@ -1107,7 +1149,7 @@
         </div>
     </div>
 
-    <div ng-if="itemfields==false" class="row" id="firstDiv">
+    <div ng-show="itemfields==false" class="row" id="firstDiv">
         <div class="col-md-12">
 
             <div class="myCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-if="obj.ColumnName!='HasConversion' && obj.ColumnName!='ActionQty'" ng-repeat="obj in MyinventoryFields" end-repeat>
@@ -1126,20 +1168,19 @@
 
                             </div>
 
-                            <!--<div ng-show="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">-->
-                                <div  class="input-group">
-                                    <div>
+                            <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
+                                <div>
 
-                                        <input type="text" id="ItemName" class="form-control" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
-
-                                    </div>
-
-                                    <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
-                                    <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
-
-                                    <span id="itemNameData"  ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                    <input type="text" id="ItemName" class="form-control" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
 
                                 </div>
+
+                                <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
+                                <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+
+                                <span ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+
+                            </div>
 
                             <div ng-if="IsItemLibrary==false || IsActiveItemLibrary==false">
                                 <div class="row requiredfields" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
@@ -1192,7 +1233,7 @@
 
                     <div class="input-group">
 
-                   
+
 
                         <input ng-model="InventoryObject.Quantity" id="iQty" min="0" class="form-control" type="number" name="Quantity" value="" />
                         <span ng-click="UpDownValue('Quantity',false)" class="input-group-addon last">
@@ -1209,14 +1250,38 @@
                 <div class="form-group" ng-if="obj.ColumnName=='lLoc'">
                     <label>Select Location <span class="redText">*</span></label>
                     <div class="input-group">
-                        <select ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
+                        <select style="display:none;" ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
                             <option mytag="{{obj.LocationZone}}" value="{{obj.LocationName}}" ng-selected="CheckSelectedValues(InventoryObject.Location,obj.LocationName)?true:false" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
                         </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.Location}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li ng-repeat="obj in LocationList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.Location=obj.LocationName">{{obj.LocationName}}</td>
+
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
+
                         <span ng-if="IsActiveLocationLibrary==true" ng-click="CreateNew(1)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
                         <span ng-click="locationlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValue('Inv_Location','#Location')" test-case condition="GetLastValueData('Inv_Location')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                       
+
                     </div>
 
 
@@ -1231,9 +1296,33 @@
                     <label>Select UOM <span class="redText">*</span></label>
                     <div class="input-group">
 
-                        <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
+                        <select style="display:none;" class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
                             <option value="{{obj.UnitOfMeasureName}}" ng-selected="CheckSelectedValues(InventoryObject.Uom,obj.UnitOfMeasureName)?true:false" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
                         </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.Uom}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li ng-repeat="obj in UOMList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.Uom=obj.UnitOfMeasureName">{{obj.UnitOfMeasureName}}</td>
+
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
+
                         <span ng-if="IsActiveUOMLibrary==true" ng-click="CreateNew(2)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
@@ -1270,13 +1359,39 @@
 
                     <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
-                        <div class="select">
-                            <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
-                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                        <select style="display:none;" id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
-                            </select>
+                            <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                        </select>
+
+
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.CustomPartData[$index].Value}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
                         </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.CustomPartData[$index].Value=_optionValue;CheckScopeBeforeApply();">{{_optionValue}}</td>
+
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
+
+
                         <span ng-if="checkpermission('URL:configure/CustomFieldItemList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomItem_')"><i class="fa fa-plus"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -1305,7 +1420,6 @@
             </div>
 
 
-
             <div ng-repeat="obj in CustomActivityDataList" data-id="CustomActivity_{{obj.cfdID}}" data-type="{{obj.cfdDataType}}" field-type="activity" data-index="{{$index}}" data-column="{{obj.ColumnMap}}" ng-if="obj.cfdIsRequired==true && CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)" class="CustomActivityCols" end-repeat3>
 
                 <div class="form-group">
@@ -1332,13 +1446,38 @@
                     <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
 
-                        <div class="select">
-                            <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
 
-                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                        <select style="display:none;" id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
 
-                            </select>
+                            <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                        </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.CustomTxnData[$index].Value}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
                         </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.CustomTxnData[$index].Value=_optionValue;CheckScopeBeforeApply();">{{_optionValue}}</td>
+
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
+
+
                         <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomActivity_')"><i class="fa fa-plus"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -1371,7 +1510,7 @@
     </div>
 
 
-    <div ng-if="itemfields==true" class="row tophead">
+    <div ng-show="itemfields==true" class="row tophead">
         <div class="col-xs-7">
             <h4>Other fields</h4>
         </div>
@@ -1383,7 +1522,7 @@
     </div>
 
 
-    <div ng-if="itemfields==true" class="row animated slideInRight" id="secondDiv">
+    <div ng-show="itemfields==true" class="row animated" id="secondDiv">
         <div class="col-md-12">
             <div class="myCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-if="obj.ColumnName!='HasConversion' && obj.ColumnName!='ActionQty'" ng-repeat="obj in MyinventoryFields" end-repeat>
 
@@ -1401,28 +1540,73 @@
                 <div class="form-group" ng-if="obj.ColumnName=='iStatusValue'">
                     <label>Status </label>
                     <div class="input-group">
-                        <select class="form-control" id="Status" ng-model="InventoryObject.Status">
+                        <select style="display:none;" class="form-control" id="Status" ng-model="InventoryObject.Status">
                             <option value="">None</option>
                             <option value="{{obj.StatusValue}}" ng-selected="obj.StatusValue==InventoryObject.Status" ng-repeat="obj in StatusList">{{obj.StatusValue}}</option>
                         </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.Status}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="obj in StatusList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.Status=obj.StatusValue">{{obj.StatusValue}}</td>
+
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
 
                         <span ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
-                        <span ng-click="GetLastValue('Inv_Status','#Status')" test-case condition="GetLastValueData('Inv_Status')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                     </div>
                 </div>
 
 
 
-                
+
                 <div class="form-group" ng-if="obj.ColumnName=='DefaultItemUOM'">
                     <label>Default UOM</label>
                     <div class="input-group">
 
-                        <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.DefaultItemUOM" id="DefaultItemUOM">
+                        <select style="display:none;" class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.DefaultItemUOM" id="DefaultItemUOM">
                             <option value="{{obj.UnitOfMeasureID}}" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
                         </select>
-                        
+
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{GetUOMName(InventoryObject.DefaultItemUOM)}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li ng-repeat="obj in UOMList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.DefaultItemUOM=obj.UnitOfMeasureID">{{obj.UnitOfMeasureName}}</td>
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
                         <span ng-click="GetLastValue('Inv_DefaultItemUOM','#DefaultItemUOM')" test-case condition="GetLastValueData('Inv_DefaultItemUOM')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
 
                     </div>
@@ -1458,21 +1642,66 @@
                 <div class="form-group" ng-if="obj.ColumnName=='DefaultItemLocation'">
                     <label>Default Location </label>
                     <div class="input-group">
-                        <select class="form-control" id="DefaultItemLocationID" ng-model="InventoryObject.DefaultItemLocationID">
+                        <select style="display:none;" class="form-control" id="DefaultItemLocationID" ng-model="InventoryObject.DefaultItemLocationID">
                             <option mytag="{{obj.LocationName}}" value="{{obj.LocationID}}" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
                         </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{GetLocationName(InventoryObject.DefaultItemLocationID)}}
+
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li ng-repeat="obj in LocationList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="InventoryObject.DefaultItemLocationID=obj.LocationID">{{obj.LocationName}}</td>
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
                         <span ng-click="GetLastValue('Inv_DefaultItemLocationID','#DefaultItemLocationID')" test-case condition="GetLastValueData('Inv_DefaultItemLocationID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                     </div>
                 </div>
                 <div class="form-group" ng-if="obj.ColumnName=='pCountFrq'">
-                    <div >
-                        <div >
+                    <div>
+                        <div>
                             <label>Item Group </label>
                             <div class="input-group" ng-if="IsItemGroupLibrary==true && IsActiveItemGroupLibrary==true">
-                                <select class="form-control" id="itemgroup" ng-model="InventoryObject.ItemGroup">
+                                <select style="display:none;" class="form-control" id="itemgroup" ng-model="InventoryObject.ItemGroup">
                                     <option value="">None</option>
                                     <option ng-repeat="obj in Itemgrouplist" value="{{obj.pcfCountFrq}}">{{obj.pcfCountFrq}}</option>
                                 </select>
+
+                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                    {{InventoryObject.ItemGroup}}
+                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                </div>
+                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+                                    <li ng-repeat="obj in Itemgrouplist">
+                                        <a>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td ng-click="InventoryObject.ItemGroup=obj.pcfCountFrq">{{obj.pcfCountFrq}}</td>
+
+                                                </tr>
+                                            </table>
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
+
 
                                 <span ng-if="IsActiveItemGroupLibrary==true" ng-click="CreateNew(4)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
@@ -1588,7 +1817,7 @@
                         <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                     </div>
                 </div>
-                
+
                 <div class="form-group" ng-if="obj.Required==false && CheckInCommonArray(obj.ColumnName)!=true">
                     <label>{{obj.cfdName}} <span ng-if="obj.Required" class="redText">*</span></label>
 
@@ -1612,13 +1841,36 @@
 
                     <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
-                        <div class="select">
-                            <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
-                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                        <select style="display:none;" id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
-                            </select>
+                            <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                        </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.CustomPartData[$index].Value}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
                         </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu" ng-init="parentIndex=$index">
+
+                            <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="UpdateCustomDropdownData(obj.cfdID,_optionValue,1,parentIndex)">{{_optionValue}}</td>
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+
+
+
                         <span ng-if="checkpermission('URL:configure/CustomFieldItemList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomItem_')"><i class="fa fa-plus"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -1674,13 +1926,33 @@
                     <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
 
-                        <div class="select">
-                            <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
 
-                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                        <select style="display:none;" id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
 
-                            </select>
+                            <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+
+                        </select>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{InventoryObject.CustomTxnData[$index].Value}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
                         </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu" ng-init="parentIndex=$index">
+
+                            <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="UpdateCustomDropdownData(obj.cfdID,_optionValue,2,parentIndex)">{{_optionValue}}</td>
+
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+                        </ul>
+
                         <span ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomActivity_')"><i class="fa fa-plus"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -1724,7 +1996,7 @@
 
     <div ng-if="itemfields==false" class="row stickybtn">
         <div class="col-xs-6">
-            <a id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
+            <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
         </div>
       
         <div class="col-xs-6">
@@ -1735,14 +2007,14 @@
 
     <div ng-if="itemfields==true" class="row stickybtn">
         <div class="col-xs-4">
-            <a id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
+            <a ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
             
         </div>
         <div class="col-xs-4">
             <a ng-click="mode2()" class="btn blue"> <i class="fa fa-angle-left"></i> Back</a>
         </div>
         <div class="col-xs-4">
-            <a ng-click="mode1()" class="btn grey"> <i class="fa fa-times"></i> Cancel</a>
+            <a ng-click="movetoback()" class="btn grey"> <i class="fa fa-times"></i> Cancel</a>
         </div>
       
     </div>
@@ -2357,6 +2629,11 @@
 <script>
 
 
+    $(init);
+
+    function init() {
+        $('.changebtn').draggable();
+    }
 
     function Toggle() {
         $("#iteminfo").toggle("slow");
