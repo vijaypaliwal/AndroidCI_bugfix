@@ -250,9 +250,9 @@ app.controller('selectcolumnsController', ['$scope', 'localStorageService', 'aut
                dataType: 'json',
               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Columns": $scope.MyInventorycolumns }),
               success: function (response) {
-
+                  counter = 0;
                   if (response.SaveMyInventoryColumnResult.Success == true) {
-                 
+                  
                   $scope.LocationsLoaded = true;
                   $scope.loadingbutton = false
                   ShowSuccess("Updated");
@@ -267,6 +267,7 @@ app.controller('selectcolumnsController', ['$scope', 'localStorageService', 'aut
               },
               error: function (err)
               {
+                  counter = 0;
                   console.log(err);
                   $scope.LocationsLoaded = true;
                   $(".fa-check").removeClass("fa-spin");

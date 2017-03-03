@@ -73,6 +73,7 @@ app.controller('mobileorderController', ['$scope', 'localStorageService', 'authS
               dataType: 'json',
               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Columns": $scope.MyInventorycolumns }),
               success: function (response) {
+                  counter = 0;
                   $scope.LocationsLoaded = true;
                   $scope.loadingbutton = false
                   if (response.SaveMyInventoryColumnResult.Success == true) {
@@ -87,6 +88,7 @@ app.controller('mobileorderController', ['$scope', 'localStorageService', 'authS
                   $scope.$apply();
               },
               error: function (err) {
+                  counter = 0;
                   $scope.ShowErrorMessage("Updating my inventory columns", 2, 1, err.statusText);
 
               }
