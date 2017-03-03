@@ -204,7 +204,15 @@ app.controller('selectcolumnsController', ['$scope', 'localStorageService', 'aut
     }
 
   
+    $scope.$on('$locationChangeStart', function (event) {
 
+        if (counter == 0) {
+
+            $scope.saveColumns();
+        }
+
+
+    });
    
 
     $scope.saveColumns = function () {
@@ -212,7 +220,7 @@ app.controller('selectcolumnsController', ['$scope', 'localStorageService', 'aut
         $(".fa-check").addClass("fa-spin");
 
        // $scope.LocationsLoaded = false;
-
+         counter = 1;
         $scope.loadingbutton = true;
 
         for (var i = 0; i < $scope.MyInventorycolumns.length; i++) {

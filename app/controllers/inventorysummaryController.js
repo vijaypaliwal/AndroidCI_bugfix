@@ -1021,7 +1021,64 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
     $scope.showfilter = function () {
         $("#filtermodal").modal("show")
     }
+    function GetColumnDataType(ColumnName) {
 
+        for (var i = 0; i < $scope.Columns.length; i++) {
+            if ($scope.Columns[i].ColumnID == ColumnName) {
+                return $scope.Columns[i].ColumnDataType;
+            }
+
+        }
+
+        return "";
+
+    }
+    function formatDate(date) {
+        if (date != null && date != undefined && date != "") {
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        else {
+            return date;
+        }
+    }
+    function ConvertToProperFilter(_Filters) {
+        if (_Filters != null && _Filters != undefined && _Filters.length != 0) {
+            for (var i = 0; i < _Filters.length; i++) {
+                switch (GetColumnDataType(_Filters[i].ColumnName)) {
+                    case "Decimal":
+                    case "number":
+                    case "currency":
+                        if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && $.trim(_Filters[i].SearchValue) != "") {
+
+                            _Filters[i].SearchValue = parseFloat(_Filters[i].SearchValue);
+                        }
+                        break;
+                    case "Date":
+                    case "datetime":
+                        _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
+                        break;
+                    default:
+
+
+                }
+
+            }
+
+            $scope.FilterArray = _Filters;
+        }
+
+
+        CheckScopeBeforeApply();
+    }
     $scope.GetInventoryGroupedDataAccordingToView = function () {
 
         $scope.isDataLoading = false;
@@ -1108,7 +1165,10 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
 
                           $scope.Columns = response.GetCurrentInventoriesGroupedResult.Payload[0].Columns;
                           $scope.ActualTotalRecords = response.GetCurrentInventoriesGroupedResult.Payload[0].ActualTotalRecords;
-                          $scope.FilterArray = response.GetCurrentInventoriesGroupedResult.Payload[0].Filters;
+                          //$scope.FilterArray = response.GetCurrentInventoriesGroupedResult.Payload[0].Filters;
+
+
+                          ConvertToProperFilter(response.GetCurrentInventoriesNewResult.Payload[0].Filters);
                           CheckScopeBeforeApply();
                           // FillFilterArray();
                           UpdateFilterArray();

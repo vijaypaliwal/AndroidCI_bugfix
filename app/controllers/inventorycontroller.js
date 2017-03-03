@@ -1096,18 +1096,22 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                             else {
 
 
+                                $scope.isnoitemmsg = false;
                                 if ($scope.SearchList.length == 1) {
 
-                                    if ($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase()) {
+                                    if ($scope.InventoryObject.ItemID != "" && $scope.InventoryObject.ItemID != undefined) {
 
-                                        log.info("This Item already exist, we fill all associate data.");
+                                        if (($scope.InventoryObject.ItemID.toLowerCase() == $scope.SearchList[0].ItemID.toLowerCase())) {
 
-                                        var obj = $scope.SearchList[0];
+                                            log.info("This Item already exist, we fill all associate data.");
 
-                                        $scope.SetItemData(obj);
+                                            var obj = $scope.SearchList[0];
 
-                                        $scope.showmessage = false;
+                                            $scope.SetItemData(obj);
 
+                                            $scope.showmessage = false;
+
+                                        }
                                     }
 
 
@@ -2787,7 +2791,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $scope.IsItemGroupChose = false;
         }
 
-
+        $("#slide-out-left").hide();
         $scope.IsLocationLibrary = $scope.checkpermission('URL:Manage/Location');
         $scope.IsUOMLibrary = $scope.checkpermission('URL:Manage/UnitOfMeasure');
         $scope.IsStatusLibrary = $scope.checkpermission('URL:Manage/Status');

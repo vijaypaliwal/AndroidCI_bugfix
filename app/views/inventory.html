@@ -533,35 +533,14 @@
                             <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
 
                                
-                                    <select style="display:none;" id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
+                                    <select  id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[$index].Value">
 
                                         <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                     </select>
 
 
-                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                                    {{InventoryObject.CustomPartData[$index].Value}}
-                                    <i class="caret pull-right" style="margin-top: 8px"></i>
-                                </div>
-                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                                    <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
-                                        <a>
-                                            <table style="width: 100%">
-                                                <tr>
-                                                    <td ng-click="InventoryObject.CustomPartData[$index].Value=_optionValue;CheckScopeBeforeApply();">{{_optionValue}}</td>
-
-
-                                                </tr>
-                                            </table>
-                                        </a>
-
-                                    </li>
-
-
-                                </ul>
+                            
                                 
                                 <span ng-if="checkpermission('URL:configure/CustomFieldItemList.aspx')==true" class="input-group-addon last" ng-click="Addnew(obj.cfdID, 'CustomItem_')"><i class="fa fa-plus"></i></span>
 
