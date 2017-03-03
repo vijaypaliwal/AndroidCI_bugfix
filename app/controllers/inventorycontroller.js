@@ -1715,9 +1715,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.ReuseAll = function (ID) {
+
+        
+        
+        
         $(ID).find(".fa-undo").each(function () {
             $(this).parent("span").trigger("click");
         });
+
+
+        $(ID).find(".form-group:first").find(".form-control:first").focus();
+
     }
 
     $scope.GetAllData = function () {
