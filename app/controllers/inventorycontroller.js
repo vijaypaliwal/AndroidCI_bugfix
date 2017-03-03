@@ -1317,6 +1317,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $('#addinventories').addClass("disabled");
                 $('#addinventories').find(".fa").addClass("fa-spin");
 
+                $('#addinventoriesnew').addClass("disabled");
+                $('#addinventoriesnew').find(".fa").addClass("fa-spin");
 
                 var _TempObj = $scope.InventoryObject;
 
@@ -1512,6 +1514,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                           $('#addinventories').removeClass("disabled");
                           $('#addinventories').find(".fa").removeClass("fa-spin");
+
+                          $('#addinventoriesnew').removeClass("disabled");
+                          $('#addinventoriesnew').find(".fa").removeClass("fa-spin");
                       },
                       fail: function (jqXHR, textStatus, errorThrown) {
                           console.log("jqxhr");
