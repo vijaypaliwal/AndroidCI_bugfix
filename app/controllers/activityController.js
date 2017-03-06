@@ -1538,6 +1538,19 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.LeavePage = function () {
         $('#myModal').modal('show');
+        
+    }
+    $scope.LeavePageNew = function () {
+        if ($scope.CurrentCart.length > 0) {
+            $scope.CurrentHref = "#/FindItems";
+            $("#keepCart").attr("href", $scope.CurrentHref);
+            CheckScopeBeforeApply();
+            $scope.LeavePage();
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     $scope.CartFunction = function (type) {
