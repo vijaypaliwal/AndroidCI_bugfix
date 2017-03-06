@@ -7,6 +7,7 @@
     .DisabledLabel {
         width: 100%;
         padding: 9px;
+        height:42px;
         font-size: 15px;
         line-height: 1.42857143;
         color: #6f6f6f;
@@ -1563,7 +1564,6 @@
                     <label>Location Group</label>
                     <div class="input-group" ng-if="IsActiveLocationLibrary==true">
                         <input type="text" class="form-control" id="lZone" ng-model="InventoryObject.lZone" />
-                        <label> {{InventoryObject.lZone}}</label>
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                         <span ng-click="GetLastValue('Inv_lZone','#lZone')" test-case condition="GetLastValueData('Inv_lZone')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                     </div>
