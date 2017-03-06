@@ -3032,8 +3032,8 @@
 
                                                         item(s) @@
 
-                                                        <span ng-if="IsSingleMode==true"> {{_groupRow.MoveTransactionData.MoveToLocationText}}</span>
-                                                        <span ng-if="IsSingleMode==false"> {{CurrentCart[0].MoveTransactionData.MoveToLocationText}}</span>
+                                                        <span ng-if="IsSingleMode==true"> {{GetLocationByID(_groupRow.MoveTransactionData.MoveToLocation)}}</span>
+                                                        <span ng-if="IsSingleMode==false">{{GetLocationByID(CurrentCart[0].MoveTransactionData.MoveToLocation)}} </span>
                                                     </span>
 
                                                     <span ng-if="CurrentOperation=='Apply'">
