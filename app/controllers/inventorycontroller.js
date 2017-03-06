@@ -3275,7 +3275,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     // $(_id).trigger("input");
 
 
-
+                    $(_id).focus();
 
                     CheckScopeBeforeApply();
 
