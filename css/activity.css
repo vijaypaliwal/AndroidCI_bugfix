@@ -733,3 +733,8 @@ input:checked + .slider:before {
         -webkit-transition: .4s;
         transition: .4s;
     }
+
+    .iteminfopanel span
+    {
+        word-break:break-all;
+    }
