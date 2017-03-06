@@ -1199,7 +1199,7 @@
 
                             <div class="btn-group custombtnGroup">
                                 <label class="switch1">
-                                    <input type="checkbox" id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
+                                    <input type="checkbox" ng-checked="obj.cfdDefaultValue==true" id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
                                     <div class="slider round"></div>
                                 </label>
                             </div>
@@ -1289,7 +1289,7 @@
 
                                 <div class="btn-group custombtnGroup">
                                     <label class="switch1">
-                                        <input type="checkbox" id="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
+                                        <input type="checkbox" ng-checked="obj.cfdDefaultValue==true" id="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
                                         <div class="slider round"></div>
                                     </label>
                                 </div>
@@ -1379,7 +1379,7 @@
 
                                 <div class="btn-group custombtnGroup">
                                     <label class="switch1">
-                                        <input type="checkbox" id="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
+                                        <input type="checkbox" ng-checked="obj.cfdDefaultValue==true" id="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
                                         <div class="slider round"></div>
                                     </label>
                                 </div>
@@ -2522,7 +2522,7 @@
                             <div class="form-group" ng-repeat="obj in CustomActivityDataList" ng-if="CustomActivityDataList.length > 0 && obj.isLineItem!='True' && IsActiveTransactionField(obj.cfdID)">
                                 <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired">*</span></label>
                                 <div ng-if="obj.cfdDataType=='string'" class="input-group">
-                                    <input id="CustomActivity_{{obj.cfdID}}" value="{{obj.cfdDefaultValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" type="text" class="form-control stringType" value="{{obj.CfValue}}" />
+                                    <input id="CustomActivity_{{obj.cfdID}}" value="{{obj.cfdDefaultValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" type="text" class="form-control stringType" />
                                     <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                 </div>
 
@@ -2530,7 +2530,7 @@
                                 <div ng-if="obj.cfdDataType=='checkbox'" class="">
                                     <div class="btn-group custombtnGroup">
                                         <label class="switch1">
-                                            <input type="checkbox" id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
+                                            <input type="checkbox" ng-checked="obj.cfdDefaultValue==true" id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
                                             <div class="slider round"></div>
                                         </label>
                                     </div>
@@ -2623,7 +2623,7 @@
 
                                         <div class="btn-group custombtnGroup">
                                             <label class="switch1">
-                                                <input type="checkbox" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
+                                                <input type="checkbox" ng-checked="obj.cfdDefaultValue==true" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}">
                                                 <div class="slider round"></div>
                                             </label>
                                         </div>
