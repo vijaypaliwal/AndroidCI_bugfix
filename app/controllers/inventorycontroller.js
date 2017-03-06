@@ -3272,10 +3272,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
                     $(_id).val(resultvalue);
+                    $(_id).trigger('change');
+                    $(_id).trigger('input');
+                    $(_id).trigger('blur');
                     // $(_id).trigger("input");
 
 
-                    $(_id).focus();
 
                     CheckScopeBeforeApply();
 
