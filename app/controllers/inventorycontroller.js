@@ -944,6 +944,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $scope.InventoryObject.LocationID = obj.LocationID;
 
+        $scope.InventoryObject.lZone = obj.LocationZone;
         $("#itemlistmodal").modal('hide');
 
         $("#locationlistmodal").modal('hide');

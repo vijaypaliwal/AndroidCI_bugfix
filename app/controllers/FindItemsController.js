@@ -1179,7 +1179,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 }
 
                 $scope.myinventoryColumnLoaded = true;
-                $cordovaKeyboard.disableScroll(false);
+               // $cordovaKeyboard.disableScroll(false);
 
                 $scope.loadingblock = false;
 
@@ -1191,13 +1191,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 //
 
                 $scope.myinventoryColumnLoaded = true;
-                $cordovaKeyboard.disableScroll(false);
+               // $cordovaKeyboard.disableScroll(false);
                 CheckScopeBeforeApply();
                 $scope.ShowErrorMessage("current inventories", 2, 1, req.statusText);
             },
             complete: function () {
                 _IsLazyLoadingUnderProgress = 0;
-                $cordovaKeyboard.disableScroll(false);
+               // $cordovaKeyboard.disableScroll(false);
                 SetSelectedIfAny();
             }
         });
