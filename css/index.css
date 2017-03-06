@@ -200,7 +200,6 @@
         }
 
 
-
         .container {
             padding-left: 8px;
             padding-right: 8px;
@@ -208,15 +207,35 @@
 
         .nointernet {
             width: 100%;
-            color: #8a6d3b;
-            background-color: #fcf8e3;
-            border: #fcf8e3;
-            position: absolute;
-            top: 0px;
-            z-index: 100;
+            color: #fff;
+            background-color: #333;
+            position: fixed;
+            bottom: 0px;
+            z-index: 10000;
             display: none;
-            padding-top: 0px;
+            padding-top: 7px;
+            padding-left:3px;
+            padding-right:3px;
         }
+
+        .nointernet p
+        {
+            font-size:12px;
+            font-family:Verdana;
+        }
+
+        .nointernet i
+        {
+            font-size:13px;
+        }
+
+        .nointernet span
+        {
+            text-align: right;
+    float: right;
+    color: #FF9800;
+        }
+
 
         .removeImage {
             padding: 7px;
