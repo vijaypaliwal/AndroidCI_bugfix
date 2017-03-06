@@ -1976,6 +1976,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         }, 0);
         $scope.$apply();
+
+        setTimeout(function () { $('.itUpdateDate').val(today) }, 1000);
+
+        setTimeout(function () { $('.FormDateType').val(today); }, 1000);
     }
     $scope.FillQuantityToConvert = function (value, myid, Type) {
         $scope.ActionQuantityValueToConvert = value;

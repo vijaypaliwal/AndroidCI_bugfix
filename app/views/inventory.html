@@ -1163,7 +1163,7 @@
                             <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
                                 <div>
 
-                                    <input type="text" id="ItemName" class="form-control" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
+                                    <input type="text" id="ItemName" class="form-control" ng-blur="SwitchModeItemChange()" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
 
                                 </div>
 
@@ -1174,23 +1174,24 @@
 
                             </div>
 
-                            <div ng-if="IsItemLibrary==false || IsActiveItemLibrary==false">
-                                <div class="row requiredfields" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
-                                    <div class="col-md-12">
+                          
 
-                                        <a ng-if="IsItemLibrary==false">
-                                            You are not permitted to add new item so please select item from item list.
-                                        </a>
-                                        <a ng-if="IsActiveItemLibrary==false">
-                                            Your item library is locked so please select item from item list.
-                                        </a>
+                                <div ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false)">
+                                    <div class="row requiredfields input-group" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
+                                        <div class="col-md-12">
+
+                                            <a ng-if="IsItemLibrary==false">
+                                                @@ -1175,7 +1175,7 @@
+                                                Your item library is locked so please select item from item list.
+                                            </a>
+                                        </div>
+
+                                        <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                     </div>
 
+                                    <label>{{InventoryObject.ItemID}}</label>
+
                                 </div>
-
-                                <label>{{InventoryObject.ItemID}}</label>
-
-                            </div>
 
 
 
@@ -1782,7 +1783,7 @@
 
 
                             <div ng-if="IsItemGroupLibrary==false || IsActiveItemGroupLibrary==false">
-                                <div class="row requiredfields" style="font-size:12px;padding:2px;" ng-if="(IsItemGroupLibrary==false|| IsActiveItemGroupLibrary==false) && IsItemGroupChose==false">
+                                <div class="row requiredfields input-group" style="font-size:12px;padding:2px;" ng-if="(IsItemGroupLibrary==false|| IsActiveItemGroupLibrary==false) && IsItemGroupChose==false">
                                     <div class="col-md-12">
 
                                         <a ng-if="IsItemGroupLibrary==false">
@@ -1792,7 +1793,7 @@
                                             Your item group library is locked so please select item group from item list.
                                         </a>
                                     </div>
-
+                                    <span ng-click="Itemgrouplistmodal()" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                 </div>
 
                                 <label>{{InventoryObject.ItemGroup}}</label>

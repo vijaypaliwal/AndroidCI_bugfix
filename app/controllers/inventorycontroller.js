@@ -841,6 +841,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             return date;
         }
     }
+
+    function TryParseFloat(str, defaultValue) {
+        var retValue = defaultValue;
+        if (str !== null && str != undefined && $.trim(str) != "") {
+            if (str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseFloat(str);
+                }
+            }
+        }
+        return retValue;
+    }
     $scope.SetItemData = function (obj) {
 
 
@@ -859,9 +871,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         $scope.InventoryObject.lZone = obj.DefaultLocationGroup;
         $scope.InventoryObject.ItemGroup = obj.ItemGroup;
-        $scope.InventoryObject.pDefaultCost = obj.DefaultCost;
-        $scope.InventoryObject.pTargetQty = obj.pTargetQty;
-        $scope.InventoryObject.pReorderQty = obj.pReorderQty;
+        $scope.InventoryObject.pDefaultCost = TryParseFloat(obj.DefaultCostStr, 0);
+        $scope.InventoryObject.pTargetQty = TryParseFloat(obj.pTargetQtyStr, 0);
+        $scope.InventoryObject.pReorderQty = TryParseFloat(obj.pReorderQtyStr, 0);
         $scope.InventoryObject.DefaultItemLocationID = obj.DefaultLocationID;
 
         $scope.InventoryObject.DefaultItemUOM = obj.DefaultUomID;
@@ -874,10 +886,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     if (obj.CustomData[j].cfdID == $scope.InventoryObject.CustomPartData[i].CfdID) {
                         switch ($scope.GetCustomFieldDataType(obj.CustomData[j].cfdID)) {
                             case "string":
-                            case "checkbox":
                             case "combobox":
                                 $scope.InventoryObject.CustomPartData[i].Value = obj.CustomData[j].CustomFieldValue;
 
+                                break;
+                            case "checkbox":
+                                var _value = obj.CustomData[j].CustomFieldValue;
+                                $scope.InventoryObject.CustomPartData[i].Value = (_value == "true" || _value === "True");
                                 break;
                             case "currency":
                             case "number":
@@ -1128,7 +1143,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                             }
 
                             _IsItemSlide = false;
-
+                            _ChangeCounter = 0;
 
                             CheckScopeBeforeApply()
 
@@ -1781,6 +1796,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                   }
                               }
                           }
+                          else if ($scope.CustomItemDataList[i].cfdDataType == "checkbox") {
+                              var _value = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
+                              $scope.CustomItemDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
+                          }
                           // $scope.InventoryObject.CustomPartData.push({ CfdID: $scope.CustomItemDataList[i].cfdID, Value: $scope.CustomItemDataList[i].cfdDefaultValue, DataType: $scope.CustomItemDataList[i].cfdDataType });
                       }
                       CheckScopeBeforeApply();
@@ -1843,6 +1862,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                                   }
                               }
+                          }
+                          else if ($scope.CustomActivityDataList[i].cfdDataType == "checkbox") {
+                              var _value = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
+                              $scope.CustomActivityDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
                           }
                           $scope.InventoryObject.CustomTxnData.push({ CfdID: $scope.CustomActivityDataList[i].cfdID, Value: $scope.CustomActivityDataList[i].cfdDefaultValue, DataType: $scope.CustomActivityDataList[i].cfdDataType });
                       }
@@ -4053,6 +4076,20 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         }
 
         return false;
+    }
+
+
+    var _ChangeCounter = 0;
+
+    $scope.SwitchModeItemChange = function () {
+        if ($.trim($scope.InventoryObject.ItemID) != "" && _ChangeCounter == 0) {
+            _IsItemSlide = true;
+            $scope.SearchItemValue = $scope.InventoryObject.ItemID;
+            CheckScopeBeforeApply();
+            _ChangeCounter = 1;
+            $scope.OnChangeItemNameFunction();
+            $scope.IsFromSlideChange = true;
+        }
     }
 
     function InitializeSwiper() {
