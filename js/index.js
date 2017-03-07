@@ -345,12 +345,10 @@ for (originalType in mouseEventTypes) {
 
 
 function vibrate() {
-    navigator.notification.vibrate(2000);
 }
 
 
 function playBeep() {
-    navigator.notification.beep(1);
 }
 
 

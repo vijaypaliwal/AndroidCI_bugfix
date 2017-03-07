@@ -1,8 +1,11 @@
 ﻿
+
+<!-- CSS files -->
 <link href="css/activity.css" rel="stylesheet" />
 
 <link href=".pgbomit/activityIOS.css" rel="stylesheet" />
 
+<!-- CSS  -->
 <style>
     .updiv {
         background: white;
@@ -62,7 +65,7 @@
 </style>
 
 <div style="display:none" class="activity" ng-cloak>
-
+    <!--Header Section Start Slide mode-->
     <div style="top: 0;" class="topheader header Increase {{CurrentHeaderClass}}">
         <div style="height:36px;" class="row" id="headerrow">
 
@@ -110,15 +113,21 @@
         </div>
 
     </div>
+    <!--Header Section End-->
 
+
+    <!--Collapsible Header Section Combined mode - Start -->
     <div ng-if="IsSingleMode==false" onclick="cartitems()" class="collapsible-header">
         <span class="checkout-price">Show Cart summary</span>
         <i id="updownIcon" class="fa fa-caret-down"></i>
         <span ng-click="selecteditemlist()" class="checkout-price right">{{CurrentCart.length}} Items</span>
     </div>
+    <!--Collapsible Header Section Combined mode - End-->
+
+
 
     <div class="maincontent">
-
+        <!--Loading div.. -->
         <div ng-if="_IsLoading==true">
             <div class="modal-backdrop fade in" ></div>
             <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
@@ -127,6 +136,7 @@
         </div>
 
 
+        <!--Main Content for All Activity combined mode start -->
         <div class="animated slideInDown singleSlide" ng-if="IsSingleMode==false" data-type="Cart" data-index="0">
 
             <div class="singlePanel">
@@ -138,6 +148,7 @@
 
                             <div class="mycartitem" ng-if="IsSingleMode==false" ng-init="parentIndex=$index" data-type="Cart" ng-repeat="CurrentActiveObject in CurrentCart" data-index="{{$index}}">
 
+                                <!--Inventory info panel -->
                                 <div class="checkout-details">
 
 
@@ -152,6 +163,7 @@
 
                                 </div>
 
+                                <!--Move Activity panel -->
                                 <div ng-if="CurrentOperation=='Move'">
 
                                     <div class="row">
@@ -256,7 +268,7 @@
 
                                 </div>
 
-
+                                <!--Common Activity panel -->
                                 <div class="row" ng-if=" CurrentOperation!='Convert' &&  CurrentOperation!='Move' &&  CurrentOperation!='MoveTagUpdate'">
                                     <div class="col-xs-12 col-md-12">
 
@@ -307,7 +319,7 @@
                                     
                                 </div>
 
-
+                                <!--Increase Activity panel -->
                                 <div class="row" ng-if=" CurrentOperation=='Increase'&&  CanCost=='True'">
 
                                     <div class="col-xs-12 col-md-12">
@@ -330,6 +342,7 @@
                                     
                                 </div>
 
+                                <!--Update Activity panel -->
                                 <div ng-if="CurrentOperation=='Update'">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12">
@@ -398,7 +411,7 @@
                                 </div>
 
 
-
+                                <!--Tag Activity panel -->
                                 <div ng-if="CurrentOperation=='Apply'">
 
                                     <div class="row" ng-if=" IsMyInventoryColumns('iReqValue')==true">
@@ -588,7 +601,7 @@
                                 </div>
 
 
-
+                                <!--Convert Activity panel -->
                                 <div ng-if="CurrentOperation=='Convert'">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12">
@@ -730,7 +743,7 @@
 
                                 </div>
 
-
+                                <!--Move,Tag, & Update Activity panel -->
                                 <div ng-if="CurrentOperation=='MoveTagUpdate'">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12">
@@ -1057,6 +1070,7 @@
                                     </div>
                                 </div>
 
+                                <!--Line Items Activity column's Data -->
                                 <div class="row" ng-if="isLineItemColumnNames.length>0 && IsActiveTransactionField(CurrentActiveObject.IsLineItemData[$index].cfdID)" ng-init="parentIndexData=$index" data-ng-repeat="_columns in isLineItemColumnNames">
 
 
@@ -1167,7 +1181,7 @@
 
 
             </div>
-
+            <!--Activity Data custom columns -->
             <div class="form-inputs customActivityData" data-type="Activity" data-index="{{GetProperIndex(1)}}">
 
 
@@ -1493,14 +1507,19 @@
 
         
         </div>
+        <!--Main Content for All Activity combined mode end -->
+
+        <!--Main Content for All Activity individual slide mode start -->
 
         <div ng-if="IsSingleMode==true">
             <div class="swiper-container" ng-if="_IsLoading==false">
 
 
                 <div class="swiper-wrapper">
-
+                    <!-- First step ( this slide will be according to number of cart items)-->
                     <div class="animated slideInLeft swiper-slide" ng-if="IsSingleMode==true" data-type="Cart" ng-repeat="CurrentActiveObject in CurrentCart" data-index="{{$index}}">
+
+                        <!-- Inventory Item Info panel-->
                         <div class="iteminfopanel">
                             <div class="row">
                                 <div class="col-md-1 col-xs-3">
@@ -1522,7 +1541,7 @@
                             </div>
                         </div>
 
-
+                        <!-- Move Activity panel-->
                         <div ng-if="CurrentOperation=='Move'">
 
                             <div class="row">
@@ -1610,7 +1629,7 @@
                                                 <span ng-click="CreateNewModal(3,$index)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
 
-                                                <span ng-if="$index==0" class="input-group-addon last">
+                                                <span  class="input-group-addon last">
                                                     <button id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveTransactionData.MoveToLocation,CurrentActiveObject.MoveTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
                                                         <i class="fa fa-thumb-tack"></i>
                                                     </button>
@@ -1634,7 +1653,7 @@
                         </div>
 
 
-
+                        <!-- Move,Tag & Update Activity panel-->
                         <div ng-if="CurrentOperation=='MoveTagUpdate'">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
@@ -1702,7 +1721,7 @@
 
                                                 <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span ng-click="CreateNewModal(3,$index)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
-                                                <span ng-if="$index==0" class="input-group-addon last">
+                                                <span  class="input-group-addon last">
                                                     <button id="location_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillLocation(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText,CurrentActiveObject.InventoryDataList.uId)">
                                                         <i class="fa fa-thumb-tack"></i>
                                                     </button>
@@ -1773,7 +1792,7 @@
                                                 </button>
                                             </span>
 
-                                            <span ng-if="$index==0" class="input-group-addon last">
+                                            <span  class="input-group-addon last">
                                                 <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
                                                     <i class="fa fa-thumb-tack"></i>
                                                 </button>
@@ -1950,6 +1969,8 @@
                             </div>
                         </div>
 
+                        <!-- Common Activity panel-->
+
                         <div class="row" ng-if=" CurrentOperation!='Convert' &&  CurrentOperation!='Move' && CurrentOperation!='MoveTagUpdate'">
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
@@ -1998,7 +2019,7 @@
 
                         </div>
 
-
+                        <!-- Increase Activity panel-->
                         <div class="row" ng-if=" CurrentOperation=='Increase'&&  CanCost=='True'">
 
                             <div class="col-xs-12 col-md-12">
@@ -2021,6 +2042,8 @@
                             </div>
                             
                         </div>
+
+                        <!-- Update Activity panel-->
 
                         <div ng-if="CurrentOperation=='Update'">
                             <div class="row">
@@ -2090,7 +2113,7 @@
                             </div>
                         </div>
 
-
+                        <!-- Tag Activity panel-->
                         <div ng-if="CurrentOperation=='Apply'">
 
                             <div class="row" ng-if=" IsMyInventoryColumns('iReqValue')==true">
@@ -2276,7 +2299,7 @@
                         </div>
 
 
-
+                        <!-- Convert Activity panel-->
 
                         <div ng-if="CurrentOperation=='Convert'">
                             <div class="row">
@@ -2415,6 +2438,8 @@
 
                         </div>
 
+                        <!-- Line Items Custom Activity Columns-->
+
                         <div class="row" ng-if="isLineItemColumnNames.length>0 && IsActiveTransactionField(CurrentActiveObject.IsLineItemData[$index].cfdID)" ng-init="parentIndexData=$index" data-ng-repeat="_columns in isLineItemColumnNames">
 
 
@@ -2504,6 +2529,7 @@
                         </div>
                     </div>
 
+                    <!-- Second step ( Activity Data)-->
                     <div class="swiper-slide form-inputs  customActivityData" ng-if="IsSingleMode==true" data-type="Activity" data-index="{{GetProperIndex(1)}}">
 
                         <div ng-if="CurrentOperation!='Adjust'">
@@ -2781,6 +2807,7 @@
 
                     </div>
 
+                    <!-- Final step ( View summary and process cart Data)-->
                     <div class="swiper-slide form-inputs laststep" ng-if="IsSingleMode==true" data-type="LastStep" data-index="{{GetProperIndex(2)}}">
 
                         <div ng-if="IsSummary==false">
@@ -3150,6 +3177,7 @@
                 </div>
             </div>
         </div>
+        <!--Main Content for All Activity individual slide mode end -->
 
     </div>
 
@@ -3256,6 +3284,10 @@
 
 </div>
 
+
+<!--Modal Section - Start -->
+
+<!--Keep Cart/Leave Page modal-->
 <div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div style="background:#fff;" class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
@@ -3304,7 +3336,7 @@
 </div>
 
 
-
+<!--Activities menu modal-->
 <div id="mycartModal" class="modal bottommenu fade">
 
     <div class="modal-body">
@@ -3326,6 +3358,7 @@
     </div>
 </div>
 
+<!--Create new label(Status,location & Unit of measure) modal-->
 <div style="background:#fff;" id="createnewlabel" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-header">
@@ -3356,6 +3389,8 @@
 
     </div>
 </div>
+
+<!--Create new label(custom dropdown values) modal-->
 <div style="background:#fff;" id="Adddropdownvalue" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-header">
@@ -3386,8 +3421,12 @@
     </div>
 </div>
 
+<!--Modal Section - End -->
+
+<!--Ellipses button-->
 <a ng-click="showallmenu()" class="btn waves-effect {{CurrentHeaderClass}} btn-sm changebtn"><i class="fa fa-ellipsis-v"></i></a>
 
+<!--CSS section - Start-->
 <style>
     #activitymneu {
         overflow: hidden;
@@ -3434,10 +3473,11 @@
         width:100%;
     }
 </style>
+<!--CSS section - Start-->
 
 
 
-
+<!--Script section - Start-->
 
 <script>
 
@@ -3481,7 +3521,7 @@
 
 </script>
 
-
+<!--Script section - end-->
 
 
 

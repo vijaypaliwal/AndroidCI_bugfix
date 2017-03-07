@@ -1464,6 +1464,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     $scope.AddToCart = function (obj, _isSelectAll) {
 
+        console.log("inventory id");
+        console.log(obj.iID);
+
         if (_CanAct == 'True') {
 
 
