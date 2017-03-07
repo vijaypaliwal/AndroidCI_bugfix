@@ -1574,7 +1574,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 if (_tempCopy[i].uId == _invID) {
 
                     $('.cartbtn').animate_from_to(originalID, {
-                        pixels_per_second: 500,
+                        pixels_per_second: 400,
                         initial_css: {
                             'background': 'rgba(226, 208, 208,1)',
                             'border-radius': '100%'
@@ -1686,7 +1686,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         if (_isSelectAll != true) {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 400,
+                                    pixels_per_second: 300,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'
@@ -1698,7 +1698,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         else {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 400,
+                                    pixels_per_second: 300,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'

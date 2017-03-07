@@ -2990,7 +2990,18 @@
                                                         <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                     </span>
 
+                                                    <span ng-if="CurrentOperation=='Adjust'">
 
+                                                        <span ng-if="_groupRow.ActionPerformed==1 && IsSingleMode==true" class="AdjustIncrease"> Increase by quantity <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span></span>
+
+                                                        <span ng-if="CurrentCart[0].ActionPerformed==1 && IsSingleMode==false" class="AdjustIncrease"> Increase by quantity <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span></span>
+
+
+                                                        <span ng-if="_groupRow.ActionPerformed==-1 && IsSingleMode==true" class="AdjustDecrease"> Decrease by quantity <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span></span>
+
+                                                        <span ng-if="CurrentCart[0].ActionPerformed==-1 && IsSingleMode==false" class="AdjustDecrease"> Decrease by quantity <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span></span>
+
+                                                    </span>
                                                     <span ng-if="CurrentOperation=='Decrease'">
                                                         Decreased by quantity <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                         <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span>

@@ -1155,7 +1155,7 @@
 
                             <div class="">
                                 <div class="">
-                                    <label>Item Name</label>
+                                    <label>Item Name  </label>
 
                                 </div>
 
@@ -1164,7 +1164,7 @@
                             <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
                                 <div>
 
-                                    <input type="text" id="ItemName" class="form-control" ng-blur="SwitchModeItemChange()" ng-change="Itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
+                                    <input type="text" id="ItemName" class="form-control" ng-blur="SwitchModeItemChange()" ng-change="itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
 
                                 </div>
 
@@ -1175,34 +1175,40 @@
 
                             </div>
 
-                          
 
-                                <div ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false)">
-                                    <div class="row requiredfields input-group" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
-                                        <div class="col-md-12">
 
-                                            <a ng-if="IsItemLibrary==false">
-                                                You are not permitted to add new item so please select item from item list.
-                                            </a>
-                                            <a ng-if="IsActiveItemLibrary==false">
-                                                Your item library is locked so please select item from item list.
-                                            </a>
-                                        </div>
 
-                                        <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
-                                    </div>
+                            <div class="row  input-group" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false)">
 
-                                    <label class="DisabledLabel">{{InventoryObject.ItemID}}</label>
 
+
+
+                                <label class="DisabledLabel">
+                                    {{InventoryObject.ItemID}}
+                                </label>
+                                <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
+                            </div>
+
+                            <div class="row  input-group">
+                                <div class="col-md-12 requiredfields" ng-if="(IsActiveItemLibrary==false|| IsItemLibrary==false) && IsItemChose==false">
+
+                                    <a ng-if="IsItemLibrary==false">
+                                        You are not permitted to add new item so please select item from item list.
+                                    </a>
+                                    <a ng-if="IsActiveItemLibrary==false">
+                                        Your item library is locked so please select item from item list.
+                                    </a>
                                 </div>
 
 
 
+                            </div>
 
                             <div ng-if="InventoryObject.AutoID==true && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
 
-                                <div>
+                                <div class="input-group">
                                     <input placeholder="Automated" my-enter="GoToNext()" type="text" ng-model="InventoryObject.ItemID" id="ItemName" disabled="disabled" class="form-control" />
+                                    <span ng-click="itemlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                 </div>
 
                             </div>
