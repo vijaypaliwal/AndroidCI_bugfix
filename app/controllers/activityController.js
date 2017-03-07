@@ -1541,16 +1541,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         
     }
     $scope.LeavePageNew = function () {
-        if ($scope.CurrentCart.length > 0) {
-            $scope.CurrentHref = "#/FindItems";
-            $("#keepCart").attr("href", $scope.CurrentHref);
-            CheckScopeBeforeApply();
-            $scope.LeavePage();
-            return false;
-        }
-        else {
-            return true;
-        }
+
+        localStorageService.set("ActivityCart", "");
+        localStorageService.set("SelectedAction", "");
+        $scope.$apply();
+        $location.path("/FindItems");
+      
     }
 
     $scope.CartFunction = function (type) {
