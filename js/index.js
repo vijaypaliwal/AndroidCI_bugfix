@@ -461,7 +461,7 @@ function onDeviceReady() {
         var _path = _CurrentUrl;
 
         
-        if (_path == "/inventory" || _path == "inventory" || _path == "Inventory") {
+        //if (_path == "/inventory" || _path == "inventory" || _path == "Inventory") {
 
             var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
 
@@ -478,7 +478,7 @@ function onDeviceReady() {
                 window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
                 return false;
             }
-        }
+        //}
     }, false);
    
 
