@@ -2972,6 +2972,27 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
+        document.addEventListener("backbutton", function (e) {
+        
+
+                var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+
+                if (exitApp) {
+                    clearInterval(intval);
+                    //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
+                    history.back(1);
+
+                }
+                else {
+
+                    exitApp = true;
+                    window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+        }, false);
+
 
 
 
