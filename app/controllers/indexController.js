@@ -161,6 +161,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 else {
                     exitApp = true;
                     window.plugins.toast.showLongBottom('Press back button two times to exit app.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
+                    return false;
                 }
             }
         }, false);
