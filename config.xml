@@ -47,6 +47,7 @@
   <plugin name="ionic-plugin-keyboard" source="npm"/>
   <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1"/>
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
+  <plugin name="cordova-plugin-x-toast" source="npm" />
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />-->
 

@@ -144,6 +144,28 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $scope.GetProfileData();
 
 
+        var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+        document.addEventListener("backbutton", function (e) {
+            e.preventDefault();
+            var _path = $location.path();
+
+  
+
+            if (_path == "/inventory") {
+                if (exitApp) {
+                    clearInterval(intval);
+                    //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
+                    history.back(1);
+
+                }
+                else {
+                    exitApp = true;
+                    window.plugins.toast.showLongBottom('Press back button two times to exit app.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
+                }
+            }
+        }, false);
+
+
 
     }
     function UpdateLockData(IsLocked, Type) {
