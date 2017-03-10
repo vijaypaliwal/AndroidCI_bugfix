@@ -66,7 +66,8 @@ $.each({
 });
  
  
-    var myDate = new Date();
+var myDate = new Date();
+var _Currentpath = "";
 var _genVar = 0;
 var _timeZone = myDate.getTimezoneOffset();
 
@@ -456,7 +457,28 @@ function onDeviceReady() {
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
 
+    document.addEventListener("backbutton", function (e) {
+        var _path = _CurrentUrl;
 
+        if (_path == "/inventory") {
+
+            var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+
+            if (exitApp) {
+                clearInterval(intval);
+                //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
+                history.back(1);
+
+            }
+            else {
+                e.preventDefault();
+                e.stopPropagation();
+                exitApp = true;
+                window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
+                return false;
+            }
+        }
+    }, false);
    
 
     //InitializeModal();
