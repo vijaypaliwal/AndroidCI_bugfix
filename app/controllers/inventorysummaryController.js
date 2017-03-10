@@ -1168,7 +1168,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                           //$scope.FilterArray = response.GetCurrentInventoriesGroupedResult.Payload[0].Filters;
 
 
-                          ConvertToProperFilter(response.GetCurrentInventoriesNewResult.Payload[0].Filters);
+                          ConvertToProperFilter(response.GetCurrentInventoriesGroupedResult.Payload[0].Filters);
                           CheckScopeBeforeApply();
                           // FillFilterArray();
                           UpdateFilterArray();

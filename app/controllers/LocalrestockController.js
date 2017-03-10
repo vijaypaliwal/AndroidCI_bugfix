@@ -874,7 +874,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
                       $scope.ActualTotalRecords = response.GetLocalRestockResult.Payload[0].ActualTotalRecords;
                           //$scope.FilterArray = response.GetLocalRestockResult.Payload[0].Filters;
 
-                      ConvertToProperFilter(response.GetCurrentInventoriesNewResult.Payload[0].Filters);
+                      ConvertToProperFilter(response.GetLocalRestockResult.Payload[0].Filters);
                       CheckScopeBeforeApply();
                       // FillFilterArray();
                       UpdateFilterArray();
