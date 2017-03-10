@@ -144,7 +144,6 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $scope.GetProfileData();
 
 
-        var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
         document.addEventListener("backbutton", function (e) {
             e.preventDefault();
             var _path = $location.path();
@@ -152,6 +151,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
   
 
             if (_path == "/inventory") {
+                var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+
                 if (exitApp) {
                     clearInterval(intval);
                     //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
@@ -159,6 +160,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
                 }
                 else {
+                    e.preventDefault();
                     exitApp = true;
                     window.plugins.toast.showLongBottom('Press back button two times to exit app.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
                     return false;
