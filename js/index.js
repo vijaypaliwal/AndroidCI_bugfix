@@ -459,7 +459,8 @@ function onDeviceReady() {
 
     document.addEventListener("backbutton", function (e) {
         var _path = _CurrentUrl;
-
+        e.preventDefault();
+        e.stopPropagation();
         
         //if (_path == "/inventory" || _path == "inventory" || _path == "Inventory") {
 
@@ -472,8 +473,7 @@ function onDeviceReady() {
 
             }
             else {
-                e.preventDefault();
-                e.stopPropagation();
+             
                 exitApp = true;
                 window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
                 return false;
