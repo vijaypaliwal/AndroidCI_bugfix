@@ -271,44 +271,7 @@ function showConfirm() {
     );
 }
 
-var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
-document.addEventListener("backbutton", function (e) {
-    e.preventDefault();
 
-
-
-    if (exitApp) {
-
-        if (_isOpenBootbox == false) {
-            _isOpenBootbox = true;
-            bootbox.confirm("Are you sure to exit App ?", function (result) {
-                if (result) {
-                    clearInterval(intval)
-            (navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
-                    _isOpenBootbox = false;
-
-                }
-                _isOpenBootbox = false;
-            });
-
-        }
-
-
-
-    }
-    else {
-        exitApp = true;
-
-        if (_CurrentUrl != "MainMenu") {
-
-            navigator.app.backHistory();
-            _isOpenBootbox = false;
-
-        }
-
-
-    }
-}, false);
 
 document.addEventListener("online", onOnline, false);
 document.addEventListener("offline", onOffline, false);
@@ -461,23 +424,23 @@ function onDeviceReady() {
         var _path = _CurrentUrl;
         e.preventDefault();
         e.stopPropagation();
-        
+        return false;
         //if (_path == "/inventory" || _path == "inventory" || _path == "Inventory") {
 
-            var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+            //var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
 
-            if (exitApp) {
-                clearInterval(intval);
-                //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
-                history.back(1);
+            //if (exitApp) {
+            //    clearInterval(intval);
+            //    //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
+            //    history.back(1);
 
-            }
-            else {
+            //}
+            //else {
              
-                exitApp = true;
-                window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
-                return false;
-            }
+            //    exitApp = true;
+            //    window.plugins.toast.showLongBottom('Press back button two times to go back.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
+            //    return false;
+            //}
         //}
     }, false);
    

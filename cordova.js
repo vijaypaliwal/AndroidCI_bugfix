@@ -52,16 +52,7 @@ window.addEventListener = function(evt, handler, capture) {
     if (typeof windowEventHandlers[e] != 'undefined') {
         windowEventHandlers[e].subscribe(handler);
     } else {
-        if (e === 'backbutton') {
-            var exec = require('cordova/exec')
-            exec(null, null, "App", "overrideBackbutton", [true]);
-        }
-        else {
-            m_window_addEventListener.call(window, evt, handler, capture);
-
-        }
-
-       
+        m_window_addEventListener.call(window, evt, handler, capture);
     }
 };
 
@@ -151,21 +142,7 @@ var cordova = {
                 }, 0);
             }
         } else {
-            if (type == "backbutton" || type == "menubutton" || type == "searchbutton") {
-                var e = document.createEvent('Events');
-                e.initEvent(type);
-                if (data) {
-                    for (var i in data) {
-                        e[i] = data[i];
-                    }
-                }
-                document.dispatchEvent(e);
-                return;
-            }
-            else {
-
-                document.dispatchEvent(evt);
-            }
+            document.dispatchEvent(evt);
         }
     },
     fireWindowEvent: function(type, data) {
