@@ -460,6 +460,7 @@ function onDeviceReady() {
     document.addEventListener("backbutton", function (e) {
         var _path = _CurrentUrl;
 
+        alert(_path);
         if (_path == "/inventory") {
 
             var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
