@@ -1893,6 +1893,25 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     }
 
+    function GetFromlocalMyItemlist(ID)
+    {
+        var _myItemsList = localStorageService.get("ActivityCart");
+        _myItemsList = _myItemsList != null && _myItemsList != undefined ? _myItemsList : [];
+        if (_myItemsList.length > 0) {
+            var j = 0;
+            for (j = 0; j < _myItemsList.length; j++) {
+                var v = _myItemsList[j].InventoryDataList;
+                if(v.uId==ID)
+                {
+                    return _myItemsList[j];
+
+                }
+            }
+        }
+
+        return null;
+    }
+
     $scope.SendEmail = function () {
         var _Latestsignup = localStorageService.get("LatestSignUp");
 
@@ -1966,22 +1985,29 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
             for (var i = 0; i < mainObjectToSend.length; i++) {
-                $scope.Cart.push({
-                    InventoryID: mainObjectToSend[i].uId,
-                    IsLineItemData: [],
-                    iCostPerItem: mainObjectToSend[i].iCostPerUnit,
-                    ItemID: mainObjectToSend[i].pPart,
-                    ActionPerformed: $scope.selectedAction,
-                    AdjustActionQuantity: "",
-                    AdjustCalculation: "",
-                    InventoryDataList: mainObjectToSend[i],
-                    IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
-                    MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
-                    UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                    ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
-                    ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                    MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
-                });
+                var _ItemData=GetFromlocalMyItemlist(mainObjectToSend[i].uId)
+                if (_ItemData == null) {
+
+                    $scope.Cart.push({
+                        InventoryID: mainObjectToSend[i].uId,
+                        IsLineItemData: [],
+                        iCostPerItem: mainObjectToSend[i].iCostPerUnit,
+                        ItemID: mainObjectToSend[i].pPart,
+                        ActionPerformed: $scope.selectedAction,
+                        AdjustActionQuantity: "",
+                        AdjustCalculation: "",
+                        InventoryDataList: mainObjectToSend[i],
+                        IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
+                        MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
+                        UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                    });
+                }
+                else {
+                    $scope.Cart.push(_ItemData);
+                }
             }
 
         }
