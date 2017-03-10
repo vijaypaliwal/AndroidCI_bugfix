@@ -422,7 +422,7 @@ function onDeviceReady() {
 
     document.addEventListener("backbutton", function (e) {
         var _path = _CurrentUrl;
-   
+        this.removeEventListener('backbutton', arguments.callee, false);
         alert(_path);
         if (_path == "/inventory" || _path == "inventory" || _path == "Inventory") {
 
