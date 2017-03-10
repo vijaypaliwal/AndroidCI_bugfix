@@ -488,20 +488,22 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
 
             if (_path == "/inventory") {
-                var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
+                var box = bootbox.confirm("Are you sure ?", function (result) {
+                    if (result) {
+                        history.back(1);
 
-                if (exitApp) {
-                    clearInterval(intval);
-                    //(navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
-                    history.back(1);
+                    }
 
-                }
-                else {
-                    e.preventDefault();
-                    exitApp = true;
-                    window.plugins.toast.showLongBottom('Press back button two times to exit app.', function (a) { console.log('toast success: ' + a) }, function (b) { alert('toast error: ' + b) })
-                    return false;
-                }
+
+
+                });
+
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("please complete current add inventory process or you can leave by press ok . ");
+
+                });
+              
+                
             }
         }, false);
 
