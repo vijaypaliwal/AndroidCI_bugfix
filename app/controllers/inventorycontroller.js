@@ -4234,10 +4234,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $(".androidbtn").hide();
 
 
-        $(".swiper-container").show();
-
-
-        $(".spinner").hide();
+      
         setTimeout(function () {
 
 
@@ -4255,7 +4252,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
-            debugger;
 
 
 
@@ -4270,10 +4266,42 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $cordovaKeyboard.disableScroll(false);
             }
 
+            
+
+
+
+            $(".spinner").hide();
+            $(".swiper-container").show();
+            ApplyBackAndNext();
 
         }, 10)
     }
 
+
+    function ApplyBackAndNext()
+    {
+
+        $('.arrow-left').on('click', function (e) {
+            e.preventDefault()
+
+            if ($scope.slide == 0 || $scope.slide == 1000) {
+                // showConfirmInventory();
+
+            }
+            else {
+                mySwiper.swipePrev();
+
+            }
+
+
+        })
+        $('.arrow-right').on('click', function (e) {
+
+            e.preventDefault()
+            mySwiper.swipeNext()
+            CheckScopeBeforeApply();
+        })
+    }
     function onConfirmInv(buttonIndex) {
 
 
@@ -4343,26 +4371,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
-    $('.arrow-left').on('click', function (e) {
-        e.preventDefault()
-
-        if ($scope.slide == 0 || $scope.slide == 1000) {
-            // showConfirmInventory();
-
-        }
-        else {
-            mySwiper.swipePrev();
-
-        }
-
-
-    })
-    $('.arrow-right').on('click', function (e) {
-
-        e.preventDefault()
-        mySwiper.swipeNext()
-        CheckScopeBeforeApply();
-    })
+    ApplyBackAndNext();
 
 
 
