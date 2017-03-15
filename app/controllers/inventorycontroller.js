@@ -211,6 +211,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.IsItemChose = false;
+    $scope.IsItemChoseCheck = false;
     $scope.IsItemGroupChose = false;
     var FileName = "";
     var StreamData = "";
@@ -654,7 +655,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         if (_toCheckValue != null && _toCheckValue != undefined) {
             _value = _toCheckValue;
             if (id == "#ItemName") {
-                $scope.IsItemChose = false;
+                
+                $scope.IsItemChoseCheck = false;
             }
             if (id == "#UOM") {
                 $scope.InventoryObject.Uom = _value;
@@ -932,6 +934,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#locationlistmodal").modal('hide');
         $("#uomlistmodal").modal('hide');
         $scope.IsItemChose = true;
+        $scope.IsItemChoseCheck = true;
         CheckScopeBeforeApply()
     }
     $scope.onChangeUOMData = function () {
@@ -2950,7 +2953,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.IsItemLibrary = $scope.checkpermission('URL:Manage/Item');
         if ($scope.IsItemLibrary == true && $scope.IsActiveItemLibrary == true) {
 
-            $scope.IsItemChose = false;
+            $scope.IsItemChose = true;
         }
         else {
             $scope.IsItemChose = false;
@@ -3165,7 +3168,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return false;
     }
     $scope.SetItemChoseFalse = function () {
-        $scope.IsItemChose = false;
+        $scope.IsItemChoseCheck = false;
         CheckScopeBeforeApply();
     }
     function GetFieldType(fieldName) {
@@ -3232,7 +3235,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
                             $scope.InventoryObject.ItemID = resultvalue;
-                            $scope.IsItemChose = false;
+                            $scope.IsItemChoseCheck = false;
 
                             break;
                         case "lLoc":
