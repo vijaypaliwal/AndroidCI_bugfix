@@ -2950,7 +2950,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.IsItemLibrary = $scope.checkpermission('URL:Manage/Item');
         if ($scope.IsItemLibrary == true && $scope.IsActiveItemLibrary == true) {
 
-            $scope.IsItemChose = true;
+            $scope.IsItemChose = false;
         }
         else {
             $scope.IsItemChose = false;
