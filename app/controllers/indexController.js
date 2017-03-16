@@ -421,6 +421,16 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 }
                
             }
+            else {
+                alert("timeout error");
+            }
+        
+        }
+        else {
+            if (exception == "timeout") {
+                $("#modalerror").modal('show');
+                $("#errortext").html("Slow Network error");
+            }
         }
     });
 

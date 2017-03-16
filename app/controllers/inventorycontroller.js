@@ -4266,6 +4266,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             if ($scope.currentInvmode == "Vertical") {
                 $scope.switchmode = true;
                 CheckScopeBeforeApply();
+                setTimeout(function () {
+                    $("#firstDiv").find(".form-group:first").find(".form-control:first").focus();
+                }, 100);
                 $cordovaKeyboard.disableScroll(false);
             }
 
