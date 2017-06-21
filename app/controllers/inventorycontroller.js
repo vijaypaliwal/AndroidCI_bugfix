@@ -17,6 +17,63 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.IsFormDataloaded = false;
     $scope.Isopendiv = true;
     $scope.IsFromSlideChange = false;
+
+    $scope.UniqueTagCombovalues = [];
+    $scope.UniqueTag3Combovalues = [];
+    $scope.UniqueTag2Combovalues = [];
+
+
+
+    $scope.UnitNumber1FieldDefaultValue = 0;
+    $scope.UnitNumber1FieldNumberMax = 0;
+    $scope.UnitNumber1FieldNumberMin = 0;
+
+
+    $scope.UnitNumber2FieldDefaultValue = 0;
+    $scope.UnitNumber2FieldNumberMax = 0;
+    $scope.UnitNumber2FieldNumberMin = 0;
+
+
+
+
+    $scope.UniqueTagRadiovalues = [];
+    $scope.UniqueTag2Radiovalues = [];
+    $scope.UniqueTag3Radiovalues = [];
+
+    $scope.UniqueDateFieldDefaultValue = ""
+    $scope.UnitDate2FieldDefaultValue = ""
+
+    $scope.ReqValueFieldSpecialType = "";
+    $scope.UnitTag2FieldSpecialType = "";
+    $scope.UnitTag3FieldSpecialType = "";
+    $scope.UniqueDateFieldSpecialType = "";
+    $scope.UnitDate2FieldSpecialType = "";
+    $scope.UnitNumber1FieldSpecialType = "";
+    $scope.UnitNumber2FieldSpecialType = "";
+
+
+    $scope.ReqValueFieldDefaultType = "";
+    $scope.UnitTag2FieldDefaultValue = "";
+    $scope.UnitTag3FieldDefaultValue = "";
+
+    $scope.ActiveUnitRadioField = "";
+    $scope.ActiveUnitAutoCompleteField = "";
+    $scope.selectedUnitradiovalue = "";
+
+
+
+    $scope.UnitAutoComboValues = [];
+    $scope.ActiveUnitAutoCompleteField = [];
+    $scope.weeklist = [];
+
+    $scope.CurrentYear = new Date().getFullYear();
+
+    for (var i = 1; i <= 52; i++) {
+        $scope.weeklist.push(i);
+    }
+
+
+
     var _IsSavedItemGroup = false;
     var _IsSavedItemGroupData = "";
     $scope.InventoryObject = {
@@ -1747,6 +1804,65 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
+
+    $scope.GetCustomItemObjByColumnmap = function (columnMap) {
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].ColumnMap == columnMap) {
+                return $scope.CustomItemDataList[i];
+            }
+        }
+        return new Object();
+    }
+
+    $scope.GetCustomActivityObjByColumnmap = function (columnMap) {
+
+
+
+        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+            if ($scope.CustomActivityDataList[i].ColumnMap == columnMap) {
+                return $scope.CustomActivityDataList[i];
+            }
+        }
+        return new Object();
+    }
+
+    $scope.GetCustomItemObjByColumnID = function (columnMap) {
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].cfdID == columnMap) {
+                return $scope.CustomItemDataList[i];
+            }
+        }
+        return new Object();
+    }
+
+    $scope.GetCustomActivityObjByColumnID = function (columnMap) {
+
+
+
+        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+            if ($scope.CustomActivityDataList[i].cfdID == columnMap) {
+                return $scope.CustomActivityDataList[i];
+            }
+        }
+        return new Object();
+    }
+
+
+    $scope.IsProperEmail = function (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    $scope.getIndexBycolName = function (_ID) {
+        for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
+            if ($scope.InventoryObject.CustomPartData[i].CfdID == _ID) {
+                return i;
+            }
+
+        }
+
+        return 0;
+    }
+
     $scope.GetAllData = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -1761,7 +1877,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
               dataType: 'json',
               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "ConsidermobileOrder": true }),
               success: function (response) {
-
+                  $scope.Totalslides = 0;
+                  $scope.CurrentCount = 0;
+                  $scope.MyinventoryFields = [];
                   if (response.GetAllDataResult.Success == true) {
 
 
@@ -1779,6 +1897,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           _tempData.push(_TempArrayMyInventory[i]);
                       }
 
+
+
                       CheckScopeBeforeApply()
 
 
@@ -1786,13 +1906,28 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                       $scope.CustomItemDataList = response.GetAllDataResult.Payload[0].CustomItemField;
                       CheckScopeBeforeApply();
 
+                      console.log($scope.CustomItemDataList);
+
                       for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
                           var _defaultValue = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
+
+
                           if ($scope.CustomItemDataList[i].cfdDataType == "datetime") {
                               if (_defaultValue != null && _defaultValue != "") {
-                                  $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+
+                                  if ($scope.CustomItemDataList[i].cfdSpecialType == 2) {
+                                      $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
+                                  }
+                                  else if ($scope.CustomItemDataList[i].cfdSpecialType != 3) {
+                                      $scope.CustomItemDataList[i].cfdDefaultValue = ConvertToTime(_defaultValue);
+                                  }
+                                  else {
+
+                                      $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+                                  }
                               }
                           }
+
                           else if ($scope.CustomItemDataList[i].cfdDataType == "currency" || $scope.CustomItemDataList[i].cfdDataType == "number") {
                               if (_defaultValue != null && _defaultValue != "") {
                                   var _myDefault = parseFloat(_defaultValue);
@@ -1802,6 +1937,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                   }
                               }
                           }
+
+
                           else if ($scope.CustomItemDataList[i].cfdDataType == "checkbox") {
                               var _value = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
                               $scope.CustomItemDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
@@ -1825,24 +1962,43 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                               Show: _tempData[i].Show,
                               Sort: _tempData[i].Sort,
                               mobileorder: _tempData[i].mobileorder,
-                              Required: _tempData[i].Required
+                              Required: _tempData[i].Required,
+                              CustomFieldIndex: -1,
+
                           }
 
                           var _CustomObj = $scope.GetCustomColumn(_tempData[i].ColumnName);
 
+
+
                           if (_CustomObj != undefined && _CustomObj != {}) {
+
                               _obj.cfdName = _CustomObj.cfdName;
                               _obj.cfdID = _CustomObj.cfdID;
                               _obj.cfdDataType = _CustomObj.cfdDataType;
                               _obj.cfdComboValues = _CustomObj.cfdComboValues;
-                              _obj.CfValue = _CustomObj.CfValue;
+                              _obj.CfValue = ($.trim(_CustomObj.cfdprefixsuffixtype) != "" ? _CustomObj.CombineValue : _CustomObj.cfdDefaultValue);
                               _obj.Required = _CustomObj.cfdIsRequired;
+                              _obj.cfdTruelabel = _CustomObj.cfdTruelabel;
+                              _obj.cfdFalselabel = _CustomObj.cfdFalselabel;
 
-                              $scope.InventoryObject.CustomPartData.push({ CfdID: _CustomObj.cfdID, Value: _CustomObj.cfdDefaultValue, DataType: _CustomObj.cfdDataType });
+                              $scope.InventoryObject.CustomPartData.push({ CfdID: _CustomObj.cfdID, Value: _obj.CfValue, DataType: _CustomObj.cfdDataType, TrueLabel: _CustomObj.cfdTruelabel, FalseLabel: _CustomObj.cfdFalselabel });
+
+                              $("#CustomItem_" + _obj.cfdID).trigger("input");
+
                           }
 
+                          _obj.CustomFieldIndex = _obj.cfdID != 0 ? $scope.getIndexBycolName(_obj.cfdID) : -1;
                           $scope.MyinventoryFields.push(_obj);
+
+
+
+
+
+
+
                       }
+
 
 
                       // Custom Activity Field 
@@ -1857,7 +2013,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
                           if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
                               if (_defaultValue != null && _defaultValue != "") {
-                                  $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+
+                                  if ($scope.CustomActivityDataList[i].cfdSpecialType == 2) {
+                                      $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
+                                  }
+                                  else if ($scope.CustomActivityDataList[i].cfdSpecialType != 3) {
+                                      $scope.CustomActivityDataList[i].cfdDefaultValue = ConvertToTime(_defaultValue);
+                                  }
+                                  else {
+
+                                      $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+                                  }
                               }
                           }
                           else if ($scope.CustomActivityDataList[i].cfdDataType == "currency" || $scope.CustomActivityDataList[i].cfdDataType == "number") {
@@ -1873,7 +2039,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                               var _value = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
                               $scope.CustomActivityDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
                           }
-                          $scope.InventoryObject.CustomTxnData.push({ CfdID: $scope.CustomActivityDataList[i].cfdID, Value: $scope.CustomActivityDataList[i].cfdDefaultValue, DataType: $scope.CustomActivityDataList[i].cfdDataType });
+                          var _CustomObj = $scope.CustomActivityDataList[i];
+                          var _value = ($.trim(_CustomObj.cfdprefixsuffixtype) != "" ? _CustomObj.CombineValue : _CustomObj.cfdDefaultValue);
+                          $scope.InventoryObject.CustomTxnData.push({ CfdID: $scope.CustomActivityDataList[i].cfdID, Value: _value, DataType: $scope.CustomActivityDataList[i].cfdDataType });
                       }
                       CheckScopeBeforeApply()
                       // Unit Of Measure
@@ -1908,6 +2076,108 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
               }
           });
     }
+
+
+    $scope.currtrentcustomauto = [];
+
+
+    $scope.customautocomplete = function (ColumnName, id, fieldtype) {
+        $("#customautolistmodal").modal('show');
+
+
+
+        if (fieldtype == "item") {
+            $scope.activecustomfield = "CustomItem_" + id;
+            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+                if ($scope.CustomItemDataList[i].ColumnMap == ColumnName) {
+                    $scope.currtrentcustomauto = $scope.CustomItemDataList[i].cfdComboValues;
+                    break;
+                }
+            }
+        }
+
+        if (fieldtype == "activity") {
+            $scope.activecustomfield = "CustomActivity_" + id;
+
+            for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+                if ($scope.CustomActivityDataList[i].ColumnMap == ColumnName) {
+                    $scope.currtrentcustomauto = $scope.CustomActivityDataList[i].cfdComboValues;
+                    break;
+                }
+            }
+        }
+
+
+
+    }
+
+
+
+    $scope.fillcustomvalue = function (value) {
+        $("#" + $scope.activecustomfield).val(value);
+
+        $("#" + $scope.activecustomfield).trigger("input");
+        CheckScopeBeforeApply();
+        $("#customautolistmodal").modal('hide');
+
+    }
+
+    $scope.currtrentcustomradiovalue = [];
+    $scope.customradiolist = function (ColumnName, id, fieldtype) {
+
+
+
+
+        if (fieldtype == "item") {
+
+            $scope.activeradiofield = "CustomItem_" + id;
+
+            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+                if ($scope.CustomItemDataList[i].ColumnMap == ColumnName) {
+                    $scope.currtrentcustomradiovalue = $scope.CustomItemDataList[i].cfdRadioValues;
+                    break;
+                }
+            }
+
+
+
+        }
+
+
+        if (fieldtype == "activity") {
+            $scope.activeradiofield = "CustomActivity_" + id;
+
+            for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+                if ($scope.CustomActivityDataList[i].ColumnMap == ColumnName) {
+                    $scope.currtrentcustomradiovalue = $scope.CustomActivityDataList[i].cfdRadioValues;
+                    break;
+                }
+            }
+        }
+
+        console.log($scope.currtrentcustomradiovalue)
+
+        $("#customradiotextmodal").modal("show");
+    }
+
+    $scope.fillcurrentradiovalue = function (value) {
+
+        $scope.selectedradiovalue = value;
+
+
+
+    }
+
+    $scope.fillvaluetoradio = function () {
+
+        $("#" + $scope.activeradiofield).val($scope.selectedradiovalue);
+
+        $("#" + $scope.activeradiofield).trigger("input");
+
+        $("#customradiotextmodal").modal("hide");
+
+    }
+
 
 
     $scope.GetMyinventoryColumns = function () {
@@ -2494,6 +2764,36 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return _returnVar;
     }
 
+    $scope.UpDownValueUnit = function (value, IsUp) {
+
+
+        var _ID;
+        _ID = "#" + value;
+        var _inputvalue = $(_ID).val();
+        var _Max = $(_ID).attr("max");
+        var _Min = $(_ID).attr("min");
+        _inputvalue = TryParseFloat(_inputvalue, 0);
+        _Max = TryParseFloat(_Max, -100);
+        _Min = TryParseFloat(_Min, -100);
+        if (IsUp && _Max != -100 && _inputvalue == _Max) {
+            log.error("Exceeding maximum value " + _Max + ", Please fill lesser value than maximum value");
+        }
+
+        else if (!IsUp && _Min != -100 && _inputvalue == _Min) {
+            log.error("Beneath the  minimum value " + _Min + ", Please fill greater value than minimum value");
+
+        }
+        else {
+
+            _inputvalue = _inputvalue + (IsUp ? 1 : -1);
+
+            $(_ID).val(_inputvalue);
+
+
+            $(_ID).trigger("input");
+        }
+    }
+
     $scope.GetActiveUnitDataField = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -2508,8 +2808,117 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                dataType: 'text json',
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
                success: function (response) {
+
+
                    if (response.GetActiveUnitDataFieldsResult.Success == true) {
                        $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
+
+                       console.log("List of active unitdata fields");
+                       console.log($scope.UnitDataList);
+
+                       $scope.UnitDataList.forEach(function (item) {
+
+                           if (item.FieldName == 'ReqValue') {
+                               $scope.ReqValueFieldSpecialType = item.FieldSpecialType;
+                               $scope.ReqValueFieldDefaultType = item.FieldDefaultValue;
+                               $scope.InventoryObject.UniqueTag = item.FieldDefaultValue;
+                               if (item.FieldComboValues != null) {
+                                   $scope.UniqueTagCombovalues = item.FieldComboValues.split("\n");
+                               }
+                               if (item.FieldRadioValues != null) {
+                                   $scope.UniqueTagRadiovalues = item.FieldRadioValues.split(" ");
+                               }
+                           }
+                           else if (item.FieldName == 'UnitTag2') {
+
+                               $scope.UnitTag2FieldSpecialType = item.FieldSpecialType;
+                               $scope.UnitTag2FieldDefaultValue = item.FieldDefaultValue;
+                               $scope.InventoryObject.UnitTag2 = item.FieldDefaultValue;
+
+                               if (item.FieldComboValues != null) {
+                                   $scope.UniqueTag2Combovalues = item.FieldComboValues.split("\n");
+                               }
+                               if (item.FieldRadioValues != null) {
+                                   $scope.UniqueTag2Radiovalues = item.FieldRadioValues.split(" ");
+                               }
+
+                           }
+                           else if (item.FieldName == 'UnitTag3') {
+                               $scope.UnitTag3FieldSpecialType = item.FieldSpecialType;
+                               $scope.UnitTag3FieldDefaultValue = item.FieldDefaultValue;
+                               $scope.InventoryObject.UnitTag3 = item.FieldDefaultValue;
+                               if (item.FieldComboValues != null) {
+                                   $scope.UniqueTag3Combovalues = item.FieldComboValues.split("\n");
+                               }
+                               if (item.FieldRadioValues != null) {
+                                   $scope.UniqueTag3Radiovalues = item.FieldRadioValues.split(" ");
+                               }
+                           }
+
+                           else if (item.FieldName == 'UniqueDate') {
+                               $scope.UniqueDateFieldSpecialType = item.FieldSpecialType;
+
+                               if (item.FieldSpecialType == 15) {
+
+
+                                   $scope.UniqueDateFieldDefaultValue = ConverttoMsJsonDate(item.FieldDefaultValue);
+                               }
+
+                               else if (item.FieldSpecialType == 16) {
+
+
+                                   $scope.UniqueDateFieldDefaultValue = ConverttoMsJsonDateTime(item.FieldDefaultValue);
+                               }
+
+                               else {
+
+
+                                   $scope.UniqueDateFieldDefaultValue = ConvertToTime(item.FieldDefaultValue);
+                               }
+
+                               $scope.InventoryObject.UniqueDate = $scope.UniqueDateFieldDefaultValue;
+                           }
+                           else if (item.FieldName == 'UnitDate2') {
+                               $scope.UnitDate2FieldSpecialType = item.FieldSpecialType;
+
+                               if (item.FieldSpecialType == 15) {
+
+
+                                   $scope.UnitDate2FieldDefaultValue = ConverttoMsJsonDate(item.FieldDefaultValue);
+                               }
+
+                               else if (item.FieldSpecialType == 16) {
+
+
+                                   $scope.UnitDate2FieldDefaultValue = ConverttoMsJsonDateTime(item.FieldDefaultValue);
+                               }
+
+                               else {
+
+
+                                   $scope.UnitDate2FieldDefaultValue = ConvertToTime(item.FieldDefaultValue);
+                               }
+                               $scope.InventoryObject.UnitDate2 = $scope.UnitDate2FieldDefaultValue;
+
+                           }
+
+                           else if (item.FieldName == 'UnitNumber1') {
+
+                               $scope.UnitNumber1FieldSpecialType = item.FieldSpecialType;
+                               $scope.InventoryObject.UnitNumber1 = TryParseFloat(item.FieldDefaultValue);
+                               $scope.UnitNumber1FieldNumberMax = TryParseFloat(item.FieldNumberMax);
+                               $scope.UnitNumber1FieldNumberMin = TryParseFloat(item.FieldNumberMin);
+
+                           }
+                           else if (item.FieldName == 'UnitNumber2') {
+                               $scope.UnitNumber2FieldSpecialType = item.FieldSpecialType;
+                               $scope.InventoryObject.UnitNumber2 = TryParseFloat(item.FieldDefaultValue);
+                               $scope.UnitNumber2FieldNumberMax = TryParseFloat(item.FieldNumberMax);
+                               $scope.UnitNumber2FieldNumberMin = TryParseFloat(item.FieldNumberMin);
+                           }
+
+                       });
+
                        CheckScopeBeforeApply()
                    }
                    else {
@@ -2532,6 +2941,110 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                }
            });
     }
+
+    //#region Unit Data function
+    $scope.Unitautocomplete = function (FieldName) {
+        $("#Unitautolistmodal").modal('show');
+
+
+        switch (FieldName) {
+            case 'UniqueTag':
+                $scope.UnitAutoComboValues = $scope.UniqueTagCombovalues;
+                $scope.ActiveUnitAutoCompleteField = FieldName
+                break;
+            case 'UnitTag2':
+                $scope.UnitAutoComboValues = $scope.UniqueTag2Combovalues;
+                $scope.ActiveUnitAutoCompleteField = FieldName
+                break;
+            case 'UnitTag3':
+                $scope.UnitAutoComboValues = $scope.UniqueTag3Combovalues;
+                $scope.ActiveUnitAutoCompleteField = FieldName
+                break;
+            default:
+        }
+    }
+
+
+    $scope.fillUnitAutoCompleteValue = function (value) {
+        $("#" + $scope.ActiveUnitAutoCompleteField).val(value);
+
+        $("#" + $scope.ActiveUnitAutoCompleteField).trigger("input");
+        CheckScopeBeforeApply();
+        $("#Unitautolistmodal").modal('hide');
+
+    }
+
+
+
+    $scope.Unitradiolist = function (FieldName) {
+
+        switch (FieldName) {
+            case 'UniqueTag':
+                $scope.UnitRadioValues = $scope.UniqueTagRadiovalues;
+                $scope.ActiveUnitRadioField = FieldName
+                break;
+            case 'UnitTag2':
+                $scope.UnitRadioValues = $scope.UniqueTag2Radiovalues;
+                $scope.ActiveUnitRadioField = FieldName
+                break;
+            case 'UnitTag3':
+                $scope.UnitRadioValues = $scope.UniqueTag3Radiovalues;
+                $scope.ActiveUnitRadioField = FieldName
+                break;
+            default:
+        }
+
+        console.log($scope.currtrentcustomradiovalue)
+
+        $("#Unitradiotextmodal").modal("show");
+    }
+
+
+    $scope.fillUnitradiovalue = function (value) {
+        $scope.selectedUnitradiovalue = value;
+    }
+
+
+    $scope.fillUnitvaluetoradio = function () {
+
+        $("#" + $scope.ActiveUnitRadioField).val($scope.selectedUnitradiovalue);
+
+        $("#" + $scope.ActiveUnitRadioField).trigger("input");
+
+        $("#Unitradiotextmodal").modal("hide");
+
+    }
+
+
+    $scope.GetUnitNumberDefaultValue = function (NumberFieldName) {
+        $scope.UnitDataList.forEach(function (item) {
+            if (item.FieldName == NumberFieldName) {
+                return item.FieldDefaultValue;
+            }
+        });
+    }
+
+
+
+    $scope.GetUnitNumberMaxValue = function (NumberFieldName) {
+
+
+        $scope.UnitDataList.forEach(function (item) {
+            if (item.FieldName == NumberFieldName) {
+                return item.FieldNumberMax;
+            }
+        });
+    }
+
+    $scope.GetUnitNumberMinValue = function (NumberFieldName) {
+        $scope.UnitDataList.forEach(function (item) {
+            if (item.FieldName == NumberFieldName) {
+                return item.FieldNumberMin;
+            }
+        });
+    }
+    //#endregion
+
     $scope.IsActiveTransactionField = function (cfdid) {
 
 
@@ -3773,6 +4286,69 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         vibrate();
         playBeep();
+    }
+
+    $scope.UpDownValue = function (value, IsUp, Type) {
+
+        switch (value) {
+            case "Quantity":
+                if ($.trim($scope.InventoryObject.Quantity) == "") {
+
+                    $scope.InventoryObject.Quantity = 0;
+
+                }
+                if (!IsUp) {
+                    if ($scope.InventoryObject.Quantity > 0) {
+
+                        $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity + (IsUp ? 1 : -1);
+                    }
+                }
+                else if (IsUp) {
+                    $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity + (IsUp ? 1 : -1);
+                }
+                break;
+            default:
+                var _name;
+                var _ID;
+
+                if (Type == undefined) {
+                    _name = $scope.CurrentActiveFieldType == "Inventory" ? "CustomItem_" + value : "CustomActivity_" + value;
+
+
+                }
+                else {
+                    _name = Type == 1 ? "CustomItem_" + value : "CustomActivity_" + value;
+                }
+
+                _ID = "#" + $("input[name='" + _name + "']").attr("id");
+                var _inputvalue = $(_ID).val();
+                var _Max = $(_ID).attr("max");
+                var _Min = $(_ID).attr("min");
+                _inputvalue = TryParseFloat(_inputvalue, 0);
+                _Max = TryParseFloat(_Max, -100);
+                _Min = TryParseFloat(_Min, -100);
+                if (IsUp && _Max != -100 && _inputvalue == _Max) {
+                    log.error("Exceeding maximum value " + _Max + ", Please fill lesser value than maximum value");
+                }
+
+                else if (!IsUp && _Min != -100 && _inputvalue == _Min) {
+                    log.error("Beneath the  minimum value " + _Min + ", Please fill greater value than minimum value");
+
+                }
+                else {
+
+                    _inputvalue = _inputvalue + (IsUp ? 1 : -1);
+
+                    $(_ID).val(_inputvalue);
+
+
+                    $(_ID).trigger("input");
+                }
+                break;
+
+        }
+
+
     }
 
 
