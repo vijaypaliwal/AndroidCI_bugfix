@@ -114,7 +114,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.switchmode = true;
         $scope.currentmode = 2;
         localStorageService.set("mode", $scope.currentmode);
-        $cordovaKeyboard.disableScroll(false);
+     //   $cordovaKeyboard.disableScroll(false);
 
 
         CheckScopeBeforeApply();
@@ -832,9 +832,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         });
 
-
-
+        console.log($scope.CheckEmailFields());
     }, true);
+
+
+
+    $(document).on('change', 'input[type=email]', function () {
+        if ($.trim($(this).val()) != "") {
+            $(this).trigger("input");
+        }
+
+
+    });
 
 
     $scope.fillitem = function () {
@@ -1357,6 +1366,60 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         }
 
         return false;
+    }
+
+
+    $scope.CheckEmailFields = function () {
+
+        for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
+
+            var _emailValue = $.trim($("#CustomItem_" + $scope.InventoryObject.CustomPartData[i].CfdID.toString()).val());
+            var _mask = $scope.GetCustomItemObjByColumnID($scope.InventoryObject.CustomPartData[i].CfdID).cfdInputMask;
+            if (_mask == "email" && _emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
+                return true;
+            }
+
+        }
+        for (var i = 0; i < $scope.InventoryObject.CustomTxnData.length; i++) {
+            var _mask = $scope.GetCustomActivityObjByColumnID($scope.InventoryObject.CustomTxnData[i].CfdID).cfdInputMask;
+            var _emailValue = $.trim($("#CustomActivity_" + $scope.InventoryObject.CustomTxnData[i].CfdID).val());
+            if (_mask == "email" && _emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
+                return true;
+
+            }
+        }
+
+        if ($scope.ReqValueFieldSpecialType == 4) {
+            var _emailValue = $.trim($("#UnitTag").val());
+
+            if (_emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
+                return true;
+
+            }
+
+        }
+
+        if ($scope.UnitTag2FieldSpecialType == 4) {
+            var _emailValue = $.trim($("#UnitTag2").val());
+
+            if (_emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
+                return true;
+
+            }
+
+        }
+
+        if ($scope.UnitTag3FieldSpecialType == 4) {
+            var _emailValue = $.trim($("#UnitTag3").val());
+
+            if (_emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
+                return true;
+
+            }
+
+        }
+        return false;
+
     }
 
 
@@ -2114,7 +2177,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.fillcustomvalue = function (value) {
+
+        debugger;
+
+
         $("#" + $scope.activecustomfield).val(value);
+
+        $("." + $scope.activecustomfield).val(value);
+
 
         $("#" + $scope.activecustomfield).trigger("input");
         CheckScopeBeforeApply();
@@ -3045,12 +3115,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
     //#endregion
 
-    $scope.IsActiveTransactionField = function (cfdid) {
-
+    $scope.IsActiveTransactionField = function (cfdid)
+    {
 
         $scope.CurrentOperation = "Increase";
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
-            if ($scope.CustomActivityDataList[i].cfdCustomFieldType == "Inventory" && $scope.CustomActivityDataList[i].cfdID == cfdid) {
+            if ($scope.CustomActivityDataList[i].cfdCustomFieldType.toLowerCase() == "inventory" && $scope.CustomActivityDataList[i].cfdID == cfdid) {
                 switch ($scope.CurrentOperation) {
                     case "Increase":
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnAdd) {
@@ -4923,6 +4993,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         else {
             $scope.getstep(0);
         }
+
+        $scope.GetAllData();
+        $scope.GetActiveUnitDataField();
+
         $("#modal3").modal('hide');
 
         $(".Addbtn").show()
