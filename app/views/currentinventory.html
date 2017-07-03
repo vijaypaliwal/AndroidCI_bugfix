@@ -491,7 +491,7 @@
                         </ul>
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
-                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
                     </select>
 
                 </div>
@@ -510,7 +510,7 @@
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
                         <option></option>
-                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{$index == 0 ? true : false}}">{{_data}}</option>
+                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{$index == 0 ? true : false}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
                     </select>
 
                 </div>

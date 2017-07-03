@@ -1653,7 +1653,14 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                     case "datetime":
                         _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
                         break;
+                    case "checkbox":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
+                    case "combobox":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
                     default:
+                  
 
 
                 }

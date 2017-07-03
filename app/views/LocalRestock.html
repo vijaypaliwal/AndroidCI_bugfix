@@ -260,7 +260,7 @@
 
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
-                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
                     </select>
                 </div>
                 <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='checkbox'">
@@ -276,7 +276,7 @@
                         </ul>
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
-                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
                     </select>
 
                 </div>

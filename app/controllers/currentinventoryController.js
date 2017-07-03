@@ -1220,6 +1220,9 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                     case "checkbox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
                         break;
+                    case "combobox":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
                     default:
                 }
 

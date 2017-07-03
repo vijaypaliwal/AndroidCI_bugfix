@@ -605,7 +605,7 @@
 
                                 </span>
                                 <select class="form-control" ng-model="_obj.SearchValue">
-                                    <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                                    <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}} ></option>
                                 </select>
                             </div>
 
@@ -623,7 +623,7 @@
                                 </span>
                                 <select class="form-control" ng-model="_obj.SearchValue">
                                     <option></option>
-                                    <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{_data}}">{{_data}}</option>
+                                    <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
                                 </select>
 
                             </div>
@@ -725,20 +725,6 @@
 
 </script>
 <script>
-
-
-
-    var allSelectElements = document.getElementsByTagName('select');
-    for (var i = 0; i < allSelectElements.length; i++) {
-        allSelectElements[i].addEventListener('touchstart', function (e) {
-            //This is the important line
-            e.stopPropagation();
-        }, false);
-    }
-
-
-
-
 
     var offset = 50;
     //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
