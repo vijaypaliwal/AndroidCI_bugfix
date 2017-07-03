@@ -1,12 +1,17 @@
 ﻿'use strict';
 app.controller('currentinventoryController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
+
+    $scope.UnitDataFieldCombovalues = [];
+
+    $scope.UnitDataFieldRadioValues = [];
+
     //#region variable declaration
     $scope.CurrentView = { Name: "Current Inventory" };
     $scope.InventoryViews = [];
     $scope.InventoryList = [];
     $scope.CustomItemDataList = [];
-    $scope.FilterData = {SearchValue:""};
+    $scope.FilterData = { SearchValue: "" };
     $scope.FilterArray = [{ ColumnName: "", FilterOperator: "", SearchValue: "" }];
 
     $scope.sortColumn = "iLastITID";
@@ -24,6 +29,17 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     var _TotalRecordsCurrent = 0;
     var _masterSearch = "";
     //#endregion
+
+    $scope.weeklist = [];
+
+    $scope.CurrentYear = new Date().getFullYear();
+
+    for (var i = 1; i <= 52; i++) {
+        $scope.weeklist.push(i);
+    }
+
+
+
 
     // Method to get incrementer count according to page size
     function getIncrementor(_Total) {
@@ -55,10 +71,9 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // this function is giving filter operator according to column name
-    function GetFilterOperator(ColumnName)
-    {
-         
-        
+    function GetFilterOperator(ColumnName) {
+        //debugger;
+
         switch (ColumnName.toLowerCase()) {
             case "date":
             case "datetime":
@@ -69,6 +84,9 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
             case "money":
                 return "num-eq";
                 break;
+            case "bool":
+                return "bool";
+                break;
 
 
             default:
@@ -77,12 +95,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // check whether the column is further calculated column or not
-    $scope.isFurtherCalculatedColumn=function(ColumnName)
-    {
+    $scope.isFurtherCalculatedColumn = function (ColumnName) {
         for (var i = 0; i < $scope.Columns.length; i++) {
             if ($scope.Columns[i].ColumnID == ColumnName) {
-                if ($scope.Columns[i].isFirstFurtherCalculated == true || $scope.Columns[i].isSecondFurtherCalculated == true)
-                {
+                if ($scope.Columns[i].isFirstFurtherCalculated == true || $scope.Columns[i].isSecondFurtherCalculated == true) {
                     return true;
 
                 }
@@ -93,8 +109,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // pull to refresh function 
-    function onSwipeDown()
-    {
+    function onSwipeDown() {
         $('#mylist').on('swipedown', function () {
 
             if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
@@ -146,31 +161,81 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         $scope.GetInventoryDataAccordingToView();
     }
 
-    $scope.clearfilter=function()
-    {
+    $scope.clearfilter = function () {
         $scope.clearfilterArray();
-      
-      //  CheckScopeBeforeApply();
-      //  $scope.GetInventoryDataAccordingToView();
+
+        //  CheckScopeBeforeApply();
+        //  $scope.GetInventoryDataAccordingToView();
     }
 
     // Get custom dropdown's column available data
-    $scope.GetComboData=function(ColumnName)
-    {
+    $scope.GetComboData = function (ColumnName) {
+        //debugger;
+
+        var type = "";
+        var Map = "";
+        if (ColumnName.includes("t_")) {
+            type = "inventory";
+            Map = ColumnName.substring(2);
+        }
+        else {
+            type = "part";
+            Map = ColumnName;
+        }
+
         for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            if ($scope.CustomItemDataList[i].ColumnMap == ColumnName) {
+            if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
                 console.log($scope.CustomItemDataList[i].cfdComboValues);
                 return $scope.CustomItemDataList[i].cfdComboValues;
             }
-
         }
-        
     }
+
+
+
+
+
+
+    $scope.GetBooleabData = function (ColumnName) {
+        // debugger;
+
+
+        var BooeanArray = [];
+
+        var type = "";
+        var Map = "";
+        if (ColumnName.includes("t_")) {
+            type = "inventory";
+            Map = ColumnName.substring(2);
+        }
+        else {
+            type = "part";
+            Map = ColumnName;
+        }
+
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
+                BooeanArray.push($scope.CustomItemDataList[i].cfdTruelabel);
+                BooeanArray.push($scope.CustomItemDataList[i].cfdFalselabel);
+            }
+        }
+
+        return BooeanArray;
+    }
+
+
+
+
+
 
     // Get display label according to column name
     $scope.GetDisplayLabel = function (ColumnName) {
-        var DataType=""
-        
+
+        //debugger;
+        var DataType = ""
+
+
+
 
         DataType = $scope.GetCustomFieldNameByMap(ColumnName);
         if (DataType == "N/A") {
@@ -178,7 +243,6 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                 if ($scope.Columns[i].ColumnID == ColumnName) {
                     return $scope.Columns[i].DisplayLabel;
                 }
-
             }
         }
         else {
@@ -186,14 +250,38 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         }
     }
 
-    // Get data type according to column name
-    $scope.GetColumnDataType=function(ColumnName)
-    {
-        var DataType=""
-        
 
-            DataType = $scope.GetCustomFieldTypeByID(ColumnName);
-        if(DataType=="N/A") {
+
+
+    // Get Column type according to column name
+    $scope.getColumnType = function (ColumnName) {
+
+        var ColumnType = "system"
+        var _column = $scope.getCustomSpecialType(ColumnName);
+        if (_column != undefined) {
+
+            for (var i = 0; i < $scope.Columns.length; i++) {
+                if ($scope.Columns[i].ColumnID == _column.cfdID) {
+                    ColumnType = $scope.Columns[i].ColumnType.toLowerCase();
+                    return ColumnType;
+                }
+            }
+        }
+        return ColumnType;
+    }
+
+
+
+
+    // Get data type according to column name
+    $scope.GetColumnDataType = function (ColumnName) {
+
+        //debugger;
+        var DataType = ""
+
+
+        DataType = $scope.GetCustomFieldTypeByID(ColumnName);
+        if (DataType == "N/A") {
 
             for (var i = 0; i < $scope.Columns.length; i++) {
                 if ($scope.Columns[i].ColumnID == ColumnName) {
@@ -208,18 +296,14 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // Update filter's array after getting from server side
-    function UpdateFilterArray()
-    {
+    function UpdateFilterArray() {
 
-        for (var i = 0; i < $scope.FilterArray.length; i++)
-        {
+        for (var i = 0; i < $scope.FilterArray.length; i++) {
 
             var _datatype = $scope.GetColumnDataType($scope.FilterArray[i].ColumnName);
 
-            if(_datatype=="number"||_datatype=="decimal"||_datatype=="money")
-            {
-                if($scope.FilterArray[i].SearchValue!=null && $scope.FilterArray[i].SearchValue!=undefined && $.trim($scope.FilterArray[i].SearchValue)!="")
-                {
+            if (_datatype == "number" || _datatype == "decimal" || _datatype == "money") {
+                if ($scope.FilterArray[i].SearchValue != null && $scope.FilterArray[i].SearchValue != undefined && $.trim($scope.FilterArray[i].SearchValue) != "") {
                     var _value = angular.copy($scope.FilterArray[i].SearchValue);
                     $scope.FilterArray[i].SearchValue = parseFloat(_value);
                 }
@@ -230,19 +314,17 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // fill filter's array
-    function FillFilterArray()
-    {
+    function FillFilterArray() {
         $scope.FilterArray = [];
         for (var i = 0; i < $scope.Columns.length; i++) {
-         
+
             if ($scope.Columns[i].ColumnID != "LeaveBlank") {
                 var _obj = { ColumnName: "", FilterOperator: "", SearchValue: "" };
                 _obj.ColumnName = $scope.Columns[i].ColumnID;
                 var _ID = TryParseInt(_obj.ColumnName, 0);
-                if (_ID != 0)
-                {
-                  
-                 _obj.ColumnName = $scope.GetCustomFieldByID(_ID);
+                if (_ID != 0) {
+
+                    _obj.ColumnName = $scope.GetCustomFieldByID(_ID);
                 }
                 _obj.FilterOperator = GetFilterOperator($scope.Columns[i].ColumnDataType);
                 _obj.SearchValue = "";
@@ -251,7 +333,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
         }
 
-        
+
         CheckScopeBeforeApply();
     }
 
@@ -259,9 +341,11 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     $(window).scroll(function () {
         //var _SearchValue = $.trim($("#MasterSearch").val());
         if ($scope.isviewload == true) {
-            debugger;
+
 
             if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
+
+
 
 
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
@@ -318,9 +402,6 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
             $scope.SecurityToken = authData.token;
         }
 
-
-
-
         $.ajax
            ({
                type: "POST",
@@ -331,20 +412,24 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                success: function (response) {
 
 
-                   
+
 
                    if (response.GetCustomFieldsDataResult.Success == true) {
 
                        $scope.CustomItemDataList = response.GetCustomFieldsDataResult.Payload;
+
+
+                       console.log("$scope.CustomItemDataList");
+                       console.log($scope.CustomItemDataList);
 
                    }
                    else {
                        $scope.ShowErrorMessage("Custom column's data", 1, 1, response.GetCustomFieldsDataResult.Message)
 
                    }
-                  
 
-                      
+
+
 
                    CheckScopeBeforeApply();
                },
@@ -359,13 +444,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
     // get custom field according to given id
     $scope.GetCustomFieldByID = function (ID) {
-        
         for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            if($scope.CustomItemDataList[i].cfdID==ID)
-            {
+            if ($scope.CustomItemDataList[i].cfdID == ID) {
                 return $scope.CustomItemDataList[i].ColumnMap;
             }
-
         }
     }
 
@@ -391,37 +473,201 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     });
 
 
+    // Function to get all active unit data fields.
+
+    $scope.GetActiveUnitDataField = function () {
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetActiveUnitDataFields',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'text json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+
+                   if (response.GetActiveUnitDataFieldsResult.Success == true) {
+                       $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
+
+                       console.log("List of active unitdata fields");
+                       console.log($scope.UnitDataList);
+
+
+                       if ($scope.UnitDataList.length > 0) {
+                           for (var i = 0; i < $scope.UnitDataList.length; i++) {
+                               if ($.trim($scope.UnitDataList[i].FieldCombovalues) != "") {
+                                   $scope.UnitDataFieldCombovalues = $scope.UnitDataList[i].FieldCombovalues.split("\n");
+                               }
+
+                               if ($.trim($scope.UnitDataList[i].FieldRadioValues) != "") {
+                                   $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                               }
+                           }
+
+                       }
+                       else {
+                       }
+
+
+
+
+
+                       CheckScopeBeforeApply()
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Active unit data columns", 1, 1, response.GetActiveUnitDataFieldsResult.Message)
+
+                   }
+
+               },
+               error: function (err, textStatus, errorThrown) {
+                   if (err.readyState == 0 || err.status == 0) {
+
+                   }
+                   else {
+                       if (textStatus != "timeout") {
+                           //log.error(response.statusText);
+                           $scope.ShowErrorMessage("Active unit data columns", 2, 1, err.statusText);
+                       }
+                   }
+
+               }
+           });
+    }
+
+
+    $scope.getComboValues = function (FieldName) {
+
+
+
+        if ($scope.UnitDataList.length > 0) {
+            for (var i = 0; i < $scope.UnitDataList.length; i++) {
+
+                if ($scope.UnitDataList[i].FieldName == FieldName) {
+                    if ($.trim($scope.UnitDataList[i].FieldComboValues) != "") {
+                        $scope.UnitDataFieldCombovalues = $scope.UnitDataList[i].FieldComboValues.split("\n");
+                        return $scope.UnitDataFieldCombovalues;
+                    }
+                    if ($.trim($scope.UnitDataList[i].FieldRadioValues) != "") {
+                        $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                        return $scope.UnitDataFieldRadioValues;
+                    }
+                }
+            }
+        }
+        else {
+        }
+    }
+
+
+    // Function to get special type of unit data fields.
+
+    $scope.getUnitSpecialType = function (FieldName) {
+
+        if ($scope.UnitDataList.length > 0) {
+            for (var i = 0; i < $scope.UnitDataList.length; i++) {
+                if ($scope.UnitDataList[i].FieldName == FieldName) {
+                    return $scope.UnitDataList[i].FieldSpecialType;
+                }
+            }
+
+        }
+        else {
+        }
+    }
+
+
+    // Function to get cfdspecial type for Custom Field
+
+    $scope.getCustomSpecialType = function (FieldName) {
+        //debugger;
+        if ($scope.CustomItemDataList.length > 0) {
+            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+                var type = "";
+                var Map = "";
+                if (FieldName.includes("t_")) {
+                    type = "inventory";
+                    Map = FieldName.substring(2);
+                }
+                else {
+                    type = "part";
+                    Map = FieldName;
+                }
+
+
+                if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
+                    return $scope.CustomItemDataList[i];
+                }
+            }
+        }
+        else {
+        }
+    }
+
+
+
     // Get custom column name by map
     $scope.GetCustomFieldNameByMap = function (ID) {
         var _return = "N/A";
-        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            if ($scope.CustomItemDataList[i].ColumnMap == ID) {
-                return $scope.CustomItemDataList[i].cfdName;
-            }
-
+        var type = "";
+        var Map = "";
+        if (ID.includes("t_")) {
+            type = "inventory";
+            Map = ID.substring(2);
         }
-
+        else {
+            type = "part";
+            Map = ID;
+        }
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
+                //if ($scope.CustomItemDataList[i].cfdDataType == "checkbox") {
+                //    return "";
+                //}
+                //else
+                //{
+                return $scope.CustomItemDataList[i].cfdName;
+                //}                
+            }
+        }
         return _return;
     }
 
-    // Get custom column name by ID
-    $scope.GetCustomFieldTypeByID=function(ID)
-    {
-        var _return = "N/A";
-        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            if ($scope.CustomItemDataList[i].ColumnMap == ID) {
-                return $scope.CustomItemDataList[i].cfdDataType;
-            }
 
+
+    // Get custom column name by ID
+    $scope.GetCustomFieldTypeByID = function (ID) {
+
+        var type = "";
+        var Map = "";
+        if (ID.includes("t_")) {
+            type = "inventory";
+            Map = ID.substring(2);
+        }
+        else {
+            type = "part";
+            Map = ID;
         }
 
+
+
+        var _return = "N/A";
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
+                return $scope.CustomItemDataList[i].cfdDataType;
+            }
+        }
         return _return;
     }
 
     // Get image path of operator
-    $scope.GetImagePath=function(Operator)
-    {
-         
+    $scope.GetImagePath = function (Operator) {
+
         var path = "img/filter/";
         var _returnPath = "img/filter/EqualTo.gif"
         switch (Operator) {
@@ -460,46 +706,45 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // Get cell's data according to column name and index
-   $scope.GetCellData=function(columnName, Index,isCalculated) {
-       var _ID = TryParseInt(columnName, 0);
-       if (_ID != 0)
-       {
-           columnName = $scope.GetCustomFieldByID(_ID);
-       }
-       var _Tempcolumnname = columnName;
-       if (isCalculated == true)
-       {
-           columnName="Calculated"
-       }
+    $scope.GetCellData = function (columnName, Index, isCalculated) {
 
-       switch (columnName) {
-           case "Calculated":
-               var _valueData = "";
-               if ($scope.InventoryList[Index].CustomData != null && $scope.InventoryList[Index].CustomData != undefined)
-                   for (var i = 0; i < $scope.InventoryList[Index].CustomData.length; i++) {
-                       if( $scope.InventoryList[Index].CustomData[i].Key==_Tempcolumnname)
-                       {
-                           
-                           _valueData = $scope.InventoryList[Index].CustomData[i].Value;
-                           break;
-                       }
-               }
-               return _valueData;
-               break;
-               
-           case "iLastAction":
-               return $scope.InventoryList[Index].iLastAction != null ? $scope.InventoryList[Index].iLastAction : "";
-               break;
-           case "pTargetQty":
-               return $scope.InventoryList[Index].pTargetQty != null ? $scope.InventoryList[Index].pTargetQty : "";
-               break;
-           case "pReorderQty":
-               return $scope.InventoryList[Index].pReorderQty != null ? $scope.InventoryList[Index].pReorderQty : "";
-               break;
-           case "ExtendedCost":
+        //debugger;
+        var _ID = TryParseInt(columnName, 0);
+        if (_ID != 0) {
+            columnName = $scope.GetCustomFieldByID(_ID);
+        }
+        var _Tempcolumnname = columnName;
+        if (isCalculated == true) {
+            columnName = "Calculated"
+        }
 
-               return $scope.InventoryList[Index].ExtendedCost != null ? $scope.InventoryList[Index].ExtendedCost : "";
-               break;
+        switch (columnName) {
+            case "Calculated":
+                var _valueData = "";
+                if ($scope.InventoryList[Index].CustomData != null && $scope.InventoryList[Index].CustomData != undefined)
+                    for (var i = 0; i < $scope.InventoryList[Index].CustomData.length; i++) {
+                        if ($scope.InventoryList[Index].CustomData[i].Key == _Tempcolumnname) {
+
+                            _valueData = $scope.InventoryList[Index].CustomData[i].Value;
+                            break;
+                        }
+                    }
+                return _valueData;
+                break;
+
+            case "iLastAction":
+                return $scope.InventoryList[Index].iLastAction != null ? $scope.InventoryList[Index].iLastAction : "";
+                break;
+            case "pTargetQty":
+                return $scope.InventoryList[Index].pTargetQty != null ? $scope.InventoryList[Index].pTargetQty : "";
+                break;
+            case "pReorderQty":
+                return $scope.InventoryList[Index].pReorderQty != null ? $scope.InventoryList[Index].pReorderQty : "";
+                break;
+            case "ExtendedCost":
+
+                return $scope.InventoryList[Index].ExtendedCost != null ? $scope.InventoryList[Index].ExtendedCost : "";
+                break;
             case "pPart":
 
                 return $scope.InventoryList[Index].pPart != null ? $scope.InventoryList[Index].pPart : "";
@@ -672,22 +917,95 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                 break;
 
             case "bool_1":
-                return $scope.InventoryList[Index].bool_1 != null ? $scope.InventoryList[Index].bool_1 : "";
+
+                if ($scope.InventoryList[Index].bool_1 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_1 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_1 != null ? $scope.InventoryList[Index].bool_1 : "";
                 break;
             case "bool_2":
-                return $scope.InventoryList[Index].bool_2 != null ? $scope.InventoryList[Index].bool_2 : "";
+                if ($scope.InventoryList[Index].bool_2 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_2 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_2 != null ? $scope.InventoryList[Index].bool_2 : "";
                 break;
             case "bool_3":
-                return $scope.InventoryList[Index].bool_3 != null ? $scope.InventoryList[Index].bool_3 : "";
+                if ($scope.InventoryList[Index].bool_3 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_3 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_3 != null ? $scope.InventoryList[Index].bool_3 : "";
                 break;
             case "bool_4":
-                return $scope.InventoryList[Index].bool_4 != null ? $scope.InventoryList[Index].bool_4 : "";
+                if ($scope.InventoryList[Index].bool_4 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_4 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_4 != null ? $scope.InventoryList[Index].bool_4 : "";
                 break;
             case "bool_5":
-                return $scope.InventoryList[Index].bool_5 != null ? $scope.InventoryList[Index].bool_5 : "";
+                if ($scope.InventoryList[Index].bool_5 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_5 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_5 != null ? $scope.InventoryList[Index].bool_5 : "";
                 break;
             case "bool_6":
-                return $scope.InventoryList[Index].bool_6 != null ? $scope.InventoryList[Index].bool_6 : "";
+                if ($scope.InventoryList[Index].bool_6 != null) {
+                    for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                        if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                            if ($scope.InventoryList[Index].bool_6 == true) {
+                                return $scope.CustomItemDataList[i].cfdTruelabel;
+                            }
+                            else {
+                                return $scope.CustomItemDataList[i].cfdFalselabel;
+                            }
+                        }
+                    }
+                }
+                //return $scope.InventoryList[Index].bool_6 != null ? $scope.InventoryList[Index].bool_6 : "";
                 break;
 
             case "date_1":
@@ -721,46 +1039,45 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
             default:
                 return "N/A";
         }
-   }
+    }
 
     // show and hide more div
-   $scope.ShowHideDiv = function (id) {
-       var _id = "#row_" + id.toString();
-       var _iconID = "#icon_" + id.toString();
-       var _beforePos = $(_id).css("height").replace("px", "");
-       var _afterPos = $(_id).css("height").replace("px", "");
-       var _isOpen = false;
-       if ($(_iconID).hasClass("fa-chevron-up")) {
-           _isOpen = true;
-           $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-           $(_id).find(".Celldata").removeClass("overflowtext");
-       }
-       else {
-           _isOpen = false;
-           $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-           $(_id).find(".Celldata").addClass("overflowtext");
-       }
+    $scope.ShowHideDiv = function (id) {
+        var _id = "#row_" + id.toString();
+        var _iconID = "#icon_" + id.toString();
+        var _beforePos = $(_id).css("height").replace("px", "");
+        var _afterPos = $(_id).css("height").replace("px", "");
+        var _isOpen = false;
+        if ($(_iconID).hasClass("fa-chevron-up")) {
+            _isOpen = true;
+            $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+            $(_id).find(".Celldata").removeClass("overflowtext");
+        }
+        else {
+            _isOpen = false;
+            $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+            $(_id).find(".Celldata").addClass("overflowtext");
+        }
+        $(_id).find(".ExtraTr").toggle("slow");
+        _afterPos = $(_id).css("height");
 
-       $(_id).find(".ExtraTr").toggle("slow");
-       _afterPos = $(_id).css("height");
 
+        var _afterPosPx = parseInt(_afterPos);
+        var _beforePosPx = parseInt(_beforePos);
+        var _currentIconpos = $(_iconID).parent().css("margin-top").replace("px", "");
+        var _currentPosition = parseInt(_currentIconpos) + (_afterPosPx - _beforePosPx);
+        if (_isOpen) {
+            $(_iconID).parent().css("margin-top", _currentPosition.toString() + "px");
 
-       var _afterPosPx = parseInt(_afterPos);
-       var _beforePosPx = parseInt(_beforePos);
-       var _currentIconpos = $(_iconID).parent().css("margin-top").replace("px", "");
-       var _currentPosition = parseInt(_currentIconpos) + (_afterPosPx - _beforePosPx);
-       if (_isOpen) {
-           $(_iconID).parent().css("margin-top", _currentPosition.toString() + "px");
+        }
+        else {
+            setTimeout(function () {
+                $(_iconID).parent().css("margin-top", "70px");
 
-       }
-       else {
-           setTimeout(function () {
-               $(_iconID).parent().css("margin-top", "70px");
+            }, 370);
 
-           }, 370);
-
-       }
-   }
+        }
+    }
 
     // get inventory view's list
     $scope.GetInventoryViews = function () {
@@ -776,9 +1093,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
               data: JSON.stringify({ SecurityToken: $scope.SecurityToken, Type: 1 }),
               contentType: 'application/json',
               dataType: 'json',
-              success: function (response)
-              {
-                  debugger;
+              success: function (response) {
 
                   if (response.GetAllViewsResult.Success == true) {
                       $scope.InventoryViews = response.GetAllViewsResult.Payload;
@@ -789,13 +1104,13 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
                   }
                   $scope.isDataLoading = true;
-              $scope.$apply();
+                  $scope.$apply();
               },
               error: function (err) {
                   $scope.isDataLoading = true;
                   $scope.ShowErrorMessage("Getting current inventory reports", 2, 1, err.statusText);
 
-                 $scope.$apply();
+                  $scope.$apply();
 
               }
           });
@@ -803,7 +1118,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // get view detail
-    $scope.viewdetail = function(viewname) {
+    $scope.viewdetail = function (viewname) {
         $scope.isviewload = true;
         $scope.CurrentView = viewname;
         $scope.FilterArray = [];
@@ -811,7 +1126,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // show view
-    $scope.showview = function() {
+    $scope.showview = function () {
         $scope.isviewload = false;
         $scope.CurrentView = { Name: "Current Inventory" };
     }
@@ -825,25 +1140,26 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
     // This function assign selected view to load accordingly
 
-    $scope.AssignCurrentView=function(view)
-    {
+    $scope.AssignCurrentView = function (view) {
+        debugger;
         $scope.CurrentView = view;
         $scope.FilterArray = [{ ColumnName: "", FilterOperator: "", SearchValue: "" }];
         CheckScopeBeforeApply();
         $scope.GetInventoryDataAccordingToView();
     }
 
-    
+
     $scope.showfilter = function () {
         $("#filtermodal").modal("show")
     }
 
-    $scope.ClearImageFilter=function()
-    {
+    $scope.ClearImageFilter = function () {
         $scope.HasImage = "";
 
         CheckScopeBeforeApply();
     }
+
+
     function GetColumnDataType(ColumnName) {
 
         for (var i = 0; i < $scope.Columns.length; i++) {
@@ -876,9 +1192,21 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     function ConvertToProperFilter(_Filters) {
         if (_Filters != null && _Filters != undefined && _Filters.length != 0) {
             for (var i = 0; i < _Filters.length; i++) {
-                switch (GetColumnDataType(_Filters[i].ColumnName)) {
+                switch ($scope.GetColumnDataType(_Filters[i].ColumnName)) {
                     case "Decimal":
+                    case "decimal":
+                        if ($.trim(_Filters[i].SearchValue) != "") {
+
+                            _Filters[i].SearchValue = parseFloat(_Filters[i].SearchValue);
+                        }
+                        break;
+                    case "Number":
                     case "number":
+                        if ($.trim(_Filters[i].SearchValue) != "") {
+
+                            _Filters[i].SearchValue = parseFloat(_Filters[i].SearchValue);
+                        }
+                        break;
                     case "currency":
                         if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && $.trim(_Filters[i].SearchValue) != "") {
 
@@ -889,31 +1217,48 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                     case "datetime":
                         _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
                         break;
+                    case "checkbox":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
                     default:
-
-
                 }
 
             }
 
             $scope.FilterArray = _Filters;
+
+
+            console.log("$scope.MyFilterArray");
+            console.log($scope.FilterArray);
         }
 
 
         CheckScopeBeforeApply();
     }
 
+
+    function ChangeBooleanOperator() {
+        debugger;
+        for (var i = 0; i < $scope.FilterArray.length ; i++) {
+            if ($scope.FilterArray[i].ColumnName.includes("bool")) {
+                $scope.FilterArray[i].FilterOperator = 'bool';
+            }
+        }
+
+        console.log("Filter Array after changing the boolean operator");
+        console.log($scope.FilterArray);
+    }
+
+
+
+
     // get data according to selected view 
-    $scope.GetInventoryDataAccordingToView=function()
-    {
+    $scope.GetInventoryDataAccordingToView = function () {
         ShowGlobalWaitingDiv();
         var count = 0;
         var timer = setInterval(function () {
             count = count + 1;
-
-
             if (count > 7) {
-
 
                 $("#mysmallModalWaiting span").html("Server still processing, almost there..");
 
@@ -924,12 +1269,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
             }
             else if (count > 1) {
+
                 $("#mysmallModalWaiting span").html("Backend processing in progress..");
 
             }
-
-
-
 
         }, 1000);
         $scope.isDataLoading = false;
@@ -942,53 +1285,94 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         if ($scope.CurrentView != undefined) {
 
 
-            if ($scope.FilterData.SearchValue != undefined && $.trim($scope.FilterData.SearchValue) != "")
-            {
+            if ($scope.FilterData.SearchValue != undefined && $.trim($scope.FilterData.SearchValue) != "") {
 
             }
             else {
                 $scope.FilterData.SearchValue = "";
             }
+
+            //debugger;
+
+            for (var i = 0 ; i < $scope.FilterArray.length ; i++) {
+                var fieldSpecialType = $scope.getCustomSpecialType($scope.FilterArray[i].ColumnName);
+                if (fieldSpecialType != undefined) {
+                    if ($.trim($scope.FilterArray[i].SearchValue) != "") {
+                        if (fieldSpecialType.cfdSpecialType == 2) {
+                            // For DateTime Fields
+                        }
+                        if (fieldSpecialType.cfdSpecialType == 3) {
+                            // For Time Fields
+
+                            $scope.FilterArray[i].SearchValue = "1990-01-01T" + $scope.FilterArray[i].SearchValue;
+                        }
+                    }
+                }
+            }
+
+
             $.ajax
               ({
                   type: "POST",
                   url: serviceBase + 'GetCurrentInventoriesNew',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, HasImage:$scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
+
+
+
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
 
                       if (response.GetCurrentInventoriesNewResult.Success == true) {
-                     
-                      
-                      _TotalRecordsCurrent = response.GetCurrentInventoriesNewResult.Payload[0].Data.length;
-                      $scope.currentrecord = response.GetCurrentInventoriesNewResult.Payload[0].Data.length;
-                      $scope.InventoryList = response.GetCurrentInventoriesNewResult.Payload[0].Data;
-                      $scope.totalrecords = response.GetCurrentInventoriesNewResult.Payload[0].TotalRercords;
-                      $scope.Columns = response.GetCurrentInventoriesNewResult.Payload[0].Columns;
-                      $scope.ActualTotalRecords = response.GetCurrentInventoriesNewResult.Payload[0].ActualTotalRecords;
-                      //$scope.FilterArray = response.GetCurrentInventoriesNewResult.Payload[0].Filters;
-                      ConvertToProperFilter(response.GetCurrentInventoriesNewResult.Payload[0].Filters);
-                      CheckScopeBeforeApply();
-                      // FillFilterArray();
-                      UpdateFilterArray();
+
+
+                          _TotalRecordsCurrent = response.GetCurrentInventoriesNewResult.Payload[0].Data.length;
+                          $scope.currentrecord = response.GetCurrentInventoriesNewResult.Payload[0].Data.length;
+                          $scope.InventoryList = response.GetCurrentInventoriesNewResult.Payload[0].Data;
+                          $scope.totalrecords = response.GetCurrentInventoriesNewResult.Payload[0].TotalRercords;
+                          $scope.Columns = response.GetCurrentInventoriesNewResult.Payload[0].Columns;
+                          $scope.ActualTotalRecords = response.GetCurrentInventoriesNewResult.Payload[0].ActualTotalRecords;
+                          ConvertToProperFilter(response.GetCurrentInventoriesNewResult.Payload[0].Filters);
+                          CheckScopeBeforeApply();
+
+                          ChangeBooleanOperator();
+
+                          //FillFilterArray();
+                          UpdateFilterArray();
+
+
+                          console.log("$scope.Columns");
+                          console.log($scope.Columns);
 
                       }
                       else {
+
                           $scope.ShowErrorMessage("Current Inventory Data", 1, 1, response.GetCurrentInventoriesNewResult.Message)
 
                       }
 
                   },
                   error: function (err) {
+
+
+
+                      alert("Error");
+
                       console.log(err);
                       $scope.ShowErrorMessage("Current Inventory Data", 2, 1, err.statusText);
 
                       $scope.isDataLoading = true;
+                      _IsLazyLoadingUnderProgress = 0;
+                      $scope.isDataLoading = true;
+                      HideGlobalWaitingDiv();
+                      clearInterval(timer);
+                      $scope.loadingblock = false;
                   },
                   complete: function () {
+
+
                       _IsLazyLoadingUnderProgress = 0;
                       $scope.isDataLoading = true;
                       HideGlobalWaitingDiv();
@@ -998,15 +1382,14 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                       onSwipeDown();
                   }
               });
-             }
-         }
+        }
+    }
 
     // whether the column is available or not according to columnid
-    $scope.IsAvailableColumn=function(column)
-    {
+    $scope.IsAvailableColumn = function (column) {
         for (var i = 0; i < $scope.Columns.length; i++) {
             if ($scope.Columns[i].ColumnID == column) {
-                
+
                 return true;
             }
 
@@ -1047,7 +1430,6 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
                    $scope.ShowErrorMessage("Unit of Measure list", 2, 1, err.statusText);
 
-
                }
            });
 
@@ -1086,7 +1468,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
            });
 
     }
-    
+
     $scope.OpenmenuModal = function () {
 
         if ($("body").hasClass("modal-open")) {
@@ -1121,7 +1503,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         var _tempCol = _sortColumn;
 
         _sortColumn = sortby;
-      
+
         if (_tempCol == _sortColumn) {
             _sortDir = ToggleSortDir(_sortDir);
             $scope.sortDir = _sortDir;
@@ -1134,13 +1516,13 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     function init() {
+        $scope.GetActiveUnitDataField();
         $scope.getuom();
         $scope.getstatus();
         $scope.GetInventoryViews();
-        $scope.GetCustomDataField(0);
+        $scope.GetCustomDataField(2);
         CheckScopeBeforeApply();
-      
-    
+
     }
 
     $scope.OpenImageModal = function (Object, Name) {
@@ -1185,6 +1567,7 @@ app.directive('bootstrapSwitch', [
         }
 ]);
 
+
 app.directive('customSwipe', [
       function () {
           return {
@@ -1193,14 +1576,10 @@ app.directive('customSwipe', [
               link: function (scope, element, attrs, ngModel) {
                   $(element).swipe({
                       swipe: function (event, direction, distance, duration, fingerCount) {
-                          //This only fires when the user swipes left
 
                           setTimeout(function () {
 
                               element.find("input").trigger("click");
-
-
-
 
                           }, 10)
                       },

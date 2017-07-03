@@ -21,6 +21,16 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     var _masterSearch = "";
     $scope.loadingblock = false;
     $scope.HasImage = "";
+
+
+    $scope.weeklist = [];
+
+    $scope.CurrentYear = new Date().getFullYear();
+
+    for (var i = 1; i <= 52; i++) {
+        $scope.weeklist.push(i);
+    }
+
     function getIncrementor(_Total) {
         if (_Total <= 100) {
             return 10;
@@ -80,6 +90,9 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
             case "decimal":
             case "money":
                 return "num-eq";
+                break;
+            case "bool":
+                return "bool";
                 break;
 
 
@@ -180,6 +193,43 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
         }
     }
 
+    $scope.getCustomSpecialType = function (FieldName) {
+        debugger;
+        var type = "";
+        var Map = "";
+
+        type = "part";
+        Map = FieldName;
+        if ($scope.CustomItemDataList.length > 0) {
+            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            
+
+
+                if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType.toLowerCase() == type) {
+                    return $scope.CustomItemDataList[i];
+                }
+            }
+        }
+        else {
+        }
+    }
+
+    // Get Column type according to column name
+    $scope.getColumnType = function (ColumnName) {
+
+        var ColumnType = "system"
+        var _column = $scope.getCustomSpecialType(ColumnName);
+        if (_column != undefined) {
+
+            for (var i = 0; i < $scope.Columns.length; i++) {
+                if ($scope.Columns[i].ColumnID == _column.cfdID) {
+                    ColumnType = $scope.Columns[i].ColumnType.toLowerCase();
+                    return ColumnType;
+                }
+            }
+        }
+        return ColumnType;
+    }
     $scope.GetColumnDataType=function(ColumnName)
     {
         var DataType=""
@@ -416,6 +466,43 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     }
 
     
+    $scope.GetBooleabData = function (ColumnName) {
+        debugger;
+
+
+        var BooeanArray = [];
+
+        var type = "";
+        var Map = "";
+        if (ColumnName.includes("t_")) {
+            type = "inventory";
+            Map = ColumnName.substring(2);
+        }
+        else {
+            type = "part";
+            Map = ColumnName;
+        }
+
+        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+            if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
+                BooeanArray.push($scope.CustomItemDataList[i].cfdTruelabel);
+                BooeanArray.push($scope.CustomItemDataList[i].cfdFalselabel);
+            }
+        }
+
+        return BooeanArray;
+    }
+
+
+
+
+
+
+
+
+
+
+
    $scope.GetCellData=function(columnName, Index,isCalculated) {
        var _ID = TryParseInt(columnName, 0);
        if (_ID != 0)
@@ -608,23 +695,95 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
                 return $scope.ItemList[Index].number_12 != null ? ChangeIntoNumberFormat($scope.ItemList[Index].number_12) : "";
                 break;
 
-            case "bool_1":
-                return $scope.ItemList[Index].bool_1 != null ? $scope.ItemList[Index].bool_1 : "";
+           case "bool_1":
+               if ($scope.ItemList[Index].bool_1 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_1 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_1 != null ? $scope.ItemList[Index].bool_1 : "";
                 break;
-            case "bool_2":
-                return $scope.ItemList[Index].bool_2 != null ? $scope.ItemList[Index].bool_2 : "";
+           case "bool_2":
+               if ($scope.ItemList[Index].bool_2 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_2 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_2 != null ? $scope.ItemList[Index].bool_2 : "";
                 break;
-            case "bool_3":
-                return $scope.ItemList[Index].bool_3 != null ? $scope.ItemList[Index].bool_3 : "";
+           case "bool_3":
+               if ($scope.ItemList[Index].bool_3 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_3 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_3 != null ? $scope.ItemList[Index].bool_3 : "";
                 break;
-            case "bool_4":
-                return $scope.ItemList[Index].bool_4 != null ? $scope.ItemList[Index].bool_4 : "";
+           case "bool_4":
+               if ($scope.ItemList[Index].bool_4 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_4 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_4 != null ? $scope.ItemList[Index].bool_4 : "";
                 break;
-            case "bool_5":
-                return $scope.ItemList[Index].bool_5 != null ? $scope.ItemList[Index].bool_5 : "";
+           case "bool_5":
+               if ($scope.ItemList[Index].bool_5 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_5 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_5 != null ? $scope.ItemList[Index].bool_5 : "";
                 break;
-            case "bool_6":
-                return $scope.ItemList[Index].bool_6 != null ? $scope.ItemList[Index].bool_6 : "";
+           case "bool_6":
+               if ($scope.ItemList[Index].bool_6 != null) {
+                   for (var i = 0 ; $scope.CustomItemDataList.length ; i++) {
+                       if ($scope.CustomItemDataList[i].cfdID == _ID) {
+                           if ($scope.ItemList[Index].bool_6 == true) {
+                               return $scope.CustomItemDataList[i].cfdTruelabel;
+                           }
+                           else {
+                               return $scope.CustomItemDataList[i].cfdFalselabel;
+                           }
+                       }
+                   }
+               }
+                //return $scope.ItemList[Index].bool_6 != null ? $scope.ItemList[Index].bool_6 : "";
                 break;
 
             case "date_1":
@@ -756,6 +915,8 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     $scope.showfilter = function () {
         $("#filtermodal").modal("show")
     }
+
+
     function GetColumnDataType(ColumnName) {
 
         for (var i = 0; i < $scope.Columns.length; i++) {
@@ -790,6 +951,7 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
             for (var i = 0; i < _Filters.length; i++) {
                 switch (GetColumnDataType(_Filters[i].ColumnName)) {
                     case "Decimal":
+                    case "decimal":
                     case "number":
                     case "currency":
                         if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && $.trim(_Filters[i].SearchValue) != "") {
@@ -814,6 +976,29 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
 
         CheckScopeBeforeApply();
     }
+
+
+    function ChangeBooleanOperator() {
+        debugger;
+        for (var i = 0; i < $scope.FilterArray.length ; i++) {
+            if ($scope.FilterArray[i].ColumnName.includes("bool")) {
+                $scope.FilterArray[i].FilterOperator = 'bool';
+            }
+        }
+
+        console.log("Filter Array after changing the boolean operator");
+        console.log($scope.FilterArray);
+    }
+
+
+
+
+
+
+
+
+
+
     $scope.GetItemsDataAccordingToView=function()
     {
         
@@ -861,6 +1046,22 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
             }, 1000);
             $scope.isDataLoading = false;
 
+            for (var i = 0 ; i < $scope.FilterArray.length ; i++) {
+                var fieldSpecialType = $scope.getCustomSpecialType($scope.FilterArray[i].ColumnName);
+                if (fieldSpecialType != undefined) {
+                    if ($.trim($scope.FilterArray[i].SearchValue) != "") {
+                        if (fieldSpecialType.cfdSpecialType == 2) {
+                            // For DateTime Fields
+                        }
+                        if (fieldSpecialType.cfdSpecialType == 3) {
+                            // For Time Fields
+
+                            $scope.FilterArray[i].SearchValue = "1990-01-01T" + $scope.FilterArray[i].SearchValue;
+                        }
+                    }
+                }
+            }
+
 
             $.ajax
               ({
@@ -883,10 +1084,13 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
                       $scope.Columns = response.GetAllItemsResult.Payload[0].Columns;
                       $scope.ActualTotalRecords = response.GetAllItemsResult.Payload[0].ActualTotalRecords;
                       //$scope.FilterArray = response.GetAllItemsResult.Payload[0].Filters;
-
                       ConvertToProperFilter(response.GetAllItemsResult.Payload[0].Filters);
                       CheckScopeBeforeApply();
-                      // FillFilterArray();
+
+                      ChangeBooleanOperator();
+
+                          //FillFilterArray();
+
                       UpdateFilterArray();
 
                       }
