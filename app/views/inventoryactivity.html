@@ -726,6 +726,20 @@
 </script>
 <script>
 
+
+
+    var allSelectElements = document.getElementsByTagName('select');
+    for (var i = 0; i < allSelectElements.length; i++) {
+        allSelectElements[i].addEventListener('touchstart', function (e) {
+            //This is the important line
+            e.stopPropagation();
+        }, false);
+    }
+
+
+
+
+
     var offset = 50;
     //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
     var offset_opacity = 1200;
