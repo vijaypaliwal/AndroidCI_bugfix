@@ -1726,6 +1726,50 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         return today;
     }
+
+    function ConverttoMsJsonDateTime(_DateValue) {
+
+
+        var _date = angular.copy(_DateValue);
+
+        var dsplit1 = _date.split("/");
+
+        var _timeSplit = dsplit1[2].split(" ");
+
+        var _timeString = _timeSplit[1].split(":");
+
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? _timeString[0] : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today + _ToMergeTime;
+    }
+
+    function ConvertToTime(_timeValue) {
+
+        if ($.trim(_timeValue) != "") {
+
+            var _timeSplit = _timeValue.split(" ");
+            var _timeString = _timeSplit[0].split(":");
+
+            var _ToMergeTime = (_timeSplit[1] == "AM" ? _timeString[0] : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+            return _ToMergeTime;
+        }
+
+        return "";
+
+    }
+
+    function leadZero(_something) {
+        if (parseInt(_something) < 10 && _something.indexOf("0") > 0) return "0" + _something;
+        return _something;//else    
+    }
     $scope.CheckCustomFields = function (Type) {
         var _returnVar = false;
         switch (Type) {
