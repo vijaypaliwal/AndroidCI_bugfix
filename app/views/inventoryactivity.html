@@ -306,11 +306,32 @@
                                     </ul>
 
                                 </span>
-                                <select ng-if="_obj.ColumnName=='itStatusValue'" ng-model="_obj.SearchValue" class="form-control">
-                                    <option value="">Choose Status</option>
-                                    <option value="{{obj.StatusValue}}" ng-selected="obj.StatusValue==_obj.SearchValue" ng-repeat="obj in StatusList">{{obj.StatusValue}}</option>
-                                </select>
+                                <div ng-if="_obj.ColumnName=='itStatusValue'">
+
+
+                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                        {{_obj.SearchValue}}
+                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                    </div>
+                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                        <li ng-repeat="_optionValue in StatusList">
+                                            <a>
+                                                <table style="width: 100%">
+                                                    <tr>
+                                                        <td ng-click="_obj.SearchValue=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+
+                                        </li>
+
+
+                                    </ul>
+                                </div>
                             </div>
+
 
                             <div class="input-group" ng-if="_obj.ColumnName=='uomUOM'">
 
@@ -325,10 +346,32 @@
                                     </ul>
 
                                 </span>
-                                <select ng-if="_obj.ColumnName=='uomUOM'" ng-model="_obj.SearchValue" class=" form-control">
-                                    <option value="">Choose UOM</option>
-                                    <option value="{{obj.UnitOfMeasureName}}" ng-selected="obj.UnitOfMeasureName==_obj.SearchValue" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
-                                </select>
+
+                                <div ng-if="_obj.ColumnName=='uomUOM'">
+
+
+                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                        {{_obj.SearchValue}}
+                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                    </div>
+                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                        <li ng-repeat="_optionValue in UOMList">
+                                            <a>
+                                                <table style="width: 100%">
+                                                    <tr>
+                                                        <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+
                             </div>
 
                             <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='string' && _obj.ColumnName!='itStatusValue' && _obj.ColumnName!='uomUOM' && _obj.ColumnName!='ParentAction'">
@@ -391,21 +434,77 @@
                                         </div>
                                         <!--DropDown-->
                                         <div ng-if="getUnitSpecialType('ReqValue') == 2">
-                                            <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('ReqValue') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('ReqValue') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+                                            <!--<select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('ReqValue') track by $index" value="{{n}}"> {{n}}</option>
+        </select>-->
                                         </div>
                                         <!--Autocomplete-->
                                         <div ng-if="getUnitSpecialType('ReqValue') == 3">
-                                            <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('ReqValue') track by $index" value="{{CurrentYear-1}}-W{{n}}"> {{n}}</option>
-                                            </select>
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('ReqValue') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
                                         </div>
                                         <!--Radio-->
                                         <div ng-if="getUnitSpecialType('ReqValue') == 12">
-                                            <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('ReqValue') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('ReqValue') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
                                         </div>
 
                                         <!--MonthPicker-->
@@ -437,21 +536,89 @@
 
                                         <!--DropDown-->
                                         <div ng-if="getUnitSpecialType('UnitTag2') == 2">
-                                            <select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag2') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+
+                                            <!--<select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
+        </select>-->
                                         </div>
                                         <!--Autocomplete-->
                                         <div ng-if="getUnitSpecialType('UnitTag2') == 3">
-                                            <select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag2') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+                                            <!--<select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
+        </select>-->
                                         </div>
                                         <!--Radio-->
                                         <div ng-if="getUnitSpecialType('UnitTag2') == 12">
-                                            <select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag2') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue = n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+                                            <!--<select id="UniqueTag2" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag2') track by $index" value="{{n}}"> {{n}}</option>
+        </select>-->
                                         </div>
 
 
@@ -486,21 +653,84 @@
 
                                         <!--DropDown-->
                                         <div ng-if="getUnitSpecialType('UnitTag3') == 2">
-                                            <select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}">{{n}}</option>
-                                            </select>
+
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag3') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue=n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+
+
+                                            <!--<select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}">{{n}}</option>
+        </select>-->
                                         </div>
                                         <!--Autocomplete-->
                                         <div ng-if="getUnitSpecialType('UnitTag3') == 3">
-                                            <select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}"> {{n}}</option>
-                                            </select>
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag3') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue=n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+                                            <!--<select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}"> {{n}}</option>
+        </select>-->
                                         </div>
                                         <!--Radio-->
                                         <div ng-if="getUnitSpecialType('UnitTag3') == 12">
-                                            <select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
-                                                <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}">{{n}}</option>
-                                            </select>
+                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                {{_obj.SearchValue}}
+                                                <i class="caret pull-right" style="margin-top: 8px"></i>
+                                            </div>
+                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                <li ng-repeat="n in getComboValues('UnitTag3') track by $index">
+                                                    <a>
+                                                        <table style="width: 100%">
+                                                            <tr>
+                                                                <td ng-click="_obj.SearchValue=n">{{n}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+
+                                                </li>
+
+
+                                            </ul>
+                                            <!--<select id="UniqueTag3" ng-model="_obj.SearchValue" class="form-control">
+            <option ng-repeat="n in getComboValues('UnitTag3') track by $index" value="{{n}}">{{n}}</option>
+        </select>-->
                                         </div>
 
 
@@ -591,22 +821,29 @@
                                 </div>
                             </div>
 
-                            <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
+                            <div ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
 
-                                <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 
-                                        <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
-                                    </a>
-                                    <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
-                                        <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
-                                        <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
-                                    </ul>
+                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                    {{_obj.SearchValue}}
+                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                </div>
+                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
-                                </span>
-                                <select class="form-control" ng-model="_obj.SearchValue">
-                                    <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}} ></option>
-                                </select>
+
+                                    <li ng-repeat="_data in GetComboData(_obj.ColumnName)">
+                                        <a>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td ng-click="_obj.SearchValue=_data">{{_data}}</td>
+                                                </tr>
+                                            </table>
+                                        </a>
+
+                                    </li>
+
+
+                                </ul>
                             </div>
 
                             <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='checkbox'">
