@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('activityController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
+app.controller('activityController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard', function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard) {
     $scope.CurrentCart = [];
     $scope.SavingData = false;
     $scope.IsEditMode = false;
@@ -45,15 +45,46 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.LocationSearchList = [];
     $scope.LocationList = [];
     $scope.TempLocationID = -1;
-    $scope.CreateNewLabel = "";
 
-     
+    $scope.weeklist = [];
+    var _defaultUnitObj = {
+        AccountID: 0,
+        Active: false,
+        BaseValue: 0,
+        FieldComboValues: null,
+        FieldDataType: "",
+        FieldDefaultAMPM: null,
+        FieldDefaultValue: "",
+        FieldDescription: "test",
+        FieldInputMask: null,
+        FieldLabel: "",
+        FieldName: "",
+        FieldNumberDecimalPlaces: 0,
+        FieldNumberMax: null,
+        FieldNumberMin: null,
+        FieldRadioValues: null,
+        FieldSpecialType: 0,
+        FieldTextMaxLength: 500,
+        FieldTextMultiRow: false,
+        FieldUse24Hours: false,
+        IncrementBy: 1,
+        IsSpecial: true,
+        IsUnique: false,
+        Prefix: "",
+        Suffix: "",
+        TagID: 0
+    }
+    $scope.CurrentYear = new Date().getFullYear();
+
+    for (var i = 1; i <= 52; i++) {
+        $scope.weeklist.push(i);
+    }
 
     function CheckScopeBeforeApply() {
         if (!$scope.$$phase) {
             $scope.$apply();
         }
-    }
+    };
     var mySwiper;
 
     $(".modal-backdrop").remove();
@@ -69,7 +100,30 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
     }
 
+    $scope.CancelEdit = function () {
+        $scope.IsEditMode = false;
+
+        $scope.$apply();
+
+    }
+
+
+    $scope.GetWeekValue = function (year, week) {
+        return year.toString() + "-W" + week.toString();
+    }
+
     $scope.dropdownLabel = "";
+
+    $scope.Addnew = function (ID, FieldType) {
+        $scope.dropdownLabel = "";
+        $scope.FieldType = FieldType;
+        $scope.currentcfdID = ID;
+        CheckScopeBeforeApply();
+
+
+        $("#Adddropdownvalue").modal('show');
+
+    }
 
     $scope.SaveDropdownlabel = function () {
 
@@ -86,17 +140,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             contentType: 'application/json',
             success: function (result) {
 
-             
+                $('#' + $scope.FieldType + $scope.currentcfdID).append('<option value=' + $scope.dropdownLabel + ' selected="selected"> ' + $scope.dropdownLabel + '</option>');
 
 
-                $('#' + $scope.fieldtype + $scope.currentcfdID).append('<option value=' + $scope.dropdownLabel + ' selected="selected"> ' + $scope.dropdownLabel + '</option>');
+                $('#' + $scope.FieldType + $scope.currentcfdID).val($scope.dropdownLabel);
 
-
-                $('#'+ $scope.fieldtype + $scope.currentcfdID).val($scope.dropdownLabel);
-
-              $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, $scope.ActiveIndex);
-
-              CheckScopeBeforeApply();
+                $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, $scope.ActiveIndex);
+                CheckScopeBeforeApply();
 
                 $("#Adddropdownvalue").modal('hide');
 
@@ -105,7 +155,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             error: function (err) {
 
                 alert("error");
-                debugger;
+
 
 
             },
@@ -118,25 +168,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
-    $scope.Addnew = function (ID,Index,FieldType) {
-        $scope.currentcfdID = ID;
-        $scope.ActiveIndex = Index;
-        $scope.fieldtype = FieldType;
-        CheckScopeBeforeApply();
-
-
-        $("#Adddropdownvalue").modal('show');
-
-    }
-
-
-    $scope.CancelEdit = function () {
-        $scope.IsEditMode = false;
-
-        $scope.$apply();
-
-    }
-
 
     $scope.CreateNewModal = function (Type, _index) {
         $scope.CreateType = Type;
@@ -145,7 +176,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         CheckScopeBeforeApply();
         $("#createnewlabel").modal('show');
     }
-
     $scope.checkDuplicate = function (type) {
 
 
@@ -239,7 +269,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
            });
 
     }
-
     $scope.savestatus = function (Statusvalue) {
 
         var _StatusValue = $.trim(Statusvalue);
@@ -405,14 +434,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     }
                 },
                 error: function (err) {
-                    $scope.IsProcessing = false;
                     $scope.ShowErrorMessage("Updating UOM", 2, 1, err.statusText);
 
 
 
                 },
                 complete: function () {
-                    $scope.IsProcessing = false;
                 }
             });
         }
@@ -475,7 +502,197 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
+    function TryParseInt(str, defaultValue) {
+        var retValue = defaultValue;
+        if (str !== null) {
+            if (str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseInt(str);
+                }
+            }
+        }
+        return retValue;
+    }
+    function ConvertDatetoDate(_stringDate) {
+        var today = new Date(_stringDate);
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
 
+        var yyyy = today.getFullYear();
+        if (dd < 10) { dd = '0' + dd }
+        if (mm < 10) { mm = '0' + mm }
+        today = yyyy + '-' + mm + '-' + dd;
+
+        return today;
+    }
+
+
+    $scope.currtrentcustomauto = [];
+
+
+    $scope.customautocomplete = function (ColumnName, id, inventoryid, fieldtype) {
+        $("#customautolistmodal").modal('show');
+
+
+        $scope.adjustid = id;
+
+        if (inventoryid != 'empty') {
+            id = id + '_' + inventoryid;
+        }
+
+       
+
+
+        var _toAppend = fieldtype == "line" ? "LineItem_" : "CustomActivity_"
+
+
+      
+
+
+      
+
+        $scope.activecustomfield = _toAppend + id;
+
+
+        if (inventoryid == 'increase') {
+            $scope.activecustomfield = 'CustomActivityIncrease_' + $scope.adjustid;
+        }
+
+        if (inventoryid == 'decrease') {
+            $scope.activecustomfield = 'CustomActivityDecrease_' + $scope.adjustid;
+        }
+
+
+
+        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+            if ($scope.CustomActivityDataList[i].ColumnMap == ColumnName) {
+                $scope.currtrentcustomauto = $scope.CustomActivityDataList[i].cfdComboValues;
+                break;
+            }
+        }
+
+
+
+    }
+
+
+
+    $scope.fillcustomvalue = function (value) {
+
+     
+
+        $("#" + $scope.activecustomfield).val(value);
+
+        $("#" + $scope.activecustomfield).trigger("input");
+
+
+      //  CustomActivityDecrease_
+
+
+        CheckScopeBeforeApply();
+        $("#customautolistmodal").modal('hide');
+
+    }
+
+    $scope.currtrentcustomradiovalue = [];
+    $scope.customradiolist = function (ColumnName, id, inventoryid, fieldtype) {
+
+
+        if (inventoryid != 'empty') {
+            id = id + '_' + inventoryid;
+        }
+
+
+        $scope.activeradiofield = "CustomActivity_" + id;
+
+        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+            if ($scope.CustomActivityDataList[i].ColumnMap == ColumnName) {
+                $scope.currtrentcustomradiovalue = $scope.CustomActivityDataList[i].cfdRadioValues;
+                break;
+            }
+        }
+
+
+        $("#customradiotextmodal").modal("show");
+    }
+
+    $scope.fillcurrentradiovalue = function (value) {
+
+        $scope.selectedradiovalue = value;
+
+
+
+    }
+
+    $scope.fillvaluetoradio = function () {
+
+        $("#" + $scope.activeradiofield).val($scope.selectedradiovalue);
+
+        $("#" + $scope.activeradiofield).trigger("input");
+
+        $("#customradiotextmodal").modal("hide");
+
+    }
+    $scope.ScanLineItem = function (Type, Id, index, inventoryID) {
+        var _typeString = "";
+        switch (Type) {
+            case 1:
+                _typeString = '#LineItem_';
+                break;
+            case 2:
+                _typeString = '#CustomActivity_';
+                break;
+            case 3:
+                _typeString = '#CustomActivityIncrease_';
+                break;
+            case 4:
+                _typeString = '#CustomActivityDecrease_';
+                break;
+
+        }
+        var _ID = _typeString + Id.toString();
+        var scanner = cordova.plugins.barcodeScanner;
+        scanner.scan(function (result) {
+
+            var _dataType = $(_ID).attr("custom-data-type");
+            var _value = result.text;
+
+            if (_dataType != null && _dataType != undefined) {
+                if (_dataType == "date" || _dataType == "datetime") {
+                    _value = ConvertDatetoDate(_value);
+                }
+
+                if (_dataType == "number" || _dataType == "money" || _dataType == "currency") {
+                    _value = TryParseInt(_value, -9890);
+                    _value = _value == -9890 ? "" : _value;
+                }
+            }
+
+            $(_ID).val(_value);
+            //   $(_ID).trigger("input");
+            switch (Type) {
+                case 1:
+                    for (var i = 0; i < $scope.CurrentCart.length; i++) {
+                        if ($scope.CurrentCart[i].InventoryID == inventoryID) {
+                            $scope.CurrentCart[i].IsLineItemData[index].CfValue = _value;
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    break;
+                default:
+
+            }
+
+            $scope.$apply();
+
+
+        }, function (error) {
+            log.error("Scanning failed: ", error);
+        });
+
+    }
     $scope.UpdateAutoClear = function (autoclearvalue) {
 
         $scope.CustomAutoClear = autoclearvalue;
@@ -523,7 +740,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 }
             }
             $(_ID).val(_value);
-
+            // $(_ID).trigger("input");
 
             for (var i = 0; i < $scope.CurrentCart.length; i++) {
                 if ($scope.CurrentCart[i].InventoryID == inventoryID) {
@@ -606,105 +823,19 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 }
             }
 
-
-
-
-            $scope.$apply();
-           // $(_ID).trigger("input");
             $(".uniqueunitData").first().trigger("blur");
             var $inputs = $(".uniqueunitData");
             $inputs.trigger('blur');
 
-        }, function (error) {
-            log.error("Scanning failed: ", error);
-        });
-
-    }
-
-    function TryParseInt(str, defaultValue) {
-        var retValue = defaultValue;
-        if (str !== null) {
-            if (str.length > 0) {
-                if (!isNaN(str)) {
-                    retValue = parseInt(str);
-                }
-            }
-        }
-        return retValue;
-    }
-    function ConvertDatetoDate(_stringDate) {
-        var today = new Date(_stringDate);
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-
-        var yyyy = today.getFullYear();
-        if (dd < 10) { dd = '0' + dd }
-        if (mm < 10) { mm = '0' + mm }
-        today = yyyy + '-' + mm + '-' + dd;
-
-        return today;
-    }
-    $scope.ScanLineItem = function (Type, Id, index, inventoryID) {
-        var _typeString = "";
-        switch (Type) {
-            case 1:
-                _typeString = '#LineItem_';
-                break;
-            case 2:
-                _typeString = '#CustomActivity_';
-                break;
-            case 3:
-                _typeString = '#CustomActivityIncrease_';
-                break;
-            case 4:
-                _typeString = '#CustomActivityDecrease_';
-                break;
-
-        }
-        var _ID = _typeString + Id.toString();
-        var scanner = cordova.plugins.barcodeScanner;
-        scanner.scan(function (result) {
-
-            var _dataType = $(_ID).attr("custom-data-type");
-            var _value = result.text;
-
-            if (_dataType != null && _dataType != undefined) {
-                if (_dataType == "date" || _dataType == "datetime") {
-                    _value = ConvertDatetoDate(_value);
-                }
-
-                if (_dataType == "number" || _dataType == "money" || _dataType == "currency") {
-                    _value = TryParseInt(_value, -9890);
-                    _value = _value == -9890 ? "" : _value;
-                }
-            }
-
-            $(_ID).val(_value);
-
-            switch (Type) {
-                case 1:
-                    for (var i = 0; i < $scope.CurrentCart.length; i++) {
-                        if ($scope.CurrentCart[i].InventoryID == inventoryID) {
-                            $scope.CurrentCart[i].IsLineItemData[index].CfValue = _value;
-                            break;
-                        }
-                    }
-                    break;
-                case 2:
-                    break;
-                default:
-
-            }
 
             $scope.$apply();
-          //  $(_ID).trigger("input");
+
 
         }, function (error) {
             log.error("Scanning failed: ", error);
         });
 
     }
-
     $scope.selecteditemlist = function () {
 
         $("#selecteditemlistmodal").modal('show');
@@ -719,7 +850,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         $("#menu1").hide()
 
+
     }
+
+
+
     //#region Check unit data area
     $scope.CheckIsAllowDuplicate = function (ColumnName) {
         for (var i = 0; i < $scope.UnitDataList.length; i++) {
@@ -749,7 +884,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
 
-                                debugger;
+
                                 if (CheckUnitDataDuplicate(ColumnName, value) == false) {
                                     _Count = _Count * 0;
                                 }
@@ -1216,6 +1351,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
     }
+    $scope.GetUnitDataFieldByName = function (Name) {
+        for (var i = 0; i < $scope.UnitDataList.length; i++) {
+            if ($scope.UnitDataList[i].FieldName == Name) {
+                return $scope.UnitDataList[i];
+            }
+
+        }
+        return _defaultUnitObj;
+    }
     $scope.GetActiveUnitDataField = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -1232,7 +1376,21 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                success: function (response) {
                    if (response.GetActiveUnitDataFieldsResult.Success == true) {
                        $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
-                       CheckScopeBeforeApply()
+
+                       for (var i = 0; i < $scope.UnitDataList.length; i++) {
+                           var _ComboValues = angular.copy($.trim($scope.UnitDataList[i].FieldComboValues));
+                           var _RadioValues = angular.copy($.trim($scope.UnitDataList[i].FieldRadioValues));
+                           if (_ComboValues != "") {
+                               $scope.UnitDataList[i].FieldComboValues = _ComboValues.split("\n");
+                           }
+
+                           if (_RadioValues != "") {
+                               $scope.UnitDataList[i].FieldRadioValues = _RadioValues.split(" ");
+                           }
+
+                       }
+
+                       CheckScopeBeforeApply();
                    }
                    else {
                        $scope.ShowErrorMessage("Active unit data columns", 1, 1, response.GetActiveUnitDataFieldsResult.Message)
@@ -1291,24 +1449,33 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         return _returnVar;
     }
+
     //#endregion check unit data
 
 
 
     $scope.relateddata = function () {
-        $(".relateddatamenu").addClass("active");
-        $(".cartitemmenu").removeClass("active");
-        $("#home").hide();
-        $("#menu1").show();
+        $(".relateddatamenu").addClass("active")
+        $(".cartitemmenu").removeClass("active")
+
+        $("#home").hide()
+
+        $("#menu1").show()
     }
 
 
-    function getuom()
-    {
+
+
+
+
+    function getuom() {
+
+
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
+
         $.ajax
            ({
                type: "POST",
@@ -1317,13 +1484,20 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                dataType: 'json',
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
                success: function (response) {
+                   if (response.GetUnitsOfMeasureResult.Success == true) {
+                       $scope.UOMList = response.GetUnitsOfMeasureResult.Payload;
 
-                   $scope.UOMList = response.GetUnitsOfMeasureResult.Payload;
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Getting UOM list", 1, 1, response.GetUnitsOfMeasureResult.Message)
+
+                   }
                    CheckScopeBeforeApply()
                },
                error: function (err) {
 
-                   log.error(err.Message);
+                   $scope.ShowErrorMessage("Getting UOM list", 2, 1, err.statusText);
+
 
                }
            });
@@ -1341,8 +1515,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $scope.IsSummary = false;
         CheckScopeBeforeApply();
     }
-
-
     $scope.FillCost = function (cost, Id) {
         if ($.trim(cost) != "") {
             var k = 0;
@@ -1362,8 +1534,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             toastr.error("Please fill some value");
         }
     }
-   
-
     $scope.FillQuantity = function (value, id, type) {
 
         $scope.ActionQuantityValue = value;
@@ -1521,15 +1691,22 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
                success: function (response) {
 
+                   if (response.GetStatusResult.Success == true) {
+                       $scope.StatusList = response.GetStatusResult.Payload;
 
 
-                   $scope.StatusList = response.GetStatusResult.Payload;
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Getting Status list", 1, 1, response.GetStatusResult.Message)
+
+                   }
+
                    CheckScopeBeforeApply()
                },
                error: function (err) {
 
 
-                   log.error(err.Message);
+                   $scope.ShowErrorMessage("Getting Status list", 2, 1, err.statusText)
 
                }
            });
@@ -1538,21 +1715,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.LeavePage = function () {
         $('#myModal').modal('show');
-        
-    }
-    $scope.LeavePageNew = function () {
-
-        localStorageService.set("ActivityCart", "");
-        localStorageService.set("SelectedAction", "");
-        $scope.$apply();
-        $location.path("/FindItems");
-      
     }
 
     $scope.CartFunction = function (type) {
         switch (type) {
             case 1:
-                
                 localStorageService.set("ActivityCart", $scope.CurrentCart);
                 break;
             case 2:
@@ -1567,8 +1734,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         if ($scope.CurrentHref != "") {
             if ($scope.CurrentHref.indexOf("#") > -1) {
                 $scope.CurrentHref = $scope.CurrentHref.replace('#', '');
+
             }
-          
+            else {
+
+            }
             $location.path($scope.CurrentHref);
         }
         else {
@@ -1576,6 +1746,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
     }
+
+
 
     $scope.UpdateActivityDropdownData = function (CustomDataID, Value, Type) {
 
@@ -1607,6 +1779,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $(_ID2).html(Value);
 
     }
+
+
+
     $("#headerrow a").not(".dropdown-toggle").not(".logout").click(function () {
         if ($scope.CurrentCart.length > 0) {
             $scope.CurrentHref = $(this).attr("href");
@@ -1622,6 +1797,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     });
 
+
+
+
+
+
     $scope.locationlist = function (inventoryid, locationid, locationtext) {
 
 
@@ -1635,6 +1815,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $('html,body').animate({ scrollTop: 0 }, 800);
 
     }
+
+
+
 
     $scope.OnChangeLocationNameFunction = function () {
 
@@ -1658,23 +1841,30 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 error: function () {
 
                     $scope.LocationSearching = false;
-                    log.error('There is a problem with the service!');
+                    $scope.ShowErrorMessage("Searching location", 2, 1, err.statusText);
+
                 },
 
                 success: function (data) {
 
+                    if (data.SearchLocationAutoCompleteResult.Success == true) {
 
 
-                    if (data.SearchLocationAutoCompleteResult != null && data.SearchLocationAutoCompleteResult.Payload != null) {
-                        $scope.LocationSearching = false;
-                        $scope.LocationSearchList = data.SearchLocationAutoCompleteResult.Payload;
+                        if (data.SearchLocationAutoCompleteResult != null && data.SearchLocationAutoCompleteResult.Payload != null) {
+                            $scope.LocationSearching = false;
+                            $scope.LocationSearchList = data.SearchLocationAutoCompleteResult.Payload;
 
 
-                        if ($scope.LocationSearchList.length == 0)
-                            $scope.isnolocationmsg = true
-                        else
-                            $scope.isnolocationmsg = false
+                            if ($scope.LocationSearchList.length == 0)
+                                $scope.isnolocationmsg = true
+                            else
+                                $scope.isnolocationmsg = false
 
+
+                        }
+                    }
+                    else {
+                        $scope.ShowErrorMessage("Searching location", 1, 1, data.SearchLocationAutoCompleteResult.Message)
 
                     }
 
@@ -1811,6 +2001,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     }
                 }
                 else {
+
                     $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocationText = obj.LocationName;
                     $scope.CurrentCart[k].MoveUpdateTagTransactionData.MoveToLocation = obj.LocationID;
                     break;
@@ -1820,20 +2011,55 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
 
+        CheckScopeBeforeApply();;
 
 
+        $(".activitycontent").show();
 
         $("#locationlistmodal").hide();
         CheckScopeBeforeApply()
     }
 
 
-    $scope.FillUOMLineItems = function (value, myid) {
+
+    $scope.GetUOMByID = function (UOMID) {
+        if ($scope.UOMList.length > 0) {
+
+            for (var i = 0; i < $scope.UOMList.length; i++) {
+                if ($scope.UOMList[i].UnitOfMeasureID == UOMID) {
+                    return $scope.UOMList[i].UnitOfMeasureName;
+                }
+            }
+        }
+    }
+
+    $scope.GetLocationByID = function (LID) {
+        if ($scope.LocationDataList.length > 0) {
+            var _idData = parseInt(LID);
+            for (var i = 0; i < $scope.LocationDataList.length; i++) {
+                if ($scope.LocationDataList[i].LocationID == _idData) {
+                    return $scope.LocationDataList[i].LocationName;
+                }
+            }
+        }
+    }
+
+    $scope.hidelocationmodal = function () {
+
+        $(".activitycontent").show();
+
+        $("#locationlistmodal").hide();
+        CheckScopeBeforeApply()
+    }
+
+
+    $scope.FillUOMLineItems = function (value, myid, uom) {
         $scope.ToUOMID = value;
         if ($scope.ToUOMID != 0) {
             var k = 0;
             for (k = 0; k < $scope.CurrentCart.length; k++) {
                 $scope.CurrentCart[k].ConvertTransactionData.ToUOMID = $scope.ToUOMID;
+                $scope.CurrentCart[k].ConvertTransactionData.ToUOM = uom;
 
             }
 
@@ -1918,31 +2144,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         return _index;
     }
-    $scope.GetUOMByID = function (UOMID) {
-        if ($scope.UOMList.length > 0) {
 
-            for (var i = 0; i < $scope.UOMList.length; i++) {
-                if ($scope.UOMList[i].UnitOfMeasureID == UOMID) {
-                    return $scope.UOMList[i].UnitOfMeasureName;
-                }
-            }
-        }
-    }
-    $scope.GetLocationByID = function (LID) {
-        if ($scope.LocationDataList.length > 0) {
-            var _idData = parseInt(LID);
-            for (var i = 0; i < $scope.LocationDataList.length; i++) {
-                if ($scope.LocationDataList[i].LocationID == _idData) {
-                    return $scope.LocationDataList[i].LocationName;
-                }
-            }
-        }
-    }
-    $scope.hidelocationmodal = function () {
-
-        $("#locationlistmodal").hide();
-        CheckScopeBeforeApply()
-    }
     $scope.changeMode = function () {
         $scope.IsSingleMode = !$scope.IsSingleMode;
 
@@ -1990,7 +2192,16 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         setTimeout(function () { $('.itUpdateDate').val(today) }, 1000);
 
-        setTimeout(function () { $('.FormDateType').val(today); }, 1000);
+
+
+        setTimeout(function () {
+            $('.FormDateType').each(function () {
+                if ($.trim($(this).val()) != "") {
+                    $(this).val(today)
+
+                }
+            });
+        }, 1000);
     }
     $scope.FillQuantityToConvert = function (value, myid, Type) {
         $scope.ActionQuantityValueToConvert = value;
@@ -2101,16 +2312,95 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
     init();
+    $scope.Unitautocomplete = function (ControlID, ID, FieldName) {
 
+        var _unitData = $scope.GetUnitDataFieldByName(FieldName)
+        $scope.UnitAutoComboValues = _unitData.FieldComboValues;
+        $scope.ActiveUnitAutoCompleteField = ControlID + ID.toString();
+
+
+        $("#Unitautolistmodal").modal("show");
+    }
+
+
+    $scope.fillUnitAutoCompleteValue = function (value) {
+        $("#" + $scope.ActiveUnitAutoCompleteField).val(value);
+
+        $("#" + $scope.ActiveUnitAutoCompleteField).trigger("input");
+        CheckScopeBeforeApply();
+        $("#Unitautolistmodal").modal('hide');
+
+    }
+
+
+
+    $scope.Unitradiolist = function (ControlID, ID, FieldName) {
+
+        var _unitData = $scope.GetUnitDataFieldByName(FieldName)
+        $scope.UnitRadioValues = _unitData.FieldRadioValues;
+        $scope.ActiveUnitRadioField = ControlID + ID.toString();
+
+
+        $("#Unitradiotextmodal").modal("show");
+    }
+
+
+    $scope.fillUnitradiovalue = function (value) {
+        $scope.selectedUnitradiovalue = value;
+    }
+
+
+    $scope.fillUnitvaluetoradio = function () {
+
+        $("#" + $scope.ActiveUnitRadioField).val($scope.selectedUnitradiovalue);
+
+        $("#" + $scope.ActiveUnitRadioField).trigger("input");
+
+        $("#Unitradiotextmodal").modal("hide");
+
+    }
+
+    $scope.UpDownValueUnit = function (text, value, IsUp) {
+
+
+        var _ID;
+        _ID = "#" + text + value;
+        var _inputvalue = $(_ID).val();
+        var _Max = $(_ID).attr("max");
+        var _Min = $(_ID).attr("min");
+        _inputvalue = TryParseInt(_inputvalue, 0);
+        _Max = TryParseInt(_Max, -100);
+        _Min = TryParseInt(_Min, -100);
+        if (IsUp && _Max != -100 && _inputvalue == _Max) {
+            log.error("Exceeding maximum value " + _Max + ", Please fill lesser value than maximum value");
+        }
+
+        else if (!IsUp && _Min != -100 && _inputvalue == _Min) {
+            log.error("Beneath the  minimum value " + _Min + ", Please fill greater value than minimum value");
+
+        }
+        else {
+
+            _inputvalue = _inputvalue + (IsUp ? 1 : -1);
+
+            $(_ID).val(_inputvalue);
+
+
+            $(_ID).trigger("input");
+        }
+    }
     function UpdateCartWithCustomFields() {
         var k = 0;
         var j = 0;
         var _TempArray = [];
         for (k = 0; k < $scope.CustomActivityDataList.length; k++) {
-            if ($scope.CustomActivityDataList[k].cfdCustomFieldType == "Inventory" && $scope.CustomActivityDataList[k].isLineItem == "True") {
+            if ($scope.CustomActivityDataList[k].cfdCustomFieldType.toLowerCase() == "inventory" && $scope.CustomActivityDataList[k].isLineItem == "True") {
                 _TempArray.push($scope.CustomActivityDataList[k]);
                 $scope.isLineItemColumnNames.push($scope.CustomActivityDataList[k].cfdName)
             }
+
+
+
 
 
         }
@@ -2127,11 +2417,31 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                         ColumnMap: _TempArray[j].ColumnMap,
                         cfdDataType: _TempArray[j].cfdDataType,
                         CfValue: _TempArray[j].cfdDefaultValue != null && $.trim(_TempArray[j].cfdDefaultValue) != "" ? _TempArray[j].cfdDefaultValue : "",
-                        cfdComboValues: _TempArray[j].cfdComboValues == null ? [] : _TempArray[j].cfdComboValues
+                        cfdComboValues: _TempArray[j].cfdComboValues == null ? [] : _TempArray[j].cfdComboValues,
+                        cfdprefixsuffixtype: _TempArray[j].cfdprefixsuffixtype == null ? "" : _TempArray[j].cfdprefixsuffixtype,
+                        cfdPrefix: _TempArray[j].cfdPrefix == null ? "" : _TempArray[j].cfdPrefix,
+                        cfdSuffix: _TempArray[j].cfdSuffix == null ? "" : _TempArray[j].cfdSuffix,
+                        cfdIsIncremental: _TempArray[j].cfdIsIncremental,
+                        cfdBaseValue: _TempArray[j].cfdBaseValue == null ? 0 : _TempArray[j].cfdBaseValue,
+                        cfdIncrementby: _TempArray[j].cfdIncrementby == null ? 0 : _TempArray[j].cfdIncrementby,
+                        cfdIsAutoComplete: _TempArray[j].cfdIsAutoComplete == null ? "" : _TempArray[j].cfdIsAutoComplete,
+                        cfdInputMask: _TempArray[j].cfdInputMask == "text" ? "NA" : _TempArray[j].cfdInputMask,
+                        MaximumValue: _TempArray[j].cfdIsIncremental == true ? _TempArray[j].MaximumValue : null,
+                        CombineValue: _TempArray[j].CombineValue,
+                        cfdSpecialType: _TempArray[j].cfdSpecialType == null ? "" : _TempArray[j].cfdSpecialType,
+                        cfdRadioValues: _TempArray[j].cfdRadioValues == null ? "" : _TempArray[j].cfdRadioValues,
+                        cfdTruelabel: _TempArray[j].cfdTruelabel,
+                        cfdFalselabel: _TempArray[j].cfdFalselabel,
+                        cfdUse24Hours: _TempArray[j].cfdUse24Hours,
+                        cfdMax: _TempArray[j].MaximumValue == null ? null : _TempArray[j].MaximumValue,
+                        cfdMin: _TempArray[j].MinimumValue == null ? null : _TempArray[j].MinimumValue,
                     });
                 }
 
             }
+
+
+            console.log($scope.CurrentCart);
         }
 
         CheckScopeBeforeApply();
@@ -2163,48 +2473,55 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
               success: function (response) {
 
+                  if (response.GetMyInventoryColumnsResult.Success == true) {
 
-                  // MY inventory column region
-                  var _TempArrayMyInventory = response.GetMyInventoryColumnsResult.Payload;
+                      // MY inventory column region
+                      var _TempArrayMyInventory = response.GetMyInventoryColumnsResult.Payload;
 
-                  for (var i = 0; i < _TempArrayMyInventory.length; i++) {
-                      var _ColName = _TempArrayMyInventory[i].ColumnName.split("#");
-                      _TempArrayMyInventory[i].ColumnName = _ColName[0];
-                      if (_TempArrayMyInventory[i].mobileorder != 0) {
-                          $scope.MyinventoryFields.push(_TempArrayMyInventory[i]);
+                      for (var i = 0; i < _TempArrayMyInventory.length; i++) {
+                          var _ColName = _TempArrayMyInventory[i].ColumnName.split("#");
+                          _TempArrayMyInventory[i].ColumnName = _ColName[0];
+                          if (_TempArrayMyInventory[i].mobileorder != 0) {
+                              $scope.MyinventoryFields.push(_TempArrayMyInventory[i]);
+                          }
                       }
-                  }
-                  console.log("My inventory fields");
 
-                  console.log($scope.MyinventoryFields);
+                  }
+                  else {
+                      $scope.ShowErrorMessage("Getting myinventory columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
+
+                  }
                   CheckScopeBeforeApply();
 
+                  setTimeout(function () {
+                      SetPermisssions();
 
-                  SetPermisssions();
+                  }, 500);
 
 
               },
               error: function (err) {
                   console.log(err);
-                  log.error("Error Occurred during operation");
+                  $scope.ShowErrorMessage("Getting myinventory columns", 2, 1, err.statusText);
+
 
 
               }
           });
     }
 
-
     function IsAnyUnitDataFieldActive() {
         return IsAvailableMyInventoryColumn('iReqValue') || IsAvailableMyInventoryColumn('iUniqueDate') || IsAvailableMyInventoryColumn('iUnitDate2') || IsAvailableMyInventoryColumn('iUnitNumber1') || IsAvailableMyInventoryColumn('iUnitNumber2') || IsAvailableMyInventoryColumn('iUnitTag2') || IsAvailableMyInventoryColumn('iUnitTag3');
     }
     function SetPermisssions() {
+
         $scope.CanIncrease = IsAvailableMyInventoryColumn('iQty') && $scope.checkpermission('ACTION:CanAddInventory') ? 'True' : 'False';
         $scope.CanDecrease = IsAvailableMyInventoryColumn('iQty') && $scope.checkpermission('ACTION:CanSubtractInventory') ? 'True' : 'False';
         $scope.CanConvert = IsAvailableMyInventoryColumn('uomUOM') && $scope.checkpermission('ACTION:CanConvertInventory') ? 'True' : 'False';
         $scope.CanMove = IsAvailableMyInventoryColumn('lLoc') && $scope.checkpermission('ACTION:CanMoveInventory') ? 'True' : 'False';
         $scope.CanStatus = IsAvailableMyInventoryColumn('iStatusValue') && $scope.checkpermission('ACTION:CanStatusInventory') ? 'True' : 'False';
         $scope.CanMoveTagUpdate = (IsAvailableMyInventoryColumn('lLoc') || IsAvailableMyInventoryColumn('iStatusValue') || IsAnyUnitDataFieldActive()) && $scope.checkpermission('ACTION:CanMoveTagUpdate') ? 'True' : 'False';
-        $scope.CanApply = (IsAvailableMyInventoryColumn('iReqValue') || IsAvailableMyInventoryColumn('iUniqueDate') || IsAvailableMyInventoryColumn('iUnitDate2') || IsAvailableMyInventoryColumn('iUnitNumber1') || IsAvailableMyInventoryColumn('iUnitNumber2') || IsAvailableMyInventoryColumn('iUnitTag2') || IsAvailableMyInventoryColumn('iUnitTag3')) && $scope.checkpermission('ACTION:UniqueTag') ? 'True' : 'False';
+        $scope.CanApply = (IsAnyUnitDataFieldActive()) && $scope.checkpermission('ACTION:UniqueTag') ? 'True' : 'False';
 
 
 
@@ -2213,13 +2530,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     function AssignFirstObject() {
         if ($scope.CurrentCart.length > 0) {
             $scope._IsLoading = false;
-
             setTimeout(function () {
                 InitializeSwiper();
 
             }, 0);
         }
         CheckScopeBeforeApply();
+        $(".form-control").first().focus();
+        $("input[type='number']").trigger("change");
+
     }
 
     function ConverttoMsJsonDate(_DateValue) {
@@ -2236,6 +2555,68 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         return today;
     }
+
+    function ConverttoMsJsonDateTime(_DateValue) {
+
+
+        var _date = angular.copy(_DateValue);
+
+        var dsplit1 = _date.split("/");
+
+        var _timeSplit = dsplit1[2].split(" ");
+
+        var _timeString = _timeSplit[1].split(":");
+
+        if (parseInt(_timeString[0]) > 12) {
+            _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+        }
+
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today + _ToMergeTime;
+    }
+
+    function leadZero(_something) {
+
+        var _TempString = parseInt(_something).toString();
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
+        return _something;//else    
+    }
+
+    function ConvertToTime(_timeValue) {
+
+        if ($.trim(_timeValue) != "") {
+            var _ToMergeTime = "";
+            var _timeString = "";
+            if (_timeValue.indexOf("AM") > -1 || _timeValue.indexOf("PM") > -1) {
+
+                var _timeSplit = _timeValue.split(" ");
+                _timeString = _timeSplit[0].split(":");
+
+                if (parseInt(_timeString[0]) > 12) {
+                    _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+                }
+
+                _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+            }
+            else {
+                _timeString = _timeValue.split(":");
+                _ToMergeTime = (_timeString[0]) + ":" + (_timeString[1]) + ":" + (_timeString[2]);
+            }
+            return _ToMergeTime;
+        }
+
+        return "";
+
+    }
     function GetCustomDataField(Type) {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -2251,50 +2632,134 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                dataType: 'text json',
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Type": Type }),
                success: function (response) {
+                   if (response.GetCustomFieldsDataResult.Success == true) {
 
-                   $scope.CustomActivityDataList = response.GetCustomFieldsDataResult.Payload;
+                       $scope.CustomActivityDataList = response.GetCustomFieldsDataResult.Payload;
 
-                   for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
 
-                       var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
-                       if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
-                           if (_defaultValue != null && _defaultValue != "") {
-                               $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
-                           }
-                       }
-                       else if ($scope.CustomActivityDataList[i].cfdDataType == "currency" || $scope.CustomActivityDataList[i].cfdDataType == "number") {
-                           if (_defaultValue != null && _defaultValue != "") {
-                               var _myDefault = parseFloat(_defaultValue);
-                               if (!isNaN(_myDefault)) {
-                                   $scope.CustomActivityDataList[i].cfdDefaultValue = _myDefault;
 
+                       for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
+
+                           var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
+
+
+
+                           if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
+                               if (_defaultValue != null && _defaultValue != "") {
+
+                                   if ($scope.CustomActivityDataList[i].cfdSpecialType == 2) {
+                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
+                                   }
+                                   else if ($scope.CustomActivityDataList[i].cfdSpecialType == 3) {
+                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConvertToTime(_defaultValue);
+                                   }
+                                   else {
+
+                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+                                   }
                                }
                            }
-                       }
-                       else if ($scope.CustomActivityDataList[i].cfdDataType == "checkbox") {
-                           var _value = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
-                           $scope.CustomActivityDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
-                       }
-                   }
+                           else if ($scope.CustomActivityDataList[i].cfdDataType == "currency" || $scope.CustomActivityDataList[i].cfdDataType == "number") {
+                               if (_defaultValue != null && _defaultValue != "") {
+                                   var _myDefault = parseFloat(_defaultValue);
+                                   if (!isNaN(_myDefault)) {
+                                       $scope.CustomActivityDataList[i].cfdDefaultValue = _myDefault;
 
-                   CheckScopeBeforeApply();
-                   UpdateCartWithCustomFields();
+                                   }
+                               }
+                           }
+                           else if ($scope.CustomActivityDataList[i].cfdDataType == "checkbox") {
+                               var _value = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
+                               $scope.CustomActivityDataList[i].cfdDefaultValue = (_value == "true" || _value === "True");
+                           }
+                           var _CustomObj = angular.copy($scope.CustomActivityDataList[i]);
+                           if ($.trim(_CustomObj.cfdprefixsuffixtype) != "") {
+
+                               var _value = _CustomObj.CombineValue;
+
+                               $scope.CustomActivityDataList[i].cfdDefaultValue = _value;
+                           }
+
+                           $scope.CustomActivityDataList[i].CfValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
+
+
+                       }
+
+
+                       CheckScopeBeforeApply();
+                       UpdateCartWithCustomFields();
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Getting custom data", 1, 1, response.GetCustomFieldsDataResult.Message)
+
+                   }
                    CheckScopeBeforeApply();
                },
                error: function (response) {
+                   $scope.ShowErrorMessage("Getting custom data", 2, 1, err.statusText);
 
-                   log.error(response.GetCustomFieldsDataResult.Errors[0]);
                }
            });
     }
 
 
+    $scope.UpDownValue = function (value, IsUp, Type) {
+
+        switch (value) {
+            case "Quantity":
+
+                break;
+            default:
+                var _name;
+                var _ID;
+
+                if (Type == 3) {
+
+
+                    _ID = "#LineItem_" + value;
+                }
+                else {
+
+
+                    _ID = "#CustomActivity_" + value;
+                }
+
+                var _inputvalue = $(_ID).val();
+                var _Max = $(_ID).attr("max");
+                var _Min = $(_ID).attr("min");
+                _inputvalue = TryParseInt(_inputvalue, 0);
+                _Max = TryParseInt(_Max, -100);
+                _Min = TryParseInt(_Min, -100);
+                if (IsUp && _Max != -100 && _inputvalue == _Max) {
+                    log.error("Exceeding maximum value " + _Max + ", Please fill lesser value than maximum value");
+                }
+
+                else if (!IsUp && _Min != -100 && _inputvalue == _Min) {
+                    log.error("Beneath the  minimum value " + _Min + ", Please fill greater value than minimum value");
+
+                }
+                else {
+
+                    _inputvalue = _inputvalue + (IsUp ? 1 : -1);
+
+                    $(_ID).val(_inputvalue);
+
+
+                    $(_ID).trigger("input");
+                }
+
+        }
+
+
+    }
 
     $scope.IsActiveTransactionField = function (cfdid) {
 
 
+
+
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
-            if ($scope.CustomActivityDataList[i].cfdCustomFieldType == "Inventory" && $scope.CustomActivityDataList[i].cfdID == cfdid) {
+            if ($scope.CustomActivityDataList[i].cfdCustomFieldType.toLowerCase() == "inventory" && $scope.CustomActivityDataList[i].cfdID == cfdid) {
                 switch ($scope.CurrentOperation) {
                     case "Increase":
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnAdd) {
@@ -2329,11 +2794,21 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                         break;
 
                     case "MoveTagUpdate":
+
+                        //   alert("NTU");
+                        // 
+
+                        $scope.CustomActivityDataList[i].cfdIncludeOnMoveTagUpdate = true;
+
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnMoveTagUpdate) {
+
+                            //   alert("Is having");
+
+                            //     
+
                             return true;
                         }
                         break;
-
 
                     default:
                         return true;
@@ -2348,7 +2823,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
         $scope.CurrentCart = localStorageService.get("ActivityCart");
+
         var _CurrentAction = localStorageService.get("SelectedAction");
+        _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
         var _autoClear = localStorageService.get('CustomAutoClear');
 
         $scope.CustomAutoClear = _autoClear == "true" || _autoClear == true ? true : false;
@@ -2356,61 +2833,21 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         var _autoClear1 = localStorageService.get('AutoClear');
 
         $scope.CanAutoClear = _autoClear1 == "true" || _autoClear1 == true ? true : false;
-        _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
-
         $scope._CurrentAction = _CurrentAction;
         GetActionType(_CurrentAction);
 
-        //for (var i = 0; i < $scope.CurrentCart.length; i++) {
-        //    //   UniqueDate
-        //    if ($scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != undefined && $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UnitDate2) != "") {
 
-        //        var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
-
-        //        var dsplit1 = _date.split("/");
-
-
-
-
-        //        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
-
-        //        var day = ("0" + now.getDate()).slice(-2);
-        //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-        //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-        //        $scope.CurrentCart[i].ApplyTransactionData.UnitDate2 = today;
-
-        //    }
-
-
-        //    if ($scope.CurrentCart[i].ApplyTransactionData.UniqueDate != undefined && $scope.CurrentCart[i].ApplyTransactionData.UniqueDate != null && $.trim($scope.CurrentCart[i].ApplyTransactionData.UniqueDate) != "") {
-
-        //        var _date = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
-
-        //        var dsplit1 = _date.split("/");
-        //        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
-
-        //        var day = ("0" + now.getDate()).slice(-2);
-        //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-        //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-        //        $scope.CurrentCart[i].ApplyTransactionData.UniqueDate = today;
-
-        //    }
-
-        //}
         $scope.totalLength = $scope.IsSingleMode == true ? $scope.CurrentCart.length + 2 : 3;
 
         GetMyInventoryColumns();
 
         GetCustomDataField(1);
         getuom();
-        $scope.getstatus();
+        $scope.getstatus()
         $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
         $scope.GetActiveUnitDataField();
 
         $scope.getlocation();
-
         if (localStorageService.get('AllowNegativeQuantity') != null && localStorageService.get('AllowNegativeQuantity') != undefined) {
             var _temp = localStorageService.get('AllowNegativeQuantity');
             if (_temp == 'true' || _temp == true) {
@@ -2428,7 +2865,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
         CheckScopeBeforeApply();
+        setTimeout(function () {
 
+            $(".weekPicker").each(function () {
+                var _val = $(this).attr("selectvalue");
+                $(this).val(_val);
+                $(this).trigger("change");
+            });
+
+        }, 2000);
 
     }
 
@@ -2437,6 +2882,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         GetActionType(type);
         $scope.totalLength = $scope.IsSingleMode == true ? $scope.CurrentCart.length + 2 : 3;
         $scope.$apply();
+
+        setTimeout(function () {
+            $(".form-control").first().focus();
+            $("input[type='number']").trigger("change");
+        }, 500);
 
     }
 
@@ -2514,7 +2964,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                 UpdateStatusBar(Action);
                 break;
-
 
             case 12:
 
@@ -2794,7 +3243,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         var _array = [];
 
         // process all custom fields that are NOT checkboxes
-        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), select[cfd-id], textarea[cfd-id]:not(":hidden")'), function () {
+        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), select[cfd-id]:not(":hidden"), textarea[cfd-id]:not(":hidden")'), function () {
 
 
             _array.push({ "CfdID": $(this).attr('cfd-id'), "Value": $(this).val(), "DataType": $(this).attr('custom-data-type') });
@@ -2904,7 +3353,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     for (k = 0; k < $scope.CurrentCart.length; k++) {
 
                         if ($scope.CurrentOperation == "MoveTagUpdate") {
-                            debugger;
                             $scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity = $scope.ActionQuantityValueMove;
                         }
                         if ($scope.CurrentOperation == "Move") {
@@ -2927,6 +3375,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             case 2:
 
                 for (k = 0; k < $scope.CurrentCart.length; k++) {
+
                     if ($scope.CurrentOperation == "MoveTagUpdate") {
                         $scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity = $scope.CurrentCart[k].InventoryDataList.oquantity;
                     }
@@ -3039,7 +3488,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
-
     $scope.FillLocation = function (value, text, id) {
 
         var _canupdate = true;
@@ -3078,7 +3526,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
     }
-
     $scope.CheckUOMValues = function (firstValue, secondValue) {
         if (firstValue != undefined && firstValue != null && firstValue != "") {
             firstValue = firstValue;
@@ -3089,14 +3536,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
         if (firstValue == secondValue) {
-            debugger;
 
             return true;
         }
 
         return false;
     }
-
     $scope.CheckStatusValues = function (firstValue, secondValue) {
         if (firstValue != undefined && firstValue != null && firstValue != "") {
             firstValue = firstValue.toLowerCase();
@@ -3107,13 +3552,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
         if (firstValue == secondValue) {
+
+
             return true;
         }
 
         return false;
     }
     $scope.FillStatusLineItems = function (value, myid) {
-        debugger;
+
 
 
         $scope.StatusToUpdate = value == null ? "" : value;
@@ -3141,6 +3588,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         var k = 0;
         for (k = 0; k < $scope.CurrentCart.length; k++) {
+
             if ($scope.CurrentOperation == "MoveTagUpdate") {
                 $scope.CurrentCart[k].MoveUpdateTagTransactionData.StatusToUpdate = $scope.StatusToUpdateLoc;
 
@@ -3150,6 +3598,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 $scope.CurrentCart[k].MoveTransactionData.StatusToUpdate = $scope.StatusToUpdateLoc;
 
             }
+
 
         }
         ShowSuccessActivity('Updated', $scope._CurrentAction);
@@ -3329,6 +3778,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             default:
 
         }
+
         $(".uniqueunitData").first().trigger("blur");
         var $inputs = $(".uniqueunitData");
         $inputs.trigger('blur');
@@ -3350,13 +3800,33 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
     Date.prototype.toMSJSON = function () {
+        this.setHours(this.getHours() - this.getTimezoneOffset() / 60);
         var date = '/Date(' + this.getTime() + ')/'; //CHANGED LINE
         return date;
     };
 
+    Date.prototype.toMSJSONTime = function () {
+        this.setHours(this.getHours());
+        var date = '/Date(' + this.getTime() + ')/'; //CHANGED LINE
+        return date;
+    };
+    function GetProperUnitValue(_val, _Prefix, _Suffix) {
 
+        if ($.trim(_val) != "") {
+
+
+            _Prefix = $.trim(_Prefix) != "" ? _Prefix : "";
+            _Suffix = $.trim(_Suffix) != "" ? _Suffix : "";
+            _val = _val.replace(_Prefix, "");
+            _val = _val.replace(_Suffix, "");
+
+            return _val;
+        }
+        return -1;
+
+    }
     function BuildMultipleData() {
-        debugger;
+
 
         var dt = new Date();
         var dt1 = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate() - 1, 0, 0, 0, 0));
@@ -3412,7 +3882,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 itUnitNumber1: 0,
                 itUnitNumber2: 0,
                 itUnitTag2: "",
-                itUnitTag3: ""
+                itUnitTag3: "",
+                incrementedValue: 0,
+                incrementedValue2: 0,
+                incrementedValue3: 0
             },
             Targets: {
                 ToLocationID: 0,
@@ -3450,7 +3923,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 itUnitNumber1: 0,
                 itUnitNumber2: 0,
                 itUnitTag2: "",
-                itUnitTag3: ""
+                itUnitTag3: "",
+                incrementedValue: 0,
+                incrementedValue2: 0,
+                incrementedValue3: 0
             },
             Targets: {
                 ToLocationID: 0,
@@ -3529,7 +4005,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     itUnitNumber1: 0,
                     itUnitNumber2: 0,
                     itUnitTag2: "",
-                    itUnitTag3: ""
+                    itUnitTag3: "",
+                    incrementedValue: 0,
+                    incrementedValue2: 0,
+                    incrementedValue3: 0
                 },
                 Targets: {
                     ToLocationID: 0,
@@ -3567,7 +4046,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     itUnitNumber1: 0,
                     itUnitNumber2: 0,
                     itUnitTag2: "",
-                    itUnitTag3: ""
+                    itUnitTag3: "",
+                    incrementedValue: 0,
+                    incrementedValue2: 0,
+                    incrementedValue3: 0
                 },
                 Targets: {
                     ToLocationID: 0,
@@ -3604,7 +4086,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     itUnitNumber1: 0,
                     itUnitNumber2: 0,
                     itUnitTag2: "",
-                    itUnitTag3: ""
+                    itUnitTag3: "",
+                    incrementedValue: 0,
+                    incrementedValue2: 0,
+                    incrementedValue3: 0
+
                 },
                 Targets: {
                     ToLocationID: 0,
@@ -3632,15 +4118,22 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 _TempQty = $scope.CurrentCart[k].ConvertTransactionData.ActionFromQuantity;
             }
 
+            if ($scope.CurrentOperation == "Apply") {
+                _MyObjdata.incrementedValue = $scope.GetUnitDataFieldByName("ReqValue").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag1, $scope.GetUnitDataFieldByName("ReqValue").Prefix, $scope.GetUnitDataFieldByName("ReqValue").Suffix) : 0;
+                _MyObjdata1.incrementedValue2 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag2, $scope.GetUnitDataFieldByName("UnitTag2").Prefix, $scope.GetUnitDataFieldByName("UnitTag2").Suffix) : 0;
+                _MyObjdata2.incrementedValue3 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag3, $scope.GetUnitDataFieldByName("UnitTag3").Prefix, $scope.GetUnitDataFieldByName("UnitTag3").Suffix) : 0;
+            }
+
             if ($scope.CurrentOperation == "Move") {
 
                 _TempQty = $scope.CurrentCart[k].MoveTransactionData.ActionQuantity;
-                _TempStatus = $scope.CurrentCart[k].MoveTransactionData.StatusToUpdate;
+                _TempStatus = $scope.CurrentCart[_i].InventoryDataList.iStatusValue;
                 _TempLocID = $scope.CurrentCart[k].MoveTransactionData.MoveToLocation == "" ? 0 : $scope.CurrentCart[k].MoveTransactionData.MoveToLocation;
                 _TempLocText = $scope.CurrentCart[k].MoveTransactionData.MoveToLocationText;
                 _MyObjdata.Targets.ToLocation = _TempLocText;
                 _MyObjdata1.Targets.ToLocation = _TempLocText;
                 _MyObjdata2.Targets.ToLocation = _TempLocText;
+
             }
 
 
@@ -3653,6 +4146,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 _MyObjdata.Targets.ToLocation = _TempLocText;
                 _MyObjdata1.Targets.ToLocation = _TempLocText;
                 _MyObjdata2.Targets.ToLocation = _TempLocText;
+                _MyObjdata.incrementedValue = $scope.GetUnitDataFieldByName("ReqValue").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1, $scope.GetUnitDataFieldByName("ReqValue").Prefix, $scope.GetUnitDataFieldByName("ReqValue").Suffix) : 0;
+                _MyObjdata1.incrementedValue2 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2, $scope.GetUnitDataFieldByName("UnitTag2").Prefix, $scope.GetUnitDataFieldByName("UnitTag2").Suffix) : 0;
+                _MyObjdata2.incrementedValue3 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3, $scope.GetUnitDataFieldByName("UnitTag3").Prefix, $scope.GetUnitDataFieldByName("UnitTag3").Suffix) : 0;
 
             }
 
@@ -3672,85 +4168,259 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             }
 
             if ($scope.CurrentCart[k].ApplyTransactionData.UniqueDate != undefined && $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != "") {
-
                 var dateVar = $scope.CurrentCart[k].ApplyTransactionData.UniqueDate;
-                var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
 
-                var d1 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
+                if ($scope.GetUnitDataFieldByName('UniqueDate').FieldSpecialType == 16) {
 
-                // var d1 =  new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
-                if (_genVar == 1) {
+                    if ($scope.CurrentOperation == "Apply") {
+                        var _dateValuearray = dateVar.split("T");
 
 
-                    d1.setDate(d1.getDate());
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+                        if (_genVar == 1) {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        else {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+
+                        wcfDateStr1 = d1122.toMSJSONTime();
+                    }
+                }
+                else if ($scope.GetUnitDataFieldByName('UniqueDate').FieldSpecialType == 17) {
+                    if ($scope.CurrentOperation == "Apply") {
+                        var dsplit1 = dateVar.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+                        if (_genVar == 1) {
+                            d122.setDate(d122.getDate());
+                        }
+                        else {
+
+                            d122.setDate(d122.getDate());
+                        }
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr1 = d1123.toMSJSONTime();
+                    }
                 }
                 else {
-                    d1.setDate(d1.getDate() + 1);
-                }
-                var d11 = new Date(Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate(), 0, 0, 0, 0))
 
-                wcfDateStr1 = d11.toMSJSON();
+                    var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
+
+                    var d1 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
+
+                    // var d1 =  new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
+                    if (_genVar == 1) {
+
+
+                        d1.setDate(d1.getDate());
+                    }
+                    else {
+                        d1.setDate(d1.getDate() + 1);
+                    }
+                    var d11 = new Date(Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate(), 0, 0, 0, 0))
+
+                    wcfDateStr1 = d11.toMSJSON();
+                }
             }
             if ($scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != undefined && $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != "") {
                 var dateVar = $scope.CurrentCart[k].ApplyTransactionData.UnitDate2;
-                var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
-
-                var d2 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
-                // var d2 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
-
-                if (_genVar == 1) {
+                if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 16) {
+                    if ($scope.CurrentOperation == "Apply") {
+                        var _dateValuearray = dateVar.split("T");
 
 
-                    d2.setDate(d2.getDate());
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+                        if (_genVar == 1) {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        else {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+
+                        wcfDateStr2 = d1122.toMSJSONTime();
+                    }
+
+
+                }
+                else if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 17) {
+                    if ($scope.CurrentOperation == "Apply") {
+                        var dsplit1 = dateVar.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+                        if (_genVar == 1) {
+                            d122.setDate(d122.getDate());
+                        }
+                        else {
+
+                            d122.setDate(d122.getDate());
+                        }
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr2 = d1123.toMSJSONTime();
+                    }
                 }
                 else {
-                    d2.setDate(d2.getDate() + 1);
+                    var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
+
+                    var d2 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
+                    // var d2 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
+
+                    if (_genVar == 1) {
+
+
+                        d2.setDate(d2.getDate());
+                    }
+                    else {
+                        d2.setDate(d2.getDate() + 1);
+                    }
+                    var d21 = new Date(Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate(), 0, 0, 0, 0))
+
+                    wcfDateStr2 = d21.toMSJSON();
                 }
-                var d21 = new Date(Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate(), 0, 0, 0, 0))
-
-                wcfDateStr2 = d21.toMSJSON();
-
             }
 
-            debugger;
+
 
             if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != undefined && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != "") {
 
                 var dateVar = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate;
-                var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
-                var d1 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
 
-                //var d1 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
-                if (_genVar == 1) {
+                if ($scope.GetUnitDataFieldByName('UniqueDate').FieldSpecialType == 16) {
+
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+
+                        var _dateValuearray = dateVar.split("T");
 
 
-                    d1.setDate(d1.getDate());
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+                        if (_genVar == 1) {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        else {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+
+                        wcfDateStr1New = d1122.toMSJSONTime();
+                    }
+                }
+                else if ($scope.GetUnitDataFieldByName('UniqueDate').FieldSpecialType == 17) {
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        var dsplit1 = dateVar.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+                        if (_genVar == 1) {
+                            d122.setDate(d122.getDate());
+                        }
+                        else {
+
+                            d122.setDate(d122.getDate());
+                        }
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr1New = d1123.toMSJSONTime();
+                    }
+
                 }
                 else {
-                    d1.setDate(d1.getDate() + 1);
-                }
-                var d11 = new Date(Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate(), 0, 0, 0, 0))
 
-                wcfDateStr1New = d11.toMSJSON();
+                    var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
+                    var d1 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
+
+                    //var d1 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
+                    if (_genVar == 1) {
+
+
+                        d1.setDate(d1.getDate());
+                    }
+                    else {
+                        d1.setDate(d1.getDate() + 1);
+                    }
+                    var d11 = new Date(Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate(), 0, 0, 0, 0))
+
+                    wcfDateStr1New = d11.toMSJSON();
+                }
             }
             if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != undefined && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != "") {
                 var dateVar = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2;
-                var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
-
-                var d2 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
-                //var d2 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
-
-                if (_genVar == 1) {
 
 
-                    d2.setDate(d2.getDate());
+                if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 16) {
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        var _dateValuearray = dateVar.split("T");
+
+
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+                        if (_genVar == 1) {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        else {
+                            d1222.setDate(d1222.getDate());
+
+                        }
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+                        wcfDateStr2New = d1122.toMSJSONTime();
+                    }
+                }
+                else if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 17) {
+                    if ($scope.CurrentOperation == "MoveTagUpdate") {
+                        var dsplit1 = dateVar.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+                        if (_genVar == 1) {
+                            d122.setDate(d122.getDate());
+                        }
+                        else {
+
+                            d122.setDate(d122.getDate());
+                        }
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr2New = d1123.toMSJSONTime();
+                    }
+
                 }
                 else {
-                    d2.setDate(d2.getDate() + 1);
-                }
-                var d21 = new Date(Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate(), 0, 0, 0, 0))
+                    var dsplit = dateVar.indexOf("/") == -1 ? dateVar.split("-") : dateVar.split("/");
 
-                wcfDateStr2New = d21.toMSJSON();
+                    var d2 = dateVar.indexOf("/") == -1 ? new Date(dsplit[0], dsplit[1] - 1, dsplit[2]) : new Date(dsplit[2], dsplit[0] - 1, dsplit[1]);
+                    //var d2 = new Date(dsplit[0], dsplit[1] - 1, dsplit[2]);
+
+                    if (_genVar == 1) {
+
+
+                        d2.setDate(d2.getDate());
+                    }
+                    else {
+                        d2.setDate(d2.getDate() + 1);
+                    }
+                    var d21 = new Date(Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate(), 0, 0, 0, 0))
+
+                    wcfDateStr2New = d21.toMSJSON();
+                }
 
             }
 
@@ -3861,17 +4531,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     NewUnitNumber2: $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == undefined || $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == null ? -1500 : $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2,
                     myPostObj: _MyObjdata, IsLineItem: $scope.CurrentCart[k].IsLineItemData
                 });
-               
             }
 
         }
 
         console.log(_myData);
-
-    
         return _myData;
 
     }
+
     $scope.keepcart = function () {
         $location.path("/FindItems");
     }
@@ -3902,6 +4570,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         var j = 0;
         for (j = 0; j < $scope.MyinventoryFields.length; j++) {
             if ($scope.MyinventoryFields[j].ColumnName == ColumnID) {
+
                 return true;
                 break;
             }
@@ -3961,13 +4630,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.clearCartFunction = function () {
         localStorageService.set("ActivityCart", "");
         localStorageService.set("SelectedAction", "");
-        $scope.$apply();
         $location.path("/FindItems");
     }
 
     $scope.SubmitAllActivities = function () {
-
-
         var _unchangeData = $scope.UnchangedData();
         var _validateObjectVm = $scope.ValidateObjectVM();
         var _validateCustomFields = CheckintoCustomData(0);
@@ -3984,12 +4650,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                 var _mdata = BuildMultipleData();
 
-
-
-                debugger;
-
-               
-
+                console.log(_mdata);
 
                 $.ajax({
                     type: "POST",
@@ -3999,34 +4660,40 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     dataType: 'json',
                     data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "data": _mdata, "CustomAutoClear": $scope.CustomAutoClear }),
                     success: function (response) {
+                        if (response.MultipleActivityResult.Success == true) {
 
-                        localStorageService.set("ActivityCart", "");
-                        localStorageService.set("SelectedAction", "");
+                            localStorageService.set("ActivityCart", "");
+                            localStorageService.set("SelectedAction", "");
 
-                        $scope.IsProcessing = false;
-                        $scope.CurrentCart = [];
-                        ShowSuccessActivity('Saved', $scope._CurrentAction);
+                            $scope.IsProcessing = false;
+                            $scope.CurrentCart = [];
+                            ShowSuccessActivity('Saved', $scope._CurrentAction);
 
-                        //$location.path("/FindItems");
-                        //localStorageService.set("ActivityCart", "");
-                        //localStorageService.set("SelectedAction", "");
-                        localStorageService.set("IsFromActivitySuccess", 1);
-                        $scope.clearCartFunction();
-                        $scope.$apply();
+                            $location.path("/FindItems");
+                            localStorageService.set("ActivityCart", "");
+                            localStorageService.set("SelectedAction", "");
+
+                            $scope.clearCartFunction();
+                            $scope.$apply();
+
+                        }
+                        else {
+                            $scope.ShowErrorMessage("Multiple activity", 1, 1, response.MultipleActivityResult.Message)
+
+                        }
                     },
                     error: function (err) {
 
-                        debugger;
+                        $scope.ShowErrorMessage("Multiple activity", 2, 1, err.statusText);
 
-                        log.error("Some error occurred");
-                        $scope.errorbox(err);
-                        console.log(err.responseText);
 
                     }
                 });
             }
             else {
+
                 if (_validateObjectVm || _validateCustomFields || _dateValidated == false) {
+
                     var _dataIndex = $scope.IsSingleMode == true ? $scope.CurrentCart.length : 1;
                     $scope.GoToStep(_dataIndex, 1);
                     if (!CheckintoCustomData(0) == false) {
@@ -4273,6 +4940,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                                 return true;
                                 break;
                             }
+                            else {
+
+                            }
+
                         }
 
                     }
@@ -4328,9 +4999,62 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                     }
                     break;
-                case "Apply":
+
+
+                case "Move":
+
                     for (k = 0; k < _totalLength; k++) {
-                        if (k == CurrentIndex && ($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity == "" || $scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity == null)) {
+                        if (k == CurrentIndex && ($scope.CurrentCart[k].MoveTransactionData.ActionQuantity == null || $scope.CurrentCart[k].MoveTransactionData.MoveToLocation == null || $scope.CurrentCart[k].MoveTransactionData.ActionQuantity == "" || $scope.CurrentCart[k].MoveTransactionData.MoveToLocation == "")) {
+                            if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
+                                $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
+
+                            }
+                            if ($scope.CurrentCart[k].MoveTransactionData.ActionQuantity == null || $scope.CurrentCart[k].MoveTransactionData.ActionQuantity == "") {
+
+
+                                $scope.IssueType = 3;
+                            }
+
+                            else if ($scope.CurrentCart[k].MoveTransactionData.MoveToLocation == null || $scope.CurrentCart[k].MoveTransactionData.MoveToLocation == "") {
+                                $scope.IssueType = 32;
+                            }
+                            CheckScopeBeforeApply();
+                            return true;
+
+                            break;
+                        }
+                        else if (k == CurrentIndex && $scope.CurrentCart[k].MoveTransactionData.MoveToLocation == $scope.CurrentCart[k].InventoryDataList.iLID) {
+                            if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
+                                $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
+
+                            }
+
+                            $scope.IssueType = 31;
+                            CheckScopeBeforeApply();;
+                            return true;
+
+                            break;
+                        }
+                        else if (_AllowNegative != null && _AllowNegative != "True") {
+                            if (k == CurrentIndex && ($scope.CurrentCart[k].MoveTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity)) {
+                                if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
+                                    $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
+
+                                }
+
+                                return true;
+                                break;
+                            }
+                            else {
+
+                            }
+                        }
+
+                    }
+                    break;
+                case "MoveTagUpdate":
+                    for (k = 0; k < _totalLength; k++) {
+                        if (k == CurrentIndex && ($scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity == "" || $scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity == null)) {
                             if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
                                 $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
 
@@ -4342,7 +5066,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             break;
                         }
                         else if (_AllowNegative != null && _AllowNegative != "True") {
-                            if (k == CurrentIndex && $scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
+                            if (k == CurrentIndex && $scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
                                 if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
                                     $scope.AffectedItemIds.push($scope.CurrentCart[k].ItemID);
 
@@ -4492,9 +5216,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $(document)
     .on('focus', 'input,select', function () {
 
-        //  $cordovaKeyboard.disableScroll(true);
 
-
+        $('.changebtn').hide();
 
         $('.collapsible-header').css("position", "absolute");
         $('.collapsible-body').css('margin-top', '49px');
@@ -4508,9 +5231,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     })
     .on('blur', 'input,select', function () {
 
-        //  $cordovaKeyboard.disableScroll(false);
         $('.collapsible-header').css("position", "fixed");
-
+        $('.changebtn').show();
         $('.header').css("position", "fixed");
         $('.iteminfopanel').css('margin-top', '80px');
         $('.collapsible-body').css('margin-top', '85px');
@@ -4529,9 +5251,40 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
 
-    setTimeout(function () { $('.itUpdateDate').val(today); }, 1000);
+    setTimeout(function () { $('.itUpdateDate').val(today) }, 1000);
 
-    setTimeout(function () { $('.FormDateType').val(today); }, 1000);
+    setTimeout(function () {
+        $('.FormDateType').each(function () {
+            if ($.trim($(this).val()) != "") {
+                $(this).val(today)
+
+            }
+        });
+
+
+    }, 1000);
+
+    setTimeout(function () {
+
+
+        $(".datetimedata").each(function () {
+            var _val = $(this).val();
+            $(this).val(_val);
+            setTimeout(function () {
+                $(this).trigger("input");
+                $(this).trigger("blur");
+                $(this).trigger("change");
+            }, 1000);
+        });
+
+        $(".weekPicker").each(function () {
+            var _val = $(this).attr("selectvalue");
+            $(this).val(_val);
+            $(this).trigger("change");
+        });
+
+    }, 4000);
+
 
     function ShowErrorMessage(Action) {
         var _MsgTitle = "DATA HAS NOT CHANGED";
@@ -4766,7 +5519,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             var _val2 = $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 : "";
 
                             _x1 = MatchString(_val1, _val2);
-                        } else {
+                        }
+                        else {
 
                             _x1 = true;
                         }
@@ -4847,11 +5601,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             _x7 = (_val29 == _val30);
 
-                        }
-                        else {
+                        } else {
 
                             _x7 = true;
                         }
+
                         if (_x1 == false || _x2 == false || _x3 == false || _x4 == false || _x5 == false || _x6 == false || _x7 == false) {
 
 
@@ -4875,7 +5629,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
         return false;
     }
-
     $scope.ValidateObjectVM = function () {
         $scope.AffectedItemIds = [];
 
@@ -5171,6 +5924,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
                             else if (_AllowNegative != null && _AllowNegative != "True") {
+
                                 if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
 
                                     if ($scope.IsSingleMode == false) {
@@ -5276,7 +6030,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             }
 
                             else if (_AllowNegative != null && _AllowNegative != "True") {
-                                debugger;
+
 
                                 if ($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity > $scope.CurrentCart[k].InventoryDataList.oquantity) {
 
