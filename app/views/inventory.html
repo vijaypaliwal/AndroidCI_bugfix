@@ -3635,7 +3635,10 @@
 
 
                     <div ng-if="obj.cfdDataType=='checkbox'">
-                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span> <span>{{InventoryObject.CustomTxnData[$index].Value}}</span>
+                        <span class="mylabel">{{obj.cfdName}} <span ng-if="obj.cfdIsRequired" class="redText">*</span></span>
+
+                        <span ng-if="InventoryObject.CustomTxnData[$index].Value==true || InventoryObject.CustomTxnData[$index].Value=='true'">{{InventoryObject.CustomTxnData[$index].TrueLabel}}</span>
+                        <span ng-if="InventoryObject.CustomTxnData[$index].Value==false || InventoryObject.CustomTxnData[$index].Value=='false'">{{InventoryObject.CustomTxnData[$index].FalseLabel}}</span>
 
                     </div>
 

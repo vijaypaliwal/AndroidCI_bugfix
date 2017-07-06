@@ -2013,19 +2013,19 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                       $scope.CustomItemDataList = response.GetAllDataResult.Payload[0].CustomItemField;
                       CheckScopeBeforeApply();
 
-                      console.log($scope.CustomItemDataList);
+
 
                       for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
                           var _defaultValue = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
 
 
                           if ($scope.CustomItemDataList[i].cfdDataType == "datetime") {
-                              if (_defaultValue != null && _defaultValue != "") {
 
+                              if (_defaultValue != null && _defaultValue != "") {
                                   if ($scope.CustomItemDataList[i].cfdSpecialType == 2) {
                                       $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
                                   }
-                                  else if ($scope.CustomItemDataList[i].cfdSpecialType != 3) {
+                                  else if ($scope.CustomItemDataList[i].cfdSpecialType == 3) {
                                       $scope.CustomItemDataList[i].cfdDefaultValue = ConvertToTime(_defaultValue);
                                   }
                                   else {
@@ -2080,6 +2080,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                           if (_CustomObj != undefined && _CustomObj != {}) {
 
+
                               _obj.cfdName = _CustomObj.cfdName;
                               _obj.cfdID = _CustomObj.cfdID;
                               _obj.cfdDataType = _CustomObj.cfdDataType;
@@ -2089,11 +2090,22 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                               _obj.cfdTruelabel = _CustomObj.cfdTruelabel;
                               _obj.cfdFalselabel = _CustomObj.cfdFalselabel;
 
+
+
                               $scope.InventoryObject.CustomPartData.push({ CfdID: _CustomObj.cfdID, Value: _obj.CfValue, DataType: _CustomObj.cfdDataType, TrueLabel: _CustomObj.cfdTruelabel, FalseLabel: _CustomObj.cfdFalselabel });
 
+
+                              $("#CustomItem_" + _obj.cfdID).val(_obj.CfValue);
+
+
+
+                              CheckScopeBeforeApply();
                               $("#CustomItem_" + _obj.cfdID).trigger("input");
 
                           }
+
+                          console.log("Custom Item data");
+                          console.log($scope.InventoryObject.CustomPartData);
 
                           _obj.CustomFieldIndex = _obj.cfdID != 0 ? $scope.getIndexBycolName(_obj.cfdID) : -1;
                           $scope.MyinventoryFields.push(_obj);
@@ -2113,6 +2125,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
                       $scope.CustomActivityDataList = response.GetAllDataResult.Payload[0].CustomActivityField;
+
+
+
+
+
+
+
+
                       CheckScopeBeforeApply()
 
                       for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
@@ -2120,11 +2140,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
                           if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
                               if (_defaultValue != null && _defaultValue != "") {
-
+                                  debugger;
                                   if ($scope.CustomActivityDataList[i].cfdSpecialType == 2) {
                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
                                   }
-                                  else if ($scope.CustomActivityDataList[i].cfdSpecialType != 3) {
+                                  else if ($scope.CustomActivityDataList[i].cfdSpecialType == 3) {
                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConvertToTime(_defaultValue);
                                   }
                                   else {
@@ -2148,9 +2168,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           }
                           var _CustomObj = $scope.CustomActivityDataList[i];
                           var _value = ($.trim(_CustomObj.cfdprefixsuffixtype) != "" ? _CustomObj.CombineValue : _CustomObj.cfdDefaultValue);
-                          $scope.InventoryObject.CustomTxnData.push({ CfdID: $scope.CustomActivityDataList[i].cfdID, Value: _value, DataType: $scope.CustomActivityDataList[i].cfdDataType });
+                          $scope.InventoryObject.CustomTxnData.push({ CfdID: $scope.CustomActivityDataList[i].cfdID, Value: _value, DataType: $scope.CustomActivityDataList[i].cfdDataType, TrueLabel: $scope.CustomActivityDataList[i].cfdTruelabel, FalseLabel: $scope.CustomActivityDataList[i].cfdFalselabel });
                       }
                       CheckScopeBeforeApply()
+
+                      console.log("Activity fields")
+                      console.log($scope.InventoryObject.CustomTxnData);
                       // Unit Of Measure
                       $scope.UOMList = response.GetAllDataResult.Payload[0].UnitOfMeasure;
                       CheckScopeBeforeApply()
@@ -2178,8 +2201,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           $scope.ShowErrorMessage("Getting look ups", 2, 1, err.statusText);
                       }
                   }
-
-
               }
           });
     }
@@ -2190,7 +2211,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.customautocomplete = function (ColumnName, id, fieldtype) {
         $("#customautolistmodal").modal('show');
-
 
 
         if (fieldtype == "item") {
@@ -2213,11 +2233,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 }
             }
         }
-
-
-
     }
-
 
 
     $scope.fillcustomvalue = function (value) {
