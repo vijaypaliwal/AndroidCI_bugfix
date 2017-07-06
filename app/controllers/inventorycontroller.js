@@ -82,6 +82,53 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         UnitTag3: "", CustomPartData: [], CustomTxnData: []
     };
 
+
+    var _defaultUnitObj = {
+        AccountID: 0,
+        Active: false,
+        BaseValue: 0,
+        FieldComboValues: null,
+        FieldDataType: "",
+        FieldDefaultAMPM: null,
+        FieldDefaultValue: "",
+        FieldDescription: "test",
+        FieldInputMask: null,
+        FieldLabel: "",
+        FieldName: "",
+        FieldNumberDecimalPlaces: 0,
+        FieldNumberMax: null,
+        FieldNumberMin: null,
+        FieldRadioValues: null,
+        FieldSpecialType: 0,
+        FieldTextMaxLength: 500,
+        FieldTextMultiRow: false,
+        FieldUse24Hours: false,
+        IncrementBy: 1,
+        IsSpecial: true,
+        IsUnique: false,
+        Prefix: "",
+        Suffix: "",
+        TagID: 0
+    }
+
+    function GetProperUnitValue(_val, _Prefix, _Suffix) {
+
+        if ($.trim(_val) != "") {
+
+
+            _Prefix = $.trim(_Prefix) != "" ? _Prefix : "";
+            _Suffix = $.trim(_Suffix) != "" ? _Suffix : "";
+            _val = _val.replace(_Prefix, "");
+            _val = _val.replace(_Suffix, "");
+
+            return _val;
+        }
+        return "";
+
+    }
+
+
+
     var _IsItemSlide = false;
 
     $scope.itemfields = false;
@@ -276,6 +323,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
     Date.prototype.toMSJSON = function () {
         this.setHours(this.getHours() - this.getTimezoneOffset() / 60);
+        var date = '/Date(' + this.getTime() + ')/'; //CHANGED LINE
+        return date;
+    };
+
+    Date.prototype.toMSJSONTime = function () {
+        this.setHours(this.getHours());
         var date = '/Date(' + this.getTime() + ')/'; //CHANGED LINE
         return date;
     };
@@ -1373,7 +1426,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
 
-            var _emailValue = $.trim($("#CustomItem_" + $scope.InventoryObject.CustomPartData[i].CfdID.toString()).val());
+            var _emailValue = $.trim($("#CustomItem_" + $scope.InventoryObject.CustomPartData[i].CfdID).val());
             var _mask = $scope.GetCustomItemObjByColumnID($scope.InventoryObject.CustomPartData[i].CfdID).cfdInputMask;
             if (_mask == "email" && _emailValue != "" && $scope.IsProperEmail(_emailValue) == false) {
                 return true;
@@ -1447,7 +1500,28 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         CheckScopeBeforeApply();
     }
 
+
+
+
+
+
+
+    $scope.getUnitObjByName = function (ColumnName) {
+        for (var i = 0; i < $scope.UnitDataList.length; i++) {
+            if ($scope.UnitDataList[i].FieldName == ColumnName) {
+                return $scope.UnitDataList[i];
+            }
+
+        }
+        return _defaultUnitObj;
+    }
+
+
+
     $scope.addinventory = function () {
+
+        debugger;
+
         if ($scope.CheckUnitDataFieldValueAll() == true) {
 
 
@@ -1462,6 +1536,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                 $('#addinventoriesnew').addClass("disabled");
                 $('#addinventoriesnew').find(".fa").addClass("fa-spin");
+
 
                 var _TempObj = $scope.InventoryObject;
 
@@ -1499,6 +1574,17 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 });
 
 
+                var _inc1 = $scope.getUnitObjByName("ReqValue").FieldSpecialType == 0 ? GetProperUnitValue($scope.InventoryObject.UniqueTag, $scope.getUnitObjByName("ReqValue").Prefix, $scope.getUnitObjByName("ReqValue").Suffix) : 0;
+
+                var _inc2 = $scope.getUnitObjByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.InventoryObject.UnitTag2, $scope.getUnitObjByName("UnitTag2").Prefix, $scope.getUnitObjByName("UnitTag2").Suffix) : 0;
+
+                var _inc3 = $scope.getUnitObjByName("UnitTag3").FieldSpecialType == 0 ? GetProperUnitValue($scope.InventoryObject.UnitTag3, $scope.getUnitObjByName("UnitTag3").Prefix, $scope.getUnitObjByName("UnitTag3").Suffix) : 0;
+
+
+                $scope.InventoryObject.incrementedValue = $.trim(_inc1) != "" ? _inc1 : 0;
+                $scope.InventoryObject.incrementedValue2 = $.trim(_inc2) != "" ? _inc2 : 0;
+                $scope.InventoryObject.incrementedValue3 = $.trim(_inc3) != "" ? _inc3 : 0;
+
                 if ($.trim($scope.InventoryObject.ItemID) == "") {
                     $scope.InventoryObject.AutoID = true;
                     $scope.InventoryObject.ItemID = "Automated";
@@ -1515,15 +1601,46 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                 if (_updateDateval != null && _updateDateval != "") {
                     var wcfDateStr123 = null;
-                    var dsplit1 = _updateDateval.split("-");
 
-                    var d122 = new Date(dsplit1[0], dsplit1[1] - 1, dsplit1[2]);
+                    if ($scope.UniqueDateFieldSpecialType != 16 && $scope.UniqueDateFieldSpecialType != 17) {
 
-                    var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
 
-                    d122.setDate(d122.getDate() + _genVar);
-                    var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
-                    wcfDateStr123 = d122.toMSJSON();
+                        var dsplit1 = _updateDateval.split("-");
+
+                        var d122 = new Date(dsplit1[0], dsplit1[1] - 1, dsplit1[2]);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
+
+                        d122.setDate(d122.getDate() + _genVar);
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), 0, 0, 0, 0))
+                        wcfDateStr123 = d122.toMSJSON();
+                    }
+                    else if ($scope.UniqueDateFieldSpecialType == 16) {
+
+                        var _dateValuearray = _updateDateval.split("T");
+
+
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+
+                        d1222.setDate(d1222.getDate());
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+                        wcfDateStr123 = d1122.toMSJSONTime();
+
+                    }
+                    else if ($scope.UniqueDateFieldSpecialType == 17) {
+
+                        var dsplit1 = _updateDateval.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+
+                        d122.setDate(d122.getDate());
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr123 = d1123.toMSJSONTime();
+                    }
 
                     $scope.InventoryObject.UniqueDate = wcfDateStr123;
                 }
@@ -1574,21 +1691,51 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
                 if (_updateDateval1 != null && _updateDateval1 != "") {
-
                     var wcfDateStr1234 = null;
-                    var dsplit12 = _updateDateval1.split("-");
 
-                    var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+                    if ($scope.UnitDate2FieldSpecialType != 16 && $scope.UnitDate2FieldSpecialType != 17) {
 
-                    d1222.setDate(d1222.getDate() + _genVar);
-                    var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), 0, 0, 0, 0))
 
-                    wcfDateStr1234 = d1222.toMSJSON();
+
+                        var dsplit12 = _updateDateval1.split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+
+                        d1222.setDate(d1222.getDate() + _genVar);
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), 0, 0, 0, 0))
+
+                        wcfDateStr1234 = d1222.toMSJSON();
+
+                    }
+
+                    else if ($scope.UnitDate2FieldSpecialType == 16) {
+                        var _dateValuearray = _updateDateval1.split("T");
+
+
+                        var tsplit12 = _dateValuearray[1].split(":");
+                        var dsplit12 = _dateValuearray[0].split("-");
+
+                        var d1222 = new Date(dsplit12[0], dsplit12[1] - 1, dsplit12[2]);
+
+                        d1222.setDate(d1222.getDate());
+                        var d1122 = new Date(Date.UTC(d1222.getFullYear(), d1222.getMonth(), d1222.getDate(), parseInt(tsplit12[0]), parseInt(tsplit12[1]), 0, 0))
+
+                        wcfDateStr1234 = d1122.toMSJSONTime();
+                    }
+                    else if ($scope.UnitDate2FieldSpecialType == 17) {
+
+
+                        var dsplit1 = _updateDateval1.split(":");
+                        var d122 = new Date(1900, 0, 1);
+
+                        var d112 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), parseInt(dsplit1[0]), parseInt(dsplit1[1]), 0, 0))
+
+                        d122.setDate(d122.getDate());
+                        var d1123 = new Date(Date.UTC(d122.getFullYear(), d122.getMonth(), d122.getDate(), dsplit1[0], dsplit1[1], 0, 0))
+                        wcfDateStr1234 = d1123.toMSJSONTime();
+                    }
 
                     $scope.InventoryObject.UnitDate2 = wcfDateStr1234;
-
-
-
 
                 }
                 else {
@@ -1666,6 +1813,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           console.log(jqXHR);
                       },
                       error: function (err, textStatus, errorThrown) {
+
+
+                          debugger;
+
                           if (err.readyState == 0 || err.status == 0) {
 
                           }
