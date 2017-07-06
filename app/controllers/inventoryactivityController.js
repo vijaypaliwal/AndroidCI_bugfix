@@ -116,23 +116,23 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
 
     $scope.getCustomSpecialType = function (FieldName) {
-       // debugger;
-        if ($scope.CustomItemDataList.length > 0) {
-            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+        
+        if ($scope.CustomItemActivityDataList.length > 0) {
+            for (var i = 0; i < $scope.CustomItemActivityDataList.length; i++) {
                 var type = "";
                 var Map = "";
-                if (FieldName.includes("t_")) {
-                    type = "inventory";
+                if (FieldName.includes("i_")) {
+                    type = "part";
                     Map = FieldName.substring(2);
                 }
                 else {
-                    type = "part";
+                    type = "inventory";
                     Map = FieldName;
                 }
 
 
-                if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
-                    return $scope.CustomItemDataList[i];
+                if ($scope.CustomItemActivityDataList[i].ColumnMap == Map && $scope.CustomItemActivityDataList[i].cfdCustomFieldType == type) {
+                    return $scope.CustomItemActivityDataList[i];
                 }
             }
         }
@@ -431,9 +431,11 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     // Function to get cfdspecial type for Custom Field
 
     $scope.getCustomSpecialType = function (FieldName) {
-        //debugger;
-        if ($scope.CustomItemDataList.length > 0) {
-            for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+        // 
+
+        debugger;
+        if ($scope.CustomItemActivityDataList.length > 0) {
+            for (var i = 0; i < $scope.CustomItemActivityDataList.length; i++) {
                 var type = "";
                 var Map = "";
                 if (FieldName.includes("i_")) {
@@ -441,13 +443,14 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                     Map = FieldName.substring(2);
                 }
                 else {
+                    console.log("into inventory");
                     type = "inventory";
                     Map = FieldName;
                 }
 
 
-                if ($scope.CustomItemDataList[i].ColumnMap == Map && $scope.CustomItemDataList[i].cfdCustomFieldType == type) {
-                    return $scope.CustomItemDataList[i];
+                if ($scope.CustomItemActivityDataList[i].ColumnMap == Map && $scope.CustomItemActivityDataList[i].cfdCustomFieldType == type) {
+                    return $scope.CustomItemActivityDataList[i];
                 }
             }
         }
@@ -473,7 +476,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     // get data type according to column name
     $scope.GetColumnDataType = function (ColumnName) {
 
-       // debugger;
+       //  
         var DataType = ""
 
         DataType = $scope.GetCustomFieldTypeByID(ColumnName);
@@ -613,7 +616,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
                        if (Type == 1) {
 
-                           //debugger;
+                           // 
                            $scope.CustomActivityDataList = response.GetCustomFieldsDataResult.Payload;
 
                        }
@@ -640,19 +643,26 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
            });
     }
 
+    $scope.GetTrueFalseArray = function () {
+        trueFalseArray.push("true");
+        trueFalseArray.push("false");
+
+        return trueFalseArray;
+    }
+
     $scope.GetBooleabData = function (ColumnName) {
-        debugger;
+         
 
         var BooeanArray = [];
 
         var type = "";
         var Map = "";
-        if (ColumnName.includes("t_")) {
-            type = "inventory";
+        if (ColumnName.includes("i_")) {
+            type = "part";
             Map = ColumnName.substring(2);
         }
         else {
-            type = "part";
+            type = "inventory";
             Map = ColumnName;
         }
 
@@ -847,7 +857,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     // get column data according to column name and index of data
     $scope.GetCellData = function (columnName, Index, isCalculated) {
 
-        //debugger;
+        // 
         var _ID = TryParseInt(columnName, 0);
         if (_ID != 0) {
             columnName = $scope.GetCustomFieldByID(_ID);
@@ -1636,10 +1646,11 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
         }
     }
     function ConvertToProperFilter(_Filters) {
-        //debugger;
+
+        debugger;
         if (_Filters != null && _Filters != undefined && _Filters.length != 0) {
             for (var i = 0; i < _Filters.length; i++) {
-                switch (GetColumnDataType(_Filters[i].ColumnName)) {
+                switch ($scope.GetColumnDataType(_Filters[i].ColumnName)) {
                     case "Decimal":
                     case "decimal":
                     case "number":
@@ -1650,27 +1661,92 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                         }
                         break;
                     case "Date":
+                    case "date":
                     case "datetime":
+                        if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && _Filters[i].SearchValue != "") {
+                            debugger;
+                            if (_Filters[i].SearchValue.includes("AM") || _Filters[i].SearchValue.includes("PM")) {
+                                if (_Filters[i].SearchValue.includes("1900")) {
+                                    var x = _Filters[i].SearchValue.split(" ");
+                                    var y = x[1].split(":");
+
+
+                                    if (_Filters[i].SearchValue.includes("PM")) {
+                                        y[0] = parseInt(y[0]) + 12;
+                                    }
+
+                                    if (y[0].length < 2) {
+                                        y[0] = "0" + y[0]
+                                    }
+                                    if (y[1].length < 2) {
+                                        y[1] = "0" + y[1]
+                                    }
+
+
+                                    _Filters[i].SearchValue = y[0] + ":" + y[1];
+                                    break;
+                                }
+                                else {
+                                    var x = _Filters[i].SearchValue.split(" ");
+                                    var replaced = x[0].split("/");
+                                    var Datereplaced = x[1].split(":");
+
+                                    if (replaced[0].length < 2) {
+                                        replaced[0] = "0" + replaced[0]
+                                    }
+
+                                    if (replaced[1].length < 2) {
+                                        replaced[1] = "0" + replaced[1]
+                                    }
+
+                                    if (Datereplaced[0].length < 2) {
+                                        Datereplaced[0] = "0" + Datereplaced[0]
+                                    }
+
+                                    if (Datereplaced[1].length < 2) {
+                                        Datereplaced[1] = "0" + Datereplaced[1]
+                                    }
+
+
+                                    var newdate = replaced[2] + "-" + replaced[0] + "-" + replaced[1];
+
+                                    _Filters[i].SearchValue = newdate + "T" + Datereplaced[0] + ":" + Datereplaced[1]
+                                    break;
+                                }
+                            }
+                        }
+
+
                         _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
                         break;
+
                     case "checkbox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
                         break;
+                    case "string":
+                    case "String":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
                     default:
-                  
-
-
                 }
-
             }
-
             $scope.FilterArray = _Filters;
         }
+        setTimeout(function () {
 
+            $(".weekfilter").each(function () {
 
+                var _val = $(this).attr("currentvalue");
+                if ($.trim(_val) != "") {
+
+                    $(this).val(_val);
+                    $(this).trigger("change");
+                }
+            });
+        }, 1000);
         CheckScopeBeforeApply();
     }
 
@@ -1678,8 +1754,9 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
 
 
+
     function ChangeBooleanOperator() {
-        debugger;
+         
         for (var i = 0; i < $scope.FilterArray.length ; i++) {
             if ($scope.FilterArray[i].ColumnName.includes("bool")) {
                 $scope.FilterArray[i].FilterOperator = 'bool';
@@ -1799,6 +1876,19 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             var _searchParameter = $scope.filterVal;
 
             for (var i = 0 ; i < $scope.FilterArray.length ; i++) {
+
+                if ($scope.FilterArray[i].ColumnName == "itUniqueDate" || $scope.FilterArray[i].ColumnName == "itUnitDate2") {
+                    var fieldSpecialType = $scope.getUnitSpecialType($scope.FilterArray[i].ColumnName.slice(2));
+                    if (fieldSpecialType != undefined) {
+                        if (fieldSpecialType == 17) {
+                            // For Time Fields
+                            if ($.trim($scope.FilterArray[i].SearchValue) != "") {
+
+                                $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
+                            }
+                        }
+                    }
+                }
                 var fieldSpecialType = $scope.getCustomSpecialType($scope.FilterArray[i].ColumnName);
                 if (fieldSpecialType != undefined) {
                     if ($.trim($scope.FilterArray[i].SearchValue) != "") {
@@ -1807,8 +1897,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                         }
                         if (fieldSpecialType.cfdSpecialType == 3) {
                             // For Time Fields
-
-                            $scope.FilterArray[i].SearchValue = "1990-01-01T" + $scope.FilterArray[i].SearchValue;
+                            $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
                         }
                     }
                 }
@@ -1853,7 +1942,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                   },
                   error: function (requestObject, err, errorThrown) {
 
-                     // debugger;
+                     //  
                       if (requestObject.readyState == 0 || requestObject.status == 0) {
                           log.error("Seems like some issue in network, please try again.")
                       }
@@ -2015,15 +2104,16 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     }
 
     function init() {
+        $scope.GetCustomDataField(0);
+        $scope.GetCustomDataField(1);
+        $scope.GetCustomDataField(2);
 
         $scope.GetActiveUnitDataField();
 
         $scope.getuom();
         $scope.getstatus();
         $scope.GetActivityViews();
-        $scope.GetCustomDataField(0);
-        $scope.GetCustomDataField(1);
-        $scope.GetCustomDataField(2);
+     
         CheckScopeBeforeApply();
     }
 

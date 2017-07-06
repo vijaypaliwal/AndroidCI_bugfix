@@ -464,7 +464,12 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
         }
         return _returnPath;
     }
+    $scope.GetTrueFalseArray = function () {
+        trueFalseArray.push("true");
+        trueFalseArray.push("false");
 
+        return trueFalseArray;
+    }
     
     $scope.GetBooleabData = function (ColumnName) {
         debugger;
@@ -947,9 +952,11 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
         }
     }
     function ConvertToProperFilter(_Filters) {
+
+        debugger;
         if (_Filters != null && _Filters != undefined && _Filters.length != 0) {
             for (var i = 0; i < _Filters.length; i++) {
-                switch (GetColumnDataType(_Filters[i].ColumnName)) {
+                switch ($scope.GetColumnDataType(_Filters[i].ColumnName)) {
                     case "Decimal":
                     case "decimal":
                     case "number":
@@ -960,28 +967,95 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
                         }
                         break;
                     case "Date":
+                    case "date":
                     case "datetime":
+                        if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && _Filters[i].SearchValue != "") {
+                            debugger;
+                            if (_Filters[i].SearchValue.includes("AM") || _Filters[i].SearchValue.includes("PM")) {
+                                if (_Filters[i].SearchValue.includes("1900")) {
+                                    var x = _Filters[i].SearchValue.split(" ");
+                                    var y = x[1].split(":");
+
+
+                                    if (_Filters[i].SearchValue.includes("PM")) {
+                                        y[0] = parseInt(y[0]) + 12;
+                                    }
+
+                                    if (y[0].length < 2) {
+                                        y[0] = "0" + y[0]
+                                    }
+                                    if (y[1].length < 2) {
+                                        y[1] = "0" + y[1]
+                                    }
+
+
+                                    _Filters[i].SearchValue = y[0] + ":" + y[1];
+                                    break;
+                                }
+                                else {
+                                    var x = _Filters[i].SearchValue.split(" ");
+                                    var replaced = x[0].split("/");
+                                    var Datereplaced = x[1].split(":");
+
+                                    if (replaced[0].length < 2) {
+                                        replaced[0] = "0" + replaced[0]
+                                    }
+
+                                    if (replaced[1].length < 2) {
+                                        replaced[1] = "0" + replaced[1]
+                                    }
+
+                                    if (Datereplaced[0].length < 2) {
+                                        Datereplaced[0] = "0" + Datereplaced[0]
+                                    }
+
+                                    if (Datereplaced[1].length < 2) {
+                                        Datereplaced[1] = "0" + Datereplaced[1]
+                                    }
+
+
+                                    var newdate = replaced[2] + "-" + replaced[0] + "-" + replaced[1];
+
+                                    _Filters[i].SearchValue = newdate + "T" + Datereplaced[0] + ":" + Datereplaced[1]
+                                    break;
+                                }
+                            }
+                        }
+
+
                         _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
                         break;
+
                     case "checkbox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
                         break;
+                    case "string":
+                    case "String":
+                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        break;
                     default:
-
-
                 }
-
             }
-
             $scope.FilterArray = _Filters;
         }
+        setTimeout(function () {
 
+            $(".weekfilter").each(function () {
 
+                var _val = $(this).attr("currentvalue");
+                if ($.trim(_val) != "") {
+
+                    $(this).val(_val);
+                    $(this).trigger("change");
+                }
+            });
+        }, 1000);
         CheckScopeBeforeApply();
     }
+
 
 
     function ChangeBooleanOperator() {
@@ -1062,7 +1136,7 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
                         if (fieldSpecialType.cfdSpecialType == 3) {
                             // For Time Fields
 
-                            $scope.FilterArray[i].SearchValue = "1990-01-01T" + $scope.FilterArray[i].SearchValue;
+                            $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
                         }
                     }
                 }
@@ -1220,9 +1294,10 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     }
 
     function init() {
+        $scope.GetCustomDataField(0);
         $scope.getuom();
         $scope.GetItemViews();
-        $scope.GetCustomDataField(0);
+
         CheckScopeBeforeApply();
       
     

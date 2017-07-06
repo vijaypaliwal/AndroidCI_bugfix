@@ -1676,10 +1676,7 @@
                                                     </tr>
                                                 </table>
                                             </a>
-
                                         </li>
-
-
                                     </ul>
                                 </div>
 
@@ -1696,8 +1693,6 @@
 
 
                             <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
-
-
 
                                 <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdSpecialType==2" type="datetime-local" class="form-control datetimedata" ng-model="obj.CfValue" value="{{obj.CfValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" />
                                 <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdSpecialType==3" type="time" class="form-control datetimedata" ng-model="obj.CfValue" value="{{obj.CfValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" />
@@ -1727,7 +1722,7 @@
                         </div>
                     </div>
                     <div ng-if="CurrentOperation=='Adjust'">
-                        <div>
+                        <div id="transactionForm1">
                             <h3 style="color: #177B3D">Activity details for increase </h3>
 
 
@@ -2032,7 +2027,6 @@
                         </div>
                     </div>
 
-
                 </div>
 
                 <!--Activity Details End-->
@@ -2046,12 +2040,7 @@
             <div ng-if="IsSingleMode==true">
                 <div class="swiper-container" ng-if="_IsLoading==false">
 
-
                     <div class="swiper-wrapper">
-
-
-
-
 
                         <div class="animated slideInLeft swiper-slide" ng-if="IsSingleMode==true" data-type="Cart" ng-repeat="CurrentActiveObject in CurrentCart" data-index="{{$index}}">
 

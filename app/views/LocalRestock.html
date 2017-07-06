@@ -158,35 +158,30 @@
                     </span>
 
 
+                    <div ng-if="_obj.ColumnName=='uomUOM' || _obj.ColumnName=='DefaultUOM'">
 
-                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                        {{_obj.SearchValue}}
-                        <i class="caret pull-right" style="margin-top: 8px"></i>
+
+                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                            {{_obj.SearchValue}}
+                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                        </div>
+                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                            <li ng-repeat="_optionValue in UOMList">
+                                <a>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
+                                        </tr>
+                                    </table>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
                     </div>
-                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                        <li ng-repeat="_optionValue in UOMList">
-                            <a>
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
-                                    </tr>
-                                </table>
-                            </a>
-
-                        </li>
-
-
-                    </ul>
-
-
-
-
-                    <!--<select ng-if="_obj.ColumnName=='uomUOM' || _obj.ColumnName=='DefaultUOM'" ng-model="_obj.SearchValue" class=" form-control">
-            <option value="">Choose UOM</option>
-            <option value="{{obj.UnitOfMeasureName}}" ng-selected="obj.UnitOfMeasureName==_obj.SearchValue" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
-        </select>-->
                 </div>
                 <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='string' && _obj.ColumnName!='DefaultUOM' && _obj.ColumnName!='uomUOM'">
                     <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class="input-group-addon">
@@ -217,7 +212,7 @@
                         </div>
 
                         <!--CustomWeek-->
-                        <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask == 'week' ">
+                        <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask == 'week' " currentvalue="{{_obj.SearchValue}}" class="weekfilter">
                             <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
                                 <option value="">choose week</option>
                                 <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
@@ -264,18 +259,28 @@
 
                         <!--CustomDateTime-->
                         <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType == 2">
-                            <input class="form-control" type="datetime-local" name="name" ng-model="_obj.SearchValue" value="" />
+                            <input class="form-control" type="datetime-local" step="1"name="name" ng-model="_obj.SearchValue" value="" />
                         </div>
                         <!--CustomTime-->
                         <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType == 3">
-                            <input class="form-control" type="time" name="name" ng-model="_obj.SearchValue" value="" />
+                            <input class="form-control" type="time" step="1" name="name" ng-model="_obj.SearchValue" value="" />
                         </div>
                     </div>   
                 </div>
 
-                <div ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
+                <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='combobox'">
 
+                    <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 
+                            <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
+                        </a>
+                        <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
+                            <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
+                        </ul>
+
+                    </span>
                     <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
                         {{_obj.SearchValue}}
                         <i class="caret pull-right" style="margin-top: 8px"></i>
@@ -310,7 +315,8 @@
                         </ul>
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
-                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
+                       
+                        <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{$index == 0 ? true : false}}" ng-selected="GetTrueFalseArray()[$index] == _obj.SearchValue">{{_data}}</option>
                     </select>
 
                 </div>
