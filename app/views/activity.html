@@ -4666,11 +4666,15 @@
 <!-- Script Section Start-->
 <script>
 
-    $(document).on("touchstart", "select", function (e) {
+    $(document).on("touchstart", "select", function (e)
+    {
+
+
 
         e.preventDefault();
+        e.stopPropagation();
 
-    });
+     });
 
     $(init);
 
