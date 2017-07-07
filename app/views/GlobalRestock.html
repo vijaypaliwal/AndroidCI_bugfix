@@ -398,13 +398,9 @@
 <script>
 
 
-    $(document).on("touchstart", "select", function (e) {
+    $(document).on("touchend", "select", function (e) {
 
-        setTimeout(function () {
-
-            e.stopPropagation();
-        },0)
-
+        e.stopPropagation();
        
     });
 
