@@ -668,6 +668,11 @@
         e.stopPropagation();
     });
 
+    $("select").bind('touchstart click', function (e) {
+        alert("bind call");
+        e.stopPropagation();
+    });
+
     var offset = 50;
     //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
     var offset_opacity = 1200;
