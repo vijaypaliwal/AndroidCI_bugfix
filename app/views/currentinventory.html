@@ -183,38 +183,19 @@
 
                             <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
                         </a>
-                        <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
+                        <ul  class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
                         </ul>
 
                     </span>
-                    <div ng-if="_obj.ColumnName=='iStatusValue'">
-
-
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                            {{_obj.SearchValue}}
-                            <i class="caret pull-right" style="margin-top: 8px"></i>
-                        </div>
-                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                            <li ng-repeat="_optionValue in StatusList">
-                                <a>
-                                    <table style="width: 100%">
-                                        <tr>
-                                            <td ng-click="_obj.SearchValue=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
-                                        </tr>
-                                    </table>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
+                    <select ng-if="_obj.ColumnName=='iStatusValue'" ng-model="_obj.SearchValue" class="form-control">
+                        <option value="">Choose Status</option>
+                        <option value="{{obj.StatusValue}}" ng-selected="obj.StatusValue==_obj.SearchValue" ng-repeat="obj in StatusList">{{obj.StatusValue}}</option>
+                    </select>
                 </div>
+
+
                 <div class="input-group" ng-if="_obj.ColumnName=='uomUOM'">
 
                     <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class=" input-group-addon">
@@ -226,34 +207,12 @@
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
                         </ul>
-
+                        
                     </span>
-
-                    <div ng-if="_obj.ColumnName=='uomUOM'">
-
-
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                            {{_obj.SearchValue}}
-                            <i class="caret pull-right" style="margin-top: 8px"></i>
-                        </div>
-                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                            <li ng-repeat="_optionValue in UOMList">
-                                <a>
-                                    <table style="width: 100%">
-                                        <tr>
-                                            <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
-                                        </tr>
-                                    </table>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
+                    <select ng-if="_obj.ColumnName=='uomUOM'" ng-model="_obj.SearchValue" class=" form-control">
+                        <option value="">Choose UOM</option>
+                        <option value="{{obj.UnitOfMeasureName}}" ng-selected="obj.UnitOfMeasureName==_obj.SearchValue" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
+                    </select>
                 </div>
 
                 <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='string' && _obj.ColumnName!='iStatusValue' && _obj.ColumnName!='uomUOM'">
@@ -301,7 +260,7 @@
                             <!--CustomRadio-->
                             <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType == 1">
                                 <select id="CustomRadio" ng-model="_obj.SearchValue" class="form-control">
-                                    <option ng-repeat="n in getCustomSpecialType(_obj.ColumnName).cfdRadioValues track by $index" value="{{n}}"> {{n}}</option>
+                                    <option ng-repeat="n in getCustomSpecialType(_obj.ColumnName).cfdRadioValues track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
                                 </select>
                             </div>
                         </div>                                             
@@ -540,26 +499,10 @@
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
                         </ul>
                     </span>
-                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                        {{_obj.SearchValue}}
-                        <i class="caret pull-right" style="margin-top: 8px"></i>
-                    </div>
-                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                        <li ng-repeat="_data in GetComboData(_obj.ColumnName)">
-                            <a>
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td ng-click="_obj.SearchValue=_data">{{_data}}</td>
-                                    </tr>
-                                </table>
-                            </a>
-
-                        </li>
-
-
-                    </ul>
+                    <select class="form-control" ng-model="_obj.SearchValue">
+                       
+                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
+                    </select>
 
                 </div>
 
@@ -662,15 +605,11 @@
 </script>
 <script>
 
-
-  
     $(document).on("touchstart", "select", function (e) {
-      
+
         e.preventDefault();
 
     });
-
-
 
     var offset = 50;
     //browser window scroll (in pixels) after which the "back to top" link opacity is reduced

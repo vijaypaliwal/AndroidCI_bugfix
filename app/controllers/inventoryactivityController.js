@@ -159,7 +159,13 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     $scope.isviewload = false;
     $scope.Columns = [];
     $scope.loadingblock = false;
+    $scope.weeklist = [];
+    var trueFalseArray = [];
+    $scope.CurrentYear = new Date().getFullYear();
 
+    for (var i = 1; i <= 52; i++) {
+        $scope.weeklist.push(i);
+    }
 
     $scope.HasImage = "";
     var _IsLazyLoadingUnderProgress = 0;
@@ -381,12 +387,12 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
         if (ColumnName.includes("i_")) {
             type = "part";
             _TempArray = angular.copy($scope.CustomItemDataList);
-            Map = ID.substring(2);
+            Map = ColumnName.substring(2);
         }
         else {
             type = "inventory";
             _TempArray = angular.copy($scope.CustomActivityDataList);
-            Map = ID;
+            Map = ColumnName;
         }
         for (var i = 0; i < _TempArray.length; i++) {
             if (_TempArray[i].ColumnMap == Map) {
@@ -1721,7 +1727,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;

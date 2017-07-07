@@ -156,32 +156,10 @@
                             <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
                         </ul>
                     </span>
-
-
-                    <div ng-if="_obj.ColumnName=='uomUOM' || _obj.ColumnName=='DefaultUOM'">
-
-
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                            {{_obj.SearchValue}}
-                            <i class="caret pull-right" style="margin-top: 8px"></i>
-                        </div>
-                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                            <li ng-repeat="_optionValue in UOMList">
-                                <a>
-                                    <table style="width: 100%">
-                                        <tr>
-                                            <td ng-click="_obj.SearchValue=_optionValue.UnitOfMeasureName">{{_optionValue.UnitOfMeasureName}}</td>
-                                        </tr>
-                                    </table>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
+                    <select ng-if="_obj.ColumnName=='uomUOM' || _obj.ColumnName=='DefaultUOM'" ng-model="_obj.SearchValue" class=" form-control">
+                        <option value="">Choose UOM</option>
+                        <option value="{{obj.UnitOfMeasureName}}" ng-selected="obj.UnitOfMeasureName==_obj.SearchValue" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
+                    </select>
                 </div>
                 <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='string' && _obj.ColumnName!='DefaultUOM' && _obj.ColumnName!='uomUOM'">
                     <span style="padding:5px; border:1px solid #ccc; border-right:transparent" class="input-group-addon">
@@ -212,8 +190,8 @@
                         </div>
 
                         <!--CustomWeek-->
-                        <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask == 'week' " currentvalue="{{_obj.SearchValue}}" class="weekfilter">
-                            <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control">
+                        <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask == 'week' " >
+                            <select id="UniqueTag" ng-model="_obj.SearchValue" class="form-control weekfilter" currentvalue="{{_obj.SearchValue}}">
                                 <option value="">choose week</option>
                                 <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                 <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -226,7 +204,8 @@
                         <!--CustomRadio-->
                         <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType == 1">
                             <select id="CustomRadio" ng-model="_obj.SearchValue" class="form-control">
-                                <option ng-repeat="n in getCustomSpecialType(_obj.ColumnName).cfdRadioValues track by $index" value="{{n}}"> {{n}}</option>
+                                <option value=""></option>
+                                <option ng-repeat="n in getCustomSpecialType(_obj.ColumnName).cfdRadioValues track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
                             </select>
                         </div>
                     </div> 
@@ -281,26 +260,10 @@
                         </ul>
 
                     </span>
-                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-                        {{_obj.SearchValue}}
-                        <i class="caret pull-right" style="margin-top: 8px"></i>
-                    </div>
-                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-
-                        <li ng-repeat="_data in GetComboData(_obj.ColumnName)">
-                            <a>
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td ng-click="_obj.SearchValue=_data">{{_data}}</td>
-                                    </tr>
-                                </table>
-                            </a>
-
-                        </li>
-
-
-                    </ul>
+                    <select class="form-control" ng-model="_obj.SearchValue">
+                        <option value=""></option>
+                        <option ng-repeat="_data in GetComboData(_obj.ColumnName)" value="{{_data}}" ng-selected="_data == _obj.SearchValue">{{_data}}</option>
+                    </select>
                 </div>
                 <div class="input-group" ng-if="GetColumnDataType(_obj.ColumnName)=='checkbox'">
 
@@ -315,7 +278,7 @@
                         </ul>
                     </span>
                     <select class="form-control" ng-model="_obj.SearchValue">
-                       
+                        <option value=""></option>
                         <option ng-repeat="_data in GetBooleabData(_obj.ColumnName)" value="{{$index == 0 ? true : false}}" ng-selected="GetTrueFalseArray()[$index] == _obj.SearchValue">{{_data}}</option>
                     </select>
 

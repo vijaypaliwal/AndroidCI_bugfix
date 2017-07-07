@@ -21,7 +21,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
     var _TotalRecordsCurrent = 0;
 
     var _masterSearch = "";
-
+    var trueFalseArray = [];
 
     $scope.weeklist = [];
 
@@ -1001,7 +1001,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;

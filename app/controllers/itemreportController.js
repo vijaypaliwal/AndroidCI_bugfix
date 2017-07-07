@@ -22,7 +22,7 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     $scope.loadingblock = false;
     $scope.HasImage = "";
 
-
+    var trueFalseArray = [];
     $scope.weeklist = [];
 
     $scope.CurrentYear = new Date().getFullYear();
@@ -1027,7 +1027,7 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;

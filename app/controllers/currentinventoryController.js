@@ -1494,7 +1494,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;

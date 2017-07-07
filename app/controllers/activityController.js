@@ -145,9 +145,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                 $('#' + $scope.FieldType + $scope.currentcfdID).val($scope.dropdownLabel);
 
-                $scope.UpdateActivityDropdownData($scope.currentcfdID, $scope.dropdownLabel, $scope.ActiveIndex);
-                CheckScopeBeforeApply();
-
                 $("#Adddropdownvalue").modal('hide');
 
 
@@ -540,16 +537,16 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             id = id + '_' + inventoryid;
         }
 
-       
+
 
 
         var _toAppend = fieldtype == "line" ? "LineItem_" : "CustomActivity_"
 
 
-      
 
 
-      
+
+
 
         $scope.activecustomfield = _toAppend + id;
 
@@ -578,17 +575,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
     $scope.fillcustomvalue = function (value) {
-
-     
-
         $("#" + $scope.activecustomfield).val(value);
 
         $("#" + $scope.activecustomfield).trigger("input");
-
-
-      //  CustomActivityDecrease_
-
-
         CheckScopeBeforeApply();
         $("#customautolistmodal").modal('hide');
 
@@ -1190,8 +1179,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                         if ($scope.CurrentOperation == "MoveTagUpdate") {
 
-                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate_date;
-                            defaultValueOfColumn = $scope.GroupCopy[k].MoveUpdateTagTransactionData.UniqueDate_date;
+                            value = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate;
+                            defaultValueOfColumn = $scope.GroupCopy[k].MoveUpdateTagTransactionData.UniqueDate;
 
                             if ($.trim(value) != "" && $.trim(value) != $.trim(defaultValueOfColumn)) {
 
@@ -1747,41 +1736,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
-
-
-    $scope.UpdateActivityDropdownData = function (CustomDataID, Value, Type) {
-
-        debugger;
-
-        var _ID = "#CustomActivity_" + CustomDataID;
-        var _ID2 = "#CustomActivity_" + CustomDataID + "_label";
-
-        switch (Type) {
-            case 1:
-                _ID = "#CustomActivity_" + CustomDataID;
-                _ID2 = "#CustomActivity_" + CustomDataID + "_label";
-                break
-            case 2:
-                _ID = "#CustomActivityIncrease_" + CustomDataID;
-                _ID2 = "#CustomActivityIncrease_" + CustomDataID + "_label";
-                break
-            case 3:
-                _ID = "#CustomActivityDecrease_" + CustomDataID;
-                _ID2 = "#CustomActivityDecrease_" + CustomDataID + "_label";
-                break
-            default:
-                _ID = "#CustomActivity_" + CustomDataID;
-                _ID2 = "#CustomActivity_" + CustomDataID + "_label";
-                break;
-        }
-
-        $(_ID).val(Value);
-        $(_ID2).html(Value);
-
-    }
-
-
-
     $("#headerrow a").not(".dropdown-toggle").not(".logout").click(function () {
         if ($scope.CurrentCart.length > 0) {
             $scope.CurrentHref = $(this).attr("href");
@@ -2019,20 +1973,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $("#locationlistmodal").hide();
         CheckScopeBeforeApply()
     }
-
-
-
-    $scope.GetUOMByID = function (UOMID) {
-        if ($scope.UOMList.length > 0) {
-
-            for (var i = 0; i < $scope.UOMList.length; i++) {
-                if ($scope.UOMList[i].UnitOfMeasureID == UOMID) {
-                    return $scope.UOMList[i].UnitOfMeasureName;
-                }
-            }
-        }
-    }
-
     $scope.GetLocationByID = function (LID) {
         if ($scope.LocationDataList.length > 0) {
             var _idData = parseInt(LID);
@@ -2440,7 +2380,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
             }
 
-
+            
             console.log($scope.CurrentCart);
         }
 
@@ -2584,8 +2524,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
     function leadZero(_something) {
-
-        var _TempString = parseInt(_something).toString();
+        
+      var _TempString = parseInt(_something).toString();
         _something = _TempString.toString();
         if (parseInt(_something) < 10) return "0" + _something;
         return _something;//else    
@@ -2821,8 +2761,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     function init() {
 
+       
 
         $scope.CurrentCart = localStorageService.get("ActivityCart");
+
+       
 
         var _CurrentAction = localStorageService.get("SelectedAction");
         _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
@@ -2844,7 +2787,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         GetCustomDataField(1);
         getuom();
         $scope.getstatus()
-        $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
+
+   
         $scope.GetActiveUnitDataField();
 
         $scope.getlocation();
@@ -2863,8 +2807,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             $scope.AllowNegative = false;
             _AllowNegative = 'False';
         }
+        for (var i = 0; i < $scope.CurrentCart.length; i++) {
+            $scope.CurrentCart[i].MoveUpdateTagTransactionData.UniqueDate = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
+            $scope.CurrentCart[i].MoveUpdateTagTransactionData.UnitDate2 = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
+        }
 
+        $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
         CheckScopeBeforeApply();
+        console.log("Activity Data");
+        console.log($scope.CurrentCart)
         setTimeout(function () {
 
             $(".weekPicker").each(function () {
@@ -3243,8 +3194,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         var _array = [];
 
         // process all custom fields that are NOT checkboxes
-        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), select[cfd-id]:not(":hidden"), textarea[cfd-id]:not(":hidden")'), function () {
+        $.each($('.customActivityData input[cfd-id]:not(":checkbox"):not(":hidden"), .customActivityData select[cfd-id]:not(":hidden"), .customActivityData  textarea[cfd-id]:not(":hidden")'), function () {
 
+      
 
             _array.push({ "CfdID": $(this).attr('cfd-id'), "Value": $(this).val(), "DataType": $(this).attr('custom-data-type') });
         });
@@ -4363,7 +4315,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != undefined && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != "") {
                 var dateVar = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2;
 
-
+                
                 if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 16) {
                     if ($scope.CurrentOperation == "MoveTagUpdate") {
                         var _dateValuearray = dateVar.split("T");
@@ -4800,10 +4752,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.FillLineItem = function (LineItemIndex, fieldID, value, InventoryID) {
 
-        debugger;
-
-       
-
         var _DataType = GetCustomFieldType(fieldID);
         $scope.ActionLineItemData = value;
 
@@ -4820,6 +4768,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
             $scope.CurrentLineItemIndex = -1;
             $scope.CurrentInventoryId = -1;
+
+
 
 
         }
