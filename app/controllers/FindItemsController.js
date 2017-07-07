@@ -93,7 +93,87 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.CurrentActiveSearchType = 1;
     $scope.CurrentActiveSearchOperator = "img/filter/Contains.gif";
     $scope.CurrentActiveSearchField = "All";
-    var pressTimer
+    var _defaultUnitObj = {
+        AccountID: 0,
+        Active: false,
+        BaseValue: 0,
+        FieldComboValues: null,
+        FieldDataType: "",
+        FieldDefaultAMPM: null,
+        FieldDefaultValue: "",
+        FieldDescription: "test",
+        FieldInputMask: null,
+        FieldLabel: "",
+        FieldName: "",
+        FieldNumberDecimalPlaces: 0,
+        FieldNumberMax: null,
+        FieldNumberMin: null,
+        FieldRadioValues: null,
+        FieldSpecialType: 0,
+        FieldTextMaxLength: 500,
+        FieldTextMultiRow: false,
+        FieldUse24Hours: false,
+        IncrementBy: 1,
+        IsSpecial: true,
+        IsUnique: false,
+        Prefix: "",
+        Suffix: "",
+        TagID: 0
+    }
+    $scope.getUnitObjByName = function (ColumnName) {
+        for (var i = 0; i < $scope.UnitDataList.length; i++) {
+            if ($scope.UnitDataList[i].FieldName == ColumnName) {
+                return $scope.UnitDataList[i];
+            }
+
+        }
+        return _defaultUnitObj;
+    }
+    $scope.GetActiveUnitDataField = function () {
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetActiveUnitDataFields',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'text json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+
+                   if (response.GetActiveUnitDataFieldsResult.Success == true) {
+                       $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
+
+
+
+                       CheckScopeBeforeApply()
+                   }
+                   else {
+                       $scope.ShowErrorMessage("Active unit data columns", 1, 1, response.GetActiveUnitDataFieldsResult.Message)
+
+                   }
+
+               },
+               error: function (err, textStatus, errorThrown) {
+
+
+                   if (err.readyState == 0 || err.status == 0) {
+
+                   }
+                   else {
+                       if (textStatus != "timeout") {
+                           //log.error(response.statusText);
+                           $scope.ShowErrorMessage("Active unit data columns", 2, 1, err.statusText);
+                       }
+                   }
+
+               }
+           });
+    }
 
 
 
@@ -1658,6 +1738,114 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     }
+
+
+
+    function formatDate(date) {
+        if (date != null && date != undefined && date != "") {
+
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        else {
+            return date;
+        }
+    }
+
+    function ConverttoMsJsonDateTime(_DateValue) {
+
+
+        var _date = angular.copy(_DateValue);
+
+        var dsplit1 = _date.split("/");
+
+        var _timeSplit = dsplit1[2].split(" ");
+
+        var _timeString = _timeSplit[1].split(":");
+
+        if (parseInt(_timeString[0]) > 12) {
+            _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+        }
+
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today + _ToMergeTime;
+    }
+
+    function ConvertToTime(_timeValue) {
+
+        if ($.trim(_timeValue) != "") {
+
+            var _timeSplit = _timeValue.split(" ");
+            var _timeString = _timeSplit[0].split(":");
+
+            if (parseInt(_timeString[0]) > 12) {
+                _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+            }
+
+            var _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+            return _ToMergeTime;
+        }
+
+        return "";
+
+    }
+
+    function leadZero(_something) {
+        var _TempString = parseInt(_something);
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
+        return _something;//else    
+    }
+    function ConvertToProperDate(value, Type) {
+        debugger;
+        switch (Type) {
+            case 1:
+
+                if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 16) {
+                    return ConverttoMsJsonDateTime(value);
+                }
+
+                else if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 17) {
+                    return ConvertToTime(value);
+                }
+                else {
+                    return formatDate(value);
+                }
+
+                break;
+            case 2:
+                if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 16) {
+                    return ConverttoMsJsonDateTime(value);
+                }
+
+                else if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 17) {
+                    return ConvertToTime(value);
+                }
+                else {
+                    return formatDate(value);
+                }
+
+                break;
+            default:
+
+        }
+    }
     function addItemsToCart(object, IdToSave, originalID, _isSelectAll) {
 
         var isItemExist = true;
@@ -1981,11 +2169,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     init();
 
 
+  
+
     function GetDataToSend(mainObjectToSend) {
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
             for (var i = 0; i < mainObjectToSend.length; i++) {
-                var _ItemData=GetFromlocalMyItemlist(mainObjectToSend[i].uId)
+                var _ItemData = GetFromlocalMyItemlist(mainObjectToSend[i].uId)
                 if (_ItemData == null) {
 
                     $scope.Cart.push({
@@ -2000,9 +2190,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                         MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                         UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1), UnitDate2: ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                         ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: formatDate(mainObjectToSend[i].iUniqueDate_date), UnitDate2: formatDate(mainObjectToSend[i].iUnitDate2_date), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1), UnitDate2: ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                     });
                 }
                 else {
@@ -2012,24 +2202,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         }
         return $scope.Cart;
-    }
-
-    function formatDate(date) {
-        if (date != null && date != undefined && date != "") {
-
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
-        else {
-            return date;
-        }
     }
     
   

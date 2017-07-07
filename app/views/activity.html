@@ -4666,6 +4666,12 @@
 <!-- Script Section Start-->
 <script>
 
+
+    $(document).on("touchstart", "select", function (e) {
+
+        e.stopPropagation();
+    });
+
     $(init);
 
     function init() {
@@ -4703,6 +4709,6 @@
 
 </script>
 
-<script src="scripts/jquery.ui.touch-punch.js"></script>
+
 
 <!-- Script Section End-->
