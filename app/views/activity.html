@@ -4669,7 +4669,10 @@
 
     $(document).on("touchstart", "select", function (e) {
 
-        e.stopPropagation();
+        setTimeout(function () {
+          
+            e.stopPropagation();
+        }, 100)
     });
 
     $(init);
