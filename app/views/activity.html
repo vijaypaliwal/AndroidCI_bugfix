@@ -4668,10 +4668,10 @@
 
     $(document).on("touchstart", "select", function (e)
     {
-       
-        $(this).focus().click();
         e.preventDefault();
-        e.stopPropagation();
+       // e.stopPropagation();
+        $(this).focus().click();
+      
 
      });
 
