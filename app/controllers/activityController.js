@@ -4800,6 +4800,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.FillLineItem = function (LineItemIndex, fieldID, value, InventoryID) {
 
+        debugger;
+
+       
+
         var _DataType = GetCustomFieldType(fieldID);
         $scope.ActionLineItemData = value;
 
@@ -4816,8 +4820,6 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
             $scope.CurrentLineItemIndex = -1;
             $scope.CurrentInventoryId = -1;
-
-
 
 
         }
