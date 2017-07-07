@@ -398,10 +398,10 @@
 <script>
 
 
-    $(document).on("touchend", "select", function (e) {
+    $(document).on("touchstart", "select", function (e) {
 
-        e.stopPropagation();
-       
+        e.preventDefault();
+
     });
 
 

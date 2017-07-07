@@ -4666,13 +4666,10 @@
 <!-- Script Section Start-->
 <script>
 
-
     $(document).on("touchstart", "select", function (e) {
 
-        setTimeout(function () {
+        e.preventDefault();
 
-            e.stopPropagation();
-        }, 2000)
     });
 
     $(init);

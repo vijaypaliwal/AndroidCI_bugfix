@@ -417,8 +417,9 @@
     <script>
 
         $(document).on("touchstart", "select", function (e) {
-         
-            e.stopPropagation();
+
+            e.preventDefault();
+
         });
 
         var offset = 50;
