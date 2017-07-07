@@ -245,15 +245,12 @@
     </div>
 
     <script>
-        $("select").on('touchstart click', function (e) {
+        $(document).on("touchstart", "select", function (e) {
             alert("Index call");
             e.stopPropagation();
         });
 
-        $("select").bind('touchstart click', function (e) {
-            alert("bind Index call");
-            e.stopPropagation();
-        });
+      
     </script>
 
     <!-- Jquery libraries -->

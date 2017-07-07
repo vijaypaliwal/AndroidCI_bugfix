@@ -663,10 +663,15 @@
 <script>
 
 
-    $("select").on('touchstart click', function (e) {
+  
+
+
+
+    $(document).on("touchstart", "select", function (e) {
         alert("call");
         e.stopPropagation();
     });
+
 
     $("select").bind('touchstart click', function (e) {
         alert("bind call");
