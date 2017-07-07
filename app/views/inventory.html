@@ -3972,23 +3972,10 @@
 <script>
 
 
-    var allSelectElements1 = document.getElementsByTagName('select');
-    for (var i = 0; i < allSelectElements1.length; i++) {
-        allSelectElements1[i].addEventListener('touchstart', function (e) {
-            //This is the important line
-            e.stopPropagation();
-        }, false);
-    }
+    $(document).on("touchstart", "select", function (e) {
 
+        e.preventDefault();
 
-    $(document).ready(function () {
-        var allSelectElements = document.getElementsByTagName('select');
-        for (var i = 0; i < allSelectElements.length; i++) {
-            allSelectElements[i].addEventListener('touchstart', function (e) {
-                //This is the important line
-                e.stopPropagation();
-            }, false);
-        }
     });
 
 </script>
