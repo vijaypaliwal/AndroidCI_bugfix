@@ -701,7 +701,10 @@
 
     $(document).on("touchstart", "select", function (e) {
 
-        e.stopPropagation();
+        setTimeout(function () {
+
+            e.stopPropagation();
+        }, 10)
     });
 
     var offset = 50;
