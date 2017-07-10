@@ -2808,8 +2808,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             _AllowNegative = 'False';
         }
         for (var i = 0; i < $scope.CurrentCart.length; i++) {
-            $scope.CurrentCart[i].MoveUpdateTagTransactionData.UniqueDate = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
-            $scope.CurrentCart[i].MoveUpdateTagTransactionData.UnitDate2 = angular.copy($scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
+            alert("Apply UniqueDate :: " + $scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
+            alert("Apply UnitDate :: " + $scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
+            alert("MTU UniqueDate :: " + $scope.CurrentCart[i].MoveUpdateTagTransactionData.UniqueDate);
+            alert("MTU UnitDate2 :: " + $scope.CurrentCart[i].MoveUpdateTagTransactionData.UnitDate2);
         }
 
         $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
