@@ -1814,7 +1814,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
     function ConvertToProperDate(value, Type) {
         if ($.trim(value) != "") {
-
+            debugger;
             switch (Type) {
                 case 1:
 
@@ -1921,10 +1921,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                             pDescription: v.pDescription,
                             Action: '',
                             // CurrentInvObj: v,
-                            iUniqueDate_date: formatDate(v.iUniqueDate),
+                            iUniqueDate_date: (v.iUniqueDate),
                             iUnitNumber2: v.iUnitNumber2,
                             iUnitNumber1: v.iUnitNumber1,
-                            iUnitDate2_date: formatDate(v.iUnitDate2),
+                            iUnitDate2_date: (v.iUnitDate2),
                             iUnitTag3: v.iUnitTag3,
                             iUnitTag2: v.iUnitTag2,
                             pCountFrq: v.pCountFrq,
@@ -2079,7 +2079,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         $scope.getuom();
 
         $scope.SendEmail();
-
+        $scope.GetActiveUnitDataField();
         //SetSelectedIfAny();
 
     }
@@ -2215,6 +2215,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.GoToNextMobile = function (selectedAction) {
         $scope.selectedAction = selectedAction;
         var _dataToSend = GetDataToSend($scope.mainObjectToSend);
+
         localStorageService.set("ActivityCart", "");
         localStorageService.set("ActivityCart", _dataToSend);
 

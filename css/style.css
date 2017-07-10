@@ -2798,3 +2798,9 @@ span.data-color {
 .form-control {
     height: 42px;
 }
+
+
+select {
+visibility: visible;
+-webkit-appearance: menulist-text;
+}

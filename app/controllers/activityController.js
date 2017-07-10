@@ -2807,12 +2807,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             $scope.AllowNegative = false;
             _AllowNegative = 'False';
         }
-        for (var i = 0; i < $scope.CurrentCart.length; i++) {
-            alert("Apply UniqueDate :: " + $scope.CurrentCart[i].ApplyTransactionData.UniqueDate);
-            alert("Apply UnitDate :: " + $scope.CurrentCart[i].ApplyTransactionData.UnitDate2);
-            alert("MTU UniqueDate :: " + $scope.CurrentCart[i].MoveUpdateTagTransactionData.UniqueDate);
-            alert("MTU UnitDate2 :: " + $scope.CurrentCart[i].MoveUpdateTagTransactionData.UnitDate2);
-        }
+      
 
         $scope.CurrentCartBkup = angular.copy($scope.CurrentCart);
         CheckScopeBeforeApply();

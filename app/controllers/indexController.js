@@ -702,7 +702,9 @@ app.directive('ngModel', [
                 restrict: 'A',
                 link: function (scope, element, attrs, ctrl) {
 
-                    ctrl.$pristine = false;
+                
+                            ctrl.$pristine = false;
+                       
 
 
                     scope.$watch(attrs.ngModel, function (newValue, oldValue) {
