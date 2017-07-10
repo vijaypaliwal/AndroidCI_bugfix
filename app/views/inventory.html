@@ -556,7 +556,7 @@
 
                             <!--Radio-->
                             <div ng-if="ReqValueFieldSpecialType == 12">
-                                <div class="input-group">
+                                <div class="input-group" ng-click="Unitradiolist('UniqueTag')">
                                     <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
                                     <input type="text" id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control" />
@@ -646,7 +646,7 @@
 
                             <!--Radio-->
                             <div ng-if="UnitTag2FieldSpecialType == 12">
-                                <div class="input-group">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag2')">
                                     <input type="text" id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" />
                                     <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag2')"><i class="fa fa-circle-o"></i></span>
                                     <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
@@ -737,7 +737,7 @@
 
                             <!--Radio-->
                             <div ng-if="UnitTag3FieldSpecialType == 12">
-                                <div class="input-group">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag3')">
                                     <input type="text" id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" />
                                     <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag3')"><i class="fa fa-circle-o"></i></span>
                                     <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
@@ -2431,18 +2431,18 @@
 
                     <!--AutoComplete-->
                     <div ng-if="ReqValueFieldSpecialType == 3">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitautocomplete('UniqueTag')">
                             <!--<input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />-->
 
 
 
-                            <input ng-click="Unitautocomplete('UniqueTag')" id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UniqueTag',CheckIsAllowDuplicate('UniqueTag'))" />
+                            <input id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UniqueTag',CheckIsAllowDuplicate('UniqueTag'))" />
                             <span ng-click="Unitautocomplete('UniqueTag')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
                             <!--<select class="form-control">
-                    <option id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" ng-repeat="obj in UniqueTagCombovalues">{{obj}}</option>
-                </select>-->
+            <option id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" ng-repeat="obj in UniqueTagCombovalues">{{obj}}</option>
+        </select>-->
 
                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -2497,13 +2497,13 @@
 
                     <!--Radio-->
                     <div ng-if="ReqValueFieldSpecialType == 12">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitradiolist('UniqueTag')">
                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
                             <input type="text" id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control" />
                             <span class="input-group-addon last" ng-click="Unitradiolist('UniqueTag')"><i class="fa fa-circle-o"></i></span>
                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
-                            <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                            <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                         </div>
                     </div>
@@ -2555,10 +2555,10 @@
 
                     <!--Autocomplete-->
                     <div ng-if="UnitTag2FieldSpecialType == 3">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitautocomplete('UnitTag2')">
                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
-                            <input ng-click="Unitautocomplete('UnitTag2')" id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
+                            <input id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
                             <span ng-click="Unitautocomplete('UnitTag2')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
@@ -2620,7 +2620,7 @@
 
                     <!--Radio-->
                     <div ng-if="UnitTag2FieldSpecialType == 12">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitradiolist('UnitTag2')">
                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
                             <input type="text" id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" />
@@ -2685,17 +2685,17 @@
 
                     <!--Autocomplete-->
                     <div ng-if="UnitTag3FieldSpecialType == 3">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitautocomplete('UnitTag3')">
                             <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
 
-                            <input ng-click="Unitautocomplete('UnitTag3')" id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
+                            <input id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
                             <span ng-click="Unitautocomplete('UnitTag3')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
 
                             <!--<select class="form-control">
-                    <option id="UnitTag3" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-model="InventoryObject.UnitTag3" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
-                </select>-->
+            <option id="UnitTag3" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-model="InventoryObject.UnitTag3" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
+        </select>-->
 
 
                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
@@ -2753,7 +2753,7 @@
 
                     <!--Radio-->
                     <div ng-if="UnitTag3FieldSpecialType == 12">
-                        <div class="input-group">
+                        <div class="input-group" ng-click="Unitradiolist('UnitTag3')">
                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
                             <input type="text" id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" />
