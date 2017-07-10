@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('itemreportController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
-
+    $scope.clearAllFilter = false;
     $scope.CurrentView = { Name: "Item" };
     $scope.ItemViews = [];
     $scope.ItemList = [];
@@ -22,7 +22,7 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
     $scope.loadingblock = false;
     $scope.HasImage = "";
 
-    var trueFalseArray = [];
+
     $scope.weeklist = [];
 
     $scope.CurrentYear = new Date().getFullYear();
@@ -152,6 +152,10 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
         for (var i = 0; i < $scope.FilterArray.length; i++) {
             $scope.FilterArray[i].SearchValue = "";
         }
+
+        $scope.clearAllFilter = true;
+
+
         $scope.ClearImageFilter();
         $scope.FilterData.SearchValue = "";
         CheckScopeBeforeApply();
@@ -464,6 +468,10 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
         }
         return _returnPath;
     }
+
+
+    var trueFalseArray = [];
+
     $scope.GetTrueFalseArray = function () {
         trueFalseArray.push("true");
         trueFalseArray.push("false");
@@ -1147,13 +1155,13 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
               ({
                   type: "POST",
                   url: serviceBase + 'GetAllItems',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken,HasImage:$scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray,  masterSearch: $scope.FilterData.SearchValue,  PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, masterSearch: $scope.FilterData.SearchValue, PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
-
+                      $scope.clearAllFilter = false;
                       if (response.GetAllItemsResult.Success == true) {
                      
                       

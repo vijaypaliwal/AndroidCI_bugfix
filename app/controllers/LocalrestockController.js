@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('LocalrestockController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
-
+    $scope.clearAllFilter = false;
     $scope.CurrentView = { Name: "Local Restock" };
     $scope.LocalRestockViews = [];
     $scope.LocalRestockList = [];
@@ -21,7 +21,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
     var _TotalRecordsCurrent = 0;
 
     var _masterSearch = "";
-    var trueFalseArray = [];
+
 
     $scope.weeklist = [];
 
@@ -141,6 +141,10 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
             $scope.FilterArray[i].SearchValue = "";
         }
 
+
+        $scope.clearAllFilter = true;
+
+
         $scope.FilterData.SearchValue = "";
         CheckScopeBeforeApply();
         $scope.GetLocalDataAccordingToView();
@@ -181,7 +185,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
         }
     }
     $scope.getCustomSpecialType = function (FieldName) {
-        debugger;
+       
         var type = "";
         var Map = "";
 
@@ -289,8 +293,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
             if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                     if (_PageSize < $scope.totalrecords) {
-                        debugger;
-
+                      
 
                         _IsLazyLoadingUnderProgress = 1;
                         $scope.isDataLoading = false;
@@ -450,6 +453,9 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
         }
         return _returnPath;
     }
+
+    var trueFalseArray = [];
+
     $scope.GetTrueFalseArray = function () {
         trueFalseArray.push("true");
         trueFalseArray.push("false");
@@ -457,7 +463,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
         return trueFalseArray;
     }
     $scope.GetBooleabData = function (ColumnName) {
-        debugger;
+     
 
 
         var BooeanArray = [];
@@ -1001,7 +1007,7 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " ": _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
@@ -1124,13 +1130,13 @@ app.controller('LocalrestockController', ['$scope', 'localStorageService', 'auth
               ({
                   type: "POST",
                   url: serviceBase + 'GetLocalRestock',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray,  masterSearch: $scope.FilterData.SearchValue,  PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, masterSearch: $scope.FilterData.SearchValue, PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
-
+                      $scope.clearAllFilter = false;
                       if (response.GetLocalRestockResult.Success == true) {
                      
                       

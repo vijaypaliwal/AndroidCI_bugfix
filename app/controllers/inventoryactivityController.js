@@ -3,7 +3,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     //#region variable declaration
 
     // Function to get all active unit data fields.
-
+    $scope.clearAllFilter = false;
     $scope.GetActiveUnitDataField = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -159,13 +159,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     $scope.isviewload = false;
     $scope.Columns = [];
     $scope.loadingblock = false;
-    $scope.weeklist = [];
-    var trueFalseArray = [];
-    $scope.CurrentYear = new Date().getFullYear();
 
-    for (var i = 1; i <= 52; i++) {
-        $scope.weeklist.push(i);
-    }
 
     $scope.HasImage = "";
     var _IsLazyLoadingUnderProgress = 0;
@@ -362,6 +356,11 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
         for (var i = 0; i < $scope.FilterArray.length; i++) {
             $scope.FilterArray[i].SearchValue = "";
         }
+
+
+        $scope.clearAllFilter = true;
+
+
         $scope.ClearImageFilter();
         $scope.FilterData.SearchValue = "";
         $("#startDate").val("");
@@ -379,7 +378,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     // get custom dropdown data 
 
     $scope.GetComboData = function (ColumnName) {
-
+        debugger;
         var _return = "N/A";
         var type = "";
         var Map = "";
@@ -649,6 +648,9 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
            });
     }
 
+
+    var trueFalseArray = [];
+
     $scope.GetTrueFalseArray = function () {
         trueFalseArray.push("true");
         trueFalseArray.push("false");
@@ -658,7 +660,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
     $scope.GetBooleabData = function (ColumnName) {
          
-
+        debugger;
         var BooeanArray = [];
 
         var type = "";
@@ -1913,11 +1915,11 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
               ({
                   type: "POST",
                   url: serviceBase + 'GetInventoryActivities',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, masterSearch: _searchParameter, PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, masterSearch: _searchParameter, PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
-
+                      $scope.clearAllFilter = false;
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
 

@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
-
+    $scope.clearAllFilter = false;
     $scope.CurrentView = { Name: "Global Restock" };
     $scope.GlobalRestockViews = [];
     $scope.GlobalRestockList = [];
@@ -137,6 +137,10 @@ app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'aut
         for (var i = 0; i < $scope.FilterArray.length; i++) {
             $scope.FilterArray[i].SearchValue = "";
         }
+
+
+        $scope.clearAllFilter = true;
+
 
         $scope.FilterData.SearchValue = "";
         CheckScopeBeforeApply();
@@ -449,6 +453,8 @@ app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'aut
         return _returnPath;
     }
 
+
+    var trueFalseArray = [];
 
     $scope.GetTrueFalseArray = function () {
         trueFalseArray.push("true");
@@ -1004,7 +1010,7 @@ app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'aut
                         break;
 
                     case "checkbox":
-                        _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        _Filters[i].SearchValue = _Filters[i].SearchValue == null ? " " : _Filters[i].SearchValue.toLowerCase();
                         break;
                     case "combobox":
                         _Filters[i].SearchValue = _Filters[i].SearchValue;
@@ -1127,13 +1133,13 @@ app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'aut
               ({
                   type: "POST",
                   url: serviceBase + 'GetGlobalRestock',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray,  masterSearch: $scope.FilterData.SearchValue,  PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, masterSearch: $scope.FilterData.SearchValue, PageSize: _PageSize, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
-
+                      $scope.clearAllFilter = false;
                       if (response.GetGlobalRestockResult.Success == true) {
                      
                       

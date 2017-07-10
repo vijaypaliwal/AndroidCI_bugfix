@@ -55,6 +55,8 @@
         color: #fff !important;
     }
 </style>
+
+
 <!--CSS section - end -->
 
 <div class="activitycontent">
@@ -208,8 +210,7 @@
 
 
                                         <div class="row">
-                                            <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
-
+                                            <div class="col-xs-12 col-md-12">
 
                                                 <div class="form-group">
 
@@ -219,18 +220,31 @@
 
 
 
-                                                        <!--<div ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" class="input-group">
-                                                            <input disabled type="text" class="form-control" placeholder1="Select Location" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocationText" />
-
-                                                            <span class="input-group-addon last" ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)"><i class="fa fa-search"></i></span>
-                                                        </div>-->
-
                                                         <div class="input-group">
-                                                            <div class="select">
-                                                                <select class="form-control" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocation">
-                                                                    <option ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                                </select>
+
+
+                                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                                {{GetLocationByID(CurrentActiveObject.MoveTransactionData.MoveToLocation)}}
+                                                                <i class="caret pull-right" style="margin-top: 8px"></i>
                                                             </div>
+                                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                                <li ng-repeat="_optionValue in LocationDataList">
+                                                                    <a>
+                                                                        <table style="width: 100%">
+                                                                            <tr>
+                                                                                <td ng-click="CurrentActiveObject.MoveTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                            </tr>
+                                                                        </table>
+                                                                    </a>
+
+                                                                </li>
+
+
+                                                            </ul>
 
                                                             <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
@@ -244,6 +258,8 @@
                                                             </span>
 
                                                         </div>
+
+
 
                                                         <span ng-if="CurrentActiveObject.MoveTransactionData.MoveToLocation==CurrentActiveObject.InventoryDataList.iLID" class="errorMessage">
                                                             Can't move to same location please update.
@@ -324,30 +340,67 @@
                                     <!-- Update Activity Content -->
                                     <div ng-if="CurrentOperation=='Update'">
                                         <div class="row">
-                                            <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
+                                            <div class="col-xs-12 col-md-12">
                                                 <div class="form-group">
                                                     <label>Status</label>
+
+
                                                     <div class="input-group">
-                                                        <div class="select">
-                                                            <select class="form-control" ng-model="CurrentActiveObject.UpdateTransactionData.StatusToUpdate">
-                                                                <option value="">None</option>
-                                                                <option ng-repeat="_optionValue in StatusList" ng-selected="CheckStatusValues(CurrentActiveObject.UpdateTransactionData.StatusToUpdate,_optionValue.StatusValue)?true:false" value="{{_optionValue.StatusValue}}">{{_optionValue.StatusValue}}</option>
-                                                            </select>
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{CurrentActiveObject.UpdateTransactionData.StatusToUpdate}}
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
                                                         </div>
-                                                        <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last" ng-click="CreateNewModal(2,$index)"><i class="fa fa-plus"></i></span>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+                                                            <li>
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=''">None</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+                                                            <li ng-repeat="_optionValue in StatusList">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.UpdateTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
+
+                                                        <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
+                                                            <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                                <i class="fa fa-plus-circle"></i>
+                                                            </button>
+                                                        </span>
+
                                                         <span ng-if="$index==0" class="input-group-addon last">
                                                             <button id="status_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems(CurrentActiveObject.UpdateTransactionData.StatusToUpdate, CurrentActiveObject.InventoryDataList.uId)">
                                                                 <i class="fa fa-thumb-tack"></i>
                                                             </button>
+
                                                         </span>
+
                                                     </div>
+
+
 
                                                 </div>
 
 
                                             </div>
-
-
 
                                         </div>
                                     </div>
@@ -374,7 +427,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag1==obj" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -444,7 +497,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag2==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -509,7 +562,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -778,12 +831,36 @@
                                                     <label>Select UOM <span>*</span></label>
 
                                                     <div class="input-group" ng-class="CurrentActiveObject.ConvertTransactionData.ToUOMID==''?'':''">
-                                                        <div class="select">
+                                                        <!--<div class="select">
                                                             <select class="form-control" ng-model=" CurrentActiveObject.ConvertTransactionData.ToUOMID">
                                                                 <option value="">None</option>
                                                                 <option ng-repeat="_optionValue in  UOMList" ng-selected="CheckUOMValues(CurrentActiveObject.ConvertTransactionData.ToUOMID,_optionValue.UnitOfMeasureID)?true:false" value="{{_optionValue.UnitOfMeasureID}}">{{_optionValue.UnitOfMeasureName}}</option>
                                                             </select>
+                                                        </div>-->
+
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
                                                         </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                            <li ng-repeat="_optionValue in UOMList">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
+
                                                         <span ng-if="IsActiveUOMLibrary==true && checkpermission('URL:Manage/UnitOfMeasure')==true" class="input-group-addon last" ng-click="CreateNewModal(1,$index)"><i class="fa fa-plus"></i></span>
                                                         <span ng-if="$index==0" class="input-group-addon last">
                                                             <button id="uom_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillUOMLineItems( CurrentActiveObject.ConvertTransactionData.ToUOMID, CurrentActiveObject.InventoryDataList.uId,CurrentActiveObject.ConvertTransactionData.ToUOM)">
@@ -849,12 +926,28 @@
 
 
                                                         <div class="input-group">
-                                                            <div class="select">
-
-                                                                <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation">
-                                                                    <option ng-selected="CheckUOMValues(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,obj.LocationID)?true:false" ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                                </select>
+                                                            <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                                {{GetLocationByID(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation)}}
+                                                                <i class="caret pull-right" style="margin-top: 8px"></i>
                                                             </div>
+                                                            <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                                <li ng-repeat="_optionValue in LocationDataList">
+                                                                    <a>
+                                                                        <table style="width: 100%">
+                                                                            <tr>
+                                                                                <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                            </tr>
+                                                                        </table>
+                                                                    </a>
+
+                                                                </li>
+
+
+                                                            </ul>
 
                                                             <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                             <span ng-click="CreateNewModal(3,$index)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
@@ -875,21 +968,51 @@
                                                 <div class="form-group">
                                                     <label>Status</label>
                                                     <div class="input-group">
-                                                        <div class="select">
-
-                                                            <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate">
-                                                                <option value="">None</option>
-                                                                <option ng-repeat="_optionValue in StatusList" ng-selected="CheckStatusValues(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,_optionValue.StatusValue)?true:false" value="{{_optionValue.StatusValue}}">{{_optionValue.StatusValue}}</option>
-                                                            </select>
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate}}
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
                                                         </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+                                                            <li>
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=''">None</td>
 
-                                                        <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last" ng-click="CreateNewModal(2,$index)"><i class="fa fa-plus"></i></span>
-                                                        <span ng-if="$index==0" class="input-group-addon last">
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+                                                            <li ng-repeat="_optionValue in StatusList">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
+                                                        <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
+
+                                                            <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
+                                                                <i class="fa fa-plus-circle"></i>
+                                                            </button>
+                                                        </span>
+
+                                                        <span class="input-group-addon last" ng-if="$index==0">
                                                             <button id="LineItems2_{{CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click="FillStatusLineItems2(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,CurrentActiveObject.InventoryDataList.uId)">
                                                                 <i class="fa fa-thumb-tack"></i>
                                                             </button>
                                                         </span>
-
                                                     </div>
                                                 </div>
 
@@ -920,7 +1043,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -991,7 +1114,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -1055,7 +1178,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
-                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                                    <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
 
@@ -1106,7 +1229,7 @@
                                                 <div class="form-group">
                                                     <label>{{ GetColumnLabel('iUniqueDate')}}</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" ng-if="GetUnitDataFieldByName('UniqueDate').FieldSpecialType==16" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
+                                                        <input type="datetime-local" ng-if="GetUnitDataFieldByName('UniqueDate').FieldSpecialType==16" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
                                                         <input type="time" ng-if="GetUnitDataFieldByName('UniqueDate').FieldSpecialType==17" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
                                                         <input type="date" ng-if="GetUnitDataFieldByName('UniqueDate').FieldSpecialType!=16 && GetUnitDataFieldByName('UniqueDate').FieldSpecialType!=17" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'),$index)" placeholder1="{{ GetColumnLabel('iUniqueDate')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UniqueDate" />
                                                         <span ng-if="$index==0" class="input-group-addon last">
@@ -1129,7 +1252,7 @@
                                                 <div class="form-group">
                                                     <label>{{ GetColumnLabel('iUnitDate2')}}</label>
                                                     <div class="input-group">
-                                                        <input type="datetime-local" ng-if="GetUnitDataFieldByName('UnitDate2').FieldSpecialType==16" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
+                                                        <input type="datetime-local" ng-if="GetUnitDataFieldByName('UnitDate2').FieldSpecialType==16" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
                                                         <input type="time" ng-if="GetUnitDataFieldByName('UnitDate2').FieldSpecialType==17" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
                                                         <input type="date" ng-if="GetUnitDataFieldByName('UnitDate2').FieldSpecialType!=16 && GetUnitDataFieldByName('UnitDate2').FieldSpecialType!=17" class="form-control unitDatePicker uniqueunitData" ng-blur="tvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'),$index)" placeholder1="{{ GetColumnLabel('iUnitDate2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitDate2" />
 
@@ -1302,21 +1425,19 @@
 
                                                             <div ng-if="obj.cfdSpecialType==4">
 
+
                                                                 <select id="LineItem_{{obj.cfdID}}" class="form-control" cfd-id="{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" custom-data-type="{{obj.cfdDataType}}">
-                                                                    <option ng-selected="CurrentActiveObject.IsLineItemData[$index].CfValue==true" ng-value="true" value="true">{{obj.cfdTruelabel}}</option>
-                                                                    <option ng-selected="CurrentActiveObject.IsLineItemData[$index].CfValue==false" ng-value="false" value="false">{{obj.cfdFalselabel}}</option>
+                                                                    <option ng-selected="CurrentActiveObject.IsLineItemData[$index].CfValue==true"  value="true">{{obj.cfdTruelabel}}</option>
+                                                                    <option ng-selected="CurrentActiveObject.IsLineItemData[$index].CfValue==false"  value="false">{{obj.cfdFalselabel}}</option>
                                                                 </select>
                                                             </div>
 
 
                                                             <div class="" ng-if="obj.cfdSpecialType==5">
-
                                                                 <p style="padding-left:0;" class="todo-element">
-                                                                    <input name="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="true" ng-checked="CurrentActiveObject.IsLineItemData[$index].CfValue==true" type="radio"> <label for="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
-                                                                    <input name="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="false" ng-checked="CurrentActiveObject.IsLineItemData[$index].CfValue==false" type="radio"> <label for="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
+                                                                    <input name="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="true"  value="true" ng-checked="CurrentActiveObject.IsLineItemData[$index].CfValue==true" type="radio"> <label for="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
+                                                                    <input name="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="false" value="false" ng-checked="CurrentActiveObject.IsLineItemData[$index].CfValue==false ||  CurrentActiveObject.IsLineItemData[$index].CfValue=='' || CurrentActiveObject.IsLineItemData[$index].CfValue=='false' || CurrentActiveObject.IsLineItemData[$index].CfValue!=true" type="radio"> <label for="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
                                                                 </p>
-
-
                                                             </div>
 
                                                         </div>
@@ -1326,11 +1447,33 @@
 
 
                                                             <div class="select" ng-if="obj.cfdIsAutoComplete != true">
-                                                                <select id="LineItem_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control">
+                                                                
 
-                                                                    <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                                    {{obj.CfValue}}
 
-                                                                </select>
+                                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                                </div>
+                                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                                    <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                                                        <a>
+                                                                            <table style="width: 100%">
+                                                                                <tr>
+                                                                                    <td ng-click="obj.CfValue=_optionValue;CheckScopeBeforeApply();">  {{_optionValue}}</td>
+
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </a>
+
+                                                                    </li>
+
+
+                                                                </ul>
+
+
                                                             </div>
 
                                                             <div ng-click="customautocomplete(obj.ColumnMap, obj.cfdID, CurrentActiveObject.InventoryID, 'line')">
@@ -1492,8 +1635,8 @@
 
                                 <div class="" ng-if="obj.cfdSpecialType==5">
                                     <p class="todo-element">
-                                        <input name="CustomActivity_{{obj.cfdID}}" id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="CustomActivity_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
-                                        <input name="CustomActivity_{{obj.cfdID}}" id="CustomActivity1_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="CustomActivity1_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
+                                        <input name="CustomActivity_{{obj.cfdID}}" id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="true" value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="CustomActivity_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
+                                        <input name="CustomActivity_{{obj.cfdID}}" id="CustomActivity1_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="false" value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="CustomActivity1_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
                                     </p>
 
 
@@ -1508,11 +1651,31 @@
 
 
                                 <div class="select" ng-if="obj.cfdIsAutoComplete != true">
-                                    <select id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
+                                    <div class="select" style="display:none;">
+                                        <select id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
+                                            <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                                        </select>
+                                    </div>
 
-                                        <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
-                                    </select>
+                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                        <span id="CustomActivity_{{obj.cfdID}}_label"></span>
+
+                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                    </div>
+                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                        <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                            <a>
+                                                <table style="width: 100%">
+                                                    <tr>
+                                                        <td ng-click="UpdateActivityDropdownData(obj.cfdID,_optionValue,1)">  {{_optionValue}}</td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
 
                                 <div ng-click="customautocomplete(obj.ColumnMap, obj.cfdID, 'empty', 'activity')">
@@ -1528,8 +1691,6 @@
 
 
                             <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
-
-
 
                                 <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdSpecialType==2" type="datetime-local" class="form-control datetimedata" ng-model="obj.CfValue" value="{{obj.CfValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" />
                                 <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdSpecialType==3" type="time" class="form-control datetimedata" ng-model="obj.CfValue" value="{{obj.CfValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" />
@@ -1607,7 +1768,7 @@
                                     <div class="input-group" ng-if="obj.cfdSpecialType == 1">
                                         <input disabled type="text" id="CustomActivityIncrease_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType" />
 
-                                        <span class="input-group-addon last" ng-click="customradiolist(obj.ColumnMap, obj.cfdID,'increase', 'activity')"><i class="fa fa-circle-o"></i></span>
+                                        <span class="input-group-addon last" ng-click="customradiolist(obj.ColumnMap, obj.cfdID,'empty', 'activity')"><i class="fa fa-circle-o"></i></span>
                                     </div>
                                 </div>
 
@@ -1645,8 +1806,8 @@
 
                                     <div class="" ng-if="obj.cfdSpecialType==5">
                                         <p class="todo-element">
-                                            <input name="CustomActivityIncrease_{{obj.cfdID}}" id="CustomActivityIncrease_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="CustomActivityIncrease_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
-                                            <input name="CustomActivityIncrease_{{obj.cfdID}}" id="CustomActivity1_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="CustomActivity1_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
+                                            <input name="CustomActivityIncrease_{{obj.cfdID}}" id="CustomActivityIncrease_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="true" value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="CustomActivityIncrease_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
+                                            <input name="CustomActivityIncrease_{{obj.cfdID}}" id="CustomActivity1_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="false" value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="CustomActivity1_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
                                         </p>
 
 
@@ -1758,7 +1919,7 @@
                                     <div class="input-group" ng-if="obj.cfdSpecialType == 1">
                                         <input disabled type="text" id="CustomActivityDecrease_{{obj.cfdID}}" name="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType" />
 
-                                        <span class="input-group-addon last" ng-click="customradiolist(obj.ColumnMap, obj.cfdID,'decrease', 'activity')"><i class="fa fa-circle-o"></i></span>
+                                        <span class="input-group-addon last" ng-click="customradiolist(obj.ColumnMap, obj.cfdID,'empty', 'activity')"><i class="fa fa-circle-o"></i></span>
                                     </div>
                                 </div>
 
@@ -1864,7 +2025,6 @@
                         </div>
                     </div>
 
-
                 </div>
 
                 <!--Activity Details End-->
@@ -1878,12 +2038,7 @@
             <div ng-if="IsSingleMode==true">
                 <div class="swiper-container" ng-if="_IsLoading==false">
 
-
                     <div class="swiper-wrapper">
-
-
-
-
 
                         <div class="animated slideInLeft swiper-slide" ng-if="IsSingleMode==true" data-type="Cart" ng-repeat="CurrentActiveObject in CurrentCart" data-index="{{$index}}">
 
@@ -1975,11 +2130,28 @@
 
                                                 <div class="input-group">
 
-                                                    <div class="select">
-                                                        <select class="form-control" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocation">
-                                                            <option ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
-                                                        </select>
+                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                        {{GetLocationByID(CurrentActiveObject.MoveTransactionData.MoveToLocation)}}
+                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
                                                     </div>
+                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                        <li ng-repeat="_optionValue in LocationDataList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.MoveTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+
+                                                    </ul>
 
                                                     <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
@@ -2121,7 +2293,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag1==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -2191,7 +2363,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag2==obj" ng-value="{{obj}}">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -2256,7 +2428,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag3==obj" ng-value="{{obj}}">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -2518,12 +2690,28 @@
                                         <div class="form-group">
                                             <label>New Unit of Measure <span>*</span></label>
                                             <div class="input-group" ng-class=" CurrentActiveObject.ConvertTransactionData.ToUOMID==''?'':''">
-                                                <div class="select">
-                                                    <select class="form-control" ng-model=" CurrentActiveObject.ConvertTransactionData.ToUOMID">
-                                                        <option value="">None</option>
-                                                        <option ng-repeat="_optionValue in  UOMList" value="{{_optionValue.UnitOfMeasureID}}" ng-selected="CheckUOMValues(CurrentActiveObject.ConvertTransactionData.ToUOMID,_optionValue.UnitOfMeasureID)?true:false">{{_optionValue.UnitOfMeasureName}}</option>
-                                                    </select>
+                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                    {{GetUOMByID(CurrentActiveObject.ConvertTransactionData.ToUOMID)}}
+                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
                                                 </div>
+                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                    <li ng-repeat="_optionValue in UOMList">
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="CurrentActiveObject.ConvertTransactionData.ToUOMID=_optionValue.UnitOfMeasureID">{{_optionValue.UnitOfMeasureName}}</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
                                                 <span class="input-group-addon last">
                                                     <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(1,$index)">
                                                         <i class="fa fa-plus-circle"></i>
@@ -2585,12 +2773,35 @@
                                                 <label>Location <span>*</span> </label>
                                                 <div class="input-group">
 
+                                                    <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                        {{GetLocationByID(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation)}}
+                                                        <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                    </div>
+                                                    <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
 
-                                                    <div class="select">
+
+                                                        <li ng-repeat="_optionValue in LocationDataList">
+                                                            <a>
+                                                                <table style="width: 100%">
+                                                                    <tr>
+                                                                        <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation=_optionValue.LocationID">{{_optionValue.LocationName}}</td>
+
+
+                                                                    </tr>
+                                                                </table>
+                                                            </a>
+
+                                                        </li>
+
+
+                                                    </ul>
+
+
+                                                    <!--<div class="select">
                                                         <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation">
                                                             <option ng-selected="CheckUOMValues(CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocation,obj.LocationID)?true:false" ng-repeat="obj in LocationDataList" value="{{obj.LocationID}}">{{obj.LocationName}}</option>
                                                         </select>
-                                                    </div>
+                                                    </div>-->
                                                     <span ng-click="locationlist(CurrentActiveObject.InventoryID,CurrentActiveObject.InventoryDataList.iLID,CurrentActiveObject.MoveUpdateTagTransactionData.MoveToLocationText)" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
@@ -2617,13 +2828,49 @@
                                         <div class="form-group">
                                             <label>Status</label>
                                             <div class="input-group">
-                                                <div class="select">
+
+                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                    {{CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate}}
+                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                </div>
+                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li>
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=''">None</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+                                                    <li ng-repeat="_optionValue in StatusList">
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate=_optionValue.StatusValue">{{_optionValue.StatusValue}}</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
+
+
+                                                <!--<div class="select">
 
                                                     <select class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate">
                                                         <option value="">None</option>
                                                         <option ng-repeat="_optionValue in StatusList" ng-selected="CheckStatusValues(CurrentActiveObject.MoveUpdateTagTransactionData.StatusToUpdate,_optionValue.StatusValue)?true:false" value="{{_optionValue.StatusValue}}">{{_optionValue.StatusValue}}</option>
                                                     </select>
-                                                </div>
+                                                </div>-->
 
                                                 <span ng-if="IsActiveStatusLibrary==true && checkpermission('URL:Manage/Status')==true" class="input-group-addon last">
                                                     <button class="btn waves-effect smallBtn btnPrimary btn-icon" data-ng-click="CreateNewModal(2,$index)">
@@ -2663,7 +2910,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -2734,7 +2981,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2==obj" ng-value="{{obj}}">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -2798,7 +3045,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
-                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}" ng-value="{{obj}}" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3==obj">{{obj}}</option>
+                                                            <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
 
@@ -3051,8 +3298,8 @@
 
 
                                                         <select id="LineItem_{{obj.cfdID}}" class="form-control" cfd-id="{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" custom-data-type="{{obj.cfdDataType}}">
-                                                            <option ng-selected="obj.cfdDefaultValue==true" value="true">{{obj.cfdTruelabel}}</option>
-                                                            <option ng-selected="obj.cfdDefaultValue==false" value="false">{{obj.cfdFalselabel}}</option>
+                                                            <option ng-selected="obj.cfdDefaultValue==true"  value="true">{{obj.cfdTruelabel}}</option>
+                                                            <option ng-selected="obj.cfdDefaultValue==false"  value="false">{{obj.cfdFalselabel}}</option>
                                                         </select>
                                                     </div>
 
@@ -3062,8 +3309,8 @@
 
 
                                                         <p class="todo-element">
-                                                            <input name="LineItem_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
-                                                            <input name="LineItem_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
+                                                            <input name="LineItem_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="true"  value="true" ng-checked="obj.cfdDefaultValue==true" type="radio"> <label for="LineItem{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdTruelabel}}</label>
+                                                            <input name="LineItem_{{obj.cfdID}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" id="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-value="false"  value="false" ng-checked="obj.cfdDefaultValue==false" type="radio"> <label for="LineItem1{{CurrentActiveObject.InventoryID}}_{{obj.cfdID}}">{{obj.cfdFalselabel}}</label>
                                                         </p>
 
 
@@ -3074,11 +3321,36 @@
 
 
                                                     <div class="select" ng-if="obj.cfdIsAutoComplete != true">
-                                                        <select id="LineItem_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control">
+                                                        <!--<select id="LineItem_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control">
 
                                                             <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
-                                                        </select>
+                                                        </select>-->
+
+                                                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                            {{obj.CfValue}}
+
+                                                            <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                        </div>
+                                                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                            <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                                                <a>
+                                                                    <table style="width: 100%">
+                                                                        <tr>
+                                                                            <td ng-click="obj.CfValue=_optionValue;CheckScopeBeforeApply();">  {{_optionValue}}</td>
+
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
+
+                                                            </li>
+
+
+                                                        </ul>
+
                                                     </div>
                                                     <input disabled ng-if="obj.cfdIsAutoComplete == true" id="LineItem_{{obj.cfdID}}_{{CurrentActiveObject.InventoryID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control" type="text" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" value="{{obj.CfValue}}" />
                                                 </div>
@@ -3234,11 +3506,38 @@
 
 
                                             <div class="select" ng-if="obj.cfdIsAutoComplete != true">
-                                                <select id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
+                                                <div class="select" style="display:none;">
+                                                    <select id="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
 
-                                                    <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
+                                                        <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
-                                                </select>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                                                    <span id="CustomActivity_{{obj.cfdID}}_label"></span>
+
+                                                    <i class="caret pull-right" style="margin-top: 8px"></i>
+                                                </div>
+                                                <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                                    <li ng-repeat="_optionValue in obj.cfdComboValues track by $index">
+                                                        <a>
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td ng-click="UpdateActivityDropdownData(obj.cfdID,_optionValue,1)">  {{_optionValue}}</td>
+
+
+                                                                </tr>
+                                                            </table>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
                                             </div>
                                             <input disabled ng-if="obj.cfdIsAutoComplete == true" id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control" type="text" value="{{obj.CfValue}}" />
                                             <span ng-if="obj.cfdIsAutoComplete == true" ng-click="customautocomplete(obj.ColumnMap, obj.cfdID,'empty','activity')" class="input-group-addon last"><i class="fa fa-search"></i></span>
@@ -4366,13 +4665,25 @@
 
 <!-- Script Section Start-->
 <script>
-    $(document).on("touchstart", "select", function (e) {
+    //var allSelectElements = document.getElementsByTagName("select");
+
+    //for (var i = 0; i < allSelectElements.length; i++) {
+    //    allSelectElements[i].addEventListener("touchstart", function () { //This is the important line 
+    //        $(this).focus().click();
+    //        //e.stopPropagation();
+
+    //    }, false);
+    //}
+    $(document).on("touchstart", "select", function (e)
+    {
         e.preventDefault();
 
-         e.stopPropagation();
+       // e.stopPropagation();
+        $(this).focus().trigger("click");
+      
 
-
-    });
+     });
+  
     $(init);
 
     function init() {
@@ -4410,6 +4721,6 @@
 
 </script>
 
-<script src="scripts/jquery.ui.touch-punch.js"></script>
+
 
 <!-- Script Section End-->

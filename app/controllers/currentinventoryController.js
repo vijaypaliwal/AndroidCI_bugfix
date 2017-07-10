@@ -2,6 +2,9 @@
 app.controller('currentinventoryController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
 
+    $scope.clearAllFilter = false;
+
+
     $scope.UnitDataFieldCombovalues = [];
 
     $scope.UnitDataFieldRadioValues = [];
@@ -13,7 +16,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     $scope.CustomItemDataList = [];
     $scope.FilterData = { SearchValue: "" };
     $scope.FilterArray = [{ ColumnName: "", FilterOperator: "", SearchValue: "" }];
-
+    
     $scope.sortColumn = "iLastITID";
     $scope.loadingblock = false;
     $scope.sortDir = "DESC";
@@ -155,6 +158,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         for (var i = 0; i < $scope.FilterArray.length; i++) {
             $scope.FilterArray[i].SearchValue = "";
         }
+
+
+        $scope.clearAllFilter = true;
+
         $scope.ClearImageFilter();
         $scope.FilterData.SearchValue = "";
         CheckScopeBeforeApply();
@@ -1615,7 +1622,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
               ({
                   type: "POST",
                   url: serviceBase + 'GetCurrentInventoriesNew',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
@@ -1642,7 +1649,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                           //FillFilterArray();
                           UpdateFilterArray();
 
-
+                          $scope.clearAllFilter = false;
                           console.log("$scope.Columns");
                           console.log($scope.Columns);
 

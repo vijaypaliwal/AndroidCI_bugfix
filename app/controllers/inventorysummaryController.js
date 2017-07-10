@@ -2,7 +2,7 @@
 app.controller('inventorysummaryController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
 
-
+    $scope.clearAllFilter = false;
     $scope.GetActiveUnitDataField = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -112,7 +112,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
     $scope.UnitDataFieldCombovalues = [];
 
     $scope.UnitDataFieldRadioValues = [];
-    var trueFalseArray = [];
+
     $scope.CurrentView = { Name: "Inventory Summary" };
     $scope.InventoryViewsGrouped = [];
     $scope.InventoryListGrouped = [];
@@ -130,7 +130,6 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
     var _IsLazyLoadingUnderProgress = 0;
     var _PageSize = 30;
     $scope.Columns = [];
-    var trueFalseArray = [];
     var _TotalRecordsCurrent = 0;
     $scope.loadingblock = false;
     var _masterSearch = "";
@@ -147,14 +146,6 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         else {
             return 10;
         }
-    }
-
-    $scope.weeklist = [];
-
-    $scope.CurrentYear = new Date().getFullYear();
-
-    for (var i = 1; i <= 52; i++) {
-        $scope.weeklist.push(i);
     }
     function onSwipeDown() {
         $('#mylist').on('swipedown', function () {
@@ -253,6 +244,10 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         for (var i = 0; i < $scope.FilterArray.length; i++) {
             $scope.FilterArray[i].SearchValue = "";
         }
+
+
+        $scope.clearAllFilter = true;
+
 
         $scope.FilterData.SearchValue = "";
         $scope.ShowGroupedData = false;
@@ -598,7 +593,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         }
         return _returnPath;
     }
-    $scope.GetInnerData = function (columnName, parentIndex, Index, isCalculated) {
+    $scope.GetInnerData = function (columnName,parentIndex, Index, isCalculated) {
         var _ID = TryParseInt(columnName, 0);
         if (_ID != 0) {
             columnName = $scope.GetCustomFieldByID(_ID);
@@ -607,9 +602,9 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         if (isCalculated == true) {
             columnName = "Calculated"
         }
-
+     
         switch (columnName) {
-
+          
             case "Calculated":
                 var _valueData = "";
                 if ($scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].CustomData != null && $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].CustomData != undefined)
@@ -1165,24 +1160,24 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                 }
                 //return $scope.InventoryList[Index].bool_6 != null ? $scope.InventoryList[Index].bool_6 : "";
                 break;
-                //case "bool_1":
-                //    return $scope.InventoryListGrouped[Index].bool_1 != null ? $scope.InventoryListGrouped[Index].bool_1 : "";
-                //    break;
-                //case "bool_2":
-                //    return $scope.InventoryListGrouped[Index].bool_2 != null ? $scope.InventoryListGrouped[Index].bool_2 : "";
-                //    break;
-                //case "bool_3":
-                //    return $scope.InventoryListGrouped[Index].bool_3 != null ? $scope.InventoryListGrouped[Index].bool_3 : "";
-                //    break;
-                //case "bool_4":
-                //    return $scope.InventoryListGrouped[Index].bool_4 != null ? $scope.InventoryListGrouped[Index].bool_4 : "";
-                //    break;
-                //case "bool_5":
-                //    return $scope.InventoryListGrouped[Index].bool_5 != null ? $scope.InventoryListGrouped[Index].bool_5 : "";
-                //    break;
-                //case "bool_6":
-                //    return $scope.InventoryListGrouped[Index].bool_6 != null ? $scope.InventoryListGrouped[Index].bool_6 : "";
-                //    break;
+            //case "bool_1":
+            //    return $scope.InventoryListGrouped[Index].bool_1 != null ? $scope.InventoryListGrouped[Index].bool_1 : "";
+            //    break;
+            //case "bool_2":
+            //    return $scope.InventoryListGrouped[Index].bool_2 != null ? $scope.InventoryListGrouped[Index].bool_2 : "";
+            //    break;
+            //case "bool_3":
+            //    return $scope.InventoryListGrouped[Index].bool_3 != null ? $scope.InventoryListGrouped[Index].bool_3 : "";
+            //    break;
+            //case "bool_4":
+            //    return $scope.InventoryListGrouped[Index].bool_4 != null ? $scope.InventoryListGrouped[Index].bool_4 : "";
+            //    break;
+            //case "bool_5":
+            //    return $scope.InventoryListGrouped[Index].bool_5 != null ? $scope.InventoryListGrouped[Index].bool_5 : "";
+            //    break;
+            //case "bool_6":
+            //    return $scope.InventoryListGrouped[Index].bool_6 != null ? $scope.InventoryListGrouped[Index].bool_6 : "";
+            //    break;
 
             case "date_1":
                 return $scope.InventoryListGrouped[Index].date_1 != null ? $scope.InventoryListGrouped[Index].date_1 : "";
@@ -1317,9 +1312,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         $scope.GetInventoryGroupedDataAccordingToView();
     }
     $scope.showfilter = function () {
-        $("#filtermodal").modal("show");
-
-     
+        $("#filtermodal").modal("show")
     }
 
 
@@ -1456,7 +1449,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
         }, 1000);
         CheckScopeBeforeApply();
     }
-
+    var trueFalseArray = [];
     $scope.GetTrueFalseArray = function () {
         trueFalseArray.push("true");
         trueFalseArray.push("false");
@@ -1593,21 +1586,22 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
               ({
                   type: "POST",
                   url: serviceBase + 'GetCurrentInventoriesGrouped',
-                  data: JSON.stringify({ SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
+                  data: JSON.stringify({ ClearFilter: $scope.clearAllFilter, SecurityToken: $scope.SecurityToken, HasImage: $scope.HasImage, pageToReturn: 1, sortCol: _sortColumn, sortDir: _sortDir, filterArray: $scope.FilterArray, SelectedCartIDs: [], masterSearch: $scope.FilterData.SearchValue, showImage: "True", showZeroRecords: "True", PageSize: _PageSize, IsDateColumnOn: false, ViewID: $scope.CurrentView.GridLayoutID }),
                   contentType: 'application/json',
                   dataType: 'json',
                   success: function (response) {
                       $scope.isDataLoading = true;
                       $scope.isviewload = true;
-
+                      $scope.clearAllFilter = false;
                       if (response.GetCurrentInventoriesGroupedResult.Success == true) {
 
-
+                          
                           _TotalRecordsCurrent = response.GetCurrentInventoriesGroupedResult.Payload[0].Data.length;
                           $scope.currentrecord = response.GetCurrentInventoriesGroupedResult.Payload[0].Data.length;
-                          if ($scope.ShowGroupedData == true) {
+                          if ($scope.ShowGroupedData == true)
+                          {
                               $scope.InventoryListGrouped = [];
-                              var _data = response.GetCurrentInventoriesGroupedResult.Payload[0].Data;
+                              var _data=response.GetCurrentInventoriesGroupedResult.Payload[0].Data;
                               if (_data.length > 0) {
 
 
@@ -1627,7 +1621,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                               $scope.InventoryListGrouped = response.GetCurrentInventoriesGroupedResult.Payload[0].Data;
                               $scope.totalrecords = response.GetCurrentInventoriesGroupedResult.Payload[0].TotalRercords;
                           }
-
+                       
 
                           $scope.Columns = response.GetCurrentInventoriesGroupedResult.Payload[0].Columns;
                           $scope.ActualTotalRecords = response.GetCurrentInventoriesGroupedResult.Payload[0].ActualTotalRecords;
