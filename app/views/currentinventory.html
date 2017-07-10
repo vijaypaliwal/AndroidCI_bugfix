@@ -605,17 +605,18 @@
 </script>
 <script>
 
-    //$(document).on("touchstart", "select", function (e) {
+    $(document).on("touchstart", "select", function (e) {
 
-    //    e.preventDefault();
-
-    //});
-
-
-    $(document).on("click", "select", function (e) {
         e.preventDefault();
-        $(this).focus().trigger("click");
+
     });
+
+   
+
+    //$(document).on("click", "select", function (e) {
+    //    e.preventDefault();
+    //    $(this).focus().trigger("click");
+    //});
 
     var offset = 50;
     //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
