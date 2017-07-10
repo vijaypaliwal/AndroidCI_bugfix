@@ -1813,38 +1813,41 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         return _something;//else    
     }
     function ConvertToProperDate(value, Type) {
-        debugger;
-        switch (Type) {
-            case 1:
+        if ($.trim(value) != "") {
 
-                if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 16) {
-                    return ConverttoMsJsonDateTime(value);
-                }
+            switch (Type) {
+                case 1:
 
-                else if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 17) {
-                    return ConvertToTime(value);
-                }
-                else {
-                    return formatDate(value);
-                }
+                    if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
 
-                break;
-            case 2:
-                if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 16) {
-                    return ConverttoMsJsonDateTime(value);
-                }
+                    else if ($scope.getUnitObjByName("UniqueDate").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
 
-                else if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 17) {
-                    return ConvertToTime(value);
-                }
-                else {
-                    return formatDate(value);
-                }
+                    break;
+                case 2:
+                    if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
 
-                break;
-            default:
+                    else if ($scope.getUnitObjByName("UnitDate2").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
 
+                    break;
+                default:
+
+            }
         }
+        return "";
     }
     function addItemsToCart(object, IdToSave, originalID, _isSelectAll) {
 
