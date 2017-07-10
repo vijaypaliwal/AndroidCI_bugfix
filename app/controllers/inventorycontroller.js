@@ -457,7 +457,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return true;
     }
     $scope.saveItemGroup = function (ItemGroupValue) {
-        debugger;
+         
         var _StatusValue = $.trim(ItemGroupValue);
 
         if (_StatusValue != "") {
@@ -481,7 +481,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 contentType: 'application/json',
                 success: function (result) {
 
-                    debugger;
+                     
                     if (result.CreateEditItemGroupResult.Success == true) {
 
                         _IsSavedItemGroup = true;
@@ -628,7 +628,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.GetLastValueCustom = function (id, Type) {
 
-        debugger;
+         
 
         var field = "Inv_" + id;
         var _fieldid = "";
@@ -697,7 +697,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.UpdateCustomDropdownData = function (CustomDataID, Value, Type, _Index) {
 
-        debugger;
+         
 
         var _ID = "#CustomItem_" + CustomDataID;
         var _ID2 = "#CustomItem_" + CustomDataID + "_label";
@@ -754,7 +754,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.GetLastValue = function (field, id) {
 
 
-        debugger;
+         
 
         var _value = "";
         var _toCheckValue = localStorageService.get(field);
@@ -1219,14 +1219,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 },
 
                 success: function (data) {
-                    debugger;
+                     
                     if (data.SearchItemsResult.Success == true) {
                         if (data.SearchItemsResult != null && data.SearchItemsResult.Payload != null) {
                             $scope.ItemSearching = false;
                             $scope.SearchList = data.SearchItemsResult.Payload;
 
 
-                            debugger;
+                             
 
                             if ($scope.SearchList.length == 0) {
                                 $scope.isnoitemmsg = true;
@@ -1520,7 +1520,6 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.addinventory = function () {
 
-        debugger;
 
         if ($scope.CheckUnitDataFieldValueAll() == true) {
 
@@ -1815,7 +1814,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                       error: function (err, textStatus, errorThrown) {
 
 
-                          debugger;
+                           
 
                           if (err.readyState == 0 || err.status == 0) {
 
@@ -1889,7 +1888,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         var _timeString = _timeSplit[1].split(":");
 
-        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? _timeString[0] : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
 
         var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
 
@@ -1908,7 +1907,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             var _timeSplit = _timeValue.split(" ");
             var _timeString = _timeSplit[0].split(":");
 
-            var _ToMergeTime = (_timeSplit[1] == "AM" ? _timeString[0] : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+            var _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
 
             return _ToMergeTime;
         }
@@ -1918,7 +1917,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     function leadZero(_something) {
-        if (parseInt(_something) < 10 && _something.indexOf("0") > 0) return "0" + _something;
+        var _TempString = parseInt(_something);
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
         return _something;//else    
     }
     $scope.CheckCustomFields = function (Type) {
@@ -2020,7 +2021,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#itemlistmodal").modal('hide');
         $("#locationlistmodal").modal('show');
 
-        debugger;
+         
         $scope.LocationSearchList = angular.copy($scope.LocationList);
         CheckScopeBeforeApply();
 
@@ -2173,6 +2174,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           if ($scope.CustomItemDataList[i].cfdDataType == "datetime") {
 
                               if (_defaultValue != null && _defaultValue != "") {
+                                  debugger;
                                   if ($scope.CustomItemDataList[i].cfdSpecialType == 2) {
                                       $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
                                   }
@@ -2291,7 +2293,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
                           if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
                               if (_defaultValue != null && _defaultValue != "") {
-                                  debugger;
+                                   
                                   if ($scope.CustomActivityDataList[i].cfdSpecialType == 2) {
                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
                                   }
@@ -2389,7 +2391,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.fillcustomvalue = function (value) {
 
-        debugger;
+         
 
 
         $("#" + $scope.activecustomfield).val(value);
@@ -3986,7 +3988,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.ScanNewSwitch = function (_Column) {
-        debugger;
+         
         var _id = "#";
 
 
@@ -4840,7 +4842,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.currentcfdID = ID;
         CheckScopeBeforeApply();
 
-        debugger;
+         
 
 
         $("#Adddropdownvalue").modal('show');
@@ -4878,7 +4880,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             error: function (err) {
 
 
-                debugger;
+                 
 
 
             },
