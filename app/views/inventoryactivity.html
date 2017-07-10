@@ -715,12 +715,15 @@
 
 <script>
 
-    $(document).on("touchstart", "select", function (e) {
+    //$(document).on("touchstart", "select", function (e) {
 
-        e.preventDefault();
+    //    e.preventDefault();
 
+    //});
+    $(document).on("click", "select", function (e) {
+       // e.preventDefault();
+        $(this).focus().trigger("click");
     });
-
 
     $('.myLinkToTop').click(function () {
         $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
