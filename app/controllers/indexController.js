@@ -703,7 +703,7 @@ app.directive('ngModel', [
                 link: function (scope, element, attrs, ctrl) {
 
                 
-                            ctrl.$pristine = false;
+                        ctrl.$pristine = false;
                        
 
 

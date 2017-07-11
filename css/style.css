@@ -2799,5 +2799,9 @@ span.data-color {
     height: 42px;
 }
 
-
+@media only screen and (min-device-width : 400px) and (max-device-width : 800px) {
+            #toolbar .title {
+                font-size: 18px !important;
+            }
+        }
 

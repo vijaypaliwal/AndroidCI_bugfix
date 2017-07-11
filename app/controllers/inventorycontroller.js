@@ -174,6 +174,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.nextstep = function () {
         $scope.itemfields = true;
 
+        setTimeout(function () {
+            $("#secondDiv").find(".form-group:first").find(".form-control:first").focus();
+
+
+            $(".weekPicker").each(function () {
+                var _val = $(this).attr("selectvalue");
+                $(this).val(_val);
+                $(this).trigger("change");
+            });
+
+
+        }, 100);
     }
 
 
@@ -2391,15 +2403,40 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.fillcustomvalue = function (value) {
 
-         
+        var _ID = "#" + $scope.activecustomfield.toString();
 
-
+        debugger;
         $("#" + $scope.activecustomfield).val(value);
 
         $("." + $scope.activecustomfield).val(value);
 
-
+        $("#secondDiv").find(_ID).val(value);
+        $("#firstDiv").find(_ID).val(value);
         $("#" + $scope.activecustomfield).trigger("input");
+        $("#secondDiv").find(_ID).trigger("input");
+        $("#firstDiv").find(_ID).trigger("input");
+
+        if ($scope.switchmode==true)
+        {
+            var _array = $scope.activecustomfield.split("_");
+            var _CFDID = parseInt(_array[1]);
+
+            if (_array[0] == "CustomActivity") {
+
+                if ($scope.InventoryObject.CustomTxnData.length > 0) {
+                    for (var i = 0; i < $scope.InventoryObject.CustomTxnData.length; i++) {
+                        if ($scope.InventoryObject.CustomTxnData[i].CfdID == _CFDID) {
+                            $scope.InventoryObject.CustomTxnData[i].Value = value;
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+
+
+        }
         CheckScopeBeforeApply();
         $("#customautolistmodal").modal('hide');
 
@@ -3795,7 +3832,15 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         //}, false);
 
 
+        setTimeout(function () {
 
+            $(".weekPicker").each(function () {
+                var _val = $(this).attr("selectvalue");
+                $(this).val(_val);
+                $(this).trigger("change");
+            });
+
+        }, 2000);
 
 
     }

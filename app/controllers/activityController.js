@@ -1340,6 +1340,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         }
 
     }
+
+    $scope.CheckForUnitText=function(_type)
+    {
+        if(_type!=4 && _type!=5 && _type!=6)
+        {
+            return true;
+        }
+        return false;
+    }
     $scope.GetUnitDataFieldByName = function (Name) {
         for (var i = 0; i < $scope.UnitDataList.length; i++) {
             if ($scope.UnitDataList[i].FieldName == Name) {
@@ -2132,7 +2141,18 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         setTimeout(function () { $('.itUpdateDate').val(today) }, 1000);
 
+        setTimeout(function () {
 
+
+          
+
+            $(".weekPicker").each(function () {
+                var _val = $(this).attr("selectvalue");
+                $(this).val(_val);
+                $(this).trigger("change");
+            });
+
+        }, 2000);
 
         setTimeout(function () {
             $('.FormDateType').each(function () {
@@ -6175,7 +6195,24 @@ app.directive('bootstrapSwitch', [
         }
 ]);
 
+//app.directive('ngModel', [
+//        function () {
+//            return {
+//                restrict: 'A',
+//                link: function (scope, element, attrs, ctrl) {
 
+                   
+//                        ctrl.$pristine = false;
+
+
+
+//                    scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+//                        element.trigger("change");
+//                    });
+//                }
+//            };
+//        }
+//]);
 
 app.directive('selectpicker', function () {
     return {
