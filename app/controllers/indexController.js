@@ -703,13 +703,17 @@ app.directive('ngModel', [
                 link: function (scope, element, attrs, ctrl) {
 
                 
-                        ctrl.$pristine = false;
+                       // ctrl.$pristine = false;
                        
 
 
-                    scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-                        element.trigger("change");
-                    });
+                        scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+
+                            if (!$(element).hasClass("unitDatePicker")) {
+
+                                element.trigger("change");
+                            }
+                        });
                 }
             };
         }
