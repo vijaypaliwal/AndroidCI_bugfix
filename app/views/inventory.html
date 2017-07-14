@@ -1683,46 +1683,12 @@
                 <div class="form-group" ng-if="obj.ColumnName=='lLoc'">
                     <label>Select Location <span class="redText">*</span></label>
                     <div class="input-group">
-                        <select style="display:none;" ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
+                        <select ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
                             <option mytag="{{obj.LocationZone}}" value="{{obj.LocationName}}" ng-selected="CheckSelectedValues(InventoryObject.Location,obj.LocationName)?true:false" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
                         </select>
-
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    {{InventoryObject.Location}}
-                                </div>
-                                <div class="col-xs-2">
-                                    <i class="caret pull-right" style="margin-top: 8px"></i>
-                                </div>
-                            </div>
-
-                        
-                          
-                        </div>
-                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-                            <li ng-repeat="obj in LocationList">
-                                <a>
-                                    <table style="width: 100%">
-                                        <tr>
-                                            <td ng-click="InventoryObject.Location=obj.LocationName">{{obj.LocationName}}</td>
-
-
-                                        </tr>
-                                    </table>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-
-
                         <span ng-if="IsActiveLocationLibrary==true" ng-click="CreateNew(1)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
                         <span ng-click="locationlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
-                       
+
                         <span ng-click="GetLastValue('Inv_Location','#Location')" test-case condition="GetLastValueData('Inv_Location')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                     </div>
@@ -1739,44 +1705,12 @@
                     <label>Select UOM <span class="redText">*</span></label>
                     <div class="input-group">
 
-                        <select style="display:none;" class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
+                        <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
                             <option value="{{obj.UnitOfMeasureName}}" ng-selected="CheckSelectedValues(InventoryObject.Uom,obj.UnitOfMeasureName)?true:false" ng-repeat="obj in UOMList">{{obj.UnitOfMeasureName}}</option>
                         </select>
-
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
-
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    {{InventoryObject.Uom}}
-                                </div>
-                                <div class="col-xs-2">
-                                    <i class="caret pull-right" style="margin-top: 8px"></i>
-                                </div>
-                            </div>
-                          
-                        </div>
-                        <ul class="dropdown-menu operator dropdown-listcustom" role="menu" aria-labelledby="dropdownMenu">
-
-                            <li ng-repeat="obj in UOMList">
-                                <a>
-                                    <table style="width: 100%">
-                                        <tr>
-                                            <td ng-click="InventoryObject.Uom=obj.UnitOfMeasureName">{{obj.UnitOfMeasureName}}</td>
-
-
-                                        </tr>
-                                    </table>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-
-
                         <span ng-if="IsActiveUOMLibrary==true" ng-click="CreateNew(2)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
 
-                      
+
                         <span ng-click="GetLastValue('Inv_Uom','#UOM')" test-case condition="GetLastValueData('Inv_Uom')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                     </div>
