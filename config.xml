@@ -30,7 +30,10 @@
   <gap:plugin name="ionic-plugin-keyboard"  source="npm" version="1.0.7" />
   <gap:plugin name="org.apache.cordova.splashscreen" />
 
-  <gap:plugin name="net.bgta.phonegap.plugin.appversion" source="pgb"/>-->
+  <gap:plugin name="net.bgta.phonegap.plugin.appversion" source="pgb"/>
+  <plugin name="org.apache.cordova.network-information" source="npm"/>
+  <plugin name="org.apache.cordova.splashscreen" source="npm"/>
+  -->
 
 
   <plugin name="phonegap-plugin-barcodescanner" source="npm"/>
@@ -42,8 +45,10 @@
 
   <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.5.0"/>
 
-  <plugin name="org.apache.cordova.network-information" source="npm"/>
-  <plugin name="org.apache.cordova.splashscreen" source="npm"/>
+  
+  <plugin name="cordova-plugin-network-information" source="npm" spec="1.0.1" />
+  <plugin name="cordova-plugin-splashscreen"   source="npm" spec="2.1.0" />
+  
   <plugin name="ionic-plugin-keyboard" source="npm"/>
   <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1"/>
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
