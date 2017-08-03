@@ -2135,7 +2135,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 CheckScopeBeforeApply();
 
             });
+            $(document).on("touchend", "select", function (e) {
+                e.preventDefault();
 
+
+
+
+            });
         }, 0);
         $scope.$apply();
 

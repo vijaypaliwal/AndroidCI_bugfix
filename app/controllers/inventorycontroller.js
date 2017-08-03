@@ -150,6 +150,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         setTimeout(function () {
             $("#myform .swiper-slide-active").find(".form-control:first").focus();
+            $(document).on("touchend", "select", function (e) {
+                e.preventDefault();
+
+
+
+
+            });
         }, 100);
 
 
