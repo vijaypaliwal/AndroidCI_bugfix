@@ -406,7 +406,11 @@
         $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
     }
 
+    $(document).on("touchend", "select", function (e) {
 
+        e.preventDefault();
+
+    });
 
     $(window).scroll(function () {
         ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
