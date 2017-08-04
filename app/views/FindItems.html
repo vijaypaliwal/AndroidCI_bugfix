@@ -136,6 +136,28 @@
 
 
                                 </span>
+
+                                <span ng-if="CurrentActiveSearchType==5">
+
+                                    <input id="MasterSearch" type="month" ng-model="SearchValue" class="form-control hideaddclear" placeholder="Search">
+                                </span>
+
+
+                                <span ng-if="CurrentActiveSearchType==6">
+                                    <select id="MasterSearch" ng-model="SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </span>
+
+                                <span ng-if="CurrentActiveSearchType==7">
+
+                                    <select class="form-control" ng-model="SearchValue" ng-options="obj for obj in dropDownValues track by obj" id="MasterSearch"></select>
+                                </span>
+
                                 <i id="btnClearSearch" class="fa fa-times-circle filtercross" ng-click="ClearFilter()" ng-show="SearchValue!=''"></i>
                             </div>
 

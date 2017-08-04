@@ -69,7 +69,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.CurrentYear = new Date().getFullYear();
 
     for (var i = 1; i <= 52; i++) {
-        $scope.weeklist.push(i);
+        var x = leadZero(i);
+
+        $scope.weeklist.push(x);
     }
 
 
@@ -168,7 +170,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.switchmode = true;
         $scope.currentmode = 2;
         localStorageService.set("mode", $scope.currentmode);
-     //   $cordovaKeyboard.disableScroll(false);
+        //   $cordovaKeyboard.disableScroll(false);
 
 
         CheckScopeBeforeApply();
@@ -209,7 +211,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
        $('#toolbar').css("position", "fixed");
 
-        $('.stickybtn').css("position", "fixed");
+       $('.stickybtn').css("position", "fixed");
    });
 
 
@@ -476,7 +478,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return true;
     }
     $scope.saveItemGroup = function (ItemGroupValue) {
-         
+
         var _StatusValue = $.trim(ItemGroupValue);
 
         if (_StatusValue != "") {
@@ -500,7 +502,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 contentType: 'application/json',
                 success: function (result) {
 
-                     
+
                     if (result.CreateEditItemGroupResult.Success == true) {
 
                         _IsSavedItemGroup = true;
@@ -647,7 +649,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.GetLastValueCustom = function (id, Type) {
 
-         
+
 
         var field = "Inv_" + id;
         var _fieldid = "";
@@ -716,7 +718,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.UpdateCustomDropdownData = function (CustomDataID, Value, Type, _Index) {
 
-         
+
 
         var _ID = "#CustomItem_" + CustomDataID;
         var _ID2 = "#CustomItem_" + CustomDataID + "_label";
@@ -773,7 +775,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     $scope.GetLastValue = function (field, id) {
 
 
-         
+
 
         var _value = "";
         var _toCheckValue = localStorageService.get(field);
@@ -784,7 +786,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         if (_toCheckValue != null && _toCheckValue != undefined) {
             _value = _toCheckValue;
             if (id == "#ItemName") {
-                
+
                 $scope.IsItemChoseCheck = false;
             }
             if (id == "#UOM") {
@@ -1238,14 +1240,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 },
 
                 success: function (data) {
-                     
+
                     if (data.SearchItemsResult.Success == true) {
                         if (data.SearchItemsResult != null && data.SearchItemsResult.Payload != null) {
                             $scope.ItemSearching = false;
                             $scope.SearchList = data.SearchItemsResult.Payload;
 
 
-                             
+
 
                             if ($scope.SearchList.length == 0) {
                                 $scope.isnoitemmsg = true;
@@ -1833,7 +1835,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                       error: function (err, textStatus, errorThrown) {
 
 
-                           
+
 
                           if (err.readyState == 0 || err.status == 0) {
 
@@ -1882,41 +1884,45 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     function ConverttoMsJsonDate(_DateValue) {
+        if ($.trim(_DateValue) != "") {
+            var _date = angular.copy(_DateValue);
 
-        var _date = angular.copy(_DateValue);
+            var dsplit1 = _date.split("/");
+            var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
 
-        var dsplit1 = _date.split("/");
-        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
-        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-        return today;
+            return today;
+        }
+        return "";
     }
 
     function ConverttoMsJsonDateTime(_DateValue) {
+        if ($.trim(_DateValue) != "") {
 
+            var _date = angular.copy(_DateValue);
 
-        var _date = angular.copy(_DateValue);
+            var dsplit1 = _date.split("/");
 
-        var dsplit1 = _date.split("/");
+            var _timeSplit = dsplit1[2].split(" ");
 
-        var _timeSplit = dsplit1[2].split(" ");
+            var _timeString = _timeSplit[1].split(":");
 
-        var _timeString = _timeSplit[1].split(":");
+            var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
 
-        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+            var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
 
-        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
-        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-        return today + _ToMergeTime;
+            return today + _ToMergeTime;
+        }
+        return "";
     }
 
     function ConvertToTime(_timeValue) {
@@ -2040,7 +2046,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#itemlistmodal").modal('hide');
         $("#locationlistmodal").modal('show');
 
-         
+
         $scope.LocationSearchList = angular.copy($scope.LocationList);
         CheckScopeBeforeApply();
 
@@ -2312,7 +2318,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
                           if ($scope.CustomActivityDataList[i].cfdDataType == "datetime") {
                               if (_defaultValue != null && _defaultValue != "") {
-                                   
+
                                   if ($scope.CustomActivityDataList[i].cfdSpecialType == 2) {
                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDateTime(_defaultValue);
                                   }
@@ -2423,8 +2429,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $("#secondDiv").find(_ID).trigger("input");
         $("#firstDiv").find(_ID).trigger("input");
 
-        if ($scope.switchmode==true)
-        {
+        if ($scope.switchmode == true) {
             var _array = $scope.activecustomfield.split("_");
             var _CFDID = parseInt(_array[1]);
 
@@ -3143,7 +3148,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                        console.log("List of active unitdata fields");
                        console.log($scope.UnitDataList);
 
-                       $scope.UnitDataList.forEach(function (item) {
+                       for (var i = 0; i < $scope.UnitDataList.length; i++) {
+
+
+
+                           var item = $scope.UnitDataList[i];
+
 
                            if (item.FieldName == 'ReqValue') {
                                $scope.ReqValueFieldSpecialType = item.FieldSpecialType;
@@ -3244,7 +3254,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                $scope.UnitNumber2FieldNumberMin = TryParseFloat(item.FieldNumberMin);
                            }
 
-                       });
+                       }
 
                        CheckScopeBeforeApply()
                    }
@@ -3372,8 +3382,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
     //#endregion
 
-    $scope.IsActiveTransactionField = function (cfdid)
-    {
+    $scope.IsActiveTransactionField = function (cfdid) {
 
         $scope.CurrentOperation = "Increase";
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
@@ -3818,7 +3827,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
         //document.addEventListener("backbutton", function (e) {
-        
+
 
         //        var exitApp = false, intval = setInterval(function () { exitApp = false; }, 1000);
 
@@ -4040,7 +4049,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.ScanNewSwitch = function (_Column) {
-         
+
         var _id = "#";
 
 
@@ -4719,7 +4728,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             else {
 
                 if ($("#myform .swiper-slide-active input").length > 0) {
-                   // $("#myform .swiper-slide-active input:first").focus();
+                    // $("#myform .swiper-slide-active input:first").focus();
                     $cordovaKeyboard.show();
 
                 }
@@ -4894,7 +4903,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.currentcfdID = ID;
         CheckScopeBeforeApply();
 
-         
+
 
 
         $("#Adddropdownvalue").modal('show');
@@ -4932,7 +4941,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             error: function (err) {
 
 
-                 
+
 
 
             },
@@ -5148,7 +5157,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $(".androidbtn").hide();
 
 
-      
+
         setTimeout(function () {
 
 
@@ -5183,7 +5192,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 $cordovaKeyboard.disableScroll(false);
             }
 
-            
+
 
 
 
@@ -5195,8 +5204,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
-    function ApplyBackAndNext()
-    {
+    function ApplyBackAndNext() {
 
         $('.arrow-left').on('click', function (e) {
             e.preventDefault()

@@ -103,7 +103,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
         if ($scope.UnitDataList.length > 0) {
             for (var i = 0; i < $scope.UnitDataList.length; i++) {
-                if ($scope.UnitDataList[i].FieldName == FieldName) {
+                if ($scope.UnitDataList[i].FieldName == FieldName || "it" + $scope.UnitDataList[i].FieldName == FieldName) {
                     return $scope.UnitDataList[i].FieldSpecialType;
                 }
             }

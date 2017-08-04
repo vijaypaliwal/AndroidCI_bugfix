@@ -77,7 +77,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.CurrentYear = new Date().getFullYear();
 
     for (var i = 1; i <= 52; i++) {
-        $scope.weeklist.push(i);
+        var x = leadZero(i);
+
+        $scope.weeklist.push(x);
     }
 
     function CheckScopeBeforeApply() {

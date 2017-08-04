@@ -198,10 +198,10 @@
                                 <img src="{{GetImagePath(_obj.FilterOperator)}}" alt="">
                             </a>
                             <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='cn'"><img src="img/filter/Contains.gif" alt=""> Contains</a></li>
+                                <li ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType!=1" style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='cn'"><img src="img/filter/Contains.gif" alt=""> Contains</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Exact</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> does not equals</a></li>
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bw'"><img src="img/filter/BeginsWith.gif" alt=""> Begins With</a></li>
+                                <li ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType!=1" style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bw'"><img src="img/filter/BeginsWith.gif" alt=""> Begins With</a></li>
                             </ul>
 
                         </span>
