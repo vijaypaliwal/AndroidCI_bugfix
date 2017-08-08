@@ -152,24 +152,24 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         setTimeout(function () {
             $("#myform .swiper-slide-active").find(".form-control:first").focus();
-            $(document).on("touchend", "select", function (e) {
+            //$(document).on("touchend", "select", function (e) {
 
-                alert("touch end");
-                e.preventDefault();
-
-
-
-
-            });
-            $(document).on("touchstart", "select", function (e) {
-
-                alert("touch start");
-                e.preventDefault();
+            //    alert("touch end");
+            //    e.preventDefault();
 
 
 
 
-            });
+            //});
+            //$(document).on("touchstart", "select", function (e) {
+
+            //    alert("touch start");
+            //    e.preventDefault();
+
+
+
+
+            //});
         }, 100);
 
 

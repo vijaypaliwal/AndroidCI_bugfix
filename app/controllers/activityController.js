@@ -2137,24 +2137,24 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 CheckScopeBeforeApply();
 
             });
-            $(document).on("touchend", "select", function (e) {
-                alert("clicking start");
-                e.preventDefault();
+            //$(document).on("touchend", "select", function (e) {
+            //    alert("clicking start");
+            //    e.preventDefault();
 
 
 
 
-            });
+            //});
 
-            $(document).on("touchstart", "select", function (e) {
+            //$(document).on("touchstart", "select", function (e) {
 
-                alert("touch start");
-                e.preventDefault();
-
-
+            //    alert("touch start");
+            //    e.preventDefault();
 
 
-            });
+
+
+            //});
         }, 0);
         $scope.$apply();
 
