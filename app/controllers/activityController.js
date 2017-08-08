@@ -2138,6 +2138,17 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
             });
             $(document).on("touchend", "select", function (e) {
+                alert("clicking start");
+                e.preventDefault();
+
+
+
+
+            });
+
+            $(document).on("touchstart", "select", function (e) {
+
+                alert("touch start");
                 e.preventDefault();
 
 
