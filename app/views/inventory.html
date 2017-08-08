@@ -3832,11 +3832,17 @@
 <script>
 
     $(document).on("touchend", "select", function (e) {
-        alert("touch end in");
         e.preventDefault();
+        e.stopPropagation();
 
     });
 
+    $(document).on("touch", "select", function (e) {
+        alert("touch only in");
+        e.preventDefault();
+        e.stopPropagation();
+
+    });
 </script>
 <style>
     .switch1 {
