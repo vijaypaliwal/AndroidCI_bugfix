@@ -517,7 +517,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                                }
 
                                if ($.trim($scope.UnitDataList[i].FieldRadioValues) != "") {
-                                   $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                                   $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split("\r\n");
                                }
                            }
 

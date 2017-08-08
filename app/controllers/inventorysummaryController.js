@@ -33,7 +33,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                                }
 
                                if ($scope.UnitDataList[i].FieldRadioValues != null || $scope.UnitDataList[i].FieldRadioValues != "") {
-                                   $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                                   $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split("\r\n");
                                }
                            }
 
@@ -82,7 +82,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                         return $scope.UnitDataFieldCombovalues;
                     }
                     if ($.trim($scope.UnitDataList[i].FieldRadioValues) != "") {
-                        $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                        $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split("\r\n");
                         return $scope.UnitDataFieldRadioValues;
                     }
                 }

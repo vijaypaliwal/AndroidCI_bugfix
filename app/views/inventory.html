@@ -1869,8 +1869,16 @@
                             <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
                                 <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
-                                <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!=''" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
+                                <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask !='week'" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
 
+
+                                <select id="CustomActivity_{{obj.cfdID}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control weekPicker" selectvalue="{{InventoryObject.CustomTxnData[$index].Value}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='week'">
+                                    <option value="">choose week</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                </select>
                                 
                             </div>
 
@@ -2035,12 +2043,12 @@
                 <div class="form-group" ng-if="obj.ColumnName=='iStatusValue'">
                     <label>Status </label>
                     <div class="input-group">
-                        <select style="display:none;" class="form-control" id="Status" ng-model="InventoryObject.Status">
+                        <select  class="form-control" id="Status" ng-model="InventoryObject.Status">
                             <option value="">None</option>
                             <option value="{{obj.StatusValue}}" ng-selected="obj.StatusValue==InventoryObject.Status" ng-repeat="obj in StatusList">{{obj.StatusValue}}</option>
                         </select>
 
-                        <div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
+                        <!--<div class="updiv dropdown-toggle" data-toggle="dropdown" title="(click to change)">
 
                             <div class="row">
                                 <div class="col-xs-10">
@@ -2071,7 +2079,7 @@
                             </li>
 
 
-                        </ul>
+                        </ul>-->
 
                         
 
@@ -2910,7 +2918,16 @@
                             <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
                                 <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
-                                <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!=''" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
+                                <input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!=''  && obj.cfdInputMask !='week'" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
+
+
+                                <select id="CustomActivity_{{obj.cfdID}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control weekPicker" selectvalue="{{InventoryObject.CustomTxnData[$index].Value}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='week'">
+                                    <option value="">choose week</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                </select>
 
                             </div>
 
@@ -3753,15 +3770,83 @@
     </div>
 </div>
 
+
+<div ng-if="CheckRequiredField()==true || CheckCustomRequiredFields()==true || CheckEmailFields()==true" class="requiredfields" ng-show="slide == Totalslides">
+
+    <p>Please fill/correct below required/email fields</p>
+
+
+    <a ng-if="InventoryObject.Uom == ''" ng-click="getstep(4,'uomUOM')">
+        Unit of measure
+    </a>
+
+    <a ng-if="InventoryObject.Location == ''" ng-click="getstep(3,'lLoc')">
+        Location
+    </a>
+
+    <a ng-click="getstepCustom(1,obj.ColumnMap)" ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && obj.cfdIsRequired==true && (InventoryObject.CustomPartData[$index].Value==null || InventoryObject.CustomPartData[$index].Value==undefined || InventoryObject.CustomPartData[$index].Value=='')">
+
+
+        {{obj.cfdName}}
+
+
+    </a>
+    <a ng-click="getstepCustom(2,obj.ColumnMap)" ng-repeat="obj in CustomActivityDataList" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)==true && obj.cfdIsRequired==true && (InventoryObject.CustomTxnData[$index].Value==null || InventoryObject.CustomTxnData[$index].Value==undefined || InventoryObject.CustomTxnData[$index].Value=='')">
+
+
+
+        {{obj.cfdName}}
+
+
+
+    </a>
+
+
+    <a ng-if="IsProperEmail(InventoryObject.UniqueTag) == false" ng-click="getstep(3,'iReqValue')">
+        Unique Tag
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag2) == false" ng-click="getstep(3,'iUnitTag2')">
+        Unit Tag2
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag3) == false" ng-click="getstep(3,'iUnitTag3')">
+        Unit Tag3
+    </a>
+    <a ng-click="getstepCustom(1,obj.ColumnMap)" ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && IsProperEmail(InventoryObject.CustomPartData[$index].Value)==false">
+
+
+        {{obj.cfdName}}
+
+
+    </a>
+    <a ng-click="getstepCustom(2,obj.ColumnMap)" ng-repeat="obj in CustomActivityDataList" ng-if="CustomActivityDataList.length > 0 && IsActiveTransactionField(obj.cfdID)==true && IsProperEmail(InventoryObject.CustomTxnData[$index].Value)==false">
+
+
+
+        {{obj.cfdName}}
+
+
+
+    </a>
+</div>
+
 <script>
 
     $(document).on("touchend", "select", function (e) {
 
         e.preventDefault();
-        e.stopPropagation();
+
     });
 
 </script>
+<style>
+    .switch1 {
+        width: 100%;
+    }
+
+    .emailError {
+        color: #c31818;
+    }
+</style>
 
 
 

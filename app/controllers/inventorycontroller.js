@@ -922,13 +922,26 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
-    $(document).on('change', 'input[type=email]', function () {
-        if ($.trim($(this).val()) != "") {
-            $(this).trigger("input");
-        }
+    $(document)
+   .on('change', "input[type='email']", function () {
+
+       if ($.trim($(this).val()) != "") {
+           var _value = $(this).val();
+           if ($scope.IsProperEmail(_value) == false) {
+               $(this).css("border-color", "#c31818");
+               $(this).parent("div").find(".emailError").remove();
+               $('<span class="emailError">Invalid email</span>').insertAfter(this);
+
+           }
+           else {
+               $(this).css("border-color", "#cccccc");
+               $(this).parent("div").find(".emailError").remove();
+
+           }
+       }
 
 
-    });
+   });
 
 
     $scope.fillitem = function () {
@@ -1895,56 +1908,75 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     function ConverttoMsJsonDate(_DateValue) {
-        if ($.trim(_DateValue) != "") {
-            var _date = angular.copy(_DateValue);
 
-            var dsplit1 = _date.split("/");
-            var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
+        var _date = angular.copy(_DateValue);
 
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var dsplit1 = _date.split("/");
+        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
 
-            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-            return today;
-        }
-        return "";
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today;
     }
 
     function ConverttoMsJsonDateTime(_DateValue) {
-        if ($.trim(_DateValue) != "") {
 
-            var _date = angular.copy(_DateValue);
 
-            var dsplit1 = _date.split("/");
+        var _date = angular.copy(_DateValue);
 
-            var _timeSplit = dsplit1[2].split(" ");
+        var dsplit1 = _date.split("/");
 
-            var _timeString = _timeSplit[1].split(":");
+        var _timeSplit = dsplit1[2].split(" ");
 
-            var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+        var _timeString = _timeSplit[1].split(":");
 
-            var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
-
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-            var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-            return today + _ToMergeTime;
+        if (parseInt(_timeString[0]) >= 12) {
+            _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
         }
-        return "";
+
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today + _ToMergeTime;
+    }
+
+    function leadZero(_something) {
+
+        var _TempString = parseInt(_something).toString();
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
+        return _something;//else    
     }
 
     function ConvertToTime(_timeValue) {
 
         if ($.trim(_timeValue) != "") {
+            var _ToMergeTime = "";
+            var _timeString = "";
+            if (_timeValue.indexOf("AM") > -1 || _timeValue.indexOf("PM") > -1) {
 
-            var _timeSplit = _timeValue.split(" ");
-            var _timeString = _timeSplit[0].split(":");
+                var _timeSplit = _timeValue.split(" ");
+                _timeString = _timeSplit[0].split(":");
 
-            var _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+                if (parseInt(_timeString[0]) >= 12) {
+                    _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+                }
 
+                _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+            }
+            else {
+                _timeString = _timeValue.split(":");
+                _ToMergeTime = (_timeString[0]) + ":" + (_timeString[1]) + ":" + (_timeString[2]);
+            }
             return _ToMergeTime;
         }
 
@@ -1952,12 +1984,70 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     }
 
-    function leadZero(_something) {
-        var _TempString = parseInt(_something);
-        _something = _TempString.toString();
-        if (parseInt(_something) < 10) return "0" + _something;
-        return _something;//else    
-    }
+    //function ConverttoMsJsonDate(_DateValue) {
+    //    if ($.trim(_DateValue) != "") {
+    //        var _date = angular.copy(_DateValue);
+
+    //        var dsplit1 = _date.split("/");
+    //        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
+
+    //        var day = ("0" + now.getDate()).slice(-2);
+    //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    //        return today;
+    //    }
+    //    return "";
+    //}
+
+    //function ConverttoMsJsonDateTime(_DateValue) {
+    //    if ($.trim(_DateValue) != "") {
+
+    //        var _date = angular.copy(_DateValue);
+
+    //        var dsplit1 = _date.split("/");
+
+    //        var _timeSplit = dsplit1[2].split(" ");
+
+    //        var _timeString = _timeSplit[1].split(":");
+
+    //        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+    //        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+    //        var day = ("0" + now.getDate()).slice(-2);
+    //        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    //        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    //        return today + _ToMergeTime;
+    //    }
+    //    return "";
+    //}
+
+    //function ConvertToTime(_timeValue) {
+
+    //    if ($.trim(_timeValue) != "") {
+
+    //        var _timeSplit = _timeValue.split(" ");
+    //        var _timeString = _timeSplit[0].split(":");
+
+    //        var _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+    //        return _ToMergeTime;
+    //    }
+
+    //    return "";
+
+    //}
+
+    //function leadZero(_something) {
+    //    var _TempString = parseInt(_something);
+    //    _something = _TempString.toString();
+    //    if (parseInt(_something) < 10) return "0" + _something;
+    //    return _something;//else    
+    //}
     $scope.CheckCustomFields = function (Type) {
         var _returnVar = false;
         switch (Type) {
@@ -3133,7 +3223,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $(_ID).val(_inputvalue);
 
 
-            $(_ID).trigger("input");
+            $(_ID).trigger("change");
         }
     }
 
@@ -3174,7 +3264,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                    $scope.UniqueTagCombovalues = item.FieldComboValues.split("\n");
                                }
                                if (item.FieldRadioValues != null) {
-                                   $scope.UniqueTagRadiovalues = item.FieldRadioValues.split(" ");
+                                   $scope.UniqueTagRadiovalues = item.FieldRadioValues.split("\r\n");
                                }
                            }
                            else if (item.FieldName == 'UnitTag2') {
@@ -3187,7 +3277,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                    $scope.UniqueTag2Combovalues = item.FieldComboValues.split("\n");
                                }
                                if (item.FieldRadioValues != null) {
-                                   $scope.UniqueTag2Radiovalues = item.FieldRadioValues.split(" ");
+                                   $scope.UniqueTag2Radiovalues = item.FieldRadioValues.split("\r\n");
                                }
 
                            }
@@ -3199,7 +3289,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                                    $scope.UniqueTag3Combovalues = item.FieldComboValues.split("\n");
                                }
                                if (item.FieldRadioValues != null) {
-                                   $scope.UniqueTag3Radiovalues = item.FieldRadioValues.split(" ");
+                                   $scope.UniqueTag3Radiovalues = item.FieldRadioValues.split("\r\n");
                                }
                            }
 
@@ -4616,32 +4706,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     //}
 
-    $scope.UpDownValue = function (value, IsUp) {
-        if ($.trim($scope.InventoryObject.Quantity) == "") {
 
-            $scope.InventoryObject.Quantity = 0;
-
-        }
-
-        switch (value) {
-            case "Quantity":
-                if (!IsUp) {
-                    if ($scope.InventoryObject.Quantity > 0) {
-
-                        $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity + (IsUp ? 1 : -1);
-                    }
-                }
-                else if (IsUp) {
-                    $scope.InventoryObject.Quantity = $scope.InventoryObject.Quantity + (IsUp ? 1 : -1);
-                }
-                break;
-            default:
-
-        }
-
-        vibrate();
-        playBeep();
-    }
 
     $scope.UpDownValue = function (value, IsUp, Type) {
 
@@ -4697,7 +4762,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     $(_ID).val(_inputvalue);
 
 
-                    $(_ID).trigger("input");
+                    $(_ID).trigger("change");
                 }
                 break;
 
@@ -5108,10 +5173,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                         $scope.changeNav();
 
+                        $(".swiper-slide-active").find("input").focus();
+                        $(".swiper-slide-active").find("select").focus();
+
                     }
 
                     else {
-
+                        $(".swiper-slide-active").find("input").focus();
+                        $(".swiper-slide-active").find("select").focus();
                         $cordovaKeyboard.close()
 
                         //  SoftKeyboard.hide();
