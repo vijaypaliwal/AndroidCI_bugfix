@@ -137,6 +137,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.switchmode = false;
 
+
+    $('.swiper-slide select').on('mousedown touchstart touchend MSPointerDown', function (e) {
+        alert("in");
+        e.stopPropagation();
+    });
+
     $scope.mode1 = function () {
 
         $scope.itemfields = false;
@@ -151,7 +157,20 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         InitializeSwiper();
 
         setTimeout(function () {
-            $("#myform .swiper-slide-active").find(".form-control:first").focus();
+            //$("#myform .swiper-slide-active").find(".form-control:first").focus();
+
+            if ($("#myform .swiper-slide-active").find("input").length > 0) {
+                var _type = $("#myform .swiper-slide-active").find("input").attr("type");
+                var _value = $("#myform .swiper-slide-active").find("input").attr("value");
+
+                if (_type == "text" || _type == "number" || _type == "week" || _type == "email") {
+                    $("#myform .swiper-slide-active").find("input").focus();
+
+
+                }
+
+
+            }
             //$(document).on("touchend", "select", function (e) {
 
             //    alert("touch end");
@@ -5132,6 +5151,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 speed: 500,
                 effect: 'flip',
                 allowSwipeToPrev: false,
+                preventClicks:false,
+                preventClicksPropagation:false,
                 onSlideChangeStart: function () {
                     if ($scope.CurrentActiveField == "pPart" && $.trim($scope.InventoryObject.ItemID) != "") {
                         _IsItemSlide = true;
@@ -5163,7 +5184,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     $scope.CurrentActiveFieldType = _fieldType == "activity" ? "Activity" : "Inventory";
                     CheckScopeBeforeApply();
 
-
+                      
                     var swiperPage = swiperHere.activeSlide();
 
                     $scope.slidenumber(swiperHere.activeIndex);
@@ -5210,8 +5231,19 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                         //  SoftKeyboard.hide();
 
                     }
+                    $('.swiper-slide select').on("mousedown touchstart touchend", function (e) {
+
+                        alert("into Data");
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                    });
 
                 }
+
+                 
+
+         
 
             });
 
