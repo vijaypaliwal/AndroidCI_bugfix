@@ -431,9 +431,11 @@
     }
 
 
-    #filtermodal .dropdown-menu img {
-        background:  #2196F3;
+ #filtermodal .dropdown-menu img {
+        background: #2196F3;
         border: 1px solid #ccc;
+         border-radius: 100%;
+    padding: 3px;
     }
 
     #filtermodal .form-control {
