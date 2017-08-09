@@ -3,34 +3,6 @@
 'use strict';
 app.controller('FindItemsController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard', function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard) {
 
-
-
-    $scope.ActiveUnitDataFields = [];
-
-    $scope.dropDownValues = [];
-    $scope.iReqValueFieldSpecialType = "";
-    $scope.iUnitTag2FieldSpecialType = "";
-    $scope.iUnitTag3FieldSpecialType = "";
-
-    $scope.weeklist = [];
-
-    $scope.CurrentYear = new Date().getFullYear();
-
-    for (var i = 1; i <= 52; i++) {
-        var x = leadZero(i);
-        $scope.weeklist.push(x);
-    }
-
-    function leadZero(_something) {
-        var _TempString = parseInt(_something);
-        _something = _TempString.toString();
-        if (parseInt(_something) < 10) return "0" + _something;
-        return _something;//else    
-    }
-
-
-
-
     $scope.InventoryItems = [];
     $scope.SecurityToken = "";
     $scope.InvObject = {
@@ -82,8 +54,34 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.SearchFromText = "Search";
     $scope.SearchValue = "";
     $scope.StatusList = [];
-
+    $scope.UnitDataList = [];
     $scope.loadingblock = false;
+
+ 
+    $scope.ActiveUnitDataFields = [];
+
+    $scope.dropDownValues = [];
+    $scope.iReqValueFieldSpecialType = "";
+    $scope.iUnitTag2FieldSpecialType = "";
+    $scope.iUnitTag3FieldSpecialType = "";
+
+    $scope.weeklist = [];
+
+    $scope.CurrentYear = new Date().getFullYear();
+
+    for (var i = 1; i <= 52; i++) {
+        var x = leadZero(i);
+        $scope.weeklist.push(x);
+    }
+
+    function leadZero(_something) {
+        var _TempString = parseInt(_something);
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
+        return _something;//else    
+    }
+
+
 
     $scope.UOMList = [];
     $scope.CurrentObj = {};
@@ -121,6 +119,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.CurrentActiveSearchType = 1;
     $scope.CurrentActiveSearchOperator = "img/filter/Contains.gif";
     $scope.CurrentActiveSearchField = "All";
+    var pressTimer
     var _defaultUnitObj = {
         AccountID: 0,
         Active: false,
@@ -202,9 +201,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                }
            });
     }
-
-
-
 
     $scope.ShowOptionModal = function () {
 
@@ -419,10 +415,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.SearchInventory = function () {
         var _Value = $.trim($('#MasterSearch').val());
 
-
-
-
         switch ($scope.CurrentActiveSearchType) {
+
             case 1:
             case 5:
             case 6:
@@ -446,6 +440,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     _Value = $.trim($("#MasterSearchUOM").val());
                 }
                 break;
+            
             default:
                 _Value = $.trim($('#MasterSearch').val());
                 break;
@@ -477,7 +472,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
         if ($scope.ActualTotalRecords == 0) {
-          
+
 
             $(".modal-backdrop").hide();
 
@@ -744,7 +739,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 $scope.mainObjectToSend.splice(i, 1);
             }
         }
-       
+
 
         CheckScopeBeforeApply();
 
@@ -866,21 +861,21 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
 
 
-
     function getFieldSpecialType(columnName) {
-
+       
         for (var i = 0; i < $scope.ActiveUnitDataFields.length; i++) {
             var Field = $scope.ActiveUnitDataFields[i]
 
-            if (Field.FieldName == columnName) {
-                return Field.FieldSpecialType;
-            }
+            if (Field.FieldName == columnName) {               
+                return Field.FieldSpecialType;                
+            }           
         }
         return "";
 
     }
 
-    function getDropDownValues(columnName, type) {
+    function getDropDownValues(columnName, type)
+    {
 
         debugger;
         for (var i = 0; i < $scope.ActiveUnitDataFields.length; i++) {
@@ -899,27 +894,42 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         break
                     }
                     case 12: {
-                        var x = Field.FieldRadioValues.split("\n");
+                        var x = Field.FieldRadioValues.split("\r\n");
                         return x;
                         break
                     }
 
                 }
             }
-        }
+        }       
 
     }
 
 
-
-
-
     $scope.searchfunction = function (Byvalue) {
+
+        debugger;
+        console.log("===========================");
+        console.log("$scope.MyinventoryFieldsNames");
+        console.log($scope.MyinventoryFieldsNames);
+        console.log("===========================");
+             
+        console.log("===========================");
+        console.log("$scope.ActiveUnitDataFields");
+        console.log($scope.ActiveUnitDataFields);
+        console.log("===========================");
+
+
+
 
         ClearFilterArray();
 
         //switch ($scope.CurrentActiveSearchType) {
         //    case 1:
+        //    case 5:
+        //    case 6:
+        //    case 7:
+        //        $scope.SearchValue = $("#MasterSearch").val();
         //        break;
         //    case 2:
         //        $scope.SearchValue = $scope.SearchNumberValue;
@@ -997,9 +1007,11 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             case "iReqValue":
                 $scope.CurrentActiveSearchField = "iReqValue";
 
+
                 $scope.iReqValueFieldSpecialType = getFieldSpecialType("ReqValue");
 
-                if ($scope.iReqValueFieldSpecialType != "") {
+                if ($scope.iReqValueFieldSpecialType != "")
+                {
                     switch ($scope.iReqValueFieldSpecialType) {
                         case 2:
                             $scope.CurrentActiveSearchType = 7;
@@ -1027,14 +1039,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                     }
                 }
-                else {
+                else
+                {
                     $scope.CurrentActiveSearchType = 1;
-                }
-
-
-
+                }             
 
                 //$scope.CurrentActiveSearchType = 1;
+
                 var _label = $scope.GetUnitDataLabel('iReqValue');
                 _label = _label != undefined && _label != "" ? _label : "";
                 $('#MasterSearch').attr("placeholder", "Search by " + _label);
@@ -1042,7 +1053,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 break;
             case "iUnitTag2":
                 $scope.CurrentActiveSearchField = "iUnitTag2";
-
 
                 $scope.iUnitTag2FieldSpecialType = getFieldSpecialType("UnitTag2");
 
@@ -1077,9 +1087,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 else {
                     $scope.CurrentActiveSearchType = 1;
                 }
-
-
-
+                
                 //$scope.CurrentActiveSearchType = 1;
                 var _label = $scope.GetUnitDataLabel('iUnitTag2');
                 _label = _label != undefined && _label != "" ? _label : "";
@@ -1088,7 +1096,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 break;
             case "iUnitTag3":
                 $scope.CurrentActiveSearchField = "iUnitTag3";
-
 
                 $scope.iUnitTag3FieldSpecialType = getFieldSpecialType("UnitTag3");
 
@@ -1124,9 +1131,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     $scope.CurrentActiveSearchType = 1;
                 }
 
-
-
-
+                //$scope.CurrentActiveSearchType = 1;
                 var _label = $scope.GetUnitDataLabel('iUnitTag3');
                 _label = _label != undefined && _label != "" ? _label : "";
                 $('#MasterSearch').attr("placeholder", "Search by " + _label);
@@ -1150,14 +1155,11 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 break
             default:
                 break;
-
         }
         //console.log("Date value");
         //console.log($scope.SearchDateValue);
-
         //console.log("Number value");
         //console.log($scope.SearchNumberValue);
-
         //console.log("String value");
         //console.log($scope.SearchValue);
         //if ($.trim($scope.SearchValue) != "") {
@@ -1165,7 +1167,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         //    var _tempArray = [];
         //    switch (Byvalue) {
         //        case "iStatusValue":
-
         //            $scope.SearchFromText = "Status";
         //            UpdateFilterArray("iStatusValue", $.trim($scope.SearchValue));
         //            $('#MasterSearch').attr("placeholder", "Search by Status");
@@ -1195,8 +1196,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         //            UpdateFilterArray("iReqValue", $.trim($scope.SearchValue));
         //            $scope.IsDateColumnOn = false;
         //            break;
-
-
         //        case "iUnitDate2":
         //            var _label = $scope.GetUnitDataLabel('iUnitDate2');
         //            _label = _label != undefined && _label != "" ? _label : "";
@@ -1249,12 +1248,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         //            break
         //        default:
         //            break;
-
         //    }
         //    $scope.PopulateInventoryItems();
-
-
-
         //}
     }
     $scope.FilterArray = [
@@ -1441,10 +1436,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         $(".searchtable").addClass("disablepointer");
                         $("#arrow").attr("style", "");
                         $("#arrow").show();
-                        
-                     
 
-                      
+
+
+
                     }
 
 
@@ -1455,7 +1450,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 }
 
                 $scope.myinventoryColumnLoaded = true;
-               // $cordovaKeyboard.disableScroll(false);
+                $cordovaKeyboard.disableScroll(false);
 
                 $scope.loadingblock = false;
 
@@ -1467,68 +1462,21 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 //
 
                 $scope.myinventoryColumnLoaded = true;
-               // $cordovaKeyboard.disableScroll(false);
+                $cordovaKeyboard.disableScroll(false);
                 CheckScopeBeforeApply();
                 $scope.ShowErrorMessage("current inventories", 2, 1, req.statusText);
             },
             complete: function () {
                 _IsLazyLoadingUnderProgress = 0;
-               // $cordovaKeyboard.disableScroll(false);
+                $cordovaKeyboard.disableScroll(false);
                 SetSelectedIfAny();
             }
         });
     }
 
 
-    //$scope.GetUnitDataColumns = function () {
-    //    var authData = localStorageService.get('authorizationData');
-    //    if (authData) {
-    //        $scope.SecurityToken = authData.token;
-    //    }
+   
 
-
-
-    //    $.ajax({
-    //        type: "POST",
-    //        url: serviceBase + 'GetUnitDataColumns',
-    //        data: JSON.stringify({ SecurityToken: $scope.SecurityToken }),
-    //        contentType: 'application/json',
-    //        dataType: 'json',
-    //        success: function (result) {
-    //            if (result.GetUnitDataColumnsResult.Success == true) {
-
-    //                // MY inventory column region
-    //                var _TempArrayMyInventory = result.GetUnitDataColumnsResult.Payload;
-
-    //                for (var i = 0; i < _TempArrayMyInventory.length; i++) {
-
-    //                    $scope.MyinventoryFieldsNames.push(_TempArrayMyInventory[i]);
-
-    //                }
-
-
-
-    //                CheckScopeBeforeApply();
-    //            }
-    //            else {
-
-    //                $scope.ShowErrorMessage("unit data columns", 1, 1, result.GetUnitDataColumnsResult.Message);
-
-    //            }
-    //        },
-    //        error: function (req) {
-
-    //            $scope.ShowErrorMessage("unit data columns", 2, 1, req.statusText);
-
-
-
-    //        },
-    //        complete: function () {
-
-    //        }
-    //    });
-
-    //}
 
     $scope.GetUnitDataColumns = function () {
 
@@ -1555,7 +1503,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         $scope.ActiveUnitDataFields.push(_TempArrayMyInventory[i]);
 
                     }
-
+                   
 
                     CheckScopeBeforeApply();
                 }
@@ -1591,7 +1539,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         $scope.MyinventoryFieldsNames.push(_TempArrayMyInventory[i]);
 
                     }
-
+                   
                     CheckScopeBeforeApply();
                 }
                 else {
@@ -1606,18 +1554,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             complete: function () {
 
             }
-        });
+        });    
 
 
     }
-
-
-
-
-
-
-
-
     $scope.GetMyinventoryColumns = function () {
 
 
@@ -1795,8 +1735,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.ScanItemSearch = function () {
 
         $scope.isSanned = false;
-    
+
         var scanner = cordova.plugins.barcodeScanner;
+
+
 
         scanner.scan(function (result) {
             $scope.SearchValue = result.text;
@@ -1828,9 +1770,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     $scope.AddToCart = function (obj, _isSelectAll) {
-
-        console.log("inventory id");
-        console.log(obj.iID);
 
         if (_CanAct == 'True') {
 
@@ -2023,9 +1962,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     }
-
-
-
     function formatDate(date) {
         if (date != null && date != undefined && date != "") {
 
@@ -2055,7 +1991,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         var _timeString = _timeSplit[1].split(":");
 
-        if (parseInt(_timeString[0]) > 12) {
+        if (parseInt(_timeString[0]) >= 12) {
             _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
         }
 
@@ -2072,6 +2008,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
 
     function ConvertToTime(_timeValue) {
+
+
+        debugger;
 
         if ($.trim(_timeValue) != "") {
 
@@ -2099,7 +2038,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
     function ConvertToProperDate(value, Type) {
         if ($.trim(value) != "") {
-            debugger;
             switch (Type) {
                 case 1:
 
@@ -2337,10 +2275,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     iStatusValue: v.iStatusValue,
                     pDescription: v.pDescription,
                     Action: '',
-                    iUniqueDate_date: v.iUniqueDate,
+                    iUniqueDate_date: (v.iUniqueDate),
                     iUnitNumber2: v.iUnitNumber2,
                     iUnitNumber1: v.iUnitNumber1,
-                    iUnitDate2_date: v.iUnitDate2,
+                    iUnitDate2_date: (v.iUnitDate2),
                     iUnitTag3: v.iUnitTag3,
                     iUnitTag2: v.iUnitTag2,
                     pCountFrq: v.pCountFrq,
@@ -2367,25 +2305,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         $scope.GetActiveUnitDataField();
         //SetSelectedIfAny();
 
-    }
-
-    function GetFromlocalMyItemlist(ID)
-    {
-        var _myItemsList = localStorageService.get("ActivityCart");
-        _myItemsList = _myItemsList != null && _myItemsList != undefined ? _myItemsList : [];
-        if (_myItemsList.length > 0) {
-            var j = 0;
-            for (j = 0; j < _myItemsList.length; j++) {
-                var v = _myItemsList[j].InventoryDataList;
-                if(v.uId==ID)
-                {
-                    return _myItemsList[j];
-
-                }
-            }
-        }
-
-        return null;
     }
 
     $scope.SendEmail = function () {
@@ -2456,9 +2375,22 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     init();
 
+    function GetFromlocalMyItemlist(ID) {
+        var _myItemsList = localStorageService.get("ActivityCart");
+        _myItemsList = _myItemsList != null && _myItemsList != undefined ? _myItemsList : [];
+        if (_myItemsList.length > 0) {
+            var j = 0;
+            for (j = 0; j < _myItemsList.length; j++) {
+                var v = _myItemsList[j].InventoryDataList;
+                if (v.uId == ID) {
+                    return _myItemsList[j];
 
-  
+                }
+            }
+        }
 
+        return null;
+    }
     function GetDataToSend(mainObjectToSend) {
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
@@ -2466,6 +2398,11 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 var _ItemData = GetFromlocalMyItemlist(mainObjectToSend[i].uId)
                 if (_ItemData == null) {
 
+                    var _unitDate1 = ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1);
+                    var _unitDate2 = ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2);
+
+                    console.log("unit Date 1" + _unitDate1);
+                    console.log("unit Date 2" + _unitDate2);
                     $scope.Cart.push({
                         InventoryID: mainObjectToSend[i].uId,
                         IsLineItemData: [],
@@ -2478,10 +2415,12 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                         MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                         UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1), UnitDate2: ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                         ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1), UnitDate2: ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2), UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                     });
+
+                    console.log($scope.Cart);
                 }
                 else {
                     $scope.Cart.push(_ItemData);
@@ -2491,8 +2430,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         }
         return $scope.Cart;
     }
-    
-  
 
 
 
@@ -2500,12 +2437,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.GoToNextMobile = function (selectedAction) {
         $scope.selectedAction = selectedAction;
         var _dataToSend = GetDataToSend($scope.mainObjectToSend);
-
         localStorageService.set("ActivityCart", "");
         localStorageService.set("ActivityCart", _dataToSend);
-
+        console.log(_dataToSend);
         localStorageService.set("SelectedAction", "");
         localStorageService.set("SelectedAction", selectedAction);
+
+        console.log(_dataToSend);
 
         $("#mycartModal").modal('hide');
         $location.path("/activity");
@@ -2631,12 +2569,11 @@ app.directive('imageonload', function () {
                 var image = new Image();
                 image.src = $(element).attr("src");
                 image.onload = function () {
-                    
+
                     var _height = this.height;
                     var _Width = this.width;
 
-                    if (_height < _Width)
-                    {
+                    if (_height < _Width) {
                         _Width = _height;
                     }
 
@@ -2646,10 +2583,10 @@ app.directive('imageonload', function () {
 
 
 
-                    $(element).css("height", _height+"px");
+                    $(element).css("height", _height + "px");
                     $(element).css("width", _Width + "px");
                 };
-                
+
             });
             element.bind('error', function () {
             });

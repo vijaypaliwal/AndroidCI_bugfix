@@ -33,6 +33,75 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     var _masterSearch = "";
     //#endregion
 
+
+    $scope.yearList = [];
+    $scope.dayList = [];
+    $scope.monthList = [];
+
+    $scope.hourList = [];
+    $scope.minuteList = [];
+    $scope.secondList = [];
+
+
+    for (var i = 1; i <= 24; i++) {
+        $scope.hourList.push(i);
+    }
+
+
+
+    for (var i = 1; i <= 60; i++) {
+        $scope.minuteList.push(i);
+    }
+
+
+
+    for (var i = 1; i <= 60; i++) {
+        $scope.secondList.push(i);
+    }
+
+    $scope.monthList = [
+        { id: 1, text: "January" },
+        { id: 2, text: "February" },
+        { id: 3, text: "March" },
+        { id: 4, text: "April" },
+        { id: 5, text: "May" },
+        { id: 6, text: "June" },
+        { id: 7, text: "July" },
+        { id: 8, text: "August" },
+        { id: 9, text: "September" },
+        { id: 10, text: "October" },
+        { id: 11, text: "November" },
+        { id: 12, text: "December" }
+
+    ];
+
+    //$scope.monthList.push("January");
+    //$scope.monthList.push("February");
+    //$scope.monthList.push("March");
+    //$scope.monthList.push("April");
+    //$scope.monthList.push("May");
+    //$scope.monthList.push("June");
+    //$scope.monthList.push("July");
+    //$scope.monthList.push("August");
+    //$scope.monthList.push("September");
+    //$scope.monthList.push("October");
+    //$scope.monthList.push("November");
+    //$scope.monthList.push("December");
+
+    for (var i = 1990; i <= 2020; i++) {
+        $scope.yearList.push(i);
+    }
+
+
+    for (var i = 1; i <= 31; i++) {
+        $scope.dayList.push(i);
+    }
+
+
+
+
+
+
     $scope.weeklist = [];
 
     $scope.CurrentYear = new Date().getFullYear();
@@ -506,8 +575,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                    if (response.GetActiveUnitDataFieldsResult.Success == true) {
                        $scope.UnitDataList = response.GetActiveUnitDataFieldsResult.Payload;
 
-                       console.log("List of active unitdata fields");
-                       console.log($scope.UnitDataList);
+
 
 
                        if ($scope.UnitDataList.length > 0) {
@@ -1597,7 +1665,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                             if (fieldSpecialType == 17) {
                                 // For Time Fields
                                 
-                                $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
+                                if ($scope.FilterArray[i].FilterOperator != "date-hour" && $scope.FilterArray[i].FilterOperator != "date-minute" && $scope.FilterArray[i].FilterOperator != "date-second") {
+
+                                    $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
+                                }
                             }
                         }
                     }
@@ -1611,7 +1682,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                         if (fieldSpecialType.cfdSpecialType == 3) {
                             // For Time Fields
 
-                            $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
+                            if ($scope.FilterArray[i].FilterOperator != "date-hour" && $scope.FilterArray[i].FilterOperator != "date-minute" && $scope.FilterArray[i].FilterOperator != "date-second") {
+
+                                $scope.FilterArray[i].SearchValue = "1900-01-01T" + $scope.FilterArray[i].SearchValue;
+                            }
                         }
                     }
                 }
