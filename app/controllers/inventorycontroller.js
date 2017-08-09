@@ -5231,13 +5231,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                         //  SoftKeyboard.hide();
 
                     }
-                    $('.swiper-slide select').on("mousedown touchstart touchend", function (e) {
-
-                        alert("into Data");
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                    });
+                   
 
                 }
 
