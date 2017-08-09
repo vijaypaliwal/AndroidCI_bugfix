@@ -5177,7 +5177,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                             var _type = $(".swiper-slide-active").find("input").attr("type");
                             var _value = $(".swiper-slide-active").find("input").attr("value");
 
-                            if (_type == "text" || _type == "number" || _type == "week" || _type == "month")
+                            if (_type == "text" || _type == "number" || _type == "week" || _type == "email")
                             {
                                 $(".swiper-slide-active").find("input").focus();
 
@@ -5197,7 +5197,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                             var _type = $(".swiper-slide-active").find("input").attr("type");
                             var _value = $(".swiper-slide-active").find("input").attr("value");
 
-                            if (_type == "text" || _type == "number" || _type == "week" || _type == "month") {
+                            if (_type == "text" || _type == "number" || _type == "week" || _type == "email") {
                                 $(".swiper-slide-active").find("input").focus();
 
 

@@ -5192,7 +5192,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     var _type = $(".swiper-slide-active").find("input").attr("type");
                     var _value = $(".swiper-slide-active").find("input").attr("value");
 
-                    if (_type == "text" || _type == "number" || _type == "week" || _type == "month") {
+                    if (_type == "text" || _type == "number" || _type == "week" || _type == "email") {
                         $(".swiper-slide-active input:first").focus();
                         $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("click");
                         $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("keypress");
