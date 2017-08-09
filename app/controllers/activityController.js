@@ -5187,9 +5187,21 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         if (_tempLength != $scope.CurrentStep) {
 
             setTimeout(function () {
-                $(".swiper-slide-active input:first").focus();
-                $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("click");
-                $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("keypress");
+              
+                if ($(".swiper-slide-active").find("input").length > 0) {
+                    var _type = $(".swiper-slide-active").find("input").attr("type");
+                    var _value = $(".swiper-slide-active").find("input").attr("value");
+
+                    if (_type == "text" || _type == "number" || _type == "week" || _type == "month") {
+                        $(".swiper-slide-active input:first").focus();
+                        $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("click");
+                        $(".swiper-slide-active input:first").not("input[type='checkbox']").trigger("keypress");
+
+
+                    }
+
+
+                }
 
             }, 0);
 

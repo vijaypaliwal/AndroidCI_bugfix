@@ -5171,16 +5171,40 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
                     if (swiperHere.activeIndex != 100 && swiperHere.activeIndex != 101) {
 
-                        $scope.changeNav();
 
-                        $(".swiper-slide-active").find("input").focus();
-                        $(".swiper-slide-active").find("select").focus();
+                        if ($(".swiper-slide-active").find("input").length > 0)
+                        {
+                            var _type = $(".swiper-slide-active").find("input").attr("type");
+                            var _value = $(".swiper-slide-active").find("input").attr("value");
+
+                            if (_type == "text" || _type == "number" || _type == "week" || _type == "month")
+                            {
+                                $(".swiper-slide-active").find("input").focus();
+
+                                $scope.changeNav();
+
+                            }
+
+
+                        }
+                        //$(".swiper-slide-active").find("select").focus();
 
                     }
 
                     else {
-                        $(".swiper-slide-active").find("input").focus();
-                        $(".swiper-slide-active").find("select").focus();
+
+                        if ($(".swiper-slide-active").find("input").length > 0) {
+                            var _type = $(".swiper-slide-active").find("input").attr("type");
+                            var _value = $(".swiper-slide-active").find("input").attr("value");
+
+                            if (_type == "text" || _type == "number" || _type == "week" || _type == "month") {
+                                $(".swiper-slide-active").find("input").focus();
+
+
+                            }
+
+
+                        }
                         $cordovaKeyboard.close()
 
                         //  SoftKeyboard.hide();
