@@ -166,8 +166,6 @@
     }
 </style>
 
-
-
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
 <a href="#/mainmenu" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
@@ -3104,8 +3102,6 @@
 
 
 
-
-
 <div id="myModalforlist" class="modal bottom-sheet bottom-modal fade" role="dialog">
     <!-- Modal content-->
     <div class="modal-body">
@@ -3833,24 +3829,16 @@
     </a>
 </div>
 
-
-
-
-
 <script>
 
+    $(document).on("touchstart", "select", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
+    });
 
- 
-
-
-
+  
 </script>
-
-
-
-
-
 <style>
     .switch1 {
         width: 100%;
