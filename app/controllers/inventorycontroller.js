@@ -5150,9 +5150,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                 initialSlide: 0,
                 speed: 500,
                 effect: 'flip',
-                simulateTouch:false,
                 allowSwipeToPrev: false,
-                touchMoveStopPropagation:false,
+                preventClicks:false,
+                preventClicksPropagation:false,
                 onSlideChangeStart: function () {
                     if ($scope.CurrentActiveField == "pPart" && $.trim($scope.InventoryObject.ItemID) != "") {
                         _IsItemSlide = true;
@@ -5184,7 +5184,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     $scope.CurrentActiveFieldType = _fieldType == "activity" ? "Activity" : "Inventory";
                     CheckScopeBeforeApply();
 
-
+                      
                     var swiperPage = swiperHere.activeSlide();
 
                     $scope.slidenumber(swiperHere.activeIndex);
@@ -5231,8 +5231,19 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                         //  SoftKeyboard.hide();
 
                     }
+                    $('.swiper-slide select').on("mousedown touchstart touchend", function (e) {
+
+                        alert("into Data");
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                    });
 
                 }
+
+                 
+
+         
 
             });
 
