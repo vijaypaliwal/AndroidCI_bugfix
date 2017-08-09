@@ -3837,7 +3837,7 @@
 
 
 
-<div ng-if="switchmode==false">
+<div ng-if="switchmode==true">
 
     <script>
 
@@ -3845,12 +3845,13 @@
 
         $(document).on("touchend", "select", function (e) {
 
-            alert("in");
 
             e.preventDefault();
 
 
             e.stopPropagation();
+
+            alert("in");
 
         });
 
