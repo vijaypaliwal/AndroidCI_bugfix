@@ -3831,10 +3831,8 @@
 
 <script>
 
-   
 
-
-    $('.swiper-slide select').on('mousedown touchstart MSPointerDown', function (e) {
+    $('.swiper-slide select').on('touchend', function (e) {
 
         alert("New");
         e.stopPropagation();
