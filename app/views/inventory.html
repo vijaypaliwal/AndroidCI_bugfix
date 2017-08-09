@@ -166,6 +166,8 @@
     }
 </style>
 
+
+
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
 <a href="#/mainmenu" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
@@ -3832,8 +3834,11 @@
 <script>
 
     $(document).on("touchend", "select", function (e) {
+        alert("1");
         e.preventDefault();
+        alert("2");
         e.stopPropagation();
+        alert("3");
 
     });
 
