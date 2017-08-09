@@ -148,7 +148,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $cordovaKeyboard.disableScroll(true);
 
         $scope.changeNav();
-        InitializeSwiper();
+     //   InitializeSwiper();
 
         setTimeout(function () {
             $("#myform .swiper-slide-active").find(".form-control:first").focus();
@@ -5241,7 +5241,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         setTimeout(function () {
 
 
-            InitializeSwiper();
+           // InitializeSwiper();
 
 
 
