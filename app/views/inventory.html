@@ -3102,6 +3102,8 @@
 </a>-->
 
 
+<h1> dashrath {{switchmode}}</h1>
+
 
 
 <div id="myModalforlist" class="modal bottom-sheet bottom-modal fade" role="dialog">
@@ -3831,19 +3833,35 @@
     </a>
 </div>
 
-<script>
 
-    $(document).on("touchend", "select", function (e) {
-       
-        e.preventDefault();
-        alert("1");
-       
-       // e.stopPropagation();
-       
-    });
 
-  
-</script>
+
+
+<div ng-if="switchmode==false">
+
+    <script>
+
+      
+
+        $(document).on("touchend", "select", function (e) {
+
+            alert("in");
+
+            e.preventDefault();
+
+
+            e.stopPropagation();
+
+        });
+
+
+
+    </script>
+
+</div>
+
+
+
 <style>
     .switch1 {
         width: 100%;

@@ -2078,7 +2078,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             var _timeSplit = _timeValue.split(" ");
             var _timeString = _timeSplit[0].split(":");
 
-            if (parseInt(_timeString[0]) > 12) {
+            if (parseInt(_timeString[0]) >= 12) {
                 _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
             }
 
