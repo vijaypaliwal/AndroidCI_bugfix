@@ -3763,7 +3763,7 @@
         <hr />
         <div class="row">
             <div class="col-md-12">
-                <a ng-click="fillUnitvaluetoradio()" class="waves-effect btn btn-primary arrow-left bknext darkblue"> <i class="fa fa-check"></i> OK</a>
+                <a ng-click="fillUnitvaluetoradio()" class="waves-effect btn btn-primary"> <i class="fa fa-check"></i> OK</a>
                 <a data-dismiss="modal" class="waves-effect btn btn-gray"> <i class="fa fa-times"></i> Cancel </a>
             </div>
         </div>
@@ -3831,11 +3831,10 @@
 
 <script>
 
-
-    $('.swiper-slide select').on('touchend', function (e) {
-
-        alert("New");
+    $(document).on("touchend", "select", function (e) {
+        e.preventDefault();
         e.stopPropagation();
+
     });
 
   
