@@ -527,6 +527,9 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
             case "date-gte":
                 _returnPath = path + "GreaterThanOrEqualTo.gif";
                 break;
+            case "Empty":
+                _returnPath = path + "IsNull.gif";
+                break;
         }
         return _returnPath;
     }

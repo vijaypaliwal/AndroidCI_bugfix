@@ -510,6 +510,9 @@ app.controller('GlobalrestockController', ['$scope', 'localStorageService', 'aut
             case "date-gte":
                 _returnPath = path + "GreaterThanOrEqualTo.gif";
                 break;
+            case "Empty":
+                _returnPath = path + "IsNull.gif";
+                break;
         }
         return _returnPath;
     }

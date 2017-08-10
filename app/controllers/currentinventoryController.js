@@ -634,7 +634,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                         return $scope.UnitDataFieldCombovalues;
                     }
                     if ($.trim($scope.UnitDataList[i].FieldRadioValues) != "") {
-                        $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split(" ");
+                        $scope.UnitDataFieldRadioValues = $scope.UnitDataList[i].FieldRadioValues.split("\r\n");
                         return $scope.UnitDataFieldRadioValues;
                     }
                 }
@@ -781,6 +781,11 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
             case "date-gte":
                 _returnPath = path + "GreaterThanOrEqualTo.gif";
                 break;
+
+            case "Empty":
+                _returnPath = path + "IsNull.gif";
+                break;
+          
         }
         return _returnPath;
     }
