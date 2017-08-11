@@ -539,7 +539,7 @@
                             <div ng-if="ReqValueFieldSpecialType == 6">
                                 <div class="input-group">
 
-                                    <select id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))">
+                                    <select id="UniqueTag" ng-model="InventoryObject.UniqueTag" class="form-control weekPicker" selectvalue="{{InventoryObject.UniqueTag}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))">
                                         <option value="">choose week</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -629,7 +629,7 @@
                             <div ng-if="UnitTag2FieldSpecialType == 6">
                                 <div class="input-group">
 
-                                    <select id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))">
+                                    <select id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag2}}" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))">
                                         <option value="">choose week</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -721,7 +721,7 @@
                             <!--Week-->
                             <div ng-if="UnitTag3FieldSpecialType == 6">
                                 <div class="input-group">
-                                    <select id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))">
+                                    <select id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control  weekPicker" selectvalue="{{InventoryObject.UnitTag3}}" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))">
                                         <option value="">choose week</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                         <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -1096,7 +1096,7 @@
                             </div>
 
                             <div ng-if="obj.cfdDataType=='currency'" class="input-group">
-                                <input id="CustomActivity_{{obj.cfdID}}" type="text" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
+                                <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                             </div>
                         </div>
@@ -1993,7 +1993,7 @@
                     </div>
 
                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
-                        <input id="CustomActivity_{{obj.cfdID}}" type="text" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
+                        <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
@@ -3041,7 +3041,7 @@
                     </div>
 
                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
-                        <input id="CustomActivity_{{obj.cfdID}}" type="text" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
+                        <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                         <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>

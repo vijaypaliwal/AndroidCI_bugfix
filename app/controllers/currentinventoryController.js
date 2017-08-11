@@ -1515,62 +1515,67 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                     case "Date":
                     case "date":
                     case "datetime":
-                        if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && _Filters[i].SearchValue != "") {
-                            debugger;
-                            if (_Filters[i].SearchValue.includes("AM") || _Filters[i].SearchValue.includes("PM")) {
-                                if (_Filters[i].SearchValue.includes("1900")) {
-                                    var x = _Filters[i].SearchValue.split(" ");
-                                    var y = x[1].split(":");
+                        if (_Filters[i].FilterOperator != "date-year" && _Filters[i].FilterOperator != "date-month" && _Filters[i].FilterOperator != "date-day" && _Filters[i].FilterOperator != "date-hour" && _Filters[i].FilterOperator != "date-minute" && _Filters[i].FilterOperator != "date-second") {
+
+                            if (_Filters[i].SearchValue != null && _Filters[i].SearchValue != undefined && _Filters[i].SearchValue != "") {
+
+                                if (_Filters[i].SearchValue.includes("AM") || _Filters[i].SearchValue.includes("PM")) {
+                                    if (_Filters[i].SearchValue.includes("1900")) {
+                                        var x = _Filters[i].SearchValue.split(" ");
+                                        var y = x[1].split(":");
 
 
-                                    if (_Filters[i].SearchValue.includes("PM"))
-                                    {
-                                        y[0] = parseInt(y[0]) + 12;
+                                        if (_Filters[i].SearchValue.includes("PM")) {
+                                            y[0] = parseInt(y[0]) + 12;
+                                        }
+
+                                        if (y[0].length < 2) {
+                                            y[0] = "0" + y[0]
+                                        }
+                                        if (y[1].length < 2) {
+                                            y[1] = "0" + y[1]
+                                        }
+
+
+                                        _Filters[i].SearchValue = y[0] + ":" + y[1];
+                                        break;
                                     }
+                                    else {
+                                        var x = _Filters[i].SearchValue.split(" ");
+                                        var replaced = x[0].split("/");
+                                        var Datereplaced = x[1].split(":");
 
-                                    if (y[0].length < 2) {
-                                        y[0] = "0" + y[0]
+                                        if (replaced[0].length < 2) {
+                                            replaced[0] = "0" + replaced[0]
+                                        }
+
+                                        if (replaced[1].length < 2) {
+                                            replaced[1] = "0" + replaced[1]
+                                        }
+
+                                        if (Datereplaced[0].length < 2) {
+                                            Datereplaced[0] = "0" + Datereplaced[0]
+                                        }
+
+                                        if (Datereplaced[1].length < 2) {
+                                            Datereplaced[1] = "0" + Datereplaced[1]
+                                        }
+
+
+                                        var newdate = replaced[2] + "-" + replaced[0] + "-" + replaced[1];
+
+                                        _Filters[i].SearchValue = newdate + "T" + Datereplaced[0] + ":" + Datereplaced[1]
+                                        break;
                                     }
-                                    if (y[1].length < 2) {
-                                        y[1] = "0" + y[1]
-                                    }
-
-
-                                    _Filters[i].SearchValue = y[0]+":"+y[1];
-                                    break;
-                                }
-                                else {
-                                    var x = _Filters[i].SearchValue.split(" ");
-                                    var replaced = x[0].split("/");
-                                    var Datereplaced = x[1].split(":");
-
-                                    if (replaced[0].length < 2) {
-                                        replaced[0] = "0" + replaced[0]
-                                    }
-
-                                    if (replaced[1].length < 2) {
-                                        replaced[1] = "0" + replaced[1]
-                                    }
-
-                                    if (Datereplaced[0].length < 2) {
-                                        Datereplaced[0] = "0" + Datereplaced[0]
-                                    }
-
-                                    if (Datereplaced[1].length < 2) {
-                                        Datereplaced[1] = "0" + Datereplaced[1]
-                                    }
-
-
-                                    var newdate = replaced[2] + "-" + replaced[0] + "-" + replaced[1];
-
-                                    _Filters[i].SearchValue = newdate + "T" + Datereplaced[0] + ":" + Datereplaced[1]
-                                    break;
                                 }
                             }
+
+
+                            _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
                         }
-
-
-                        _Filters[i].SearchValue = formatDate(_Filters[i].SearchValue);
+                        else {
+                            _Filters[i].SearchValue = _Filters[i].SearchValue;
+                        }
                         break;
 
                     case "checkbox":
@@ -1660,8 +1665,16 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                 $scope.FilterData.SearchValue = "";
             }
 
-            debugger;
             for (var i = 0 ; i < $scope.FilterArray.length ; i++) {
+
+                if ($scope.FilterArray[i].FilterOperator == "Empty")
+                {
+                    if ($scope.clearAllFilter!= true)
+                    {
+                        $scope.FilterArray[i].SearchValue = "NULL";
+
+                    }
+                }
 
                 if ($scope.FilterArray[i].ColumnName == "iUniqueDate" || $scope.FilterArray[i].ColumnName == "iUnitDate2") {
                     var fieldSpecialType = $scope.getUnitSpecialType($scope.FilterArray[i].ColumnName.substring(1));

@@ -216,7 +216,6 @@
                             <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue=NULL;"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>
 
                             </ul>
 
@@ -237,7 +236,6 @@
                             <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not equals</a></li>
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue=NULL;"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>
                             </ul>
 
                         </span>
@@ -258,7 +256,7 @@
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not Equals</a></li>
                                 <li ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask != 'week' && getCustomSpecialType(_obj.ColumnName).cfdSpecialType!=1 && getUnitSpecialType(_obj.ColumnName)!=2 && getUnitSpecialType(_obj.ColumnName)!=3 && getUnitSpecialType(_obj.ColumnName)!=12 && getUnitSpecialType(_obj.ColumnName)!=6" style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bw'"><img src="img/filter/BeginsWith.gif" alt=""> Begins With</a></li>
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue=NULL;"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>
+                                <li ng-if="getCustomSpecialType(_obj.ColumnName).cfdSpecialType!=1" style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue=NULL;"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>
                             </ul>
                         </span>
 
@@ -492,17 +490,17 @@
 
                                     <div ng-if="_obj.FilterOperator=='date-year'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-month'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in monthList" value="{{x.id}}">{{x.text}}</option>
+                                            <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-day'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -515,34 +513,34 @@
 
                                     <div ng-if="_obj.FilterOperator=='date-year'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-month'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in monthList" value="{{x.id}}">{{x.text}}</option>
+                                            <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-day'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
 
 
                                     <div ng-if="_obj.FilterOperator=='date-hour'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-minute'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-second'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -554,17 +552,17 @@
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-hour'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-minute'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                     <div ng-if="_obj.FilterOperator=='date-second'">
                                         <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                            <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                            <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -580,17 +578,17 @@
 
                                 <div ng-if="_obj.FilterOperator=='date-year'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-month'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in monthList" value="{{x.id}}">{{x.text}}</option>
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-day'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -603,34 +601,34 @@
 
                                 <div ng-if="_obj.FilterOperator=='date-year'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-month'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in monthList" value="{{x.id}}">{{x.text}}</option>
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-day'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
 
 
                                 <div ng-if="_obj.FilterOperator=='date-hour'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-minute'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-second'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
 
@@ -643,17 +641,17 @@
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-hour'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-minute'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-second'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -668,17 +666,17 @@
 
                                 <div ng-if="_obj.FilterOperator=='date-year'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-month'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in monthList" value="{{x.id}}">{{x.text}}</option>
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-day'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -691,33 +689,33 @@
 
                                 <div ng-if="_obj.FilterOperator=='date-year'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in yearList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-month'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in monthList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-day'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in dayList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
 
                                 <div ng-if="_obj.FilterOperator=='date-hour'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-minute'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-second'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -729,17 +727,17 @@
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-hour'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in hourList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-minute'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in minuteList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                                 <div ng-if="_obj.FilterOperator=='date-second'">
                                     <select class="form-control" name="name" ng-model="_obj.SearchValue">
-                                        <option ng-repeat="x in secondList" value="{{x}}">{{x}}</option>
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -759,7 +757,6 @@
                             <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='eq'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                                 <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='ne'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not Equals</a></li>
-                                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue=NULL;"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>
 
                             </ul>
                         </span>
@@ -906,6 +903,12 @@
 
     });
 </script>
+
+
+
+
+
+
 
 
 

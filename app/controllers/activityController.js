@@ -2868,6 +2868,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $scope._CurrentAction = type;
         GetActionType(type);
         $scope.totalLength = $scope.IsSingleMode == true ? $scope.CurrentCart.length + 2 : 3;
+
+        if ($scope.CurrentCart.length > 0) {
+
+            for (var k = 0; k < $scope.CurrentCart.length; k++) {
+                $scope.CurrentCart[k].ActionPerformed = -1;
+            }
+        }
         $scope.$apply();
 
         setTimeout(function () {
