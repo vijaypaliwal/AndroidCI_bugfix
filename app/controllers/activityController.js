@@ -2521,82 +2521,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     }
 
-    function ConverttoMsJsonDate(_DateValue) {
-
-        var _date = angular.copy(_DateValue);
-
-        var dsplit1 = _date.split("/");
-        var now = new Date(dsplit1[2], dsplit1[0] - 1, dsplit1[1]);
-
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-        return today;
-    }
-
-    function ConverttoMsJsonDateTime(_DateValue) {
-
-
-        var _date = angular.copy(_DateValue);
-
-        var dsplit1 = _date.split("/");
-
-        var _timeSplit = dsplit1[2].split(" ");
-
-        var _timeString = _timeSplit[1].split(":");
-
-        if (parseInt(_timeString[0]) >= 12) {
-            _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
-        }
-
-        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
-
-        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
-
-        var day = ("0" + now.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-        var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-        return today + _ToMergeTime;
-    }
-
-    function leadZero(_something) {
-        
-      var _TempString = parseInt(_something).toString();
-        _something = _TempString.toString();
-        if (parseInt(_something) < 10) return "0" + _something;
-        return _something;//else    
-    }
-
-    function ConvertToTime(_timeValue) {
-
-        if ($.trim(_timeValue) != "") {
-            var _ToMergeTime = "";
-            var _timeString = "";
-            if (_timeValue.indexOf("AM") > -1 || _timeValue.indexOf("PM") > -1) {
-
-                var _timeSplit = _timeValue.split(" ");
-                _timeString = _timeSplit[0].split(":");
-
-                if (parseInt(_timeString[0]) >= 12) {
-                    _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
-                }
-
-                _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
-            }
-            else {
-                _timeString = _timeValue.split(":");
-                _ToMergeTime = (_timeString[0]) + ":" + (_timeString[1]) + ":" + (_timeString[2]);
-            }
-            return _ToMergeTime;
-        }
-
-        return "";
-
-    }
+  
     function GetCustomDataField(Type) {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -2635,7 +2560,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                                    }
                                    else {
 
-                                       $scope.CustomActivityDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+                                       $scope.CustomActivityDataList[i].cfdDefaultValue = formatDate(_defaultValue);
                                    }
                                }
                            }
@@ -5379,6 +5304,106 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             return date;
         }
     }
+
+    function ConverttoMsJsonDateTime(_DateValue) {
+
+
+        var _date = angular.copy(_DateValue);
+
+        var dsplit1 = _date.split("/");
+
+        var _timeSplit = dsplit1[2].split(" ");
+
+        var _timeString = _timeSplit[1].split(":");
+
+        if (parseInt(_timeString[0]) >= 12) {
+            _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+        }
+
+        var _ToMergeTime = "T" + (_timeSplit[2] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+
+        var now = new Date(_timeSplit[0], dsplit1[0] - 1, dsplit1[1]);
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        return today + _ToMergeTime;
+    }
+
+    function ConvertToTime(_timeValue) {
+
+        if ($.trim(_timeValue) != "") {
+            debugger;
+            var _ToMergeTime = "";
+            var _timeString = "";
+            if (_timeValue.indexOf("AM") > -1 || _timeValue.indexOf("PM") > -1) {
+
+                var _timeSplit = _timeValue.split(" ");
+                _timeString = _timeSplit[0].split(":");
+
+                if (parseInt(_timeString[0]) > 12 || parseInt(_timeString[0]) == 12) {
+
+                    _timeString[0] = (parseInt(_timeString[0]) - 12).toString();
+                }
+
+
+                _ToMergeTime = (_timeSplit[1] == "AM" ? leadZero(_timeString[0]) : leadZero((12 + parseInt(_timeString[0]))).toString()) + ":" + leadZero(_timeString[1]);
+            }
+            else {
+                _timeString = _timeValue.split(":");
+                _ToMergeTime = (_timeString[0]) + ":" + (_timeString[1]) + ":" + (_timeString[2]);
+            }
+            return _ToMergeTime;
+        }
+
+        return "";
+
+    }
+
+    function leadZero(_something) {
+        var _TempString = parseInt(_something);
+        _something = _TempString.toString();
+        if (parseInt(_something) < 10) return "0" + _something;
+        return _something;//else    
+    }
+    function ConvertToProperDate(value, Type) {
+        if ($.trim(value) != "") {
+            switch (Type) {
+                case 1:
+
+                    if ($scope.GetUnitDataFieldByName("UniqueDate").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
+
+                    else if ($scope.GetUnitDataFieldByName("UniqueDate").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
+
+                    break;
+                case 2:
+                    if ($scope.GetUnitDataFieldByName("UnitDate2").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
+
+                    else if ($scope.GetUnitDataFieldByName("UnitDate2").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
+
+                    break;
+                default:
+
+            }
+        }
+        return "";
+    }
     $scope.UnchangedData = function () {
         var k = 0;
         if ($scope.CurrentCart != null && $scope.CurrentCart.length > 0) {
@@ -5452,7 +5477,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             var _val24 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UniqueDate : null;
 
-                            _x4 = (formatDate(_val23) == _val24);
+                            _val23 = ConvertToProperDate($scope.CurrentCart[k].InventoryDataList.iUniqueDate_date, 1);
+                            _x4 = ((_val23) == _val24);
 
 
                         }
@@ -5467,8 +5493,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             var _val25 = $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != "" && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != null && $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUnitDate2_date : null;
 
                             var _val26 = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != "" && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != null && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != undefined ? $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 : null;
+                            _val23 = ConvertToProperDate($scope.CurrentCart[k].InventoryDataList.iUnitDate2_date, 2);
 
-                            _x5 = (formatDate(_val25) == _val26);
+                            _x5 = ((_val25) == _val26);
                         }
                         else {
 
@@ -5538,6 +5565,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     break;
                 case "Apply":
                     for (k = 0; k < $scope.CurrentCart.length; k++) {
+                        debugger;
                         var _x1 = false;
                         var _x2 = false;
                         var _x3 = false;
@@ -5592,8 +5620,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             var _val23 = $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != "" && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != null && $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date != undefined ? $scope.CurrentCart[k].InventoryDataList.iUniqueDate_date : null;
 
                             var _val24 = $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != "" && $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != null && $scope.CurrentCart[k].ApplyTransactionData.UniqueDate != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UniqueDate : null;
-
-                            _x4 = (formatDate(_val23) == _val24);
+                            _val23 = ConvertToProperDate($scope.CurrentCart[k].InventoryDataList.iUniqueDate_date, 1);
+                            _x4 = ((_val23) == _val24);
 
                         } else {
 
@@ -5607,7 +5635,9 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                             var _val26 = $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != "" && $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != null && $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 != undefined ? $scope.CurrentCart[k].ApplyTransactionData.UnitDate2 : null;
 
-                            _x5 = (formatDate(_val25) == _val26);
+                            _val25 = ConvertToProperDate($scope.CurrentCart[k].InventoryDataList.iUnitDate2_date, 2);
+
+                            _x5 = ((_val25) == _val26);
                         }
                         else {
 
