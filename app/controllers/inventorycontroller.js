@@ -79,7 +79,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     var _IsSavedItemGroup = false;
     var _IsSavedItemGroupData = "";
     $scope.InventoryObject = {
-        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
+        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "unit/s", UomID: 0, Location: "Inventory", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
         UpdateDate: GetDefaultDate(), Status: "", ItemGroup: "", UniqueDate: null, UnitDate2: null, UnitNumber1: "", UnitNumber2: "", UnitTag2: "",
         UnitTag3: "", CustomPartData: [], CustomTxnData: []
     };
@@ -1542,7 +1542,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.resetObject = function () {
         $scope.InventoryObject = {
-            IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "units", UomID: 0, Location: "In Stock", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
+            IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "unit/s", UomID: 0, Location: "Inventory", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
             UpdateDate: GetDefaultDate(), Status: "", ItemGroup: "", UniqueDate: null, UnitDate2: null, UnitNumber1: "", UnitNumber2: "", UnitTag2: "",
             UnitTag3: "", CustomPartData: [], CustomTxnData: []
         };
@@ -4977,8 +4977,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.SetDefaultObjects = function () {
 
-        $scope.InventoryObject.Uom = $scope.IsAvailableMyInventoryColumn('uomUOM') == false ? "units" : $scope.InventoryObject.Uom;
-        $scope.InventoryObject.Location = $scope.IsAvailableMyInventoryColumn('lLoc') == false ? "In stock" : $scope.InventoryObject.Location;
+        $scope.InventoryObject.Uom = $scope.IsAvailableMyInventoryColumn('uomUOM') == false ? "unit/s" : $scope.InventoryObject.Uom;
+        $scope.InventoryObject.Location = $scope.IsAvailableMyInventoryColumn('lLoc') == false ? "Inventory" : $scope.InventoryObject.Location;
         $scope.InventoryObject.Quantity = $scope.IsAvailableMyInventoryColumn('iQty') == false ? 1 : $scope.InventoryObject.Quantity;
 
         //$scope.UOMList
@@ -5051,14 +5051,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.UpdateLocationAndUOMList = function () {
-        var _defaultUOM = { UnitOfMeasureID: "", UnitOfMeasureName: "units" };
+        var _defaultUOM = { UnitOfMeasureID: "", UnitOfMeasureName: "unit/s" };
 
 
-        var _defaultLocation = { LocationName: "In Stock", LocationZone: "", LocationID: "" };
+        var _defaultLocation = { LocationName: "Inventory", LocationZone: "", LocationID: "" };
         if ($scope.UOMList.length > 0) {
             var _isAvailableUOM = false;
             for (var i = 0; i < $scope.UOMList.length; i++) {
-                if ($.trim($scope.UOMList[i].UnitOfMeasureName) != "" && $scope.UOMList[i].UnitOfMeasureName.toLowerCase() == "units") {
+                if ($.trim($scope.UOMList[i].UnitOfMeasureName) != "" && $scope.UOMList[i].UnitOfMeasureName.toLowerCase() == "unit/s") {
 
                     _isAvailableUOM = true;
                     break;
@@ -5075,14 +5075,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $scope.UOMList.push(_defaultUOM);
         }
 
-        $scope.InventoryObject.Uom = "units";
+        $scope.InventoryObject.Uom = "unit/s";
 
 
 
         if ($scope.LocationList.length > 0) {
             var _isAvailableLocation = false;
             for (var i = 0; i < $scope.LocationList.length; i++) {
-                if ($.trim($scope.LocationList[i].LocationName) != "" && $scope.LocationList[i].LocationName.toLowerCase() == "in stock") {
+                if ($.trim($scope.LocationList[i].LocationName) != "" && $scope.LocationList[i].LocationName.toLowerCase() == "inventory") {
                     var myTag = $scope.LocationList[i].LocationZone;
                     if (myTag != undefined && myTag != null) {
                         $scope.InventoryObject.lZone = myTag;
@@ -5105,7 +5105,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $scope.LocationList.push(_defaultLocation);
         }
 
-        $scope.InventoryObject.Location = "In Stock";
+        $scope.InventoryObject.Location = "Inventory";
 
     }
 

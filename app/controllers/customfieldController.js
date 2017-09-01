@@ -47,6 +47,8 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
             default:
 
         }
+
+        $('html, body').animate({ scrollTop: 0 }, 0, 'linear');
         CheckScopeBeforeApply();
     }
     $scope.GetClass = function (index) {
@@ -330,7 +332,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
             if ($scope.CheckCustomFieldAvailableinLocalArray(_obj.cfdID) == false) {
 
 
-                $scope.LocalCustomItemFieldsList.push({ IsActive: CheckIntoAvailableMyinventoryColumns(_obj.ColumnMap), Name: _obj.cfdName, Datatype: _obj.cfdDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: 1, cfdid: _obj.cfdID, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false })
+                $scope.LocalCustomItemFieldsList.push({ IsActive: CheckIntoAvailableMyinventoryColumns(_obj.ColumnMap), Name: _obj.cfdName, Datatype: _obj.cfdDescriptiveDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: 1, cfdid: _obj.cfdID, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false })
             }
         }
 
@@ -340,7 +342,7 @@ app.controller('customfieldController', ['$scope', 'localStorageService', 'authS
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
             var _obj = $scope.CustomActivityDataList[i];
             if ($scope.CheckCustomFieldAvailableinLocalArray(_obj.cfdID) == false) {
-                $scope.LocalCustomActivityFieldsList.push({ IsActive: _obj.cfdmobileorder == 0 ? false : true, Name: _obj.cfdName, Datatype: _obj.cfdDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: _obj.cfdmobileorder, cfdid: _obj.cfdID, canincrease: _obj.cfdIncludeOnAdd, candecrease: _obj.cfdIncludeOnSubtract, cantag: _obj.cfdIncludeOnApply, canconvert: _obj.cfdIncludeOnConvert, canupdate: _obj.cfdIncludeOnApply, canmove: _obj.cfdIncludeOnMove })
+                $scope.LocalCustomActivityFieldsList.push({ IsActive: _obj.cfdmobileorder == 0 ? false : true, Name: _obj.cfdName, Datatype: _obj.cfdDescriptiveDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: _obj.cfdmobileorder, cfdid: _obj.cfdID, canincrease: _obj.cfdIncludeOnAdd, candecrease: _obj.cfdIncludeOnSubtract, cantag: _obj.cfdIncludeOnApply, canconvert: _obj.cfdIncludeOnConvert, canupdate: _obj.cfdIncludeOnApply, canmove: _obj.cfdIncludeOnMove })
             }
         }
 

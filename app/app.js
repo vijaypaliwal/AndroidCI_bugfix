@@ -192,6 +192,9 @@ var serviceBaseUrl = 'https://test.inventory4.com/';
 var serviceBase = 'https://test.inventory4.com/API/ClearlyInventoryAPI.svc/';
 
 
+//var serviceBaseUrl = 'https://test.inventory4.com/';
+//var serviceBase = 'https://test.inventory4.com/API/ClearlyInventoryAPI.svc/';
+
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
