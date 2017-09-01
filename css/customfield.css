@@ -12,19 +12,13 @@
 }
 
 .smallText {
-  color: #958d8d !important;
-    position: absolute;
-    display: inline-block;
-    margin-top: -5px;
-    line-height: 12px;
+    color: #958d8d !important;
+  
+    display: block;
+    margin-top: -9px;
     font-size: 95% !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
+    word-wrap: break-word;
 }
-
 .infoareas {
     background: white;
 }
