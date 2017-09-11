@@ -273,6 +273,7 @@
                                         <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                             <div class="form-group">
                                                 <label>
+                                                 Quantity
                                                     <span ng-if="CurrentOperation=='Adjust' && TrimValue(CurrentActiveObject.AdjustCalculation)!=''" class="AdjustCalculation">
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustIncrease">({{CurrentActiveObject.AdjustCalculation}})</span>
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==-1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustDecrease">({{CurrentActiveObject.AdjustCalculation}})</span>
