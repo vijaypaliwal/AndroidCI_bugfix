@@ -273,7 +273,6 @@
                                         <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                             <div class="form-group">
                                                 <label>
-                                                    Quantity
                                                     <span ng-if="CurrentOperation=='Adjust' && TrimValue(CurrentActiveObject.AdjustCalculation)!=''" class="AdjustCalculation">
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustIncrease">({{CurrentActiveObject.AdjustCalculation}})</span>
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==-1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustDecrease">({{CurrentActiveObject.AdjustCalculation}})</span>
@@ -292,19 +291,14 @@
                                                         </ul>
                                                     </span>
                                                 </div>
-
                                             </div>
-
                                             <div>
-
-
                                                 <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
                                                     <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&(CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply')">Quantity can't be greater than original quantity</span>
                                                     <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
                                                 </span>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <!-- Increase Activity Content -->
@@ -315,7 +309,7 @@
                                                 <label>Cost/unit</label>
                                                 <div class="input-group">
 
-                                                    <input type="number" placeholder1="Fill Cost per unit" class="form-control NumberType FormControlType" ng-model=" CurrentActiveObject.iCostPerItem" />
+                                                    <input type="number" placeholder1="Fill Cost per unit" class="form-control NumberType FormControlType" ng-model="CurrentActiveObject.iCostPerItem" />
                                                     <span ng-if="$index==0" class="input-group-addon last">
                                                         <button id="mybuttonCost_{{ CurrentActiveObject.InventoryDataList.uId}}" class="btn waves-effect rotateData btnPrimary btn-icon" data-ng-click=" FillCost( CurrentActiveObject.iCostPerItem, CurrentActiveObject.InventoryDataList.uId)">
                                                             <i class="fa fa-thumb-tack"></i>
@@ -1255,8 +1249,11 @@
 
                                     <div class="row" ng-if="isLineItemColumnNames.length>0 && IsActiveTransactionField(CurrentActiveObject.IsLineItemData[$index].cfdID)" data-ng-repeat="_columns in isLineItemColumnNames">
 
+                                   
+
                                         <div ng-class="parentIndex==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
-                                            <div class="form-group">
+
+                                            <div ng-if="CheckOnAdjust(CurrentActiveObject.IsLineItemData[$index].cfdID,CurrentActiveObject.ActionPerformed)" class="form-group">
                                                 <label>{{_columns}}    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
 
                                                 <div class="input-group" ng-init="obj=CurrentActiveObject.IsLineItemData[$index]">
@@ -1588,13 +1585,14 @@
                                     <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
                                 </div>
                             </div>
+                       
+
+                           
 
 
                             <div class="form-group" ng-repeat="obj in CustomActivityDataList" ng-if="CustomActivityDataList.length > 0 && obj.isLineItem!='True' && IsActiveTransactionField(obj.cfdID)">
                                 <label>{{obj.cfdName}} <span ng-if="obj.cfdIsRequired">*</span></label>
                                 <div ng-if="obj.cfdDataType=='string'" class="input-group">
-
-
 
                                     <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                         <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">

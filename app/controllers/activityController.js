@@ -2541,6 +2541,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                        $scope.CustomActivityDataList = response.GetCustomFieldsDataResult.Payload;
 
+                       debugger;
+
 
 
                        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
@@ -3122,10 +3124,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
     $scope.CheckOnAdjust = function (cfdid, IsIncrease) {
+
+        debugger;
+
         var _data = true;
         var _CurrentCustomColumns = angular.copy($scope.CustomActivityDataList);
         for (var i = 0; i < _CurrentCustomColumns.length; i++) {
-            if (_CurrentCustomColumns[i].cfdCustomFieldType == "Inventory" && _CurrentCustomColumns[i].cfdID == cfdid) {
+            if (_CurrentCustomColumns[i].cfdCustomFieldType.toLowerCase() == "inventory" && _CurrentCustomColumns[i].cfdID == cfdid) {
                 switch ($scope.CurrentOperation) {
                     case "Increase":
                     case "Decrease":
