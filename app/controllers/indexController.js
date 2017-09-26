@@ -691,7 +691,81 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     }
 
+    $scope.UpdateSecurityTokenGlobal = function () {
+        $scope.userName = "";
+        var _path = $location.path();
+        var AccountID = localStorageService.get('AccountDBID');
+        if (_path != "/login" && $.trim(AccountID) != "") {
 
+            var authData = localStorageService.get('lastlogindata');
+            if (authData) {
+                $scope.userName = authData.userName;
+            }
+
+            $.ajax({
+
+                type: "POST",
+                url: serviceBase + "UpdateSecurityTokenWithUserName",
+                contentType: 'application/json; charset=utf-8',
+
+                dataType: 'json',
+                async: true,
+                data: JSON.stringify({ "UserName": $scope.userName, "AccountID": AccountID }),
+                error: function (err, textStatus) {
+
+
+                    if (err.readyState == 0 || err.status == 0) {
+
+                    }
+                    else {
+
+
+                        if (textStatus != "timeout") {
+
+
+                            $scope.ShowErrorMessage("update security token", 2, 1, err.statusText);
+                        }
+                    }
+                },
+
+                success: function (data) {
+
+
+                    if (data.UpdateSecurityTokenWithUserNameResult.Success == true) {
+
+
+                        if (data.UpdateSecurityTokenWithUserNameResult != null && data.UpdateSecurityTokenWithUserNameResult.Payload != null) {
+                            var _token = data.UpdateSecurityTokenWithUserNameResult.Payload;
+
+                            localStorageService.set('authorizationData', { token: _token });
+
+
+
+
+                        }
+                    }
+                    else {
+
+                        $scope.ShowErrorMessage("update security token", 1, 1, data.UpdateSecurityTokenWithUserNameResult.Message);
+                    }
+                }
+            });
+        }
+    }
+
+
+
+    //setInterval("UpdateToken", 10000);
+
+    setInterval(function () {
+        $scope.UpdateSecurityTokenGlobal();
+    }, 10000);
+
+    document.addEventListener('resume', function () {
+        if (cordova.backgroundapp.resumeType == 'normal') {
+            $scope.UpdateSecurityTokenGlobal();
+        }
+    });
     initIndex();
 
 }]);

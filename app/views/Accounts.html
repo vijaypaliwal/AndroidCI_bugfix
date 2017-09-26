@@ -7,7 +7,7 @@
 <div style="text-align:center; margin-bottom:15px;">
 
     <img style="height:75px; width:75px;" src="img/u2.png" alt="Alternate Text" />
-
+  
 </div>
 
 <div class="animated slideInDown maincontent">
@@ -20,7 +20,7 @@
     </div>
 
     <ul class="list-group">
-        <li ng-repeat="_obj in AccountsList" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.AccountName)==true}">
+        <li ng-repeat="_obj in AccountsList" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.AccountName,_obj.AccountID)==true}">
 
 
             <div class="row">
