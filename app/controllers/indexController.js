@@ -759,7 +759,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     setInterval(function () {
         $scope.UpdateSecurityTokenGlobal();
-    }, 10000);
+    }, 2400000);
 
     document.addEventListener('resume', function () {
         if (cordova.backgroundapp.resumeType == 'normal') {
