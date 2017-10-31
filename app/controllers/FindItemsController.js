@@ -599,6 +599,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             case "num-lte":
                 $scope.CurrentActiveSearchOperator = path + "LessThanOrEqualTo.gif";
                 break;
+            case "num-gte":
+                $scope.CurrentActiveSearchOperator = path + "GreaterThanOrEqualTo.gif";
+                break;
             case "date-gte":
                 $scope.CurrentActiveSearchOperator = path + "GreaterThanOrEqualTo.gif";
                 break;
