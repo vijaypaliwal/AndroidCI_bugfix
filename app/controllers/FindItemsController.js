@@ -1741,8 +1741,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         var scanner = cordova.plugins.barcodeScanner;
 
-        alert("scan start 1");
-
+        alert(scanner);
         scanner.scan(function (result) {
             alert("scan end 2");
             $scope.SearchValue = result.text;
