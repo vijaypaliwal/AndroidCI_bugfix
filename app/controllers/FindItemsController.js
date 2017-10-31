@@ -1741,9 +1741,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         var scanner = cordova.plugins.barcodeScanner;
 
-
+        alert("scan start 1");
 
         scanner.scan(function (result) {
+            alert("scan end 2");
             $scope.SearchValue = result.text;
 
             CheckScopeBeforeApply();
@@ -1752,6 +1753,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
         }, function (error) {
+            alert("scan end Error"+error);
             console.log("Scanning failed: ", error);
         });
     }
