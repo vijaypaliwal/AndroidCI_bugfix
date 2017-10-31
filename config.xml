@@ -36,7 +36,9 @@
   -->
 
 
-  <plugin name="phonegap-plugin-barcodescanner" source="npm"/>
+  <!--<plugin name="phonegap-plugin-barcodescanner" source="npm"/>-->
+  <plugin name="cordova-plugin-barcodescanner" source="npm"/>
+  
   <plugin name="cordova-plugin-statusbar" source="npm"/>
   
   <plugin name="cordova-plugin-camera" source="npm" spec="~2.3.1"/>
