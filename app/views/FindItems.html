@@ -84,7 +84,7 @@
 
                                     <img src="{{CurrentActiveSearchOperator}}" alt="">
                                 </a>
-                                <ul ng-if="CurrentActiveSearchType==1||CurrentActiveSearchType==7" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
+                                <ul ng-if="CurrentActiveSearchType==1" class="dropdown-menu operator shadow-z-5" role="menu" aria-labelledby="dropdownMenu">
                                     <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('cn',CurrentActiveSearchField)"><img src="img/filter/Contains.gif" alt=""> Contains</a></li>
                                     <li style="text-align: left"><a tabindex="-1" ng-click="UpdateFilterData('eq',CurrentActiveSearchField)"><img src="img/filter/EqualTo.gif" alt=""> Exact</a></li>
                                 </ul>

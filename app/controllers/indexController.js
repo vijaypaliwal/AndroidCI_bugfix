@@ -392,7 +392,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
         switch (Type) {
             case 1:
-               // log.error(_returnError);
+                log.error(_returnError);
                 break;
             case 2:
                 log.warning(_returnError);

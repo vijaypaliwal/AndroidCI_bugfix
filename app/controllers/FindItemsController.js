@@ -599,9 +599,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             case "num-lte":
                 $scope.CurrentActiveSearchOperator = path + "LessThanOrEqualTo.gif";
                 break;
-            case "num-gte":
-                $scope.CurrentActiveSearchOperator = path + "GreaterThanOrEqualTo.gif";
-                break;
             case "date-gte":
                 $scope.CurrentActiveSearchOperator = path + "GreaterThanOrEqualTo.gif";
                 break;
@@ -1741,9 +1738,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         var scanner = cordova.plugins.barcodeScanner;
 
-        alert(scanner);
+
+
         scanner.scan(function (result) {
-            alert("scan end 2");
             $scope.SearchValue = result.text;
 
             CheckScopeBeforeApply();
@@ -1752,7 +1749,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
         }, function (error) {
-            alert("scan end Error"+error);
             console.log("Scanning failed: ", error);
         });
     }
@@ -1885,7 +1881,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 if (_tempCopy[i].uId == _invID) {
 
                     $('.cartbtn').animate_from_to(originalID, {
-                        pixels_per_second:600,
+                        pixels_per_second: 400,
                         initial_css: {
                             'background': 'rgba(226, 208, 208,1)',
                             'border-radius': '100%'
@@ -2107,7 +2103,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         if (_isSelectAll != true) {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 500,
+                                    pixels_per_second: 300,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'
@@ -2119,7 +2115,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         else {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 600,
+                                    pixels_per_second: 300,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'
