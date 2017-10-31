@@ -3362,16 +3362,16 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                            else if (item.FieldName == 'UnitNumber1') {
 
                                $scope.UnitNumber1FieldSpecialType = item.FieldSpecialType;
-                               $scope.InventoryObject.UnitNumber1 = TryParseFloat(item.FieldDefaultValue);
-                               $scope.UnitNumber1FieldNumberMax = TryParseFloat(item.FieldNumberMax);
-                               $scope.UnitNumber1FieldNumberMin = TryParseFloat(item.FieldNumberMin);
+                               $scope.InventoryObject.UnitNumber1 = $.trim(item.FieldDefaultValue) == "" ? "" : item.FieldDefaultValue;
+                               $scope.UnitNumber1FieldNumberMax = $.trim(item.FieldNumberMax) == "" ? "" : item.FieldNumberMax;
+                               $scope.UnitNumber1FieldNumberMin = $.trim(item.FieldNumberMin) == "" ? "" : item.FieldNumberMin;
 
                            }
                            else if (item.FieldName == 'UnitNumber2') {
                                $scope.UnitNumber2FieldSpecialType = item.FieldSpecialType;
-                               $scope.InventoryObject.UnitNumber2 = TryParseFloat(item.FieldDefaultValue);
-                               $scope.UnitNumber2FieldNumberMax = TryParseFloat(item.FieldNumberMax);
-                               $scope.UnitNumber2FieldNumberMin = TryParseFloat(item.FieldNumberMin);
+                               $scope.InventoryObject.UnitNumber2 = $.trim(item.FieldDefaultValue) == "" ? "" : item.FieldDefaultValue;
+                               $scope.UnitNumber2FieldNumberMax = $.trim(item.FieldNumberMax) == "" ? "" : item.FieldNumberMax;
+                               $scope.UnitNumber2FieldNumberMin = $.trim(item.FieldNumberMin) == "" ? "" : item.FieldNumberMin;
                            }
 
                        }
