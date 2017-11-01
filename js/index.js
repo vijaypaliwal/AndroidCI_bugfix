@@ -252,7 +252,7 @@ function ShowSuccess(Message) {
 
     setTimeout(function () {
         hideSuccess();
-    }, 200)
+    }, 250)
 }
 function ShowLoginSuccess() {
     $(".errorcontent").css("background", "rgba(52, 73, 94,0.8)");
@@ -768,6 +768,6 @@ document.addEventListener('click', addRippleEffect, false);
 
         setTimeout(function () {
             hideSuccess();
-        }, 3000)
+        }, 250)
     }
  
