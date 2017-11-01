@@ -433,14 +433,14 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                     if (_PageSize < $scope.totalrecords) {
 
 
-                        //_IsLazyLoadingUnderProgress = 1;
-                        //$scope.isDataLoading = false;
-                        //_PageSize = _TotalRecordsCurrent + getIncrementor($scope.totalrecords);
-                        //CheckScopeBeforeApply();
-                        //$scope.GetInventoryDataAccordingToView();
+                        _IsLazyLoadingUnderProgress = 1;
+                        $scope.isDataLoading = false;
+                        _PageSize = _TotalRecordsCurrent + getIncrementor($scope.totalrecords);
+                        CheckScopeBeforeApply();
+                        $scope.GetInventoryDataAccordingToView();
                     }
                     else {
-                        // log.info("You have already loaded all data.")
+                         //log.info("You have already loaded all data.")
                     }
 
                 }
@@ -766,6 +766,11 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
             case "cn":
                 _returnPath = path + "Contains.gif";
                 break;
+
+            case "nc":
+                _returnPath = path + "DoesNotContain.gif";
+                break;
+
             case "date-after":
                 _returnPath = path + "OnOrAfter.gif";
                 break;

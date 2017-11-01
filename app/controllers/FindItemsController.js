@@ -11,6 +11,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         LocationZone: "", LastTransactionID: 0, StatusValue: "", LastQuantityChange: 0, LastDateChange: "",
         CustomData: []
     };
+    $scope.Animationtime = 5000;
     var _CanAct = 'True';
     var _CartObjLimit = 25;
     $scope.Cart = [];
@@ -1882,7 +1883,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 if (_tempCopy[i].uId == _invID) {
 
                     $('.cartbtn').animate_from_to(originalID, {
-                        pixels_per_second:600,
+                        pixels_per_second: $scope.Animationtime,
                         initial_css: {
                             'background': 'rgba(226, 208, 208,1)',
                             'border-radius': '100%'
@@ -2104,7 +2105,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         if (_isSelectAll != true) {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 500,
+                                    pixels_per_second: $scope.Animationtime,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'
@@ -2116,7 +2117,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         else {
                             setTimeout(function () {
                                 $(originalID).animate_from_to('.cartbtn', {
-                                    pixels_per_second: 600,
+                                    pixels_per_second: $scope.Animationtime,
                                     initial_css: {
                                         'background': 'rgba(18,142,206,0.5)',
                                         'border-radius': '100%'
@@ -2187,7 +2188,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 // $(".cartbtn").animate_from_to(originalID);
 
                 $('.cartbtn').animate_from_to(originalID, {
-                    pixels_per_second: 700,
+                    pixels_per_second: $scope.Animationtime,
                     initial_css: {
                         'background': 'rgba(226, 208, 208,1)',
                         'border-radius': '100%'

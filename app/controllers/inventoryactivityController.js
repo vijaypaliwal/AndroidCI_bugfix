@@ -12,6 +12,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     $scope.minuteList = [];
     $scope.secondList = [];
 
+
     $scope.weeklist = [];
 
     $scope.CurrentYear = new Date().getFullYear();
@@ -19,6 +20,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
     for (var i = 1; i <= 52; i++) {
         $scope.weeklist.push(i);
     }
+
 
 
     for (var i = 1; i <= 24; i++) {
@@ -921,6 +923,10 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             case "cn":
                 _returnPath = path + "Contains.gif";
                 break;
+            case "nc":
+                _returnPath = path + "DoesNotContain.gif";
+                break;
+
             case "date-after":
                 _returnPath = path + "OnOrAfter.gif";
                 break;

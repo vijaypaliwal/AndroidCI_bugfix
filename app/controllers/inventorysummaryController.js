@@ -19,6 +19,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
     }
 
 
+
     for (var i = 1; i <= 24; i++) {
         $scope.hourList.push(i);
     }
@@ -635,6 +636,10 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
             case "cn":
                 _returnPath = path + "Contains.gif";
                 break;
+            case "nc":
+                _returnPath = path + "DoesNotContain.gif";
+                break;
+
             case "date-after":
                 _returnPath = path + "OnOrAfter.gif";
                 break;

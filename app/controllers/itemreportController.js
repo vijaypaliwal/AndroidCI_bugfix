@@ -512,6 +512,10 @@ app.controller('itemreportController', ['$scope', 'localStorageService', 'authSe
             case "cn":
                 _returnPath = path + "Contains.gif";
                 break;
+            case "nc":
+                _returnPath = path + "DoesNotContain.gif";
+                break;
+
             case "date-after":
                 _returnPath = path + "OnOrAfter.gif";
                 break;
