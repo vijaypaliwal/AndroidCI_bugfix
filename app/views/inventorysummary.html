@@ -273,7 +273,12 @@
 
                                 <!--CustomMonth-->
                                 <div ng-if="getCustomSpecialType(_obj.ColumnName).cfdInputMask == 'month' ">
-                                    <input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value"  value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select> 
                                 </div>
 
                                 <!--CustomWeek-->
@@ -328,7 +333,11 @@
 
                                 <!--MonthPicker-->
                                 <div ng-if="getUnitSpecialType('ReqValue') == 5">
-                                    <input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select> 
                                 </div>
 
                                 <!--WeekPicker-->
@@ -378,7 +387,12 @@
 
                                 <!--MonthPicker-->
                                 <div ng-if="getUnitSpecialType('UnitTag2') == 5">
-                                    <input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select> 
                                 </div>
 
                                 <!--WeekPicker-->
@@ -429,7 +443,11 @@
 
                                 <!--MonthPicker-->
                                 <div ng-if="getUnitSpecialType('UnitTag3') == 5">
-                                    <input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select> 
                                 </div>
 
                                 <!--WeekPicker-->
@@ -903,11 +921,6 @@
 
     });
 </script>
-
-
-
-
-
 
 
 

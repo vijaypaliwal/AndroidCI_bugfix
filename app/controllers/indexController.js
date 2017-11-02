@@ -114,7 +114,73 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     }
 
+    $scope.MonthlistGlobal = [];
 
+    function GetMonthTextAndValue(Num, Type, Year) {
+        var _monthValue = "";
+        switch (Num) {
+            case 1:
+                _monthValue = Type == 1 ? "January " : "Jan, ";
+                break;
+            case 2:
+                _monthValue = Type == 1 ? "February " : "Feb, ";
+                break;
+            case 3:
+                _monthValue = Type == 1 ? "March " : "Mar, ";
+                break;
+            case 4:
+                _monthValue = Type == 1 ? "April " : "Apr, ";
+                break;
+            case 5:
+                _monthValue = Type == 1 ? "May " : "May, ";
+                break;
+
+            case 6:
+                _monthValue = Type == 1 ? "June " : "Jun, ";
+                break;
+            case 7:
+                _monthValue = Type == 1 ? "July " : "Jul, ";
+                break;
+            case 8:
+                _monthValue = Type == 1 ? "August " : "Aug, ";
+                break;
+            case 9:
+                _monthValue = Type == 1 ? "September " : "Sep, ";
+                break;
+            case 10:
+                _monthValue = Type == 1 ? "October " : "Oct, ";
+                break;
+
+            case 11:
+                _monthValue = Type == 1 ? "November " : "Nov, ";
+                break;
+            case 12:
+                _monthValue = Type == 1 ? "December " : "Dec, ";
+                break;
+            default:
+
+        }
+
+        return _monthValue + Year;
+
+    }
+    function FillMonthlist() {
+
+        $scope.MonthlistGlobal = [];
+        var CurrentYear = new Date().getFullYear();
+
+        $scope.MonthlistGlobal.push({ Text: "None", Value: "" });
+        for (var i = CurrentYear - 10; i <= CurrentYear + 10; i++) {
+
+            for (var j = 1; j <= 12; j++) {
+                $scope.MonthlistGlobal.push({ Text: GetMonthTextAndValue(j, 1, i), Value: GetMonthTextAndValue(j, 2, i) })
+            }
+
+        }
+
+
+
+    }
     
     $scope.GetDefaultQty=function()
     {
@@ -142,7 +208,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $scope.IsActiveItemLibrary = IsActiveItemLibrary;
         $scope.IsActiveItemGroupLibrary = IsActiveItemGroupLibrary;
         $scope.GetProfileData();
-
+        FillMonthlist();
 
       
 

@@ -2165,7 +2165,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
           
 
-            $(".weekPicker").each(function () {
+            $(".weekPicker,.monthPicker").each(function () {
                 var _val = $(this).attr("selectvalue");
                 $(this).val(_val);
                 $(this).trigger("change");
@@ -2782,7 +2782,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         console.log($scope.CurrentCart)
         setTimeout(function () {
 
-            $(".weekPicker").each(function () {
+            $(".weekPicker,.monthPicker").each(function () {
                 var _val = $(this).attr("selectvalue");
                 $(this).val(_val);
                 $(this).trigger("change");
@@ -5241,7 +5241,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             }, 1000);
         });
 
-        $(".weekPicker").each(function () {
+        $(".weekPicker,.monthPicker").each(function () {
             var _val = $(this).attr("selectvalue");
             $(this).val(_val);
             $(this).trigger("change");
