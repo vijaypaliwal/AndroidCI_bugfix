@@ -56,7 +56,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             success: function (response) {
 
                
-                var _mode = localStorageService.get('DefaultInvmode');
+                var _modedata = localStorageService.get('DefaultInvmode');
                  
 
                 $("#loginBtn").removeClass("disabled");
@@ -65,7 +65,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 $("#myloginModal").hide();
                 $(".side-nav").show();
                 if (response.LoginResult.Success == true) {
-                    if ($.trim(_mode) != "") {
+                    if ($.trim(_modedata) == "") {
 
                         localStorageService.set('DefaultInvmode', "Vertical");
                     }
