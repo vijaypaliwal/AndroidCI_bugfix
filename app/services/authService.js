@@ -38,7 +38,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var data = "UserName=" + loginData.userName + "&Password=" + loginData.password + "&AccountName=" + loginData.account;
 
-    
+        if (loginData.useRefreshTokens) {
+            data = data + "&client_id=" + ngAuthSettings.clientId;
+        }
         $("#loginBtn").addClass("disabled");
         $(".fa-sign-in").addClass("fa-spin");
         var deferred = $q.defer();
@@ -46,15 +48,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         $.ajax
         ({
             type: "POST",
-            url: serviceBase + "Login",
+            url: serviceBase + 'Login',
             contentType: 'application/json; charset=utf-8',
             dataType: 'text json',
            
             data: JSON.stringify({ "UserName": loginData.userName, "Password": loginData.password, "AccountName": loginData.account }),
             success: function (response) {
 
-                debugger;
-
+               
+                var _mode = localStorageService.get('DefaultInvmode');
                  
 
                 $("#loginBtn").removeClass("disabled");
@@ -63,8 +65,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 $("#myloginModal").hide();
                 $(".side-nav").show();
                 if (response.LoginResult.Success == true) {
+                    if ($.trim(_mode) != "") {
 
-
+                        localStorageService.set('DefaultInvmode', "Vertical");
+                    }
                     if (loginData.useRefreshTokens) {
                         localStorageService.set('authorizationData', { token: response.LoginResult.Payload, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
                         localStorageService.set('lastlogindata', { userName: loginData.userName, Password: loginData.password, AccountName: loginData.account });
@@ -149,7 +153,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                success: function (response) {
 
 
-                   debugger;
+                   
 
 
                     
@@ -157,11 +161,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    _UserInfo.myprofileimage = response.GetUserInfoResult.Payload[0].ProfilePic;
                    localStorageService.set('LockLibrary', response.GetUserInfoResult.Payload[0]);
                    localStorageService.set('AllowNegativeQuantity', response.GetUserInfoResult.Payload[0].AllowNegativeQuantity);
-
                    localStorageService.set('AutoClear', response.GetUserInfoResult.Payload[0].AutoClear);
 
                    localStorageService.set('DefaultQty', response.GetUserInfoResult.Payload[0].DefaultQty);
-
                    IsActiveLocationLibrary = response.GetUserInfoResult.Payload[0].IsActiveLocationLibrary;
                    IsActiveStatusLibrary = response.GetUserInfoResult.Payload[0].IsActiveStatusLibrary;
                    IsActiveUOMLibrary = response.GetUserInfoResult.Payload[0].IsActiveUOMLibrary;
@@ -194,6 +196,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                            _UserInfo.picURl = "img/dummy-user48.png";
 
                        }
+                  
                        
                    }
 
@@ -203,6 +206,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
                    }
 
+                   console.log(_UserInfo);
                    localStorageService.set('UserInfoData', {
                        username: _UserInfo.username,
                        myprofileimage: _UserInfo.myprofileimage,

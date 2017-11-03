@@ -1010,7 +1010,7 @@
 
                                         <input id="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask=='text'" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
 
-                                        <input id="CustomActivity_{{obj.cfdID}}" maxlength="{{GetCustomActivityObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
+                                        <input id="CustomActivity_{{obj.cfdID}}" maxlength="{{GetCustomActivityObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="$.trim(obj.cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
                                         <!--<input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='month'" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />-->
 
                                         <select id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='month'" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control monthPicker" selectvalue="{{InventoryObject.CustomTxnData[$index].Value}}">

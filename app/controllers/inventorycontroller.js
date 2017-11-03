@@ -216,12 +216,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         setTimeout(function () {
             $("#secondDiv").find(".form-group:first").find(".form-control:first").focus();
 
-
-            $(".weekPicker,.monthPicker").each(function () {
-                var _val = $(this).attr("selectvalue");
-                $(this).val(_val);
-                $(this).trigger("change");
-            });
+            SetWeekMonthValues();
 
 
         }, 100);
@@ -1906,7 +1901,10 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             }
         }
         else {
-            $scope.getstep(0, $scope.UnitDataColumnWithError);
+            if ($scope.switchmode == false) {
+
+                $scope.getstep(0, $scope.UnitDataColumnWithError);
+            }
             log.error("Please enter unique values in unit data columns.")
         }
     }
@@ -3969,12 +3967,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
         setTimeout(function () {
-
-            $(".weekPicker,.monthPicker").each(function () {
-                var _val = $(this).attr("selectvalue");
-                $(this).val(_val);
-                $(this).trigger("change");
-            });
+            SetWeekMonthValues();
 
         }, 2000);
 
@@ -5190,11 +5183,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                     $scope.slidenumber(swiperHere.activeIndex);
 
 
-                    $(".weekPicker,.monthPicker").each(function () {
-                        var _val = $(this).attr("selectvalue");
-                        $(this).val(_val);
-                        $(this).trigger("change");
-                    });
+                    SetWeekMonthValues();
                     if (swiperHere.activeIndex != 100 && swiperHere.activeIndex != 101) {
 
 
@@ -5334,10 +5323,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             $(".spinner").hide();
             $(".swiper-container").show();
             ApplyBackAndNext();
-
+            SetWeekMonthValues();
         }, 10)
     }
-
+    function SetWeekMonthValues() {
+        setTimeout(function () {
+            $(".weekPicker,.monthPicker").each(function () {
+                var _val = $(this).attr("selectvalue");
+                $(this).val(_val);
+                $(this).trigger("change");
+            });
+        }, 100);
+    }
 
     function ApplyBackAndNext() {
 
