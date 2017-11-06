@@ -1,7 +1,7 @@
 
 
 .btn-primary {
-    background-color: #2196F3 !important;
+    background-color: #4285F4 !important;
     border: transparent !important;
     font-size: 17px;
     height: 45px;
@@ -18,7 +18,7 @@
     }
 
 .btn-gray {
-    background: #949494 !important;
+    background: #999 !important;
     color: #fff !important;
     opacity: 0.9;
     height: 45px;
