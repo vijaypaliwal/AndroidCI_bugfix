@@ -330,10 +330,11 @@
     </div>
 
 
-    <div style="margin-top:-25px;" ng-if="checkpermission('ACTION:CanAddInventory')==false" class="notification notification-danger">
+    <div style="margin-top:-75px;" ng-if="checkpermission('ACTION:CanAddInventory')==false" class="notification notification-danger">
         <a class="close-notification no-smoothState"></a>
         <p>Sorry you are not permitted to Add Inventory</p>
-        <span>contact your administrator.</span>
+        <span style="display:block">contact your administrator.</span>
+        <span>Please click hamburger icon <i style="font-size:14px;" class="fa fa-bars"></i>  to see other options</span>
     </div>
 
     <div id="myModal2" class="modal bottommenu fade">
