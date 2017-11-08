@@ -350,19 +350,22 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.getactivepermission = function () {
         $scope.CurrentUserKey=localStorageService.get('UserKey');
+        $scope.GetPermission(1, $scope.CurrentUserKey);
+
+
         setTimeout(function () {
             $scope.GetPermission(3, $scope.CurrentUserKey);
         }, 10);
+
         setTimeout(function () {
             $scope.GetPermission(4, $scope.CurrentUserKey);
         }, 10);
+
         setTimeout(function () {
             $scope.GetPermission(5, $scope.CurrentUserKey);
         }, 10);
 
-        setTimeout(function () {
-            $scope.GetPermission(1, $scope.CurrentUserKey);
-        }, 10);
+
         $scope.$apply();
         setTimeout(function () {
 
