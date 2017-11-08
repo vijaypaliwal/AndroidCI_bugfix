@@ -325,7 +325,10 @@
             <button style="padding: 2px 7px; position: absolute; margin-left: -23px; margin-top:-5px;" class="btn waves-effect-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
         </div>
     </div>
-    <img ng-if="checkpermission('ACTION:CanAddInventory')==true" id="arrow" src="img/downarrow.png">
+    <div ng-if="checkpermission('ACTION:CanAddInventory')==true">
+        <img style="display:none" id="arrow" src="img/downarrow.png">
+    </div>
+
 
     <div style="margin-top:-25px;" ng-if="checkpermission('ACTION:CanAddInventory')==false" class="notification notification-danger">
         <a class="close-notification no-smoothState"></a>
