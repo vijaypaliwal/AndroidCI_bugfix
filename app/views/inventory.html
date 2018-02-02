@@ -1587,8 +1587,8 @@
 
 <div ng-if="switchmode==true" class="switchmode">
     <div ng-show="itemfields==false" class="row tophead">
-        <div class="col-xs-7">
-            <div style="float:left;" ng-click="OpenBox()" class="" ng-if="IsAvailableMyInventoryColumn('Image')==true">
+        <div class="col-xs-4">
+            <div style="float:left;" ng-click="viewimages()" class="" ng-if="IsAvailableMyInventoryColumn('Image')==true">
 
                 <output style="margin-top: 0px;" id="list567">
                     <span ng-repeat="_obj in ImageList" ng-if="ImageList.length>0">
@@ -1607,10 +1607,15 @@
                 <img id="defaultimg" style="height: 50px; width: 50px;" src="img/na.jpg" alt="Alternate Text" />
             </div>
 
-            <div ng-if="ImageList.length>1" style="float:left; height:40px; width:40px; border-radius:30px;text-align:center; line-height:40px; padding:0; margin-left:15px; margin-top:5px;" class="btn btn-success" ng-click="viewimages()">1+</div>
+            <div ng-if="ImageList.length>1" style="float: left; height: 32px; width: 32px; border-radius: 30px; text-align: center; line-height: 30px; padding: 0; margin-left: -10px; margin-top: -7px; margin-top: -11px; position: absolute; font-size: 12px; z-index: 1000;" class="btn btn-success">1+</div>
 
         </div>
-        <div class="col-xs-5">
+        <div style="padding-left:0;" class="col-xs-4">
+            <a class="btn btn btn-gray iamgebtn" ng-click="OpenBox()">
+                <i class="fa fa-picture-o"></i> Add
+            </a>
+        </div>
+        <div class="col-xs-4">
             <a class="scanbtn btn btn-gray pull-right" ng-click="ReuseAll('#firstDiv')">
                 <i class="fa fa-refresh"></i> Reuse
             </a>
