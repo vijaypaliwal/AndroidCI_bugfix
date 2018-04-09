@@ -153,11 +153,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                success: function (response) {
 
 
-                   
+                   debugger;
+                   console.log(response);
 
 
                     
-                   _UserInfo.username = response.GetUserInfoResult.Payload[0].UserName
+                   _UserInfo.username = response.GetUserInfoResult.Payload[0].UserName;
                    _UserInfo.myprofileimage = response.GetUserInfoResult.Payload[0].ProfilePic;
                    localStorageService.set('LockLibrary', response.GetUserInfoResult.Payload[0]);
                    localStorageService.set('AllowNegativeQuantity', response.GetUserInfoResult.Payload[0].AllowNegativeQuantity);
@@ -170,6 +171,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    IsActiveItemLibrary = response.GetUserInfoResult.Payload[0].IsActiveItemLibrary;
                    IsActiveItemGroupLibrary = response.GetUserInfoResult.Payload[0].IsActiveItemGroupLibrary;
 
+                
                    localStorageService.set('UserKey', response.GetUserInfoResult.Payload[0].UserKey);
 
                    localStorageService.set('IsOwner', response.GetUserInfoResult.Payload[0].IsOwner);
@@ -189,6 +191,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
                        if (response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("png") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("jpeg") != -1 || response.GetUserInfoResult.Payload[0].ProfilePic.indexOf("gif") != -1) {
                            _UserInfo.picURl = response.GetUserInfoResult.Payload[0].ProfilePic
+
+                           var _string = "this.onerror = null;this.src = 'img/dummy-user48.png'";
+                           $("#myimgProfile").attr("onerror", _string);
+
+                           $("#myimgProfile").attr("src", _UserInfo.picURl);
+
+                           $("#myimgProfile1").attr("onerror", _string);
+
+                           $("#myimgProfile1").attr("src", _UserInfo.picURl);
                        }
 
                        else {

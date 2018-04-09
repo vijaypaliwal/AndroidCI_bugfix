@@ -26,8 +26,8 @@
                 <br />
             </div>
 
-            <img  ng-if="_isProfileLoading==true" src="img/loader1.gif" class="loadingImage" alt="loading.." />
-            <img src="{{picURl}}" ng-click="PreviewImage()" class="myimg" id="myimg" ng-if="_isProfileLoading==false" alt="Alternate Text" />
+            <img ng-if="_isProfileLoading==true" src="img/loader1.gif" class="loadingImage" alt="loading.." />
+            <img src="{{picURl}}" ng-click="PreviewImage()" onerror="this.onerror = null; this.src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';" class="myimg" id="myimg" ng-if="_isProfileLoading==false" alt="Alternate Text" />
 
             <div ng-click="openModel()">
                 <a class="btn-openimage"><i class="fa fa-pencil"></i></a>

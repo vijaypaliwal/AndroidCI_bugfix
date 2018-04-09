@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('indexController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard',  function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard) {
+app.controller('indexController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard', '$cordovaStatusbar', function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard, $cordovaStatusbar) {
     function checkurl() {
         var path = "activity";
         if ($location.path().substr(0, path.length) !== path) {
@@ -8,6 +8,11 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         else {
             console.log("into activity");
         }
+    }
+
+
+    $scope.restricted = function () {
+        log.error("You are Not Authorize to access")
     }
 
     $scope.currentactiveaccount = function (AccountName) {
@@ -23,96 +28,14 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     $scope.Permission2 = [];
     $scope.Permission3 = [];
     $scope.Permission4 = [];
+
     $scope.IsActiveLocationLibrary = true;
     $scope.IsActiveStatusLibrary = true;
     $scope.IsActiveUOMLibrary = true;
     $scope.IsActiveItemLibrary = true;
     $scope.IsActiveItemGroupLibrary = true;
 
-    $scope.restricted = function() {
-        log.error("You are Not Authorize to access")
-    }
- 
-
     $scope.CurrentAccount = localStorageService.get('AccountID');
-
-
-    $scope.CurrentUserKey = localStorageService.get('UserKey');
-
-    $scope.GetPermission = function (Type, Key) {
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            $scope.SecurityToken = authData.token;
-        }
-
-        if ($scope.SecurityToken != undefined && $scope.SecurityToken != null && $scope.SecurityToken != "") {
-
-            $.ajax
-               ({
-                   type: "POST",
-                   url: serviceBase + 'GetUserPermissions',
-                   contentType: 'application/json; charset=utf-8',
-                   dataType: 'text json',
-                   data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Type": Type, "UserKey": Key }),
-                   success: function (response) {
-
-                       debugger;
-
-
-                       if (response.GetUserPermissionsResult.Success == true) {
-
-                           if (Type == 1) {
-
-                               $scope.Permissions4 = response.GetUserPermissionsResult.Payload;
-
-
-                           }
-                           if (Type == 4) {
-
-                               $scope.Permissions1 = response.GetUserPermissionsResult.Payload;
-
-
-                           }
-
-                           if (Type == 3) {
-
-                               $scope.Permissions2 = response.GetUserPermissionsResult.Payload;
-
-                           }
-
-                           if (Type == 5) {
-
-                               $scope.Permissions3 = response.GetUserPermissionsResult.Payload;
-
-                           }
-                       }
-                       else {
-                           //   $scope.ShowErrorMessage("Custom column's data", 1, 1, response.GetUserPermissionsResult.Message)
-
-                       }
-
-
-
-                       $scope.$apply();
-                   },
-                   error: function (response) {
-
-                       //                   alert("Error");
-
-                       //   log.error(response.statusText);
-                       //    $scope.ShowErrorMessage("Custom column's data", 2, 1, response.statusText);
-
-                       //$scope.InventoryObject.Location = 678030;
-                   },
-                   complete: function () {
-
-
-
-                   }
-               });
-        }
-
-    }
 
     $scope.MonthlistGlobal = [];
 
@@ -165,7 +88,6 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     }
     function FillMonthlist() {
-
         $scope.MonthlistGlobal = [];
         var CurrentYear = new Date().getFullYear();
 
@@ -181,13 +103,12 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
 
     }
-    
-    $scope.GetDefaultQty=function()
-    {
+
+    $scope.CurrentUserKey = localStorageService.get('UserKey');
+    $scope.GetDefaultQty = function () {
         var _DefaultQty = localStorageService.get('DefaultQty');
 
-        if (_DefaultQty == "1" || _DefaultQty == 1)
-        {
+        if (_DefaultQty == "1" || _DefaultQty == 1) {
             return 1;
         }
         else {
@@ -195,11 +116,111 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         }
 
     }
+    $scope.GetPermission = function (Type, Key) {
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetUserPermissions',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'text json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Type": Type, "UserKey": Key }),
+               success: function (response) {
+
+
+
+
+                   if (response.GetUserPermissionsResult.Success == true) {
+
+                       if (Type == 1) {
+
+                           $scope.Permissions4 = response.GetUserPermissionsResult.Payload;
+
+
+                       }
+                       if (Type == 4) {
+
+                           $scope.Permissions1 = response.GetUserPermissionsResult.Payload;
+
+
+                       }
+
+                       if (Type == 3) {
+
+                           $scope.Permissions2 = response.GetUserPermissionsResult.Payload;
+
+                       }
+
+                       if (Type == 5) {
+
+                           $scope.Permissions3 = response.GetUserPermissionsResult.Payload;
+
+                       }
+                   }
+                   else {
+                       //   $scope.ShowErrorMessage("Custom column's data", 1, 1, response.GetUserPermissionsResult.Message)
+
+                   }
+
+
+
+
+               },
+               error: function (response) {
+
+
+               },
+               complete: function () {
+
+
+               }
+           });
+
+    }
+
     $scope.locked = function () {
         log.error("This Library is locked");
     }
-    function initIndex() {
 
+
+    $(document).on('blur', '.customnumbergroup input', function () {
+        var _val = $(this).val();
+        var _minD = $(this).attr("min");
+        _minD = $.trim(_minD) != "" ? _minD : -1000;
+        var _minVal = parseFloat(_minD);
+
+
+        var _maxD = $(this).attr("max");
+        _maxD = $.trim(_maxD) != "" ? _maxD : -1000;
+        var _maxVal = parseFloat(_maxD);
+
+
+
+        if ($.trim(_val) != "" && !isNaN(_val)) {
+
+            if (_maxVal != -1000 && _maxVal < _val) {
+
+                log.error("Exceeding maximum value " + _maxVal + ", Please fill lesser value than maximum value");
+                $(this).val("");
+                $(this).focus();
+            }
+            if (_minVal != -1000 && _minVal > _val) {
+
+                log.error("Beneath the  minimum value " + _minVal + ", Please fill greater value than minimum value");
+                $(this).val("");
+                $(this).focus();
+            }
+        }
+
+
+    });
+
+    function initIndex() {
 
 
         $scope.IsActiveLocationLibrary = IsActiveLocationLibrary;
@@ -209,10 +230,6 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $scope.IsActiveItemGroupLibrary = IsActiveItemGroupLibrary;
         $scope.GetProfileData();
         FillMonthlist();
-
-      
-
-
 
     }
     function UpdateLockData(IsLocked, Type) {
@@ -308,7 +325,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
          , "IsActiveLocationLibrary": $scope.IsActiveLocationLibrary
         , "IsActiveStatusLibrary": $scope.IsActiveStatusLibrary
         , "IsActiveUOMLibrary": $scope.IsActiveUOMLibrary
-              , "IsActiveItemGroupLibrary": $scope.IsActiveItemGroupLibrary
+            , "IsActiveItemGroupLibrary": $scope.IsActiveItemGroupLibrary
         };
 
 
@@ -349,10 +366,12 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     }
 
     $scope.getactivepermission = function () {
-        $scope.CurrentUserKey=localStorageService.get('UserKey');
+        
+        $scope.CurrentUserKey = localStorageService.get('UserKey');
+
         $scope.GetPermission(1, $scope.CurrentUserKey);
 
-
+  
         setTimeout(function () {
             $scope.GetPermission(3, $scope.CurrentUserKey);
         }, 10);
@@ -370,44 +389,42 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         setTimeout(function () {
 
             $scope.Permission = [];
-
-            if ($scope.Permissions1!=undefined && $scope.Permissions1.length > 0) {
-
-                for (var i = 0; i < $scope.Permissions1.length; i++) {
-                    $scope.Permission.push($scope.Permissions1[i]);
-                }
+            for (var i = 0; i < $scope.Permissions1.length; i++) {
+                $scope.Permission.push($scope.Permissions1[i]);
             }
-            if ($scope.Permissions2 != undefined && $scope.Permissions2.length > 0) {
-                for (var i = 0; i < $scope.Permissions2.length; i++) {
-                    $scope.Permission.push($scope.Permissions2[i]);
-                }
+            for (var i = 0; i < $scope.Permissions2.length; i++) {
+                $scope.Permission.push($scope.Permissions2[i]);
             }
-            if ($scope.Permissions3 != undefined && $scope.Permissions3.length > 0) {
-                for (var i = 0; i < $scope.Permissions3.length; i++) {
-                    $scope.Permission.push($scope.Permissions3[i]);
-                }
+            for (var i = 0; i < $scope.Permissions3.length; i++) {
+                $scope.Permission.push($scope.Permissions3[i]);
             }
 
-            if ($scope.Permissions4 != undefined && $scope.Permissions4.length > 0) {
-                for (var i = 0; i < $scope.Permissions4.length; i++) {
-                    $scope.Permission.push($scope.Permissions4[i]);
-                }
+            for (var i = 0; i < $scope.Permissions4.length; i++) {
+                $scope.Permission.push($scope.Permissions4[i]);
             }
+
+
             $scope.$apply();
-        }, 500);
-     
-    }
-   
-    $scope.checkpermission = function (permissioncode) {
 
+            console.log("Permissions list");
+            console.log($scope.Permission);
+
+        }, 500);
+
+    }
+
+    $scope.checkpermission = function (permissioncode) {
         for (var i = 0; i < $scope.Permission.length; i++) {
-            if ($scope.Permission[i].PermissionCode == permissioncode)
-            {
+            if ($scope.Permission[i].PermissionCode == permissioncode) {
+
                 return $scope.Permission[i].IsTurnedOn;
+
             }
         }
 
     }
+
+
 
 
     $scope.logOut = function () {
@@ -420,6 +437,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $("#Inventoryerror").modal('hide');
         $location.path('/login');
     }
+
+
     $scope.GetTrimmedString = function (id) {
         var _string = $(id).val();
         if (_string != null && _string != undefined) {
@@ -461,7 +480,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
         switch (Type) {
             case 1:
-               // log.error(_returnError);
+                // log.error(_returnError);
                 break;
             case 2:
                 log.warning(_returnError);
@@ -470,9 +489,46 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
         }
     }
+    $scope.ShowErrorMessageAccount = function (Place, TextType, Type, Message) {
+        var _returnError = ""
+        if (Message != undefined && Message != null) {
 
+        }
+        else {
+            Message = "";
+        }
+        switch (TextType) {
+            case 1:
+                _returnError = "Error occurred in fetching " + Place + " " + Message;
+                break;
+            case 2:
+                _returnError = "Error in your requested data while getting " + Place + " " + Message;
+                break;
+            case 3:
+                _returnError = "Error occurred during updating data " + Place + " " + Message;
+                break;
+            default:
+                _returnError = "Error in your requested data while getting " + Place + " " + Message;
+        }
+
+        switch (Type) {
+            case 1:
+               log.error(_returnError);
+                break;
+            case 2:
+                log.warning(_returnError);
+                break;
+            default:
+
+        }
+    }
+    //$.ajaxSetup({
+    //    timeout: 1000 //Time in milliseconds
+    //});
 
     $(document).ajaxError(function (event, jqxhr, settings, exception) {
+
+
 
         if (jqxhr.status != 200 && (jqxhr.readyState != 0 || jqxhr.status != 0)) {
             if (exception != "timeout") {
@@ -480,25 +536,24 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 $(".modal").modal("hide");
                 HideGlobalWaitingDiv();
 
-
                 var _path = $location.path();
-
 
                 if (_path != "/login") {
                     $("#modalerror").modal('show');
                     $("#errortext").html(exception);
                 }
-               
+
             }
             else {
                 alert("timeout error");
             }
-        
         }
         else {
             if (exception == "timeout") {
                 $("#modalerror").modal('show');
                 $("#errortext").html("Slow Network error");
+                //toastr.warning("slow network error we are retrying the request.")
+                //$.ajax(settings);
             }
         }
     });
@@ -512,7 +567,11 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.errorbox = function (error) {
 
+
+
+
         var _path = $location.path();
+
 
 
 
@@ -521,7 +580,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
             $("#errortext").html(error)
         }
 
-    
+
+
 
     }
 
@@ -537,60 +597,32 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.$on('$locationChangeStart', function (event) {
 
-     
+
 
         var _path = $location.path();
 
-  
-        _CurrentUrl = _path;
+        $cordovaKeyboard.hideAccessoryBar(false);
+
+
         if (_path == "/inventory") {
             $scope.changepage();
             $cordovaKeyboard.disableScroll(true);
         }
         else {
             $scope.changepage();
-           $cordovaKeyboard.disableScroll(false);
+            $cordovaKeyboard.disableScroll(false);
         }
 
-        if (_path == "/activity") {
-
+        if (_path == "/mobileorder") {
+            $cordovaKeyboard.disableScroll(true);
         }
         else {
             UpdateStatusBar(55);
         }
 
-     
-
-        //document.addEventListener("backbutton", function (e) {
-        //    e.preventDefault();
-        //    var _path = $location.path();
-
-
-
-        //    if (_path == "/inventory") {
-        //        var box = bootbox.confirm("Are you sure ?", function (result) {
-        //            if (result) {
-        //                history.back(1);
-
-        //            }
-
-
-
-        //        });
-
-        //        box.on("shown.bs.modal", function () {
-        //            $(".mybootboxbody").html("please complete current add inventory process or you can leave by press ok . ");
-
-        //        });
-              
-                
-        //    }
-        //}, false);
-
-   
 
         initIndex();
-     
+
     });
 
     $scope.getClass = function (path) {
@@ -600,13 +632,12 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.GetProfileData = function () {
 
-
+        debugger;
         authService.GetuserInfo();
         setTimeout(function () {
             $scope.UserInfoData = authService.UserInfo;
             if ($scope.UserInfoData != null && $scope.UserInfoData != undefined) {
 
-                console.log($scope.UserInfoData);
                 $scope.username = $scope.UserInfoData.username;
                 $scope.myprofileimage = $scope.UserInfoData.myprofileimage;
                 $scope.ProfilePicURl = $scope.UserInfoData.picURl;
@@ -740,7 +771,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
              },
              error: function (err) {
-                 alert(err.status);
+
                  if (err.status == 200 || err.status == "200") {
                      log.success("Image uploaded successfully please refresh grid to see the uploaded image.")
                  }
@@ -759,6 +790,7 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         checkurl();
 
     }
+
 
     $scope.UpdateSecurityTokenGlobal = function () {
         $scope.userName = "";
@@ -831,13 +863,16 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     }, 2400000);
 
     document.addEventListener('resume', function () {
+        //   alert('resume event. resumeType=' + cordova.backgroundapp.resumeType);
         if (cordova.backgroundapp.resumeType == 'normal') {
             $scope.UpdateSecurityTokenGlobal();
         }
     });
+
     initIndex();
 
 }]);
+
 
 app.directive('ngModel', [
         function () {
@@ -845,18 +880,17 @@ app.directive('ngModel', [
                 restrict: 'A',
                 link: function (scope, element, attrs, ctrl) {
 
-                
-                       // ctrl.$pristine = false;
-                       
+                    //ctrl.$pristine = false;
 
 
-                        scope.$watch(attrs.ngModel, function (newValue, oldValue) {
 
-                            if (!$(element).hasClass("unitDatePicker")) {
+                    scope.$watch(attrs.ngModel, function (newValue, oldValue) {
 
-                                element.trigger("change");
-                            }
-                        });
+                        if (!$(element).hasClass("unitDatePicker")) {
+
+                            element.trigger("change");
+                        }
+                    });
                 }
             };
         }
