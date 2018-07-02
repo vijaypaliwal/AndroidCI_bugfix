@@ -1,20 +1,31 @@
 ﻿
 
+<link href="css/login.css" rel="stylesheet" />
 <style>
     .input-group .form-group {
-        margin-bottom:0px !important;
+        margin-bottom: 0px !important;
     }
-
+    .formarea {
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    }
 </style>
 
+<div style="text-align:center; margin-bottom:15px;">
 
-<link href="css/login.css" rel="stylesheet" />
+    <img style="height: 80px; width: 80px; padding: 10px;  margin-top: 20px; border-radius: 100%; box-shadow: 0 3px 15px rgba(0, 9, 128, 0.1), 0 11px 19px rgba(0, 9, 128, 0.1);" src="img/u2.png" alt="Alternate Text" />
 
-    <form class="login-form" role="form" name="myform">
-    <div class="row">
+</div>
+
+<div style="text-align:center; margin-bottom:15px;">
+    <h3 style="color:#fff">Log in to your account</h3>
+</div>
+
+
+<form class="login-form" role="form" name="myform">
+        <div class="row">
         <div class="col-md-12">
-            <div class="formarea">
-                <div class="row">
+             <div class="formarea">
+                <!--<div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label>Account Name <em>(optional)</em></label>
@@ -24,13 +35,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
 
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <label>User Name <em>(usually your email)</em></label>
+                            <label>Email or <em>(username)</em></label>
                             <div class="input-group">
                                 <span class="input-group-addon"> <i class="fa fa-user"></i></span>
                                 <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" value="" required>
@@ -55,16 +66,35 @@
                 <div class="row">
 
                     <div class="col-xs-12">
-                        <button type="button" class="waves-effect waves-light btn-primary animated center bouncein delay-6" ng-if="!myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In</button>
-                        <a class="btn btn-gray animated center bouncein delay-6" disabled="disabled" ng-if="myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In </a>
-                        <a class="pull-right signuplink" href="#/signup">Sign Up </a>
-
+                        <button style="width:100%" type="button"  class="waves-effect waves-light btn-primary animated center bouncein delay-6"  ng-if="!myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In</button>
+                        <a style="width:100%;" class="btn btn-gray animated center bouncein delay-6"  disabled="disabled" ng-if="myform.$invalid" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In </a>
+                     
+                     
+                        </div>
                     </div>
+
+                 
+                    </div>
+            <div class="row" ng-if="IsProduction==false" style="text-align:center">
+                <h2 style="color: #ff5e00">Development</h2>
+            </div>
                 </div>
             </div>
-        </div>
-    </div>
-</form>
+    </form>
+
+
+
+<div style="text-align:center; width:100%; position:fixed; bottom:25px;">
+    <a style="color:#fff; border:transparent;" class="signuplink" href="#/signup">Sign Up for an account </a>
+</div>
+
+
+
+<div style="text-align:center; color:#fff;">
+    <h2 id="currentserver"></h2>
+    <h3 id="Appversion"></h3>
+</div>
+
 
 
 

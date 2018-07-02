@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('indexController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard', '$cordovaStatusbar', function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard, $cordovaStatusbar) {
+app.controller('indexController', ['$scope', 'localStorageService', 'authService', '$location', 'log', '$cordovaKeyboard', '$cordovaStatusbar', '$rootScope', function ($scope, localStorageService, authService, $location, log, $cordovaKeyboard, $cordovaStatusbar, $rootScope) {
     function checkurl() {
         var path = "activity";
         if ($location.path().substr(0, path.length) !== path) {
@@ -852,6 +852,149 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 }
             });
         }
+    }
+
+
+    $scope.showinventories = function () {
+
+        $("#Inventorylistmodal").modal("show");
+    }
+
+
+    $scope.$on("SendUp", function (evt, data) {
+        $scope.MyInventories = data;
+        console.log("Account List");
+        console.log($scope.MyInventories);
+
+    });
+
+    $scope.$on("MyActiveAccount", function (evt, data) {
+        $scope.currentInventoryname = data;
+    });
+
+
+
+
+    $scope.$on("MyInventorycolor", function (evt, data) {
+
+        $("#toolbar").attr('style', 'background-color: ' + data + ' !important');
+
+        $(".primary-color").attr('style', 'background-color: ' + data + ' !important');
+
+
+        $("<style/>", { text: ".title-header {background-color: " + data + "}" }).appendTo('head');
+    });
+
+
+
+
+
+
+
+
+
+
+    $scope.changeInventory = function (AccountID, AccountName, Inventorycolor) {
+
+        var authData = localStorageService.get('authorizationData');
+
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax({
+
+            type: "POST",
+            url: serviceBase + "UpdateSecurityToken",
+            contentType: 'application/json; charset=utf-8',
+
+            dataType: 'json',
+
+            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "AccountID": AccountID }),
+            error: function (err, textStatus) {
+                $scope.UOMSearching = false;
+                debugger;
+                $scope.IsLoading = false;
+
+                if (err.readyState == 0 || err.status == 0) {
+
+                }
+                else {
+
+
+                    if (textStatus != "timeout") {
+
+
+                        $scope.ShowErrorMessage("update security token", 2, 1, err.statusText);
+                    }
+                }
+            },
+
+            success: function (data) {
+
+
+
+
+
+
+                if (data.UpdateSecurityTokenResult.Success == true) {
+
+                    if (data.UpdateSecurityTokenResult != null && data.UpdateSecurityTokenResult.Payload != null) {
+                        var _token = data.UpdateSecurityTokenResult.Payload;
+
+                        localStorageService.set('authorizationData', { token: _token });
+                        $scope.CurrentAccount = AccountName;
+
+                        $scope.currentactiveaccount(AccountName);
+                        localStorageService.set('AccountID', AccountName);
+                        $scope.GetProfileData();
+
+                        $scope.IsLoading = false;
+
+                        $scope.getactivepermission();
+
+                        $scope.currentInventoryname = AccountName;
+
+                        debugger;
+
+                        $("#toolbar").attr('style', 'background-color: ' + Inventorycolor + ' !important');
+
+
+
+                        $("<style/>", { text: ".title-header {background-color: " + Inventorycolor + "}" }).appendTo('head');
+
+                        $(".primary-color").attr('style', 'background-color: ' + Inventorycolor + ' !important');
+
+                        $("#Inventorylistmodal").modal('hide');
+
+                        log.success("Inventory switched successfully");
+
+                        $location.path("/permission");
+                        localStorageService.set('InventoryColor', Inventorycolor);
+                        setTimeout(function () {
+
+
+                            $location.path("/FindItems");
+
+                        }, 300);
+
+
+
+
+                        $scope.$apply();
+
+
+
+                    }
+                }
+                else {
+                    $scope.IsLoading = false;
+                    $scope.$apply();
+                    $scope.ShowErrorMessageAccount("update security token", 1, 1, data.UpdateSecurityTokenResult.Message);
+                }
+            }
+        });
+
     }
 
 

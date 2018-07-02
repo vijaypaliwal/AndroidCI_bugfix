@@ -35,6 +35,86 @@
         {
             margin-bottom:0;
         }
+
+        #Inventorylistmodal {
+            background: #fff;
+            width: calc(100% - 50px);
+            margin: 0 auto;
+            margin-top: 25px;
+            bottom: auto;
+            overflow: hidden;
+        }
+
+            #Inventorylistmodal .modal-header {
+                background-color: #f5f5f5;
+            }
+
+            #Inventorylistmodal .modal-footer {
+                background-color: #ccc;
+                text-align: center;
+            }
+
+            #Inventorylistmodal .modal-footer {
+                display: block;
+                padding-bottom: 8px;
+                padding-top: 8px;
+            }
+
+
+
+            #Inventorylistmodal .modal-body {
+                min-height: 370px;
+                overflow-y: auto;
+                max-height: 400px;
+            }
+
+            #Inventorylistmodal .btn {
+                width: 100%;
+                margin-bottom: 12px;
+                color: #fff;
+                border-radius: 15px;
+                text-align: left;
+            }
+
+            #Inventorylistmodal .modal-body {
+                padding: 12px;
+            }
+
+        #toolbar i {
+            font-size: 18px;
+        }
+
+        #toolbar .title {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .sidenav-header .avatar {
+            margin: 20px;
+            height: 40px;
+            width: 38px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 3px;
+            border: 1px solid #ccc;
+            margin-right: 7px;
+        }
+
+        .sidenav-header .avatar-body h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .sidenav-header .avatar-body p {
+            color: #fff;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .side-nav .no-child {
+            border-bottom: 1px solid #f5f5f5;
+        }
     </style>
 
 </head>
@@ -58,6 +138,26 @@
 
         </div>
 
+    </div>
+
+
+    <div id="Inventorylistmodal" class="modal animated zoomIn">
+        <div class="modal-header">
+            <h4> <i class="fa fa-cubes"></i> Select Your Inventory</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <a ng-click="changeInventory(obj.InventoryAccountID, obj.InventoryName, obj.BackColor)" style="background-color:{{obj.BackColor}} !important" ng-repeat="obj in MyInventories" class="btn btn-danger"> <i class="fa fa-cube"></i> {{obj.InventoryName}} </a>
+
+
+        </div>
+
+        <div class="modal-footer">
+
+            <a data-dismiss="modal">Close</a>
+
+        </div>
     </div>
 
 
@@ -115,20 +215,18 @@
 
     <!-- Header Section Starts -->
     <div id="toolbar" class="primary-color">
-        <div class="open-left" id="side-left">
+        <div class="open-left" id="open-left" data-activates="slide-out-left">
             <i class="fa fa-bars" style="font-size:17px;"></i>
         </div>
-        <span class="title">Clearly Inventory</span>
-
+        <span ng-click="showinventories()" class="title">{{currentInventoryname}} <i class="fa fa-angle-down"></i></span>
         <div class="dropdown open-right">
-            <a style="padding-left: 0;" data-toggle="dropdown" class="dropdown-toggle ">
-                <img id="myimgProfile" src="{{ProfilePicURl}}" alt="" style="height: 46px; width: 46px; border: 2px solid #ccc; " class="circle">
-                
+            <a style="padding-left:0" data-toggle="dropdown" class="dropdown-toggle ">
+                <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
             </a>
             <ul class="top-menu dropdown-menu">
-                <li><a ng-class="getClass('/profile')" href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
-                <li><a href="#/contact"><i class="fa fa-map-marker"></i> Contact</a></li>
                 <li><a href="#/Accounts"><i class="fa fa-briefcase"></i> My Accounts</a></li>
+                <li><a href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
+                <li><a href="#/contact"><i class="fa fa-map-marker"></i> Contact</a></li>
 
                 <li><a href="#/help"><i class="fa fa-question"></i> Help</a></li>
                 <li><a href="#"><i class="fa fa-sign-out"></i> Sign out</a></li>
@@ -154,16 +252,18 @@
             <div class="sidenav-header primary-color">
 
                 <div class="nav-avatar">
-                    <img class="circle avatar" id="myimgProfile1" src="{{ProfilePicURl}}" alt="">
+                    <img class="circle avatar" id="myimgProfile1" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" src="{{ProfilePicURl}}" alt="">
                     <div class="avatar-body">
                         <h3>{{username}}</h3>
-                        <p>Clearly USER</p>
+                        <p>Clearly USER </p>
                     </div>
                 </div>
             </div>
         </li>
 
-        <li> <a style="background:#e2e2e2;" class="no-child"> <i style="color: #1fa67a; font-size:15px; margin-top:5px;" class="fa fa-circle"> </i> {{CurrentAccount}} </a> </li>
+
+
+        <li> <a style="background: #FF5252; color:#fff;" class="no-child"> <i style="color: #1fa67a; font-size: 15px; background: #fff; border-radius: 100%; height: 25px; width: 25px; padding: 0; margin-top: -2px; line-height: 25px;" class="fa fa-circle"> </i> {{CurrentAccount}} </a> </li>
         <li><a ng-class="getClass('/Accounts')" href="#/Accounts" class="no-child"><i class="fa fa-briefcase"></i> My Accounts</a></li>
         <li id="Permissionlink"><a ng-class="getClass('/permission')" href="#/permission" class="no-child"><i class="fa fa-gears"></i> Permissions</a></li>
         <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go to Inventory</a></li>
@@ -316,6 +416,9 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
     <script src="app/controllers/contactController.js?v=2"></script>
     <script src="app/controllers/configuresettingController.js?v=2"></script>
+
+    <script src="app/controllers/BillingController.js?v=2"></script>
+    <script src="app/controllers/CreateSubscriptionController.js?v=2"></script>
 
 
     <!-- Custom JS -->

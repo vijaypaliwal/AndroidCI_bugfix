@@ -1,7 +1,7 @@
 ﻿
 
 
-<table style=" z-index: 999; width: 100%; top: 0; left: 0; background: #2196F3; color: #fff;">
+<table class="signupheader" style=" z-index: 999; width: 100%; top: 0; left: 0; background: #2196F3; color: #fff;">
     <tr>
         <td style="width:33.33%">
             <a style="padding:4px;color:white !important;" href="#/login"><i class="fa fa-arrow-left"></i></a>
@@ -23,23 +23,38 @@
 
         <div class="input-group">
             <span class="input-group-addon"> <i class="fa fa-male"></i></span>
-            <input type="text" class="form-control" name="FullName" placeholder="Your Name" data-ng-model="registration.Name" required autofocus>
+            <input type="text" class="form-control" name="FullName" placeholder="First Name" data-ng-model="registration.FirstName" required autofocus>
           
         </div>
         <span class="redColor" ng-if="signup.$submitted && signup.FullName.$valid==false && signup.FullName.$error.required">
-            Name is required.
+           First Name is required.
+        </span>
+    </div>
+
+    <div class="form-group">
+
+        <div class="input-group">
+            <span class="input-group-addon"> <i class="fa fa-male"></i></span>
+            <input type="text" class="form-control" name="LastName" placeholder="Last Name" data-ng-model="registration.LastName" required autofocus>
+
+        </div>
+        <span class="redColor" ng-if="signup.$submitted && signup.LastName.$valid==false && signup.LastName.$error.required">
+            Last Name is required.
         </span>
     </div>
     <div class="form-group">
 
         <div class="input-group">
             <span class="input-group-addon"> <i class="fa fa-globe"></i></span>
-            <input type="text" class="form-control" placeholder="Company Name" name="Company" data-ng-model="registration.Company" required>
+            <input type="text" class="form-control" placeholder="Organization Name" name="Company" data-ng-model="registration.OrganizationName" required>
         </div>
         <span class="redColor" ng-if="signup.$submitted && signup.Company.$valid==false && signup.Company.$error.required">
-            Company Name is required.
+            Organization Name is required.
         </span>
     </div>
+    
+ 
+    <h4>Login Info</h4>
     <div class="form-group">
         <div class="input-group">
             <span class="input-group-addon"> <i class="fa fa-envelope"></i></span>
@@ -52,31 +67,6 @@
         <span class="redColor" ng-if="signup.$submitted && signup.Email.$error.pattern">
             Please fill correct email.
         </span>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"> <i class="fa fa-briefcase"></i></span>
-            <input type="text" class="form-control" placeholder="Account Name" name="Account" data-ng-model="registration.Account" required>
-        </div>
-        <span class="redColor" ng-if="signup.$submitted && signup.Account.$valid==false && signup.Account.$error.required">
-            Account is required.
-        </span>
-    </div>
-    <h4>Login Info</h4>
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"> <i class="fa fa-user"></i></span>
-            <input type="text" class="form-control" placeholder="Username" name="Username" data-ng-model="registration.UserName" required>
-           
-         
-        </div>
-       
-        <span class="redColor" ng-if="signup.$submitted && signup.Username.$valid==false && signup.Username.$error.required">
-            Username is required.
-        </span>
-
-
-       
     </div>
     <div class="form-group">
 

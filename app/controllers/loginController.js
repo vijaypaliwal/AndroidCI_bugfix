@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope','localStorageService', '$location', 'authService', 'ngAuthSettings', function ($scope,localStorageService, $location, authService, ngAuthSettings) {
+app.controller('loginController', ['$scope', 'localStorageService', '$location', 'authService', 'ngAuthSettings', function ($scope, localStorageService, $location, authService, ngAuthSettings) {
 
     $scope.loginData = {
         userName: "",
@@ -7,7 +7,7 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
         account: "",
         useRefreshTokens: false
     };
-
+    $scope.IsProduction = true;
     if (serviceBase == "http://dev.style.u8i9.com/API/ClearlyInventoryAPI.svc/") {
 
         $("#currentserver").html("Development");
@@ -16,7 +16,7 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
     else {
         $("#currentserver").html("");
     }
- 
+
     $scope.message = "";
     $scope.DefaultAccount = function () {
 
@@ -49,8 +49,8 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
 
                     if (data.DefaultAccountResult != null && data.DefaultAccountResult.Payload != null) {
                         var _data = data.DefaultAccountResult.Payload;
-                        
-                        
+
+
                     }
                 }
                 else {
@@ -59,7 +59,7 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
 
                 }
 
-             
+
 
 
                 $scope.$apply();
@@ -67,49 +67,87 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
         });
     }
 
-    $scope.InIt = function ()
-    {
+    $scope.GetCurrentDataBase = function () {
+
+        $.ajax({
+
+            type: "POST",
+            url: serviceBase + "GetCurrentDataBase",
+            contentType: 'application/json; charset=utf-8',
+
+            dataType: 'json',
+
+            error: function (err, textStatus, errorThrown) {
+                $scope.IsLoading = false;
+                if (err.readyState == 0 || err.status == 0) {
+
+                }
+                else {
+
+                    if (textStatus != "timeout") {
+
+                        // $scope.ShowErrorMessage("Get default Accounts", 2, 1, err.statusText);
+                    }
+                }
+            },
+
+            success: function (data) {
+
+                if (data.GetCurrentDataBaseResult.Success == true) {
+                    $scope.IsProduction = data.GetCurrentDataBaseResult.Payload == "True" ? true : false;
+                }
+                else {
+                    //   $scope.ShowErrorMessage("Get user Accounts", 1, 1, data.GetUserAccountsResult.Message)
+
+
+                }
+
+
+
+
+                $scope.$apply();
+            }
+        });
+    }
+    $scope.InIt = function () {
         var authLocalData = localStorageService.get('lastlogindata');
 
         console.log("auth local Data");
         console.log(authLocalData);
-        if (authLocalData != null && authLocalData != undefined)
-        {
+        if (authLocalData != null && authLocalData != undefined) {
             $scope.loginData.account = authLocalData.AccountName;
             $scope.loginData.userName = authLocalData.userName;
             $scope.loginData.password = authLocalData.Password;
         }
-
-      //  $scope.DefaultAccount();
+        $scope.GetCurrentDataBase();
+        //  $scope.DefaultAccount();
     }
 
     $scope.InIt();
 
 
-    $scope.login = function ()
-    {
-        
+    $scope.login = function () {
+
         localStorageService.set("ActivityCart", "");
 
         localStorageService.set("SelectedAction", "");
         localStorageService.set("lastlogindata", "");
 
-        authService.login($scope.loginData).then(function (response)
-        {
-           
-           
-            
-           
+        authService.login($scope.loginData).then(function (response) {
+
+
+
+
             $scope.getactivepermission();
 
             $scope.IsOwner = localStorageService.get('IsOwner');
 
-       
-         
-           
+
+
+
             //$location.path('/FindItems');
             $location.path('/Accounts');
-            
+
         },
          function (err) {
              $scope.message = err.error_description;
@@ -117,5 +155,5 @@ app.controller('loginController', ['$scope','localStorageService', '$location', 
          });
     };
 
-   
+
 }]);

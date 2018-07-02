@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('signupController', ['$scope','localStorageService', '$location', '$timeout', 'authService', 'log', function ($scope,localStorageService, $location, $timeout, authService, log) {
+app.controller('signupController', ['$scope', 'localStorageService', '$location', '$timeout', 'authService', 'log', function ($scope, localStorageService, $location, $timeout, authService, log) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -10,14 +10,15 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
         account: "",
         useRefreshTokens: false
     };
+
     $scope.registration = {
-        Name:"",
-    Company:"",
-    Email:"",
-    Account:"",
-    UserName:"",
-    Password:"",
-    TAndC:false
+        FirstName: "",
+        LastName: "",
+        OrganizationName: "",
+        Email: "",
+        UserName: "",
+        Password: "",
+        TAndC: false
     };
     $scope.dataType = "password";
 
@@ -29,7 +30,7 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
         $.ajax
         ({
             type: "POST",
-            url: serviceBase + 'Signup',
+            url: serviceBase + 'NewSignup',
             contentType: 'application/json; charset=utf-8',
 
             dataType: 'json',
@@ -40,20 +41,20 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
                 $('#mysignupModal').hide();
                 $scope.IsProcessing = false;
                 $scope.$apply();
-                if (response.SignupResult.Success == true) {
+                if (response.NewSignupResult.Success == true) {
 
                     log.success("You are successfully registered");
                     localStorageService.set("LatestSignUp", true);
 
-                    localStorageService.set('lastlogindata', { userName: response.SignupResult.Payload.UserName, Password: response.SignupResult.Payload.Password, AccountName: response.SignupResult.Payload.Account });
+                    localStorageService.set('lastlogindata', { userName: response.NewSignupResult.Payload.UserName, Password: response.NewSignupResult.Payload.Password, AccountName: response.NewSignupResult.Payload.Account });
                     //$location.path('/login');
-                    $scope.loginAfterSignup(response.SignupResult.Payload.UserName, response.SignupResult.Payload.UserName, response.SignupResult.Payload.Account);
+                    $scope.loginAfterSignup(response.NewSignupResult.Payload.UserName, response.NewSignupResult.Payload.Password, response.NewSignupResult.Payload.Account);
                     $scope.$apply();
                 }
                 else {
-                    log.error(response.SignupResult.Message);
+                    log.error(response.NewSignupResult.Message);
                 }
-            
+
             },
             error: function (err) {
                 debugger;
@@ -65,7 +66,7 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
 
             }
         });
-       
+
     };
 
 
@@ -84,8 +85,8 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
         $scope.$apply();
         authService.login($scope.loginData).then(function (response) {
 
-         
-         
+
+
 
             $scope.IsOwner = localStorageService.get('IsOwner');
 
@@ -105,9 +106,9 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
     $scope.showpassword = function () {
         $(".showbtn").hide();
         $(".hidebtn").show();
-        $("#Password").attr("type","text");
+        $("#Password").attr("type", "text");
         $scope.$apply();
-       
+
     }
 
 
@@ -118,13 +119,11 @@ app.controller('signupController', ['$scope','localStorageService', '$location',
 
     }
 
-    
 
 
-    $scope.CheckIsRequiredfields=function()
-    {
-        if($scope.registration.Name=="" ||$scope.registration.Company=="" || $scope.registration.Account=="" ||$scope.registration.Email=="" || $scope.registration.UserName=="" ||$scope.registration.Password=="")
-        {
+
+    $scope.CheckIsRequiredfields = function () {
+        if ($scope.registration.Name == "" || $scope.registration.Company == "" || $scope.registration.Account == "" || $scope.registration.Email == "" || $scope.registration.UserName == "" || $scope.registration.Password == "") {
             return true;
         }
         else {
