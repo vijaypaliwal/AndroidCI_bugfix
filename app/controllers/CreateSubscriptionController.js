@@ -89,7 +89,7 @@ app.controller('CreateSubscriptionController', ['$scope', '$location', 'authServ
                     $scope.$apply();
                 }
                 else {
-                    $scope.ShowErrorMessage("Get Credit Card Detail", 1, 1, data.CreateNewSubscriptionResult.Message);
+                 //   $scope.ShowErrorMessage("Get Credit Card Detail", 1, 1, data.CreateNewSubscriptionResult.Message);
 
                 }
                 $scope.IsSaving = false;

@@ -355,6 +355,18 @@
 </div>
 
 <script>
+
+    $(document).on("touchend", "select", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+    });
+
+
+</script>
+
+
+<script>
     $(document).ready(function () {
 
         var d = new Date();
