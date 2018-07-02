@@ -80,6 +80,9 @@
   <preference name="HideKeyboardFormAccessoryBar" value="true"/>
   <preference name="KeyboardShrinksView" value="true" />
   <preference name="SplashScreenDelay" value="10000"/>
+
+  <preference name="android-minSdkVersion" value="27" />
+  
   <icon src="icon.png" />
 
   <icon src=".pgbomit/res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
