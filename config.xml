@@ -68,10 +68,11 @@
   <preference name="webviewbounce" value="true" />
   <preference name="UIWebViewBounce" value="true" />
   <preference name="DisallowOverscroll" value="false" />
-  <preference name="phonegap-version"  value="cli-6.3.0" />
+  <preference name="phonegap-version"  value="cli-6.5.0" />
   <preference name="orientation"   value="default" />
   <preference name="target-device"  value="universal" />
   <preference name="fullscreen" value="false" />
+  
 
   <preference name="StatusBarOverlaysWebView" value="false" />
   <preference name="StatusBarBackgroundColor" value="#2196F3" />
@@ -81,7 +82,6 @@
   <preference name="KeyboardShrinksView" value="true" />
   <preference name="SplashScreenDelay" value="10000"/>
 
-  <preference name="android-minSdkVersion" value="27" />
   
   <icon src="icon.png" />
 
