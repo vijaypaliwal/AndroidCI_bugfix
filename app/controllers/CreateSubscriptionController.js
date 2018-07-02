@@ -34,26 +34,10 @@ app.controller('CreateSubscriptionController', ['$scope', '$location', 'authServ
                  
                    // stripe = Stripe($scope.CreditCard.StripePublicKey);
                     debugger;
-                    console.log(stripe);
-                    elements = stripe.elements();
+                 //   console.log(stripe);
+                  //  elements = stripe.elements();
 
-                    _newcard = elements.create('card', {
-                        style: {
-                            base: {
-                                color: '#069',
-                                fontSize: '16px'
-                            }
-                        }
-                    });
-
-                   // alert(_newcard._componentName);
-                    _newcard.mount('#newcardelement');
-
-                    console.log($('#newcardelement').html());
-
-                    _newcard.on('change', function (event) {
-                        setOutcome(event);
-                    });
+                
 
                     if ($scope.CreditCard.UserCount == 1)
                     {
