@@ -265,7 +265,7 @@
     <ul>
         <li>
             <label for="card_number">Card number</label>
-            <input ng-model="creditcardinfo.Number" type="text" onkeypress="if(this.value.length==16) return false;" name="card_number" id="card_number" placeholder="1234 5678 9012 3456">
+            <input ng-model="creditcardinfo.Number" type="text" onkeyup="if(this.value.length==16) return false;" name="card_number" id="card_number" placeholder="1234 5678 9012 3456">
 
          
         </li>
@@ -299,7 +299,7 @@
 
                 <li>
                     <label for="cvv">CVV</label>
-                    <input ng-model="creditcardinfo.CVV" onkeypress="if(this.value.length==3) return false;" class="form-control" style="text-align:center;padding:0; height:40px;" type="number" name="cvv" id="cvvnumber" maxlength="3" placeholder="123">
+                    <input ng-model="creditcardinfo.CVV" onkeyup="if(this.value.length==3) return false;" class="form-control" style="text-align:center;padding:0; height:40px;" type="number" name="cvv" id="cvvnumber" maxlength="3" placeholder="123">
                 </li>
             </ul>
         </li>
@@ -307,7 +307,7 @@
 
         <li>
             <label>Postal Code</label>
-            <input id="PostalCode" style="padding-top:0;padding-bottom:0;padding-right:0; width:calc(100% - 12px);" onkeypress="if(this.value.length==5) return false;" type="number" class="form-control" ng-model="creditcardinfo.PostalCode" placeholder="43210">
+            <input id="PostalCode" style="padding-top:0;padding-bottom:0;padding-right:0; width:calc(100% - 12px);" onkeyup="if(this.value.length==5) return false;" type="number" class="form-control" ng-model="creditcardinfo.PostalCode" placeholder="43210">
         </li>
 
         

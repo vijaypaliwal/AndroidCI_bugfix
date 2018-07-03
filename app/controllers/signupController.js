@@ -120,7 +120,22 @@ app.controller('signupController', ['$scope', 'localStorageService', '$location'
     }
 
 
+    function init() {
+        $scope.registration = {
+            FirstName: "",
+            LastName: "",
+            OrganizationName: "",
+            Email: "",
+            UserName: "",
+            Password: "",
+            TAndC: false
+        };
+        $scope.$apply();
+        setTimeout(function () {
+            $("#firstName").focus();
 
+        }, 100);
+    }
 
     $scope.CheckIsRequiredfields = function () {
         if ($scope.registration.Name == "" || $scope.registration.Company == "" || $scope.registration.Account == "" || $scope.registration.Email == "" || $scope.registration.UserName == "" || $scope.registration.Password == "") {
@@ -136,5 +151,7 @@ app.controller('signupController', ['$scope', 'localStorageService', '$location'
             $location.path('/login');
         }, 2000);
     }
+
+    init();
 
 }]);

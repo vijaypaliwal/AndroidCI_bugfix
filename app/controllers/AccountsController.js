@@ -108,41 +108,50 @@ app.controller('AccountsController', ['$scope', '$location', 'authService', 'loc
 
 
     $scope.CloseInventory = function (InventoryAccountID) {
-        var box = bootbox.confirm("Are you sure you want to close this inventory ?", function (result) {
-            if (result) {
-                $.ajax({
+       var box = bootbox.confirm({
+            message: "Are you sure you want to close this inventory ?",
+            buttons: {
+                confirm: {
+                    label: 'Close Inventory',
 
-                    type: "POST",
-                    url: serviceBase + "UpdateInventoryStatus",
-                    contentType: 'application/json; charset=utf-8',
+                },
+                cancel: {
+                    label: 'Keep',
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
 
-                    dataType: 'json',
+                        type: "POST",
+                        url: serviceBase + "UpdateInventoryStatus",
+                        contentType: 'application/json; charset=utf-8',
 
-                    data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "InventoryAccountID": InventoryAccountID }),
-                    error: function (err) {
-                    },
+                        dataType: 'json',
 
-                    success: function (data) {
+                        data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "InventoryAccountID": InventoryAccountID }),
+                        error: function (err) {
+                        },
 
-                        if (data.UpdateInventoryStatusResult.Success == true) {
-                            log.success("Inventory Account status successfully updated");
-                            $scope.GetUserAccounts();
+                        success: function (data) {
 
+                            if (data.UpdateInventoryStatusResult.Success == true) {
+                                log.success("Inventory Account status successfully updated");
+                                $scope.GetUserAccounts();
+
+                            }
+                            else {
+                                $scope.ShowErrorMessage("Get user Accounts", 1, 1, data.UpdateInventoryStatusResult.Message);
+
+                            }
+
+                            $scope.$apply();
                         }
-                        else {
-                            $scope.ShowErrorMessage("Get user Accounts", 1, 1, data.UpdateInventoryStatusResult.Message);
+                    });
 
-                        }
 
-                        $scope.$apply();
-                    }
-                });
-
-               
+                }
             }
-
-
-
         });
 
         box.on("shown.bs.modal", function () {

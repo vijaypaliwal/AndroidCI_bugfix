@@ -602,6 +602,12 @@
             else if (button.label == "Cancel") {
                 buttonStr += "<button data-bb-handler='" + key + "' type='button' class='btn " + button.className + "'><i class='fa fa-times'></i> " + button.label + "</button>";
             }
+            else if (button.label == "Keep") {
+                buttonStr += "<button data-bb-handler='" + key + "' type='button' class='btn " + button.className + "'><i class='fa fa-check'></i> " + button.label + "</button>";
+            }
+            else if (button.label == "Close Inventory") {
+                buttonStr += "<button data-bb-handler='" + key + "' style='background-color: #f04124 !important;' type='button' class='btn " + button.className + "'><i class='fa fa-trash-o'></i> " + button.label + "</button>";
+            }
             else {
 
                 buttonStr += "<button data-bb-handler='" + key + "' type='button' class='btn " + button.className + "'><i class='fa fa-times'></i> " + button.label + "</button>";

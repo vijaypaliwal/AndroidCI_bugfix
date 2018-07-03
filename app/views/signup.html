@@ -23,7 +23,7 @@
 
         <div class="input-group">
             <span class="input-group-addon"> <i class="fa fa-male"></i></span>
-            <input type="text" class="form-control" name="FullName" placeholder="First Name" data-ng-model="registration.FirstName" required autofocus>
+            <input type="text" class="form-control" id="firstName" name="FullName" placeholder="First Name" data-ng-model="registration.FirstName" required>
           
         </div>
         <span class="redColor" ng-if="signup.$submitted && signup.FullName.$valid==false && signup.FullName.$error.required">
@@ -35,7 +35,7 @@
 
         <div class="input-group">
             <span class="input-group-addon"> <i class="fa fa-male"></i></span>
-            <input type="text" class="form-control" name="LastName" placeholder="Last Name" data-ng-model="registration.LastName" required autofocus>
+            <input type="text" class="form-control" name="LastName" placeholder="Last Name" data-ng-model="registration.LastName" required >
 
         </div>
         <span class="redColor" ng-if="signup.$submitted && signup.LastName.$valid==false && signup.LastName.$error.required">

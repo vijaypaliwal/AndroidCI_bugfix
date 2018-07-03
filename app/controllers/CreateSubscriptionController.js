@@ -123,12 +123,16 @@ app.controller('CreateSubscriptionController', ['$scope', '$location', 'authServ
     }
 
     function onError(errorMessage) {
+        $scope.IsSaving = false;
+        $scope.$apply();
         alert('Error getting card token', errorMessage);
     }
 
     $scope.CreditCardSubmission = function () {
+        $scope.IsSaving = true;
         cordova.plugins.stripe.createCardToken(card, onSuccess, onError);
     }
+
 
    
 
