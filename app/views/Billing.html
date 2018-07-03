@@ -475,7 +475,7 @@
 
                                 <li>
                                     <label for="cvv">CVV</label>
-                                    <input ng-model="creditcardinfo.CVV" onkeydown="return numberMobile(event, 3)" class="form-control" style="text-align:center;padding:0; " type="number" name="cvv" id="cvvnumber" maxlength="3" placeholder="123">
+                                    <input ng-model="creditcardinfo.CVV" onkeydown="return numberMobile(event, 3)" class="form-control" style="text-align:center;padding:0; " type="number" name="cvv" id="cvvnumber" placeholder="123">
                                 </li>
                             </ul>
                         </li>
@@ -741,7 +741,6 @@
 <script>
     function numberMobile(e, length) {
         if (e.target.value.length > length) {
-            alert("in")
             e.target.value = e.target.value.substr(0, length);
             return false;
         }
