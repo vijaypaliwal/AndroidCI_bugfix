@@ -741,6 +741,8 @@
 <script>
     function numberMobile(e, length) {
         if (e.target.value.length > length) {
+            alert("in")
+            e.target.value = e.target.value.substr(0, length);
             return false;
         }
         return true;
