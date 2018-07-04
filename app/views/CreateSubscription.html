@@ -44,37 +44,98 @@
 <script type="text/javascript" src="https://jquerycreditcardvalidator.com/js/demo.js"></script>
 
 <style>
+
+
+    .btn-next {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        padding: 0;
+        color: #333;
+        background: #f2f2f2;
+        float: right;
+        border: 1px solid #ccc;
+    }
+
+        .btn-next i {
+            color: #888;
+        }
+
+    .list-group {
+        min-height: 40px;
+    }
+
+
+    .list-group-item:nth-child(even) {
+        background: #f5f5f5;
+    }
+
+    .list-group-item:nth-child(odd) {
+        background: #FFF;
+    }
+
     body {
-        font-size: 15px;
-        padding-top: 0;
-        color: #000;
-        opacity: 1;
-        line-height: inherit;
-        font-weight: inherit;
+        background: #fff;
     }
 
-    h4 {
-        font-size: 18px;
-        color: #000;
-    }
-
-    label {
-        color: #000 !important;
-    }
-
-    input {
-        color: #000 !important;
-    }
-
-    select {
-        color: #000 !important;
-    }
-
-    .myform {
-        position: relative;
+    .bottommenu {
+        position: fixed;
+        bottom: 0;
         width: 100%;
+        left: 0;
+        text-align: center;
+        background: #ccc;
+        color: #333;
+        padding-top: 7px;
+        padding-bottom: 7px;
     }
 
+        .bottommenu i {
+            display: block;
+            font-size: 20px;
+        }
+
+        .bottommenu a:hover {
+            color: #fff;
+        }
+
+    .listbtn a {
+        color: #069;
+    }
+
+    .btn-xs {
+        padding: 1px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    .panel-heading .accordion-toggle:after {
+        /* symbol for "opening" panels */
+        font-family: 'FontAwesome'; /* essential for enabling glyphicon */
+        content: "\f107"; /* adjust as needed, taken from bootstrap.css */
+        float: right; /* adjust as needed */
+        color: white; /* adjust as needed */
+    }
+
+    .panel-heading .accordion-toggle.collapsed:after {
+        /* symbol for "collapsed" panels */
+        content: "\f105"; /* adjust as needed, taken from bootstrap.css */
+    }
+
+   #newcardelement iframe {
+        z-index: 999999 !important;
+    }
+
+    .myform
+    {
+        position:relative;
+        width:100%;
+    }
+
+ 
     form #card_number {
         width: 100%;
         height: 38px;
@@ -82,55 +143,27 @@
     }
 
     #name_on_card {
-        width: calc(100% - 30px);
+        width: 100%;
     }
 
     .vertical li {
         float: left !important;
-        width: 33%;
+        width:33%
     }
 
         .vertical li:last-child input {
-            float: left;
+           float:left;
         }
 
     .vertical input {
-        width: 100%;
+      width:100%;
     }
 
-    .vertical li input, select {
-        border-radius: 0 !important;
-    }
-
-    p {
-        color: #000;
-        margin-bottom: 13px;
-    }
-
-    b {
-        font-weight: 700 !important;
-    }
-
-    form {
-        background: transparent;
-        padding: 0;
-        box-shadow: none;
-        border: none;
-        color: #000;
-        margin: 0;
-        position: relative;
-        width: 100%;
-    }
-
-        form input {
-            box-sizing: inherit;
-        }
-
-    .card-header {
-        color: #000;
+    .vertical li input, select
+    {
+        border-radius:0 !important;
     }
 </style>
-
 <div style="display:block !important; text-align:left; padding-left:15px;" id="toolbar" class="primary-color">
 
     <span class="title"> <i class="fa fa-cogs"></i> Manage Billing</span>

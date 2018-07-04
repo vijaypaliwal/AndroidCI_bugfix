@@ -143,7 +143,7 @@ button.toast-close-button {
   background-color: #030303;
 }
 .toast-success {
-  background-color:rgb(188, 245, 188);
+  background-color:#3CB371;
   color:green;
 border:2px solid rgb(124, 221, 119)
 }
