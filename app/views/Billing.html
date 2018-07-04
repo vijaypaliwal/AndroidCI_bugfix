@@ -365,7 +365,7 @@
 
 
                 <div ng-if="CustomerEdit==false">
-                    <a class="editicon" ng-click="ToggleCustomerEdit()"> <i class="fa fa-pencil"></i> </a>
+                    <a ng-if="IsCustomerOn==true" class="editicon" ng-click="ToggleCustomerEdit()"> <i class="fa fa-pencil"></i> </a>
 
                     <p><b>{{BillingData.MasterAccountID}}</b></p>
                     <p>{{BillingData.Description}}</p>

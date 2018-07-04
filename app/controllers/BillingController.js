@@ -17,6 +17,7 @@ app.controller('BillingController', ['$scope', '$location', 'authService', 'loca
     $scope.ShowInvoicedetails = false;
     $scope.creditcardinfo = { Name: "", Number: "", ExpMonth: "", ExpYear: "", PostalCode: "", CVV: "" }
     $scope.StripePublicKey = "";
+    $scope.IsCustomerOn = true;
     $scope.IsProperEmail = function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -56,7 +57,12 @@ app.controller('BillingController', ['$scope', '$location', 'authService', 'loca
                         $scope.CustomerObj.Name = $scope.BillingData.Description;
                         $scope.creditcardinfo.Name = $scope.BillingData.Description;
                         $scope.StripePublicKey = $scope.BillingData.StripePublicKey;
-
+                        if ($.trim($scope.BillingData.Email) != "") {
+                            $scope.IsCustomerOn = true;
+                        }
+                        else {
+                            $scope.IsCustomerOn = false;
+                        }
 
                         for (var i = 0; i < $scope.BillingData.Subscriptions.length; i++) {
                             $scope.CurrentSubscriptionTotal += $scope.BillingData.Subscriptions[i].Quantity * $scope.BillingData.Subscriptions[i].UnitPrice;
