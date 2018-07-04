@@ -742,6 +742,7 @@
     function numberMobile(e, length) {
         if (e.target.value.length > length) {
             e.target.value = e.target.value.substr(0, length);
+            $(e.target).trigger("input");
             return false;
         }
         return true;
