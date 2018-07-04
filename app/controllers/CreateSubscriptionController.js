@@ -190,11 +190,11 @@ app.controller('CreateSubscriptionController', ['$scope', '$location', 'authServ
         else {
             if (_postelcodelength < 5)
             {
-                log.error("Postel code should be atleast 5 digits");
+                log.error("Postel code should be exactly 5 digits");
             }
             else if (cvv != 3)
             {
-                log.error("CVV should be atleast 3 digits");
+                log.error("CVV should be exactly 3 digits");
             }
             else {
                 log.error("Wrong Credit card Info fill correct")
