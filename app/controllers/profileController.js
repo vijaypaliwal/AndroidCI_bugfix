@@ -14,6 +14,9 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
     $scope.Image={ImageID:0,FileName:"",bytestring:"",Size:0}
     $scope.isSaving = false;
     $scope._isProfileLoading = false;
+
+    $scope.changePassword = {currentPassword:"",newPassword:"",confirmPassword:""}
+
     function init() {
         $scope.CurrentInventory = localStorageService.get("CurrentDetailObject");
         console.log($scope.CurrentInventory);
@@ -29,6 +32,74 @@ app.controller('profileController', ['$scope',  'localStorageService', 'authServ
             $scope.$apply();
         }
     };
+
+    $scope.ischangepassword = false;
+    $scope.changePassword = function () {
+
+        if ($scope.changePassword.newPassword == $scope.changePassword.confirmPassword) {
+
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                $scope.SecurityToken = authData.token;
+            }
+
+
+            $scope.ischangepassword = true;
+
+            $.ajax({
+                url: serviceBase + "ChangePassword",
+                type: 'POST',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "CurrentPassword": $scope.changePassword.currentPassword, "NewPassword": $scope.changePassword.newPassword }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+
+
+
+                    if (result.ChangePasswordResult.Success == true) {
+
+                        log.success("Password changed successfully");
+                        $scope.changePassword.currentPassword="";
+                        $scope.changePassword.newPassword = "";
+                        $scope.changePassword.confirmPassword = "";
+
+                    }
+                    else {
+                        log.error(result.ChangePasswordResult.Message);
+
+                    }
+
+                
+                    $scope.ischangepassword = false;
+                    $scope.$apply();
+
+                },
+                error: function (err) {
+
+                 
+
+                    $scope.ischangepassword = false;
+                    $scope.$apply();
+                },
+                complete: function () {
+
+               
+                    $scope.ischangepassword = false;
+                    $scope.$apply();
+                }
+            });
+
+        }
+
+        else {
+            log.error("New and confirm password not match");
+        }
+
+     
+
+    }
+
+
 
     function removePaddingCharacters(bytes) {
         bytes = bytes.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "");

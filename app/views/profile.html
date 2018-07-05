@@ -16,6 +16,96 @@
     }
 </style>
 
+<style>
+    .redColor {
+        color: red;
+    }
+
+    .accordion {
+        width: 100%;
+       padding-top:60px;
+        background: #FFF;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+        .accordion .link {
+            cursor: pointer;
+            display: block;
+            padding: 15px 15px 15px 42px;
+            color: #069;
+            font-size: 14px;
+            font-weight: 700;
+            border-bottom: 1px solid #CCC;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+            background: #f2f2f2;
+        }
+
+        .accordion li:last-child .link {
+            border-bottom: 0;
+        }
+
+        .accordion li .link i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #595959;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+            .accordion li i.fa-chevron-down {
+                right: 12px;
+                left: auto;
+                font-size: 16px;
+            }
+
+        .accordion li.open .link {
+            color: #fff;
+            background: #2196F3;
+        }
+
+        .accordion li.open i {
+            color: #fff;
+        }
+
+            .accordion li.open i.fa-chevron-down {
+                -webkit-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+
+        .accordion li.default .submenu {
+            display: block;
+        }
+    /**
+    * Submenu
+    -----------------------------*/
+    .submenu {
+        display: none;
+        font-size: 14px;
+        box-shadow: 0 1px 7px rgba(193, 91, 91, 0.15);
+        padding:12px;
+    }
+
+        .submenu li {
+            border-bottom: 1px solid #4b4a5e;
+        }
+
+    
+
+   
+</style>
+
+
+
 <div style="display:none;" class="profilepage">
 
     <div class="detailmode">
@@ -82,40 +172,90 @@
 
         <a ng-click="detailmode()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
 
+        <ul id="accordion" class="accordion">
+
+            <li class="default open">
+                <div class="link"><i class="fa fa-user"></i>Profile Details <i class="fa fa-chevron-down"></i></div>
+                <div class="submenu">
+                    
+                    <form name="myForm">
+                   
+
+                        <div class="form-group">
+                            <label>Name <span>*</span></label>
+                            <input class="form-control" ng-model="firstname" type="text" name="name" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email <span>*</span></label>
+                            <input class="form-control" ng-model="email" type="email" name="name" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Organization</label>
+                            <input class="form-control" ng-model="organization" type="text" name="name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input class="form-control" ng-model="phone" type="text" name="name" />
+                        </div>
+
+                    </form>
+
+                    <a ng-if="isSaving==false" ng-disabled="myForm.$invalid" ng-click="Updateinfo()" class="btn waves-effect btn-primary"> <i class="fa fa-pencil"></i> Update</a>
+                    <a ng-if="isSaving==true" ng-click="Updateinfo()" class="btn btn-primary waves-effect disabled"> <i class="fa fa-pencil fa-spin"></i> Update</a>
+                    <a ng-click="detailmode()" class="waves-effect btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+                    
+
+                </div>
+            </li>
+            <li>
+                <div class="link"><i class="fa fa-cogs"></i>Change Password <i class="fa fa-chevron-down"></i></div>
+                <div class="submenu">
+
+                    <form name="changepasswordform">
+
+                        <div class="form-group">
+                            <label>Current Password <span>*</span> </label>
+                            <input type="text" ng-model="changePassword.currentPassword" class="form-control" name="name" value="" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>New Password <span>*</span></label>
+                            <input ng-model="changePassword.newPassword" type="text" class="form-control" name="name" value="" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Change Password <span>*</span></label>
+                            <input type="text" ng-model="changePassword.confirmPassword" class="form-control" name="name" value="" required />
+                        </div>
 
 
-        <form name="myForm">
-            <br /><br /><br />
+                        <a ng-show="ischangepassword==false" ng-disabled="changepasswordform.$invalid" ng-click="changePassword()" class="btn waves-effect btn-primary"> <i class="fa fa-check"> </i> Change</a>
 
-            <div class="form-group">
-                <label>Name <span>*</span></label>
-                <input class="form-control" ng-model="firstname" type="text" name="name" required />
-            </div>
-          
-            <div class="form-group">
-                <label>Email <span>*</span></label>
-                <input class="form-control" ng-model="email" type="email" name="name" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required />
-            </div>
-            <div class="form-group">
-                <label>Organization</label>
-                <input class="form-control" ng-model="organization" type="text" name="name" />
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input class="form-control" ng-model="phone" type="text" name="name" />
-            </div>
+                        <a ng-show="ischangepassword==true" disabled class="btn waves-effect btn-primary"> <i class="fa fa-spin fa-check"> </i> Change</a>
 
-        </form>
+                        
+                    </form>
+                </div>
+            </li>
+            
+
+        </ul>
+      
+
+        
         <div>
         <br />
         </div>
 
-        <a ng-if="isSaving==false" ng-disabled="myForm.$invalid" ng-click="Updateinfo()" class="btn waves-effect btn-primary"> <i class="fa fa-pencil"></i> Update</a>
-        <a ng-if="isSaving==true" ng-click="Updateinfo()" class="btn btn-primary waves-effect disabled"> <i class="fa fa-pencil fa-spin"></i> Update</a>
-        <a ng-click="detailmode()" class="waves-effect btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+    
         
         
     </div>
+
+
+
+
     <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div style="background:#fff;" class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
@@ -241,6 +381,36 @@
 
  
   
+</script>
+
+<script>
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+
+            // Variables privadas
+            var links = this.el.find('.link');
+            // Evento
+            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            $this = $(this),
+			$next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+
+        var accordion = new Accordion($('#accordion'), false);
+    });
+
 </script>
 
 
