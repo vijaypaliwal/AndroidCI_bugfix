@@ -882,7 +882,14 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
         $(".primary-color").attr('style', 'background-color: ' + data + ' !important');
 
 
+
         $("<style/>", { text: ".title-header {background-color: " + data + "}" }).appendTo('head');
+
+
+        $("<style/>", { text: ".bluearea {background-color: " + data + ' !important' + "}" }).appendTo('head');
+
+        $scope.currentcolor = data;
+
     });
 
 
@@ -964,6 +971,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                         $("<style/>", { text: ".title-header {background-color: " + Inventorycolor + "}" }).appendTo('head');
 
                         $(".primary-color").attr('style', 'background-color: ' + Inventorycolor + ' !important');
+
+                        $("<style/>", { text: ".bluearea {background-color: " + Inventorycolor + ' !important' + "}" }).appendTo('head');
 
                         $("#Inventorylistmodal").modal('hide');
 
