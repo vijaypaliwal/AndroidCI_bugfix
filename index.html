@@ -115,6 +115,7 @@
         .side-nav .no-child {
             border-bottom: 1px solid #f5f5f5;
         }
+      
     </style>
 
 </head>
@@ -224,7 +225,7 @@
                 <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
             </a>
             <ul class="top-menu dropdown-menu">
-                <li><a href="#/Accounts"><i class="fa fa-briefcase"></i> My Accounts</a></li>
+                <li><a href="#/Accounts"><i class="fa fa-cubes"></i> Your Inventories</a></li>
                 <li><a href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
                 <li><a href="#/contact"><i class="fa fa-map-marker"></i> Contact</a></li>
 
@@ -264,7 +265,7 @@
 
 
         <li> <a style="background: #FF5252; color:#fff;" class="no-child"> <i style="color: #1fa67a; font-size: 15px; background: #fff; border-radius: 100%; height: 25px; width: 25px; padding: 0; margin-top: -2px; line-height: 25px;" class="fa fa-circle"> </i> {{CurrentAccount}} </a> </li>
-        <li><a ng-class="getClass('/Accounts')" href="#/Accounts" class="no-child"><i class="fa fa-briefcase"></i> My Accounts</a></li>
+        <li><a ng-class="getClass('/Accounts')" href="#/Accounts" class="no-child"><i class="fa fa-cubes"></i> Your Inventories</a></li>
         <li id="Permissionlink"><a ng-class="getClass('/permission')" href="#/permission" class="no-child"><i class="fa fa-gears"></i> Permissions</a></li>
         <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go to Inventory</a></li>
         <li ng-if="checkpermission('ACTION:CanAddInventory')==true"><a ng-class="getClass('/inventory')" href="#/inventory" class="no-child"><i class="fa fa-plus-circle"></i> Add Inventory</a></li>
