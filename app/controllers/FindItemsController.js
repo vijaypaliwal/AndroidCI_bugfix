@@ -1779,13 +1779,15 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             var originalID = "#actionQty_" + obj.iID;
 
 
-            if ($(originalID).find(".fa-check").css("color") == "rgb(76, 175, 80)") {
+            if ($(originalID).find(".fa-check").css("color") == "rgb(255, 255, 255)") {
 
                 if (_isSelectAll != true) {
 
                     $(originalID).find(".fa-check").css("color", "transparent");
 
-                    $(originalID).parent(".newlistitem").find(".img").css("opacity", "1")
+                    $(originalID).parent(".newlistitem").find(".img").css("opacity", "1");
+                    $(originalID).parent(".newlistitem").find(".img").css("background-color", "transparent")
+                    $(originalID).parent(".newlistitem").find(".img").removeClass("hideimage");
                 }
 
 
@@ -1793,8 +1795,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             else {
                 var _CartObjLimittemp = _isSelectAll == true ? _CartObjLimit : (_CartObjLimit - 1);
                 if ($scope.mainObjectToSend.length <= _CartObjLimittemp) {
-                    $(originalID).find(".fa-check").css("color", "#4CAF50");
-                    $(originalID).parent(".newlistitem").find(".img").css("opacity", "0.4")
+                    $(originalID).find(".fa-check").css("color", "#fff");
+                    $(originalID).parent(".newlistitem").find(".img").css("background-color", "#4caf50")
+                    $(originalID).parent(".newlistitem").find(".img").addClass("hideimage");
                 }
 
             }
@@ -1807,6 +1810,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         }
 
     }
+
+
+
+
     $scope.AddToCartSelectAll = function (obj) {
 
         if (_CanAct == 'True') {
@@ -1816,18 +1823,24 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
 
-            if ($(originalID).find(".fa-check").css("color") == "rgb(76, 175, 80)") {
+            if ($(originalID).find(".fa-check").css("color") == "rgb(255, 255, 255)") {
 
                 $(originalID).find(".fa-check").css("color", "transparent");
 
-                $(originalID).parent(".newlistitem").find(".img").css("opacity", "1")
+                $(originalID).parent(".newlistitem").find(".img").css("opacity", "1");
+
+                $(originalID).parent(".newlistitem").find(".img").css("background-color", "#fff")
+
+                $(originalID).parent(".newlistitem").find(".img").removeClass("hideimage");
 
 
             }
             else {
                 if ($scope.mainObjectToSend.length < _CartObjLimit) {
-                    $(originalID).find(".fa-check").css("color", "#4CAF50");
-                    $(originalID).parent(".newlistitem").find(".img").css("opacity", "0.4")
+                    $(originalID).find(".fa-check").css("color", "#fff");
+                    $(originalID).parent(".newlistitem").find(".img").css("background-color", "transparent");
+
+                    $(originalID).parent(".newlistitem").find(".img").addClass("hideimage");
                 }
 
             }
@@ -2082,7 +2095,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         var _CartObjLimittemp = _isSelectAll == true ? _CartObjLimit : (_CartObjLimit - 1);
         var _count = 0;
 
-        if ($(originalID).find(".fa-check").css("color") == "rgb(76, 175, 80)" && $scope.mainObjectToSend.length <= _CartObjLimittemp) {
+        if ($(originalID).find(".fa-check").css("color") == "rgb(255, 255, 255)" && $scope.mainObjectToSend.length <= _CartObjLimittemp) {
             _isExceededLimit = false;
             $.each($scope.InventoryItems, function (i, v) {
                 if (v.iID == IdToSave) {

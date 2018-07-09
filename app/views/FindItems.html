@@ -4,14 +4,61 @@
 
 <style>
     .form-group.has-feedback {
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     .cartbtn {
         background: #4CAF50;
     }
 
+    .img .thumbimg {
+        border-radius: 0;
+    }
+
+    .cartImage {
+        border-radius: 0;
+    }
+
+    .hideimage img {
+        visibility: hidden;
+    }
+
+    .hideimage .fa-shopping-cart {
+        visibility: hidden;
+    }
+
+    .cartcounter {
+        position: absolute;
+    }
+
+    .cartcounter {
+        position: absolute;
+        font-size: 12px !important;
+        height: 25px;
+        width: 25px;
+        border-radius: 100%;
+        background: brown;
+        margin-top: -18px;
+        line-height: 21px;
+    }
+
+    .cartbtn {
+        position: fixed;
+        bottom: 23px;
+        right: 20px;
+        z-index: 13000;
+        color: #fff !important;
+        height: 38px;
+        width: 70px;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 46px;
+        border-radius: 20px;
+    }
 </style>
+
+
+
 
 
 <div class="title-header">
@@ -401,9 +448,9 @@
         </div>
     </div>
 
-    <a data-backdrop="static" style="text-decoration:none;" ng-click="OpentransactionModal()" class="animated {{CurrentActiveClass}} cartbtn waves-effect btn-floating" ng-if="mainObjectToSend.length>0">
+    <a data-backdrop="static" style="text-decoration:none;" ng-click="OpentransactionModal()" class="animated {{CurrentActiveClass}} cartbtn" ng-if="mainObjectToSend.length>0">
         <span class="cartcounter" style="font-size:32px;"> {{mainObjectToSend.length}}</span>
-        <i style="display:none;" class="cartcrossicon fa fa-times"></i>
+        <i class="fa fa-shopping-cart"></i>
     </a>
 </div>
 <script>
