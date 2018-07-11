@@ -180,9 +180,38 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         _ImgObj.FileName = "IphoneCapture";
         _ImgObj.bytestring = imageData;
-        $scope.ImageList.push(_ImgObj);
-        CheckScopeBeforeApply();
 
+
+        $scope.ImagObject = _ImgObj
+
+        //updated for image crop
+        $scope.myImage = '';
+        $scope.myCroppedImage = '';
+
+        $scope.myImage = imageData;
+
+        CheckScopeBeforeApply();
+        UsFullImg = true;
+        $("#myModalforCropImg").modal("show");
+
+
+        //$scope.ImageList.push(_ImgObj);
+        //CheckScopeBeforeApply();
+
+    }
+
+    $scope.saveCroppedImage = function () {
+        if (!UsFullImg) {
+            $scope.ImagObject.bytestring = "data:image/jpeg;base64," + removePaddingCharacters($("#croppedImage").attr("ng-src"));
+        }
+        else {
+         
+            $scope.ImagObject.bytestring = "data:image/jpeg;base64," + removePaddingCharacters($scope.ImagObject.bytestring);
+        }
+      
+        $scope.ImageList.push($scope.ImagObject);
+        CheckScopeBeforeApply();
+        $("#myModalforCropImg").modal("hide");
     }
 
     $scope.onFail = function (message) {
@@ -264,8 +293,19 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         _ImgObj.FileName = "IphoneLibrary";
         _ImgObj.bytestring = imageData;
-        $scope.ImageList.push(_ImgObj);
+
+
+        $scope.ImagObject = _ImgObj
+
+        //updated for image crop
+        $scope.myImage = '';
+        $scope.myCroppedImage = '';
+
+        $scope.myImage = imageData;
+
         CheckScopeBeforeApply();
+        UsFullImg = true;
+        $("#myModalforCropImg").modal("show");
 
     }
 
