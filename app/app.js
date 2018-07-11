@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('ClearlyInventoryApp', ['ngRoute', 'ngSanitize', 'LocalStorageModule', 'angular-loading-bar', 'ngCordova', 'ui.sortable']);
+var app = angular.module('ClearlyInventoryApp', ['ngRoute', 'ngSanitize', 'LocalStorageModule', 'angular-loading-bar', 'ngCordova', 'ui.sortable', 'ngImgCrop']);
 
 app.config(function ($routeProvider) {
 
