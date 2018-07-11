@@ -104,9 +104,37 @@
    
 </style>
 
+<style>
+    .cropArea {
+        overflow: hidden;
+        width: 100%;
+        height: 300px;
+        text-align: center;
+    }
+
+    img-crop {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+    }
+
+        img-crop canvas {
+            position: absolute;
+            top: 50%;
+            max-width: 220px;
+        }
+</style>
 
 
-<div style="display:none;" class="profilepage">
+
+
+
+
+
+
+
+<div style="display:none; position:fixed;width:100%;" class="profilepage">
 
     <div class="detailmode">
         <div class="bluearea">
@@ -121,7 +149,7 @@
 
             <div ng-click="openModel()">
                 <a class="btn-openimage"><i class="fa fa-pencil"></i></a>
-               
+
             </div>
             <div>
                 <br />
@@ -177,9 +205,9 @@
             <li class="default open">
                 <div class="link"><i class="fa fa-user"></i>Profile Details <i class="fa fa-chevron-down"></i></div>
                 <div class="submenu">
-                    
+
                     <form name="myForm">
-                   
+
 
                         <div class="form-group">
                             <label>Name <span>*</span></label>
@@ -204,7 +232,7 @@
                     <a ng-if="isSaving==false" ng-disabled="myForm.$invalid" ng-click="Updateinfo()" class="btn waves-effect btn-primary"> <i class="fa fa-pencil"></i> Update</a>
                     <a ng-if="isSaving==true" ng-click="Updateinfo()" class="btn btn-primary waves-effect disabled"> <i class="fa fa-pencil fa-spin"></i> Update</a>
                     <a ng-click="detailmode()" class="waves-effect btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
-                    
+
 
                 </div>
             </li>
@@ -234,40 +262,38 @@
 
                         <a ng-show="ischangepassword==true" disabled class="btn waves-effect btn-primary"> <i class="fa fa-spin fa-check"> </i> Change</a>
 
-                        
+
                     </form>
                 </div>
             </li>
-            
+
 
         </ul>
-      
 
-        
+
+
         <div>
-        <br />
+            <br />
         </div>
 
-    
-        
-        
+
+
+
     </div>
 
-
-
-
-    <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div style="background:#fff;" class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-            <h4>Image</h4>
-        </div>
-        <div class="modal-body">
-            <img src="{{picURl}}" id="imagepreview" style="max-height:250px;max-width:250px;">
-        </div>
-    </div>
 </div>
 
-<input type="file" style="visibility:hidden" id="files" accept="image/*;" />
+
+
+<div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div style="background:#fff;" class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+        <h4>Image</h4>
+    </div>
+    <div class="modal-body">
+        <img src="{{picURl}}" id="imagepreview" style="max-height:250px;max-width:250px;">
+    </div>
+</div>
 
 <a ng-click="Openbottommenu()" class="menubtn waves-effect btn-info">
     <i class="fa fa-bars"></i>
@@ -301,15 +327,36 @@
                 <a data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
             </li>
         </ul>
+    </div>
+</div>
+<div style="margin-top:15px;" id="myModalforCropImg" class="modal fade" role="dialog">
 
+    <div style="background:#069; color:#fff;" class="modal-header">
+        <h4>Crop Image</h4>
+    </div>
+    <!-- Modal for Croping content-->
+    <div style="background:#fff; overflow-y:auto;" class="modal-body">
+
+
+        <div class="cropArea">
+            <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+        </div>
+
+        <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>
 
 
     </div>
-    
 
+    <div style="background:#f5f5f5" class="modal-footer">
+        <a class="btn btn-primary" ng-click="saveCroppedImage();"> <i class="fa fa-camera"></i> Save Photo</a>
+        <a class="btn btn-gray" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+    </div>
 </div>
+
+<input type="file" id="files" style="visibility:hidden" accept="image/*;" />
+
 <script>
- 
+
 
     var stickyHeaders = (function () {
 
@@ -376,12 +423,14 @@
     })();
 
     $(function () {
-       // stickyHeaders.load($(".followMeBar"));
+        // stickyHeaders.load($(".followMeBar"));
     });
 
- 
-  
+
+
 </script>
+
+
 
 <script>
     $(function () {
@@ -412,6 +461,5 @@
     });
 
 </script>
-
 
 
