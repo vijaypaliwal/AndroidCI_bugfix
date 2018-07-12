@@ -214,6 +214,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    else {
 
                        _UserInfo.picURl = "img/dummy-user48.png";
+                       $("#myimgProfile").attr("src", "img/dummy-user48.png");
+
 
                    }
 

@@ -23,6 +23,11 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
         $scope.$apply();
     }
 
+  
+
+
+  
+
 
 
     //Image Crop 
