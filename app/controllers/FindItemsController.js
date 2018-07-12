@@ -1888,8 +1888,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.DeselectAll = function () {
         _tempCopy = angular.copy($scope.mainObjectToSend);
         $('#mylist .checkicon').each(function () {
-            $(this).parent(".newlistitem").find(".img").css("opacity", "1")
+            $(this).parent(".newlistitem").find(".img").css("background-color", "transparent");
+            $(this).parent(".newlistitem").find(".img").removeClass("hideimage");
             $(this).find(".fa-check").css("color", "transparent");
+
+          //  $(originalID).parent(".newlistitem").find(".img").css("background-color", "transparent")
+         //   $(originalID).parent(".newlistitem").find(".img").removeClass("hideimage");
+
             var originalID = "#" + $(this).attr("id");
             var _invID = parseFloat($(this).attr("inv-id"));
             for (var i = 0; i < _tempCopy.length; i++) {
