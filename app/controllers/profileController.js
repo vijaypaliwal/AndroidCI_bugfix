@@ -458,14 +458,14 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
         //$scope.Image.bytestring = removePaddingCharacters($scope.Image.bytestring);
 
+        $scope.Image.bytestring = removePaddingCharacters(croppeddata);
 
-
-        if (!UsFullImg) {
-            $scope.Image.bytestring = removePaddingCharacters($("#croppedImage").attr("ng-src"));
-        }
-        else {
-            $scope.Image.bytestring = removePaddingCharacters($scope.Image.bytestring);
-        }
+        //if (!UsFullImg) {
+        //    $scope.Image.bytestring = removePaddingCharacters(croppeddata);
+        //}
+        //else {
+        //    $scope.Image.bytestring = removePaddingCharacters($scope.Image.bytestring);
+        //}
 
         $.ajax
            ({

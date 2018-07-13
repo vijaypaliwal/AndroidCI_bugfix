@@ -331,6 +331,9 @@
 		image.src = src;
 
 
+		croppeddata = src;
+
+
 		console.log(src);
         
 
