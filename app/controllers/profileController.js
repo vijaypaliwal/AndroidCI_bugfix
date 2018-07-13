@@ -305,7 +305,7 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
             $scope.myImage = _ImgObj.bytestring;
 
 
-            alert("Call Cropper");
+        
 
 
             cropper.showImage(data)
@@ -361,10 +361,10 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
         $scope.myImage = imageData;
 
 
-        alert("Call Cropper 1");
+    
         cropper.showImage(imageData);
 
-        alert("Call Cropper 2");
+      
 
 
 
@@ -410,10 +410,10 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
         $scope.myImage = imageData;
 
 
-        alert("Call Cropper 11");
+     
         cropper.showImage(imageData);
 
-        alert("Call Cropper 22");
+     
 
 
         CheckScopeBeforeApply();
