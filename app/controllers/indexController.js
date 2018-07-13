@@ -35,6 +35,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     $scope.IsActiveItemLibrary = true;
     $scope.IsActiveItemGroupLibrary = true;
 
+    $scope.showinventory = false;
+
     $scope.CurrentAccount = localStorageService.get('AccountID');
 
     $scope.MonthlistGlobal = [];
@@ -598,6 +600,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
     $scope.$on('$locationChangeStart', function (event) {
 
 
+        $scope.showinventory = false;
+
 
         var _path = $location.path();
 
@@ -862,8 +866,23 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.showinventories = function () {
 
-        $("#Inventorylistmodal").modal("show");
+        $scope.showinventory = true;
+        $scope.$apply();
     }
+
+    $scope.hideinventorylist = function myfunction() {
+        $scope.showinventory = false;
+        $scope.$apply();
+    }
+
+    var deviceheight = $(window).height();
+
+    $scope.modalheight = deviceheight;
+
+  
+
+   
+ 
 
 
     $scope.$on("SendUp", function (evt, data) {
@@ -979,9 +998,9 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
                         $("<style/>", { text: ".bluearea {background-color: " + Inventorycolor + ' !important' + "}" }).appendTo('head');
 
-                        $("#Inventorylistmodal").modal('hide');
+                      //  $("#Inventorylistmodal").modal('hide');
 
-                   
+                        $scope.showinventory = false;
 
                         $location.path("/permission");
                         localStorageService.set('InventoryColor', Inventorycolor);

@@ -38,16 +38,28 @@
 
         #Inventorylistmodal {
             background: #fff;
-            width: calc(100% - 50px);
+            width: calc(100% - 20px);
+            margin-left: 10px;
             margin: 0 auto;
-            margin-top: 25px;
+            margin: 0 auto;
+            margin-top: 10px;
             bottom: auto;
-            overflow: hidden;
+            margin-top: 14px;
+            position: fixed;
+            z-index: 1100;
+            ;
+            left: 10px;
         }
 
             #Inventorylistmodal .modal-header {
                 background-color: #f5f5f5;
             }
+
+                #Inventorylistmodal .modal-header h4 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    color: #5f5f5f;
+                }
 
             #Inventorylistmodal .modal-footer {
                 background-color: #ccc;
@@ -65,7 +77,7 @@
             #Inventorylistmodal .modal-body {
                 min-height: 370px;
                 overflow-y: auto;
-                max-height: 400px;
+             
             }
 
             #Inventorylistmodal .btn {
@@ -77,7 +89,7 @@
             }
 
             #Inventorylistmodal .modal-body {
-                padding: 12px;
+                padding: 0;
             }
 
         #toolbar i {
@@ -115,7 +127,77 @@
         .side-nav .no-child {
             border-bottom: 1px solid #f5f5f5;
         }
-      
+
+        .Inventorylist li {
+            list-style-type:none;
+            width:100%;
+        }
+
+            .Inventorylist li a span {
+                padding: 6px;
+                padding-left: 7px;
+                padding-right: 7px;
+                border-radius: 100%;
+            }
+
+            .Inventorylist li a span i
+            {
+                font-size:15px;
+                color:#fff;
+            }
+
+            .Inventorylist li .fa-angle-right
+            {
+                float:right;
+                color:#888;
+
+            }
+
+            .Inventorylist li  a
+            {
+                width:100%;
+                display:block;
+                padding:12px;
+                text-transform:capitalize;
+            }
+            
+             .Inventorylist li:nth-child(even) {
+                background: #fbfbfb;
+            }
+
+            .Inventorylist li:nth-child(odd) {
+                background: #fff;
+            }
+
+        .arrow_box {
+            position: relative;
+         
+        }
+
+            .arrow_box:after, .arrow_box:before {
+                bottom: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .arrow_box:after {
+                border-color: rgba(136, 183, 213, 0);
+                border-bottom-color: #ccc;
+                border-width: 15px;
+                margin-left: -21px;
+            }
+
+            .arrow_box:before {
+                border-color: rgba(194, 225, 245, 0);
+                border-bottom-color: #f5f5f5;
+                border-width: 20px;
+                margin-left: -26px;
+            }
     </style>
 
 </head>
@@ -142,23 +224,30 @@
     </div>
 
 
-    <div id="Inventorylistmodal" class="modal animated zoomIn">
-        <div class="modal-header">
-            <h4> <i class="fa fa-cubes"></i> Select Your Inventory</h4>
+    <div ng-show="showinventory==true" id="Inventorylistmodal" class="animated zoomIn">
+
+        <div class="arrow_box"></div>
+
+        <div class="modal-header ">
+            <h4> <i class="fa fa-cubes"></i> Your Inventories <a ng-click="hideinventorylist()" class="pull-right"> <i class="fa fa-times-circle"></i> </a></h4>
+        </div>
+        <div style="max-height: calc({{ modalheight}}px - 125px); " class="modal-body">
+
+
+            <ul class="Inventorylist">
+                <li ng-repeat="obj in MyInventories" ng-click="changeInventory(obj.InventoryAccountID, obj.InventoryName, obj.BackColor)">
+                    <a>
+                        <span style="background-color:{{obj.BackColor}} !important"><i class="fa fa-cube"></i></span> {{obj.InventoryName}} <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+
+
+
+
         </div>
 
-        <div class="modal-body">
 
-            <a ng-click="changeInventory(obj.InventoryAccountID, obj.InventoryName, obj.BackColor)" style="background-color:{{obj.BackColor}} !important" ng-repeat="obj in MyInventories" class="btn btn-danger"> <i class="fa fa-cube"></i> {{obj.InventoryName}} </a>
-
-
-        </div>
-
-        <div class="modal-footer">
-
-            <a data-dismiss="modal">Close</a>
-
-        </div>
     </div>
 
 
@@ -240,6 +329,8 @@
 
 
     <div class="container" id="viewdata">
+
+     
         <div data-ng-view="">
         </div>
 
