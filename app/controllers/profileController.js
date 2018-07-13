@@ -302,6 +302,12 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
             $scope.myImage = _ImgObj.bytestring;
 
+
+            alert("Call Cropper");
+
+
+            cropper.showImage(data)
+
             //$scope.uploadProfile();
 
         }, 100);
@@ -351,6 +357,12 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
         $scope.myCroppedImage = '';
 
         $scope.myImage = imageData;
+
+
+        alert("Call Cropper 1");
+        cropper.showImage(data);
+
+        alert("Call Cropper 2");
 
 
 

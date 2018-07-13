@@ -340,11 +340,20 @@
     <div style="background:#fff; overflow-y:auto;" class="modal-body">
 
 
-        <div class="cropArea">
+        <canvas id="testCanvas" width="600" height="450" style="border: 1px solid black;">Your browser does not support canvas.</canvas>
+
+
+
+        <input type="button" onclick="cropper.startCropping()" value="Start cropping" />
+        <input type="button" onclick="cropper.getCroppedImageSrc()" value="Crop" />
+        <input type="button" onclick="cropper.restore()" value="Restore" />
+
+
+        <!--<div class="cropArea">
             <img-crop area-type="square" image="myImage" result-image="myCroppedImage"></img-crop>
         </div>
 
-        <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>
+        <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>-->
 
 
     </div>
