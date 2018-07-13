@@ -25,9 +25,11 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
   
 
-
+    alert("Cropper start 0");
   
+    cropper.start(document.getElementById("testCanvas"), 1);
 
+    alert("Cropper start 1");
 
 
     //Image Crop 
