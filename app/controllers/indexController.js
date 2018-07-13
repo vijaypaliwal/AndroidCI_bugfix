@@ -37,6 +37,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.showinventory = false;
 
+    $scope.showinvloader = false;
+
     $scope.CurrentAccount = localStorageService.get('AccountID');
 
     $scope.MonthlistGlobal = [];
@@ -927,6 +929,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.changeInventory = function (AccountID, AccountName, Inventorycolor) {
 
+        $scope.showinvloader = true;
+
         var authData = localStorageService.get('authorizationData');
 
         if (authData) {
@@ -943,6 +947,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
             data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "AccountID": AccountID }),
             error: function (err, textStatus) {
+
+                $scope.showinvloader = false;
                 $scope.UOMSearching = false;
                 debugger;
                 $scope.IsLoading = false;
@@ -981,6 +987,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                         $scope.GetProfileData();
 
                         $scope.IsLoading = false;
+
+                        $scope.showinvloader = false;
 
                         $scope.getactivepermission();
 
@@ -1022,6 +1030,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
                 }
                 else {
                     $scope.IsLoading = false;
+
+                    $scope.showinvloader = false;
                     $scope.$apply();
                     $scope.ShowErrorMessageAccount("update security token", 1, 1, data.UpdateSecurityTokenResult.Message);
                 }

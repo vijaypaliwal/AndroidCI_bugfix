@@ -200,6 +200,26 @@
                 border-width: 20px;
                 margin-left: -26px;
             }
+
+        .changeinvloader {
+            width: 100%;
+            position: fixed;
+            text-align: center;
+        }
+        
+        
+        
+         .changeinvloader div {
+         
+            margin: 0 auto;
+            padding: 10px;
+            padding-top: 15px;
+            margin-top: 75px;
+          
+            border-radius: 5px;
+            width:160px;
+          
+        }
     </style>
 
 </head>
@@ -234,6 +254,19 @@
             <h4> <i class="fa fa-cubes"></i> Your Inventories <a ng-click="hideinventorylist()" class="pull-right"> <i class="fa fa-times-circle"></i> </a></h4>
         </div>
         <div style="max-height: calc({{ modalheight}}px - 125px); " class="modal-body">
+
+
+            <div ng-show="showinvloader==true" class="changeinvloader">
+
+                <div class="primary-color">
+
+                    <p><img style="width:35px;" src="img/loader1.gif" alt="Alternate Text" /></p>
+
+                    <p>Please wait...</p>
+
+                </div>
+
+            </div>
 
 
             <ul class="Inventorylist">
