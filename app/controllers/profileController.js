@@ -25,11 +25,11 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
   
 
-    alert("Cropper start 0");
+   
   
     cropper.start(document.getElementById("testCanvas"), 1);
 
-    alert("Cropper start 1");
+  
 
 
     //Image Crop 
@@ -403,13 +403,17 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
         _ImgObj.bytestring = imageData;
         $scope.Image = _ImgObj;
 
-
         //updated
         $scope.myImage = '';
         $scope.myCroppedImage = '';
 
         $scope.myImage = imageData;
 
+
+        alert("Call Cropper 11");
+        cropper.showImage(imageData);
+
+        alert("Call Cropper 22");
 
 
         CheckScopeBeforeApply();
@@ -437,7 +441,6 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
     $scope.capturePhotoNew = function () {
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
             quality: 50,
-        
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: false,
