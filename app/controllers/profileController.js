@@ -360,7 +360,7 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
 
         alert("Call Cropper 1");
-        cropper.showImage(data);
+        cropper.showImage(imageData);
 
         alert("Call Cropper 2");
 
