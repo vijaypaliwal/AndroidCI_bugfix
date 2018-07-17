@@ -155,5 +155,11 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
          });
     };
 
+    $scope.gotoregister = function () {
+        var url = "https://account.inventory4.com/signup";
+
+        var ref = window.open(url, '_blank', 'location=no');
+    }
+
 
 }]);
