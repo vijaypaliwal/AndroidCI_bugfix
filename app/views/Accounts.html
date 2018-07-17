@@ -13,20 +13,19 @@
         color: #333;
         background: #f2f2f2;
         float: right;
-        border:1px solid #ccc;
+        border: 1px solid #ccc;
     }
 
-    .btn-next i
-    {
-        color:#888;
+        .btn-next i {
+            color: #888;
+        }
+
+    .list-group {
+        min-height: 40px;
     }
-    .list-group
-    {
-        min-height:40px;
-    }
-    
-    
-     .list-group-item:nth-child(even) {
+
+
+    .list-group-item:nth-child(even) {
         background: #f5f5f5;
     }
 
@@ -49,26 +48,25 @@
         padding-top: 7px;
         padding-bottom: 7px;
     }
-    .bottommenu i
-    {
-        display:block;
-        font-size:20px;
+
+        .bottommenu i {
+            display: block;
+            font-size: 20px;
+        }
+
+        .bottommenu a:hover {
+            color: #fff;
+        }
+
+    .row.listbtn {
+        height: 25px;
     }
 
-    .bottommenu a:hover
-    {
-        color:#fff;
-    }
 
-    .row.listbtn 
-    {
-        height:25px;
-    }
-    
-    
-     .listbtn a {
+    .listbtn a {
         color: #069;
     }
+
     .btn-xs {
         padding: 1px 5px;
         font-size: 12px;
@@ -82,18 +80,15 @@
         content: "\f107"; /* adjust as needed, taken from bootstrap.css */
         float: right; /* adjust as needed */
         color: #069; /* adjust as needed */
-        width:11px;
-      
+        width: 11px;
     }
 
     .panel-heading .accordion-toggle.collapsed:after {
         /* symbol for "collapsed" panels */
         content: "\f105"; /* adjust as needed, taken from bootstrap.css */
-     
     }
 
-    .sub-btn
-    {
+    .sub-btn {
         width: 100%;
         margin-top: 10px;
         margin-bottom: 20px;
@@ -117,12 +112,11 @@
         margin-bottom: 7px;
     }
 
-    .panel p i
-    {
-        font-size:18px;
-        color:#888;
-        width:18px;
-    }
+        .panel p i {
+            font-size: 18px;
+            color: #888;
+            width: 18px;
+        }
 
     .bottomlinks {
         position: absolute;
@@ -141,25 +135,22 @@
         margin-bottom: 0 !important;
         border-radius: 25px;
         font-size: 17px !important;
-        text-align:center;
+        text-align: center;
     }
 
-    .col-xs-9
-    {
-        padding-left:0;
-        padding-right:0;
+    .col-xs-9 {
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    .col-xs-3
-    {
-        padding-left:0;
-        padding-right:5px;
+    .col-xs-3 {
+        padding-left: 0;
+        padding-right: 5px;
     }
 
-    .col-xs-3 a
-    {
-        margin-top:10px;
-    }
+        .col-xs-3 a {
+            margin-top: 10px;
+        }
 
     .container .row {
         margin-left: 0;
@@ -170,12 +161,10 @@
 
 
 <div style="display:block !important;" id="toolbar" class="primary-color">
-   
+
     <span class="title"> <i class="fa fa-cogs"></i> Manage Your Inventories</span>
 
-  
 
-    
 </div>
 
 
@@ -184,7 +173,7 @@
 <div style="text-align:center; margin-bottom:15px;">
 
     <img style="height:55px; width: 55px; background: #2196F3; padding: 10px; margin-top:20px; border-radius: 100%;" src="img/u2.png" alt="Alternate Text" />
-  
+
 </div>
 
 <div ng-show="Addinventory==false" class="animated slideInDown">
@@ -196,7 +185,7 @@
     </div>
 
 
-    <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()"  type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
+    <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
 
     <!--<ul class="list-group">
 
@@ -211,10 +200,10 @@
                     </div>
 
                 <div class="col-xs-8">
-                 
+
                     <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
                     <p>{{_obj.Email}}</p>
-                    <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired==true">TRIAL </span> <span ng-if="_obj.TrialExpired!=true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small> 
+                    <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired==true">TRIAL </span> <span ng-if="_obj.TrialExpired!=true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small>
                     <div style="padding-top:5px;" class="row listbtn">
                         <div class="col-md-12">
                             <a >Edit</a> | <a >Update status</a> | <a >Subscibe</a>
@@ -224,7 +213,7 @@
 
             </div>
 
-            
+
 
         </li>
 
@@ -233,7 +222,7 @@
 
     <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID==_obj.MasterAccountID">
-            <div class="panel-heading"  role="tab" id="heading{{_obj.InventoryAccountID}}">
+            <div class="panel-heading" role="tab" id="heading{{_obj.InventoryAccountID}}">
                 <h4 class="panel-title">
 
                     <div class="row">
@@ -249,57 +238,57 @@
                     </div>
 
 
-                  
+
                 </h4>
             </div>
             <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div  class="panel-body">
+                <div class="panel-body">
                     <p style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
                     <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
 
                     <p><span ng-if="_obj.DaysRemaining>0">({{_obj.DaysRemaining}} days remaining) </span></p>
 
-                  
+
                     <div class="row listbtn">
                         <div class="col-md-12 bottomlinks">
-                         
-                             <a ng-click="OpenEditInventoryModal(_obj)">Edit</a> | <a ng-click="CloseInventory(_obj.InventoryAccountID)">Update status</a>  <a ng-if="_obj.DaysRemaining>0" href="#/CreateSubscription">| Create new Subscription</a>
+
+                            <a ng-click="OpenEditInventoryModal(_obj)">Edit</a> | <a ng-click="CloseInventory(_obj.InventoryAccountID)">Update status</a>  <a ng-if="_obj.DaysRemaining>0" href="#/CreateSubscription">| Create new Subscription</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
 
-    
-
-        <p style="background: #ccc; margin-bottom: 0; padding: 15px;"><i style="color:#888" class="fa fa-cubes"></i> Other Inventories </p>
-
-        <!--<ul class="list-group">
-            <li ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID!=_obj.MasterAccountID" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.InventoryName,_obj.InventoryAccountID)==true}">
 
 
-                <div class="row">
+    <p style="background: #ccc; margin-bottom: 0; padding: 15px;"><i style="color:#888" class="fa fa-cubes"></i> Other Inventories </p>
+
+    <!--<ul class="list-group">
+        <li ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID!=_obj.MasterAccountID" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.InventoryName,_obj.InventoryAccountID)==true}">
 
 
-                    <div ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName)" class="col-xs-10">
-                        <h4>{{_obj.InventoryName}} <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired!=true">TRIAL </span> <span ng-if="_obj.TrialExpired==true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small> </h4>
-                        <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
-                        <p>{{_obj.Email}}</p>
+            <div class="row">
 
-                    </div>
 
-                    <div class="col-xs-2" ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)">
-                        <a class="btn btn-next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </div>
+                <div ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName)" class="col-xs-10">
+                    <h4>{{_obj.InventoryName}} <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired!=true">TRIAL </span> <span ng-if="_obj.TrialExpired==true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small> </h4>
+                    <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
+                    <p>{{_obj.Email}}</p>
 
                 </div>
 
-            </li>
-        </ul>-->
+                <div class="col-xs-2" ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)">
+                    <a class="btn btn-next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </li>
+    </ul>-->
 
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -328,12 +317,11 @@
                     <p style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
                     <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
                     <p><span ng-if="_obj.DaysRemaining>0">{{_obj.DaysRemaining}} days remaining </span></p>
-                   
-                    
+
+
                 </div>
             </div>
         </div>
-
 
     </div>
 </div>
@@ -342,48 +330,18 @@
 
 
 <div ng-if="Addinventory==true" class="animated zoomIn" style="background:#fff;padding:10px;">
-    
-    <div ng-if="IsAddInventoryShown==true">
-        <span ng-if="OwnedInventoryCount>1 && InventoryObj.InventoryAccountID==0" style="display:block;" class="alert alert-info">
-            Additional inventories are only $29.99, share your users across inventories for Free!
-        </span>
 
-        <div class="form-group">
-            <label>Inventory Name</label>
-            <input type="text" class="form-control" name="name" ng-model="InventoryObj.InventoryAccountName" />
-        </div>
-        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==false" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus"></i> Add </a>
-        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==true" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus fa-spin"></i> Add </a>
-        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==false" ng-click="UpdateInventoryName()"> <i class="fa fa-pencil"></i> Update </a>
-        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==true" > <i class="fa fa-pencil fa-spin"></i> Update </a>
+    <p style=" color: #6b1110; background-color: #f5d2d2; border-color: #f1c1c0; font-size:15px; " class="alert">
+        You have not subscribed to create new inventory
+        please create subscription by web App.
+    </p>
 
-        
-        <a ng-click="CancelNewAccount()" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel </a>
 
-    </div>
-    <div ng-if="IsAddInventoryShown==false">
-        <a class="btn btn-primary sub-btn" href="#/CreateSubscription"> <i class="fa fa-plus"></i> Create Subscription </a>
-        <a ng-click="CancelNewAccount()" class="btn btn-gray sub-btn"> <i class="fa fa-times"></i> Cancel </a>
-    </div>
+
+    <a ng-click="CancelNewAccount()" class="btn btn-gray sub-btn"> Cancel </a>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <br /><br />
-    </div>
-</div>
 
-<div class="bottommenu">
-    <div class="row">
-        <div style="border-right: 1px solid #888; color: #2196F3;" class="col-xs-6">
-          
-            <a><i class="fa fa-cubes"></i>Inventories</a>
-        </div>
-        <div class="col-xs-6">
-          
-            <a href="#/Billings"><i class="fa fa-credit-card"></i>Billing Info</a>
-        </div>
-    </div>
 
-</div>
+
 
