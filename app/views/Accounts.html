@@ -329,19 +329,36 @@
 <p ng-if="Addinventory==true" style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Add/Update Inventory </p>
 
 
+
+
+
 <div ng-if="Addinventory==true" class="animated zoomIn" style="background:#fff;padding:10px;">
 
-    <p style=" color: #6b1110; background-color: #f5d2d2; border-color: #f1c1c0; font-size:15px; " class="alert">
-        You have not subscribed to create new inventory
-        please create subscription by web App.
-    </p>
+    <div ng-if="IsAddInventoryShown==true">
+        <span ng-if="OwnedInventoryCount>1 && InventoryObj.InventoryAccountID==0" style="display:block;" class="alert alert-info">
+            Additional inventories are only $29.99, share your users across inventories for Free!
+        </span>
+
+        <div class="form-group">
+            <label>Inventory Name</label>
+            <input type="text" class="form-control" name="name" ng-model="InventoryObj.InventoryAccountName" />
+        </div>
+        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==false" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus"></i> Add </a>
+        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==true" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus fa-spin"></i> Add </a>
+        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==false" ng-click="UpdateInventoryName()"> <i class="fa fa-pencil"></i> Update </a>
+        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==true"> <i class="fa fa-pencil fa-spin"></i> Update </a>
 
 
+        <a ng-click="CancelNewAccount()" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel </a>
 
-    <a ng-click="CancelNewAccount()" class="btn btn-gray sub-btn"> Cancel </a>
+    </div>
+    <div ng-if="IsAddInventoryShown==false">
+        <p style=" color: #6b1110; background-color: #f5d2d2; border-color: #f1c1c0; font-size:15px; " class="alert">
+            You have not subscribed to create new inventory
+            please create subscription by web App.
+        </p>
+        <a ng-click="CancelNewAccount()" class="btn btn-gray sub-btn"> <i class="fa fa-times"></i> Cancel </a>
+    </div>
 </div>
-
-
-
 
 
