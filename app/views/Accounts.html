@@ -81,6 +81,7 @@
         float: right; /* adjust as needed */
         color: #069; /* adjust as needed */
         width: 11px;
+        margin-left:6px;
     }
 
     .panel-heading .accordion-toggle.collapsed:after {
@@ -156,6 +157,16 @@
         margin-left: 0;
         margin-right: 0;
     }
+
+    #toolbar .title {
+        background: transparent;
+        color: #fff;
+        padding: 5px;
+        border-radius: 15px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        font-size: 17px;
+    }
 </style>
 
 
@@ -185,7 +196,7 @@
     </div>
 
 
-    <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
+    <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; display:none; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
 
     <!--<ul class="list-group">
 
@@ -243,18 +254,18 @@
             </div>
             <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-                    <p style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
+                    <p ng-if="_obj.FirstName != ''" style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
                     <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
 
                     <p><span ng-if="_obj.DaysRemaining>0">({{_obj.DaysRemaining}} days remaining) </span></p>
 
 
-                    <div class="row listbtn">
+                    <!--<div class="row listbtn">
                         <div class="col-md-12 bottomlinks">
 
                             <a ng-click="OpenEditInventoryModal(_obj)">Edit</a> | <a ng-click="CloseInventory(_obj.InventoryAccountID)">Update status</a>  <a ng-if="_obj.DaysRemaining>0" href="#/CreateSubscription">| Create new Subscription</a>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

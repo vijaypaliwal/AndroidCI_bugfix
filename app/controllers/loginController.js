@@ -18,6 +18,8 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     }
 
     $scope.message = "";
+
+    $scope.passwordtype = "password";
     $scope.DefaultAccount = function () {
 
 
@@ -142,10 +144,13 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
 
             $scope.IsOwner = localStorageService.get('IsOwner');
 
-
+            $scope.ProfilePicURl = "img/dummy-user48.png";
 
 
             //$location.path('/FindItems');
+
+            localStorageService.set("ShowImageRecords", "true");
+
             $location.path('/Accounts');
 
         },
@@ -155,10 +160,23 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
          });
     };
 
+
     $scope.gotoregister = function () {
         var url = "https://account.inventory4.com/signup/Mobilesignup";
 
         var ref = window.open(url, '_blank', 'location=no');
+    }
+    $scope.Isshowpassword = true;
+
+
+    $scope.showpassword = function () {
+        $scope.passwordtype = "text";
+        $scope.Isshowpassword = false;
+    }
+
+    $scope.hidepassword = function () {
+        $scope.passwordtype = "password";
+        $scope.Isshowpassword = true;
     }
 
 
