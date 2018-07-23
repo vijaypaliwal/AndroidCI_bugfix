@@ -158,8 +158,8 @@
                                     <div class="checkout-details">
 
 
-                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="height:50px; width:50px; border:1px solid #ccc; border-radius:100%;" class="checkout-image" src="img/default.png" />
-                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="height: 50px; width: 50px; border: 1px solid #ccc; border-radius: 100%;" class="checkout-image" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
+                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="height:50px; width:50px; border:1px solid #ccc; border-radius:0;" class="checkout-image" src="img/default.png" />
+                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="height: 50px; width: 50px; border: 1px solid #ccc; border-radius: 0;" class="checkout-image" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
                                         <div class="checkout-product-title">
                                             <button type="button" ng-click="DeleteItem(CurrentActiveObject)" class="summaryClearbtn pull-right"><i class="fa fa-times-circle"></i> </button>
                                             <h6><span><span style="font-size:18px;">{{CurrentActiveObject.InventoryDataList.oquantity}}  </span> <span> {{CurrentActiveObject.InventoryDataList.uomUOM }} </span>  </span> of {{CurrentActiveObject.InventoryDataList.pPart }} </h6>
@@ -1964,8 +1964,8 @@
 
                                         <i ng-click="DeleteItem(CurrentActiveObject)" class="itemcheckicon fa fa-check"></i>
 
-                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="border-radius: 100%; height: 60px; width: 60px; border: 1px solid #ccc;" src="img/default.png" />
-                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="border-radius: 100%; height: 60px; width: 60px; border: 1px solid #ccc;" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
+                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="border-radius: 0; height: 60px; width: 60px; border: 1px solid #ccc;" src="img/default.png" />
+                                        <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="border-radius: 0; height: 60px; width: 60px; border: 1px solid #ccc;" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
                                     </div>
                                     <div class="col-md-8 col-xs-9">
                                         <div> <span style="font-size:18px;">{{CurrentActiveObject.InventoryDataList.oquantity}}  </span> <span> {{CurrentActiveObject.InventoryDataList.uomUOM }} </span>  of <span> {{CurrentActiveObject.InventoryDataList.pPart }}</span>  </div>
@@ -4185,8 +4185,8 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <i style="top:11px; left:27px;" ng-click="DeleteItem(CurrentActiveObject)" class="itemcheckicon fa fa-check"></i>
-                            <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="height:60px; width:60px; border:2px solid #ccc; border-radius:100%;" src="img/default.png" />
-                            <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="height: 60px; width:60px; border: 2px solid #ccc; border-radius: 100%;" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
+                            <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath==''" style="height:60px; width:60px; border:2px solid #ccc; border-radius:0;" src="img/default.png" />
+                            <img ng-click="DeleteItem(CurrentActiveObject)" ng-if="CurrentActiveObject.InventoryDataList.ImageThumbPath!=''" style="height: 60px; width:60px; border: 2px solid #ccc; border-radius: 0;" src="{{CurrentActiveObject.InventoryDataList.ImageThumbPath}}" alt="" />
                         </div>
                         <div class="col-xs-9">
                             <div><span>{{CurrentActiveObject.InventoryDataList.oquantity}}  </span> <span> {{CurrentActiveObject.InventoryDataList.uomUOM }} </span>  of <span> {{CurrentActiveObject.InventoryDataList.pPart }}</span>  </div>

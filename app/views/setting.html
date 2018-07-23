@@ -55,7 +55,7 @@
 
         <div class="row">
             <div class="col-xs-9">
-                <i class="fa fa-cog"></i> Manage UOM
+                <i class="fa fa-cog"></i> Unit of Measure Library
             </div>
 
 
@@ -74,7 +74,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <i class="fa fa-ban"></i> Manage UOM
+                <i class="fa fa-ban"></i> Unit of Measure Library
             </div>
 
 
@@ -85,7 +85,7 @@
     <button ng-if="checkpermission('URL:Manage/ItemGroup')==true" type="button" ng-click="GoTo('/itemgroup')" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 lime">
         <div class="row">
             <div class="col-xs-9">
-                <i class="fa fa-users"></i> Manage Item Group
+                <i class="fa fa-users"></i> Item Group Library
             </div>
 
             <div class="col-xs-3">
@@ -99,7 +99,7 @@
     <button ng-if="checkpermission('URL:Manage/ItemGroup')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large btn-success width-100 animated bouncein delay-6 restricted">
         <div class="row">
             <div class="col-xs-12">
-                <i class="fa fa-ban"></i> Manage Item Group
+                <i class="fa fa-ban"></i> Item Group Library
             </div>
 
         </div>
@@ -109,7 +109,7 @@
 
         <div class="row">
             <div class="col-xs-9">
-                <i class="fa fa-map-marker"></i>  Manage Location
+                <i class="fa fa-map-marker"></i>  Location Library
 
             </div>
 
@@ -126,7 +126,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <i class="fa fa-ban"></i>  Manage Location
+                <i class="fa fa-ban"></i>  Location Library
 
             </div>
 
@@ -138,7 +138,7 @@
     <button ng-if="checkpermission('URL:Manage/Status')==true" type="button" ng-click="GoTo('/status')" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6">
         <div class="row">
             <div class="col-xs-9">
-                <i class="fa fa-check-circle-o"> </i> Manage Status
+                <i class="fa fa-check-circle-o"> </i>  Status Library
 
             </div>
 
@@ -155,7 +155,7 @@
     <button ng-if="checkpermission('URL:Manage/Status')==false" type="button" ng-click="restricted()" class="waves-effect waves-light btn-large accent-color width-100 animated bouncein delay-6 restricted">
         <div class="row">
             <div class="col-xs-9">
-                <i class="fa fa-ban"> </i> Manage Status
+                <i class="fa fa-ban"> </i> Status Library
 
             </div>
 
@@ -235,7 +235,7 @@
 
     </button>
 
-    <button ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true && checkpermission('URL:configure/CustomFieldItemList.aspx')==true" type="button" ng-click="GoTo('/customfield')" class="waves-effect waves-light btn-large btn-purple width-100 animated bouncein delay-6">
+    <!--<button ng-if="checkpermission('URL:configure/CustomFieldTransList.aspx')==true && checkpermission('URL:configure/CustomFieldItemList.aspx')==true" type="button" ng-click="GoTo('/customfield')" class="waves-effect waves-light btn-large btn-purple width-100 animated bouncein delay-6">
         <div class="row">
             <div class="col-xs-9">
                 <i class="fa fa-eye-slash"></i>    Manage Custom fields
@@ -268,7 +268,7 @@
 
 
 
-    </button>
+    </button>-->
 
     <button type="button" ng-if="checkpermission('URL:configure/default.aspx')==true" ng-click="GoTo('/configuresetting')" class="waves-effect waves-light btn-large btn-lightgreen width-100 animated bouncein delay-6">
         <div class="row">
@@ -317,7 +317,6 @@
             <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-success btn"> <i class="fa fa-plus"></i> </a></li>
             <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect  btn-warning btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li> <a href="#/reportmenu"><span class="newinv">Go to Report</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
-            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
         </ul>
     </div>
 </div>

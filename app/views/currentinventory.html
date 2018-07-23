@@ -12,8 +12,8 @@
 <div class="title-header">
 
     <div class="row">
-        <div class="col-xs-10">
-         <h4 class="titletext">{{CurrentView.Name}} <small>Reports</small></h4>
+        <div class="col-xs-12">
+         <h4 class="titletext">{{CurrentView.Name}}</h4>
         </div>
     </div>
 </div>
@@ -120,9 +120,9 @@
 
                         <tr ng-if="IsAvailableColumn('ImagePath')">
                             <td style="text-align:center;" colspan="2">
-                                <img ng-if="_obj.ImagePath !=''" style="height:55px; width:55px; border-radius:55px;" ng-click="OpenImageModal(_obj.ImagePath,_obj.ImageDisplayName)" src="{{_obj.ImagePath}}" alt="Alternate Text" />
+                                <img ng-if="_obj.ImagePath !=''" style="height:55px; width:55px; border-radius:0px;" ng-click="OpenImageModal(_obj.ImagePath,_obj.ImageDisplayName)" src="{{_obj.ImagePath}}" alt="Alternate Text" />
 
-                                <img ng-if="_obj.ImagePath ==''" style="height:55px; width:55px; border-radius:55px;" src="img/default.png" alt="Alternate Text" />
+                                <img ng-if="_obj.ImagePath ==''" style="height:55px; width:55px; border-radius:0px;" src="img/default.png" alt="Alternate Text" />
                             </td>
 
                         </tr>
@@ -824,7 +824,6 @@
             <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
             <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li> <a href="#/reportmenu"><span class="newinv">All Reports</span></a>  <a href="#/reportmenu" class=" waves-effect accent-color btn"> <i class="fa fa-th-list"></i> </a></li>
-            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
         </ul>
     </div>
 </div>

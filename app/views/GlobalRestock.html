@@ -6,7 +6,7 @@
     <div class="row">
 
         <div class="col-xs-12">
-            <h4 class="titletext">{{CurrentView.Name}} <small>Reports</small></h4>
+            <h4 class="titletext">{{CurrentView.Name}}</h4>
         </div>
 
 
@@ -111,8 +111,8 @@
                     <tbody id="row_{{_obj.pID}}">
                         <tr ng-if="IsAvailableColumn('ImageFileName')">
                             <td style="text-align:center;" colspan="2">
-                                <img ng-if="_obj.ImageFileName !=''" style="height:55px; width:55px; border-radius:55px;" src="{{_obj.ImagePath}}" alt="Alternate Text" />
-                                <img ng-if="_obj.ImageFileName ==''" style="height:55px; width:55px; border-radius:55px;" src="img/default.png" alt="Alternate Text" />
+                                <img ng-if="_obj.ImageFileName !=''" style="height:55px; width:55px; border-radius:0px;" src="{{_obj.ImagePath}}" alt="Alternate Text" />
+                                <img ng-if="_obj.ImageFileName ==''" style="height:55px; width:55px; border-radius:0px;" src="img/default.png" alt="Alternate Text" />
                             </td>
                         </tr>
                         <tr ng-repeat="_obj2 in Columns" ng-class="{'ExtraTr':$index > 2}" ng-if="_obj2.ColumnID!='LeaveBlank' && _obj2.Visible!=false && _obj2.ColumnID != 'Button1' && _obj2.ColumnID != 'Button2' && _obj2.ColumnID != 'ImageFileName' ">
@@ -434,7 +434,6 @@
             <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
             <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li> <a href="#/reportmenu"><span class="newinv">All Reports</span></a>  <a href="#/reportmenu" class=" waves-effect accent-color btn"> <i class="fa fa-th-list"></i> </a></li>
-            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
         </ul>
     </div>
 </div>

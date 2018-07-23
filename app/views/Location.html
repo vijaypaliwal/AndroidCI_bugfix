@@ -144,7 +144,7 @@
 
                 <div class="form-group">
                     <label>Location <span>*</span></label>
-                    <input id="loc" class="form-control" type="text" ng-model="locationdata.LocationName" required />
+                    <input id="loc" class="form-control" autocorrect="off" autocapitalize="none" type="text" ng-model="locationdata.LocationName" required />
                 </div>
 
                 <div class="form-group">
@@ -191,7 +191,6 @@
             <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/UnitOfMeasure')==true"> <a href="#/uom"><span class="newinv">Manage UOM</span></a>  <a href="#/uom" class=" waves-effect btn-success btn"> <i class="fa fa-cog"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
-            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
         </ul>
     </div>
 </div>
