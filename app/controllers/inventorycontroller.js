@@ -3242,6 +3242,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
             $(_ID).trigger("change");
         }
+        playtouch(IsUp);
     }
 
     $scope.GetActiveUnitDataField = function () {
@@ -4742,7 +4743,23 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     //          });
 
     //}
+    function playtouch(noicetype) {
+        if (window.plugins && window.plugins.NativeAudio) {
 
+
+
+            if (noicetype == true || noicetype == "true") {
+                window.plugins.NativeAudio.play('click');
+            }
+
+            else {
+                window.plugins.NativeAudio.play('dclick');
+            }
+
+
+        }
+
+    }
 
 
     $scope.UpDownValue = function (value, IsUp, Type) {
@@ -4805,7 +4822,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         }
 
-
+        playtouch(IsUp);
     }
 
 
