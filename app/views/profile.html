@@ -12,7 +12,7 @@
         position: absolute;
         border-radius: 100%;
         margin-top: -31px;
-        color:#fff !important;
+        color: #fff !important;
     }
 </style>
 
@@ -23,7 +23,7 @@
 
     .accordion {
         width: 100%;
-       padding-top:60px;
+        padding-top: 60px;
         background: #FFF;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -60,11 +60,11 @@
             transition: all 0.4s ease;
         }
 
-            .accordion li i.fa-chevron-down {
-                right: 12px;
-                left: auto;
-                font-size: 16px;
-            }
+        .accordion li i.fa-chevron-down {
+            right: 12px;
+            left: auto;
+            font-size: 16px;
+        }
 
         .accordion li.open .link {
             color: #fff;
@@ -92,16 +92,12 @@
         display: none;
         font-size: 14px;
         box-shadow: 0 1px 7px rgba(193, 91, 91, 0.15);
-        padding:12px;
+        padding: 12px;
     }
 
         .submenu li {
             border-bottom: 1px solid #4b4a5e;
         }
-
-    
-
-   
 </style>
 
 <style>
@@ -123,10 +119,22 @@
             position: absolute;
             top: 50%;
             max-width: 220px;
-            min-width:170px;
-            min-height:170px;
         }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,7 +188,7 @@
 
 
         <div class="container">
-            <h4>Active account - {{CurrentAccount}} </h4>
+            <h4>Active Account - {{CurrentAccount}} </h4>
             <h4>  {{emailLabel}}</h4>
             <h4>{{organizationLabel}}</h4>
             <h4> {{phoneLabel}}</h4>
@@ -192,7 +200,7 @@
         <div class="title-header">
             <div class="row">
                 <div class="col-xs-12">
-                    <h4 class="titletext">Update <small>Profile details</small> </h4>
+                    <h4 class="titletext">Update Profile Details </h4>
                 </div>
             </div>
         </div>
@@ -307,7 +315,7 @@
             <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
             <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li> <a href="#/reportmenu"><span class="newinv">Go to Reports</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
-            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+            
         </ul>
     </div>
 </div>
@@ -331,36 +339,27 @@
         </ul>
     </div>
 </div>
-<div style="margin-top:15px; overflow:hidden;" id="myModalforCropImg" class="modal fade" role="dialog">
+<div style="margin-top: 0px; z-index: 100001;" id="myModalforCropImg" class="modal fade" role="dialog">
 
     <div style="background:#069; color:#fff;" class="modal-header">
         <h4>Crop Image</h4>
     </div>
     <!-- Modal for Croping content-->
-    <div style="background:#fff; overflow-y:auto;" class="modal-body">
+    <div style="background: #fff; overflow-y: auto; height: calc({{cropmodalheight}}px - 140px); " class="modal-body">
 
 
-        <canvas id="testCanvas" width="250" height="320" style="border: 1px solid black;">Your browser does not support canvas.</canvas>
-
-
-
-        <input type="button" onclick="cropper.startCropping()" value="Start cropping" />
-        <input type="button" onclick="cropper.getCroppedImageSrc()" value="Crop" />
-        <input type="button" onclick="cropper.restore()" value="Restore" />
-
-
-        <!--<div class="cropArea">
-            <img-crop area-type="square" image="myImage" result-image="myCroppedImage"></img-crop>
+        <div class="cropArea">
+            <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
         </div>
 
-        <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>-->
+        <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>
 
 
     </div>
 
-    <div style="background:#f5f5f5; text-align:center;" class="modal-footer">
+    <div style="background:#f5f5f5; text-align:left; margin-top:0;" class="modal-footer">
         <a class="btn btn-primary" ng-click="saveCroppedImage();"> <i class="fa fa-camera"></i> Save Photo</a>
-        <a class="btn btn-gray" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+        <a class="btn btn-gray pull-right" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
     </div>
 </div>
 
@@ -472,5 +471,3 @@
     });
 
 </script>
-
-
