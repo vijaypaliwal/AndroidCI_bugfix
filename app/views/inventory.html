@@ -1668,7 +1668,7 @@
 
 <div ng-if="switchmode==true" class="switchmode">
     <div ng-show="itemfields==false" class="row tophead">
-        <div class="col-xs-4">
+        <div style="padding-right:0" class="col-xs-4">
             <div style="float:left;" ng-click="viewimages()" class="" ng-if="IsAvailableMyInventoryColumn('Image')==true">
 
                 <output style="margin-top: 0px;" id="list567">
@@ -1696,9 +1696,9 @@
                 <i class="fa fa-picture-o"></i> <span ng-if="ImageList.length==0"> Add Photo</span><span ng-if="ImageList.length>0"> Add Photo </span>
             </a>
         </div>
-        <div class="col-xs-4">
-            <a class="scanbtn btn btn-gray pull-right" ng-click="ReuseAll('#firstDiv')">
-                <i class="fa fa-refresh"></i> Reuse All
+        <div style="padding-left:0" class="col-xs-4">
+            <a style="padding-left:4px; padding-right:4px; font-size:13px;" class="scanbtn btn btn-gray pull-right" ng-click="ReuseAll('#firstDiv')">
+                <i class="fa fa-undo"></i> Reuse All
             </a>
         </div>
     </div>
