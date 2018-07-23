@@ -846,5 +846,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             $(".imagesection").show();
         }, 300);
     }
+    var deviceheight = $(window).height();
 
+    $scope.cropmodalheight = deviceheight
 }]);

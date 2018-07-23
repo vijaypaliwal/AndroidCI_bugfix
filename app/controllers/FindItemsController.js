@@ -1436,7 +1436,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                         $("#arrow").hide();
                     } else {
-                        $scope.OpenmenuModal();
+                       
                         $(".searchtable").addClass("disablepointer");
                         $("#arrow").attr("style", "");
                         $("#arrow").show();

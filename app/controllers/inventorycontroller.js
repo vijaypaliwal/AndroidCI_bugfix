@@ -2193,17 +2193,16 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
     $scope.ReuseAll = function (ID) {
-
-
-
-
+        $scope.GetLastValue('Inv_ItemID', '#ItemName');
         $(ID).find(".fa-undo").each(function () {
             $(this).parent("span").trigger("click");
         });
 
+        $("#secondDiv").find(".fa-undo").each(function () {
+            $(this).parent("span").trigger("click");
+        });
 
         $(ID).find(".form-group:first").find(".form-control:first").focus();
-
     }
 
 
@@ -5537,7 +5536,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
 
+    var deviceheight = $(window).height();
 
+    $scope.cropmodalheight = deviceheight
 
 }]);
 

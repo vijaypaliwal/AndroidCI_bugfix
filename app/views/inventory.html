@@ -3259,22 +3259,22 @@
     </div>
 </div>
 
-<div style="margin-top:15px;" id="myModalforCropImg" class="modal fade" role="dialog">
+<div style="margin-top:0px;" id="myModalforCropImg" class="modal fade" role="dialog">
 
     <div style="background:#069; color:#fff;" class="modal-header">
         <h4>Crop Image</h4>
     </div>
     <!-- Modal for Croping content-->
-    <div style="background:#fff; overflow-y:auto;" class="modal-body">
+    <div style="background: #fff; overflow-y: auto; height: calc({{cropmodalheight}}px - 140px); " class="modal-body">
         <div class="cropArea">
             <img-crop image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
         </div>
         <div style="display:none;"><img id="croppedImage" ng-src="{{myCroppedImage}}" /></div>
     </div>
 
-    <div style="background:#f5f5f5" class="modal-footer">
+    <div style="background:#f5f5f5; margin-top:0; text-align:left;" class="modal-footer">
         <a class="btn btn-primary" ng-click="saveCroppedImage();"> <i class="fa fa-camera"></i> Save Photo</a>
-        <a class="btn btn-gray" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
+        <a class="btn btn-gray pull-right" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</a>
     </div>
 </div>
 
