@@ -44,7 +44,7 @@
   <plugin name="cordova-plugin-file" source="npm" spec="~4.1.1"/>
 
   <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.5.0"/>
-
+  <plugin name="cordova-plugin-nativeaudio" source="npm"/>
   
   <plugin name="cordova-plugin-network-information" source="npm" spec="1.0.1" />
   <plugin name="cordova-plugin-splashscreen"   source="npm" spec="2.1.0" />
