@@ -976,21 +976,21 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                 $scope.CurrentActiveSearchType = 1;
                 $scope.SearchFromText = "Location";
-                $('#MasterSearch').attr("placeholder", "Search by location");
+                $('#MasterSearch').attr("placeholder", "Search by Location");
                 break;
             case "pPart":
                 $scope.CurrentActiveSearchField = "pPart";
 
                 $scope.CurrentActiveSearchType = 1;
                 $scope.SearchFromText = "Items";
-                $('#MasterSearch').attr("placeholder", "Search by item");
+                $('#MasterSearch').attr("placeholder", "Search by Item");
                 break;
             case "All":
                 $scope.CurrentActiveSearchField = "All";
 
                 $scope.CurrentActiveSearchType = 1;
                 $scope.SearchFromText = "All";
-                $('#MasterSearch').attr("placeholder", "Type to search");
+                $('#MasterSearch').attr("placeholder", "Type to Search");
                 break;
             case "iUnitDate2":
                 $scope.CurrentActiveSearchField = "iUnitDate2";
