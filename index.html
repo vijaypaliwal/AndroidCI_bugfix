@@ -31,6 +31,12 @@
     <link href="css/index.css" rel="stylesheet" />
 
     <style>
+
+        #Permissionlink {
+            display: none !important;
+        }
+
+
         #filtermodal .form-group
         {
             margin-bottom:0;
@@ -46,10 +52,24 @@
             bottom: auto;
             margin-top: 14px;
             position: fixed;
-            z-index: 1100;
-            ;
+            z-index: 1100;           
             left: 10px;
         }
+
+        #bottommenumodal .selectAction li span {
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 5px;
+            font-size: 14px;
+            background: #fff;
+            padding-left: 15px;
+            /* text-shadow: -3px -1px 4px #ccc; */
+            padding-right: 15px;
+            text-transform:capitalize;
+        }
+
+
 
             #Inventorylistmodal .modal-header {
                 background-color: #f5f5f5;
@@ -245,8 +265,6 @@
         .modal-backdrop.in {
             opacity: 0.9 !important;
         }
-
-
     </style>
 
 </head>
