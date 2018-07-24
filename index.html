@@ -494,14 +494,14 @@
         <li><a ng-class="getClass('/Accounts')" href="#/Accounts" class="no-child"><i class="fa fa-cubes"></i> Your Inventories</a></li>
 
         <li style="display:none;" id="Permissionlink"><a ng-class="getClass('/permission')" href="#/permission" class="no-child"><i class="fa fa-gears"></i> Permissions</a></li>
-        <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go to Inventory</a></li>
+        <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go To Inventory</a></li>
         <li ng-if="checkpermission('ACTION:CanAddInventory')==true"><a ng-class="getClass('/inventory')" href="#/inventory" class="no-child"><i class="fa fa-plus-circle"></i> Add Inventory</a></li>
         <li ng-if="checkpermission('ACTION:CanAddInventory')==false"><a ng-click="restricted()" class="no-child restricted"><i class="fa fa-ban"> </i> Add Inventory</a></li>
         <li><a ng-class="getClass('/reportmenu')" href="#/reportmenu" class="no-child"><i class="fa fa-th-list"></i> Reports</a></li>
         <li><a ng-class="getClass('/profile')" href="#/profile" class="no-child"><i class="fa fa-user"></i> My Profile</a></li>
         <li><a ng-class="getClass('/setting')" href="#/setting" class="no-child"><i class="fa fa-cog"></i> Settings</a></li>
         <li><a ng-class="getClass('/help')" href="#/help" class="no-child"><i class="fa fa-question"></i> Help</a></li>
-        <li><a href="#" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign out</a></li>
+        <li><a href="#" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
     </ul>
 
     <!-- Right Sidebar -->
@@ -517,7 +517,7 @@
             <!-- Facebook -->
             <ul>
 
-                <li><a ng-click="logOut()" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign out</a></li>
+                <li><a ng-click="logOut()" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
             <hr />
             <p style="font-size:14px; text-align:justify">
