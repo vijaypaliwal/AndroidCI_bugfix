@@ -90,7 +90,7 @@ $("#mysmallModal").click(function () {
     hideSuccess();
 });
 
-$(document).on('input', 'input[type="text"],input[type="number"]', function () {
+$(document).on('input', 'input[type="text"],input[type="number"],input[type="email"],input[type="password"]', function () {
 
 
     $('input[type="text"]:input').not(".hideaddclear").addClear({
@@ -104,12 +104,16 @@ $(document).on('input', 'input[type="text"],input[type="number"]', function () {
         symbolClass: "fa fa-times-circle"
     });
 
+    $('input[type="email"]:input').addClear({
+        symbolClass: "fa fa-times-circle"
+    });
+
     $(this).focus();
 
     $(this).trigger("change");
 });
 
-$(document).on('change', 'input[type="text"],input[type="number"]', function () {
+$(document).on('change', 'input[type="text"],input[type="number"],input[type="email"],input[type="password"]', function () {
 
 
     $('input[type="text"]').not(".hideaddclear").addClear({
@@ -119,13 +123,17 @@ $(document).on('change', 'input[type="text"],input[type="number"]', function () 
         symbolClass: "fa fa-times-circle"
     });
 
-    $('input[type="password"]').addClear({
+    $('input[type="password"]:input').addClear({
+        symbolClass: "fa fa-times-circle"
+    });
+
+    $('input[type="email"]:input').addClear({
         symbolClass: "fa fa-times-circle"
     });
 
 
-});
 
+});
 
 $(document).on('input', '.prepostCustom', function (e) {
     // if useing right key move cursor to first position it auto move focus at last character in text box 
