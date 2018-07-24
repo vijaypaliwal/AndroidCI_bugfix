@@ -114,6 +114,7 @@
 
         #toolbar i {
             font-size: 18px;
+            line-height: 25px;
         }
 
         #toolbar .title {
@@ -124,6 +125,21 @@
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             font-size: 15px;
+            min-width: 45px;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            display: -webkit-inline-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            margin-bottom: 0;
+            line-height: 22px !important;
+            height: 31px;
+            margin-top: 10px;
+            text-align: center;
         }
 
         .sidenav-header .avatar {
@@ -245,7 +261,6 @@
             width:160px;
           
         }
-
         .switchinv {
             background: #e6e4e4;
             color: #333;
@@ -254,14 +269,36 @@
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
             font-size: 15px;
-            padding-left: 7px;
+            padding-left: 10px;
             padding-right: 8px;
+            height: 31px;
+            width: 40px;
+            margin-top: 7px;
+            display: inline-block;
         }
 
             .switchinv i {
                 color: #333 !important;
             }
 
+        .Inventorylist .invname {
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            display: -webkit-inline-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            margin-bottom: 0;
+            line-height: 17px !important;
+            width: calc(100% - 70px);
+            border-radius: 0;
+            padding: 0;
+            padding-left: 12px;
+            padding-top: 0px;
+        }
         .modal-backdrop.in {
             opacity: 0.9 !important;
         }
@@ -317,14 +354,10 @@
             <ul class="Inventorylist">
                 <li ng-repeat="obj in MyInventories" ng-click="changeInventory(obj.InventoryAccountID, obj.InventoryName, obj.BackColor)">
                     <a>
-                        <span style="background-color:{{obj.BackColor}} !important"><i class="fa fa-cube"></i></span> {{obj.InventoryName}} <i class="fa fa-angle-right"></i>
+                        <span style="background-color:{{obj.BackColor}} !important"><i class="fa fa-cube"></i></span> <span class="invname"> {{obj.InventoryName}} </span> <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
             </ul>
-
-
-
-
         </div>
 
 
@@ -385,23 +418,44 @@
 
     <!-- Header Section Starts -->
     <div id="toolbar" class="primary-color">
-        <div class="open-left" id="side-left">
-            <i class="fa fa-bars" style="font-size:17px;"></i>
-        </div>
-        <a href="#/FindItems" class="title">{{currentInventoryname}}</a><span class="switchinv" ng-click="showinventories()"><i class="fa fa-angle-down"></i></span>
-        <div class="dropdown open-right">
-            <a style="padding-left:0" data-toggle="dropdown" class="dropdown-toggle ">
-                <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
-            </a>
-            <ul class="top-menu dropdown-menu">
-                <li><a href="#/Accounts"><i class="fa fa-cubes"></i> Your Inventories</a></li>
-                <li><a href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
-                <li><a href="#/contact"><i class="fa fa-map-marker"></i> Contact</a></li>
+        <div class="row">
+            <div style="width:25%" class="col-xs-4">
+                <div class="open-left" id="side-left">
+                    <i class="fa fa-bars" style="font-size:17px;"></i>
+                </div>
+            </div>
+            <div style="width:50%" class="col-xs-4">
 
-                <li><a href="#/help"><i class="fa fa-question"></i> Help</a></li>
-                <li><a href="#"><i class="fa fa-sign-out"></i> Sign out</a></li>
-            </ul>
-        </div>
+                <table>
+                    <tr>
+                        <td style="text-align:right;">
+                            <a href="#/FindItems" class="title">{{currentInventoryname}}</a>
+                        </td>
+                        <td style="text-align:left;">
+                            <span class="switchinv" ng-click="showinventories()"><i class="fa fa-angle-down"></i></span>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <div style="width:25%" class="col-xs-4">
+                <div class="dropdown open-right">
+                    <a style="padding-left:0" data-toggle="dropdown" class="dropdown-toggle ">
+                        <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
+                    </a>
+                    <ul class="top-menu dropdown-menu">
+                        <li><a href="#/Accounts"><i class="fa fa-cubes"></i> Your Inventories</a></li>
+                        <li><a href="#/profile"><i class="fa fa-user"></i> My Profile</a></li>
+                        <li><a href="#/contact"><i class="fa fa-map-marker"></i> Contact</a></li>
+
+                        <!--<li><a href="#/help"><i class="fa fa-question"></i> Help</a></li>-->
+                        <li><a href="#"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>      
+       
     </div>
 
     <!-- Header Section End -->
@@ -440,14 +494,14 @@
         <li><a ng-class="getClass('/Accounts')" href="#/Accounts" class="no-child"><i class="fa fa-cubes"></i> Your Inventories</a></li>
 
         <li style="display:none;" id="Permissionlink"><a ng-class="getClass('/permission')" href="#/permission" class="no-child"><i class="fa fa-gears"></i> Permissions</a></li>
-        <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go To Inventory</a></li>
+        <li><a ng-class="getClass('/FindItems')" href="#/FindItems" class="no-child"><i class="fa fa-shopping-cart"></i>Go to Inventory</a></li>
         <li ng-if="checkpermission('ACTION:CanAddInventory')==true"><a ng-class="getClass('/inventory')" href="#/inventory" class="no-child"><i class="fa fa-plus-circle"></i> Add Inventory</a></li>
         <li ng-if="checkpermission('ACTION:CanAddInventory')==false"><a ng-click="restricted()" class="no-child restricted"><i class="fa fa-ban"> </i> Add Inventory</a></li>
         <li><a ng-class="getClass('/reportmenu')" href="#/reportmenu" class="no-child"><i class="fa fa-th-list"></i> Reports</a></li>
         <li><a ng-class="getClass('/profile')" href="#/profile" class="no-child"><i class="fa fa-user"></i> My Profile</a></li>
         <li><a ng-class="getClass('/setting')" href="#/setting" class="no-child"><i class="fa fa-cog"></i> Settings</a></li>
         <li><a ng-class="getClass('/help')" href="#/help" class="no-child"><i class="fa fa-question"></i> Help</a></li>
-        <li><a href="#" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+        <li><a href="#" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign out</a></li>
     </ul>
 
     <!-- Right Sidebar -->
@@ -463,7 +517,7 @@
             <!-- Facebook -->
             <ul>
 
-                <li><a ng-click="logOut()" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                <li><a ng-click="logOut()" class="no-child signoutbtn"><i class="fa fa-sign-out"></i> Sign out</a></li>
             </ul>
             <hr />
             <p style="font-size:14px; text-align:justify">
