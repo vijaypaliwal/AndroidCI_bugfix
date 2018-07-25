@@ -298,8 +298,8 @@
             <ul class="animated slideInUp" id="selectAction">
               
                 <li ng-click="viewhistory()"><span>View History</span><a href="#/InventoryHistory" class="waves-effect btn-primary btn"> <i class="fa fa-file-text"></i> </a></li>
-                <li ng-click="showinventory()"><span>Show All Inventory</span><a href="#/FindItems" class="waves-effect btn-danger btn"> <i class="fa fa-dollar"></i> </a></li>
-                <li ng-click="addtocart(CurrentInventory)" ng-show="CanAddIntoCart==false"><span>Select For Cart</span><a class="waves-effect btn-success btn" data-dismiss="modal"> <i class="fa fa-shopping-cart"></i> </a></li>
+                <li ng-click="showinventory()"><span>Show All Inventory</span><a href="#/FindItems" class="waves-effect btn-danger btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+                <li ng-click="addtocart(CurrentInventory)" ng-show="CanAddIntoCart==false"><span>Select For Cart</span><a class="waves-effect btn-success btn" data-dismiss="modal"> <i class="fa fa-check"></i> </a></li>
                 <li ng-click="removecart(CurrentInventory)" ng-show="CanAddIntoCart==true"><span>Remove From Cart</span><a class="waves-effect btn-danger btn" data-dismiss="modal"> <i class="fa fa-trash-o"></i> </a></li>
                 <li ng-if="IsActiveItemLibrary==true && IsEditMode==false && checkpermission('URL:Manage/Item')==true" ng-click="ToggleEditView()" data-dismiss="modal"><span>Edit Item Details</span><a class="waves-effect btn bgm-orange" data-dismiss="modal"> <i class="fa fa-pencil"></i> </a></li>
                 <li ng-if="IsActiveItemLibrary==true && IsEditMode==true && checkpermission('URL:Manage/Item')==true" ng-click="ToggleEditView()" data-dismiss="modal"><span>Show Item Details</span><a class="waves-effect btn bgm-orange" data-dismiss="modal"> <i class="fa fa-info"></i> </a></li>

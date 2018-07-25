@@ -3,6 +3,12 @@
 <link href="css/account.css" rel="stylesheet" />
 
 <style>
+    .loaderanimation {
+        left: 0;
+        top: 40%;
+    }
+
+
     .btn-next {
         height: 50px;
         width: 50px;
@@ -202,14 +208,14 @@
     <img style="height:55px; width: 55px; background: #2196F3; padding: 10px; margin-top:20px; border-radius: 100%;" src="img/u2.png" alt="Alternate Text" />
 
 </div>
-
+<div ng-show="IsLoading==true" class="loaderanimation">
+    <img src="img/loader.gif" alt="Alternate Text" />
+</div>
 <div ng-show="Addinventory==false" class="animated slideInDown">
 
 
 
-    <div ng-show="IsLoading==true" class="loaderanimation">
-        <img src="img/loader.gif" alt="Alternate Text" />
-    </div>
+    
 
 
     <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; display:none; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>

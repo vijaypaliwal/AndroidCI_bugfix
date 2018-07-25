@@ -968,7 +968,12 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.filllocation = function () {
 
+
+        var _locationobj = { LocationID: 0, LocationZone: "", LocationName: $scope.SearchLocationValue };
+        $scope.LocationSearchList.push(_locationobj);
+        $scope.LocationList.push(_locationobj);
         $scope.InventoryObject.Location = $scope.SearchLocationValue;
+
         $("#locationlistmodal").modal('hide');
         CheckScopeBeforeApply()
 
@@ -5451,6 +5456,13 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
     $scope.notmove = function () {
         //window.location.reload();
+        if ($("#requiredfields").hasClass("collapsed")) {
+
+            $("#requiredfields").trigger('click');
+
+        }
+
+
         $scope.resetObject();
 
         if ($scope.switchmode == true) {

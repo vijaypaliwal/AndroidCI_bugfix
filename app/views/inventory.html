@@ -240,7 +240,25 @@
 
     .panel-title > a {
         font-size: 26px;
+        padding: 15px;
+        padding-top: 10px;
+        padding-bottom: 3px;
     }
+
+    .panel-heading {
+        padding: 0;
+    }
+
+    .accordion-toggle {
+        background-color: #2196f3;
+        color: #fff !important;
+    }
+
+        .accordion-toggle.collapsed {
+            background-color: #f5f5f5;
+            color: #000 !important;
+        }
+
 </style>
 
 
@@ -1707,7 +1725,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingone">
                 <h4 class="panel-title">
-                    <a style="display:block;" data-toggle="collapse" data-parent="#accordion" data-target="#one" aria-expanded="true" role="button" class="accordion-toggle">
+                    <a id="requiredfields"  style="display:block;" data-toggle="collapse" data-parent="#accordion" data-target="#one" aria-expanded="true" role="button" class="accordion-toggle">
                         <p> <span style="color:brown">*</span> Required fields </p>
                         <p style="font-size:11px;">You must fill below all fields to create Inventory</p>
                     </a>
@@ -3149,7 +3167,7 @@
 
     <div ng-if="itemfields==false" class="row stickybtn">
         <div class="col-xs-6">
-            <a ng-class="{'Btndisabled':CheckRequiredField()==true || CheckCustomRequiredFields()==true||CheckEmailFields()==true}" id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true||CheckEmailFields()==true" class="btn green"> <i class="fa fa-plus-circle"></i> Process</a>
+            <a ng-class="{'Btndisabled':CheckRequiredField()==true || CheckCustomRequiredFields()==true||CheckEmailFields()==true}" id="addinventoriesnew" ng-click="addinventory()" ng-disabled="CheckRequiredField()==true || CheckCustomRequiredFields()==true||CheckEmailFields()==true" class="btn green" style="color:white !importent"> <i class="fa fa-plus-circle"></i> Process</a>
         </div>
 
         <div class="col-xs-6">
@@ -3238,7 +3256,7 @@
         </div>
 
 
-        <div ng-if="isnoitemmsg == true" class="noitem">
+        <div ng-if="isnoitemmsg == true && ItemSearching==false" class="noitem">
             <div style="text-align: center; border: 1px solid #eeeeee;">
                 <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
                 <h4 style="font-size:15px;">We can't find the item you're looking for</h4>

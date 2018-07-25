@@ -3757,7 +3757,7 @@
                             <div ng-if="IsSummary==false">
 
                                 <br />
-                                <div class="row form-inputs" ng-if="CanAutoClear==false">
+                                <div class="row form-inputs" ng-if="CanAutoClear==false" style=" background-color: #eee; padding-top: 15px">
                                     <div class=" col-xs-9">
                                         If processing the cart results in a record with "0" quantity, clear the record.
                                     </div>
@@ -3770,7 +3770,7 @@
                                 </div>
                                 <br />
 
-                                <div ng-if="IsProcessing==false" style=" margin-left:0px; margin-right:0px;" class="row btn-success" ng-click="SubmitAllActivities()">
+                                <div ng-if="IsProcessing==false" style=" margin-left: 0px; margin-right: 0px;" class="row btn-success" ng-click="SubmitAllActivities()">
 
                                     <div class="col-xs-8">
                                         <h4>Process Cart</h4>
