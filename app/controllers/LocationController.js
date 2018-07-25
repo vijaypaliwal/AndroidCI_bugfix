@@ -442,7 +442,7 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
         var dlID = "#Dlt_" + id;
 
-        var box = bootbox.confirm("Do you want to proceed ?", function (result) {
+        var box = bootbox.confirm("Delete Location ?", function (result) {
             if (result) {
                 $(_id).find("i").addClass("fa-spin");
                 $.ajax({

@@ -306,7 +306,7 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
 
         var dlID = "#Dlt_" + id;
 
-        var box = bootbox.confirm("Do you want to proceed ?", function (result) {
+        var box = bootbox.confirm("Delete Status ?", function (result) {
             if (result) {
                 $(_id).find("i").addClass("fa-spin");
                 $.ajax({
