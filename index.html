@@ -120,7 +120,6 @@
         #toolbar .title {
             background: #fff;
             color: #333;
-            padding: 5px;
             border-radius: 15px;
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
@@ -136,10 +135,12 @@
             -ms-word-break: break-all;
             word-break: break-all;
             margin-bottom: 0;
-            line-height: 22px !important;
+            line-height: 28px !important;
             height: 31px;
-            margin-top: 12px;
             text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            vertical-align: top;
         }
 
         .sidenav-header .avatar {
@@ -263,20 +264,21 @@
           
         }
         .switchinv {
-            background: #e6e4e4;
+            background: #e6e4e4 !important;
             color: #333;
-            padding: 5px;
-            border-radius: 15px;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            border-radius: 15px !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
             font-size: 15px;
             padding-left: 10px;
             padding-right: 8px;
             height: 31px;
             width: 40px;
-            margin-top: 7px;
             display: inline-block;
+            line-height: 30px !important;
+            vertical-align: top;
         }
+
 
             .switchinv i {
                 color: #333 !important;
@@ -420,27 +422,25 @@
     <!-- Header Section Starts -->
     <div id="toolbar" class="primary-color">
         <div class="row">
-            <div style="width:25%" class="col-xs-4">
+            <div style="width:15%" class="col-xs-4">
                 <div class="open-left" id="side-left">
                     <i class="fa fa-bars" style="font-size:17px;"></i>
                 </div>
             </div>
-            <div style="width:50%" class="col-xs-4">
+            <div style="width:70%" class="col-xs-4">
 
-                <table>
-                    <tr>
-                        <td style="text-align:right;">
-                            <a href="#/FindItems" class="title">{{currentInventoryname}}</a>
+                <table style="margin-top:12px;">
+                    <tr style="border:none;">
+                        <td>
+                            <a style="max-width:calc(100% - 45px)" href="#/FindItems" class="title">{{currentInventoryname}}</a><a style="line-height:32px !important;" class="switchinv" ng-click="showinventories()"><i class="fa fa-angle-down"></i></a>
                         </td>
-                        <td style="text-align:left;">
-                            <span class="switchinv" ng-click="showinventories()"><i class="fa fa-angle-down"></i></span>
-                        </td>
+
                     </tr>
                 </table>
 
 
             </div>
-            <div style="width:25%" class="col-xs-4">
+            <div style="width:15%" class="col-xs-4">
                 <div class="dropdown open-right">
                     <a style="padding-left:0" data-toggle="dropdown" class="dropdown-toggle ">
                         <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
