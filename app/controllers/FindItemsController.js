@@ -488,8 +488,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         $scope._areImagesShown = isshow;
         $scope._HasImages = isshow;
-
-        localStorageService.set("ShowImageRecords", $scope._areImagesShown);
+        var userName = localStorageService.get('UserName');
+        localStorageService.set("ShowImageRecords_" + userName, $scope._areImagesShown);
 
         $("#myModal2").modal('hide');
 
@@ -2380,8 +2380,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     function SetImageData() {
 
+        var userName = localStorageService.get('UserName');
 
-        var _IsImage = localStorageService.get("ShowImageRecords");
+        var _IsImage = localStorageService.get("ShowImageRecords_" + userName);
 
         if (_IsImage != null && _IsImage != undefined) {
             $scope._areImagesShown = _IsImage;

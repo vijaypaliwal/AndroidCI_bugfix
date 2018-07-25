@@ -137,7 +137,7 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
                     ShowSuccess("Saved");
                 }, 100);
 
-                var userName = localStorageService.set('UserName');
+                var userName = localStorageService.get('UserName');
 
                 localStorageService.set('AllowNegativeQuantity_' + userName, $scope.SettingsVm.AllowNegative);
                 localStorageService.set('AutoClear_' + userName, $scope.SettingsVm.AutoClear);
@@ -174,10 +174,11 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
 
 
     function init() {
+        var userName = localStorageService.get('UserName');
         $scope.accountID = localStorageService.get('AccountDBID');
-        var _autoClear = localStorageService.get('AutoClear');
-        var _DefaultQty = localStorageService.get('DefaultQty');
-        var _allowNegative = localStorageService.get('AllowNegativeQuantity');
+        var _autoClear = localStorageService.get('AutoClear_'+userName);
+        var _DefaultQty = localStorageService.get('DefaultQty_' + userName);
+        var _allowNegative = localStorageService.get('AllowNegativeQuantity_' + userName);
 
         if (_allowNegative != null && _allowNegative != undefined) {
             if (_allowNegative == 'true' || _allowNegative == true) {

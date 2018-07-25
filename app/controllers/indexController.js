@@ -110,7 +110,8 @@ app.controller('indexController', ['$scope', 'localStorageService', 'authService
 
     $scope.CurrentUserKey = localStorageService.get('UserKey');
     $scope.GetDefaultQty = function () {
-        var _DefaultQty = localStorageService.get('DefaultQty');
+        var userName = localStorageService.get('UserName');
+        var _DefaultQty = localStorageService.get('DefaultQty_' + userName);
 
         if (_DefaultQty == "1" || _DefaultQty == 1) {
             return 1;

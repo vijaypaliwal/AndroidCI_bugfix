@@ -2766,14 +2766,14 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         $scope.CurrentCart = localStorageService.get("ActivityCart");
 
        
-
+        var userName = localStorageService.get('UserName');
         var _CurrentAction = localStorageService.get("SelectedAction");
         _CurrentAction = _CurrentAction != null && _CurrentAction != undefined ? parseInt(_CurrentAction) : 4548;
         var _autoClear = localStorageService.get('CustomAutoClear');
 
         $scope.CustomAutoClear = _autoClear == "true" || _autoClear == true ? true : false;
 
-        var _autoClear1 = localStorageService.get('AutoClear');
+        var _autoClear1 = localStorageService.get('AutoClear_'+userName);
 
         $scope.CanAutoClear = _autoClear1 == "true" || _autoClear1 == true ? true : false;
         $scope._CurrentAction = _CurrentAction;
@@ -2790,10 +2790,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
    
         $scope.GetActiveUnitDataField();
-
+        var userName = localStorageService.get('UserName');
         $scope.getlocation();
-        if (localStorageService.get('AllowNegativeQuantity') != null && localStorageService.get('AllowNegativeQuantity') != undefined) {
-            var _temp = localStorageService.get('AllowNegativeQuantity');
+        if (localStorageService.get('AllowNegativeQuantity_' + userName) != null && localStorageService.get('AllowNegativeQuantity_' + userName) != undefined) {
+            var _temp = localStorageService.get('AllowNegativeQuantity_' + userName);
             if (_temp == 'true' || _temp == true) {
                 $scope.AllowNegative = true;
                 _AllowNegative = 'True';

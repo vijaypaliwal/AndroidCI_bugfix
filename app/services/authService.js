@@ -160,7 +160,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    console.log(response);
 
 
-                   var userName = localStorageService.set('UserName');
+                   var userName = localStorageService.get('UserName');
 
                    _UserInfo.username = response.GetUserInfoResult.Payload[0].UserName;
                    _UserInfo.myprofileimage = response.GetUserInfoResult.Payload[0].ProfilePic;
