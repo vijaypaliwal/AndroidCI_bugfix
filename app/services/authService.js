@@ -56,8 +56,11 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             success: function (response) {
 
                
-                var _modedata = localStorageService.get('DefaultInvmode');
+                var _modedata = localStorageService.get('DefaultInvmode_' + loginData.userName);
                  
+                alert(_modedata);
+
+                localStorageService.set('UserName', loginData.userName);
 
                 $("#loginBtn").removeClass("disabled");
                 $(".fa-sign-in").removeClass("fa-spin");
@@ -67,7 +70,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 if (response.LoginResult.Success == true) {
                     if ($.trim(_modedata) == "") {
 
-                        localStorageService.set('DefaultInvmode', "Vertical");
+                        localStorageService.set('DefaultInvmode_' + loginData.userName, "Vertical");
                     }
                     if (loginData.useRefreshTokens) {
                         localStorageService.set('authorizationData', { token: response.LoginResult.Payload, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
@@ -157,14 +160,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                    console.log(response);
 
 
-                    
+                   var userName = localStorageService.set('UserName');
+
                    _UserInfo.username = response.GetUserInfoResult.Payload[0].UserName;
                    _UserInfo.myprofileimage = response.GetUserInfoResult.Payload[0].ProfilePic;
                    localStorageService.set('LockLibrary', response.GetUserInfoResult.Payload[0]);
-                   localStorageService.set('AllowNegativeQuantity', response.GetUserInfoResult.Payload[0].AllowNegativeQuantity);
-                   localStorageService.set('AutoClear', response.GetUserInfoResult.Payload[0].AutoClear);
+                   localStorageService.set('AllowNegativeQuantity_' + userName, response.GetUserInfoResult.Payload[0].AllowNegativeQuantity);
+                   localStorageService.set('AutoClear_' + userName, response.GetUserInfoResult.Payload[0].AutoClear);
 
-                   localStorageService.set('DefaultQty', response.GetUserInfoResult.Payload[0].DefaultQty);
+                   localStorageService.set('DefaultQty_' + userName, response.GetUserInfoResult.Payload[0].DefaultQty);
                    IsActiveLocationLibrary = response.GetUserInfoResult.Payload[0].IsActiveLocationLibrary;
                    IsActiveStatusLibrary = response.GetUserInfoResult.Payload[0].IsActiveStatusLibrary;
                    IsActiveUOMLibrary = response.GetUserInfoResult.Payload[0].IsActiveUOMLibrary;

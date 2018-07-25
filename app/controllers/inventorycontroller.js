@@ -5361,8 +5361,8 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
             $scope.currentmode = localStorageService.get('mode');
 
-
-            $scope.currentInvmode = localStorageService.get('DefaultInvmode');
+            var userName = localStorageService.get('UserName');
+            $scope.currentInvmode = localStorageService.get('DefaultInvmode_'+userName);
 
 
 

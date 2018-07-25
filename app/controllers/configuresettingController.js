@@ -17,14 +17,15 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
 
         debugger;
         var defaultInvmode = $scope.SettingsVm.Defaultmode;
-
+        var userName = localStorageService.get('UserName');
         CheckScopeBeforeApply();
 
-        if (defaultInvmode == true) {
-            localStorageService.set('DefaultInvmode', "Vertical");
+        if (defaultInvmode == true) {            
+            localStorageService.set('DefaultInvmode_' + userName, "Vertical");
         }
         else {
-            localStorageService.set('DefaultInvmode', "swiper");
+            localStorageService.set('DefaultInvmode_' + userName, "swiper");
+            alert(localStorageService.get('DefaultInvmode_' + userName));
         }
 
         ShowSuccess("Updated");
@@ -135,14 +136,17 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
                 setTimeout(function () {
                     ShowSuccess("Saved");
                 }, 100);
-                localStorageService.set('AllowNegativeQuantity', $scope.SettingsVm.AllowNegative);
-                localStorageService.set('AutoClear', $scope.SettingsVm.AutoClear);
+
+                var userName = localStorageService.set('UserName');
+
+                localStorageService.set('AllowNegativeQuantity_' + userName, $scope.SettingsVm.AllowNegative);
+                localStorageService.set('AutoClear_' + userName, $scope.SettingsVm.AutoClear);
                 if ($scope.SettingsVm.DefaultQty == true) {
 
-                    localStorageService.set('DefaultQty', "1");
+                    localStorageService.set('DefaultQty_' + userName, "1");
                 }
                 else {
-                    localStorageService.set('DefaultQty', "0");
+                    localStorageService.set('DefaultQty_' + userName, "0");
 
                 }
                 $scope.UpdateSecurityToken($scope.accountID);
@@ -202,8 +206,8 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
 
         $scope.SettingsVm.AutoClear = _autoClear == "true" || _autoClear == true ? true : false;
 
-
-        $scope.currentInvmode = localStorageService.get('DefaultInvmode');
+        var userName = localStorageService.get('UserName');
+        $scope.currentInvmode = localStorageService.get('DefaultInvmode_' + userName);
 
         if ($scope.currentInvmode == "Vertical") {
 
