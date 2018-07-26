@@ -272,10 +272,10 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
              HideWaitingInv();
 
              if (response.UpdateCustomColumnResult.Success == true) {
-                 setTimeout(function () {
-                     ShowSuccess("Saved");
+                 setTimeout(function () {                    
                     $scope.GetAllData(true);
                     $scope.IsSaving = false;
+                    ShowSuccess("Saved");
 
                  },1000);
              }
