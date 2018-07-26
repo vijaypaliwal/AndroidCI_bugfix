@@ -266,6 +266,7 @@ app.controller('settingController', ['$scope', 'localStorageService', 'authServi
               success: function (response) {
 
                   $scope.customfiledcounter = response.GetAllDataResult.Payload[0].CustomActivityField.length + response.GetAllDataResult.Payload[0].CustomItemField.length + 7;
+                  $scope.activityfieldscounter = response.GetAllDataResult.Payload[0].CustomActivityField.length;
                   $scope.IsCustomfieldLoading = false;
                   $scope.$apply();
 
