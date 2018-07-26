@@ -24,8 +24,7 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
             localStorageService.set('DefaultInvmode_' + userName, "Vertical");
         }
         else {
-            localStorageService.set('DefaultInvmode_' + userName, "swiper");
-            alert(localStorageService.get('DefaultInvmode_' + userName));
+            localStorageService.set('DefaultInvmode_' + userName, "swiper");           
         }
 
         ShowSuccess("Updated");

@@ -58,7 +58,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                
                 var _modedata = localStorageService.get('DefaultInvmode_' + loginData.userName);
                  
-                alert(_modedata);
+                
 
                 localStorageService.set('UserName', loginData.userName);
 
