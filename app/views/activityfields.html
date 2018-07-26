@@ -1,0 +1,234 @@
+﻿<link href="css/setting.css" rel="stylesheet" />
+<link href="css/mobileorder.css" rel="stylesheet" />
+
+<link href="css/customfield.css" rel="stylesheet" />
+
+<style>
+    .clearicon {
+        color:#ccc;
+    }
+</style>
+
+
+<div class="title-header">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="titletext">Manage Activity Fields</h4>
+        </div>
+    </div>
+</div>
+<a href="#/setting" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
+
+<a ng-if="Issearch==false" ng-click="showfilter()" class="waves-effect btn roundbtntitle"><i class="fa fa-search"></i> </a>
+
+<a ng-if="Issearch==true" ng-click="hidefilter()" class="waves-effect btn roundbtntitle"><i class="fa fa-times"></i> </a>
+
+<div class="top45">
+
+    
+
+    <div ng-show="Issearch==true" class="row rowMargin">
+        <input type="text" placeholder="Type Name, datatype to search" ng-model="SearchString" class="form-control hideaddclear" name="name" value=" " />
+        <i class="fa fa-times-circle clearicon" ng-if="GetTrimmedStringData(SearchString)!=''" ng-click="ClearFilter()"></i>
+    </div>
+
+
+    <div ng-if="IsLoading==true">
+
+        <div class="modal-backdrop fade in"></div>
+        <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+            <img src="img/loader.gif" alt="Alternate Text" />
+
+            <!--<i style="font-size: 100px; color: #0083C7; " class="fa fa-spin fa-spinner"></i>-->
+        </div>
+    </div>
+    <table class="table gridTable table-striped bs-item" ng-if="IsLoading==false">
+
+
+        <tbody>          
+       
+            <tr>
+                <td>
+                    <div class="infoareas columnHeader" ng-click="openClosePanel(3)">
+                        <h5>Custom Activity Columns </h5>                        
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="IsActivityOpen==true">
+                <td>
+
+                    <div class="infoareas" style=" color: #756262; padding: 5px;">
+                        You can create new fields in the web version of Clearly Inventory and they will appear here.
+                    </div>
+                </td>
+
+            </tr>
+            <tr ng-repeat="_obj in  _LocalCustomActivityFieldsList= (LocalCustomActivityFieldsList | filter: searchData1)" ng-show="IsActivityOpen==true">
+
+                <td>
+                    <div class="infoareas">
+
+                        <div class="row">
+
+                            <div class="col-xs-2">
+                                <a class="btn text btn-warning accent-color">{{$index +1 }} </a>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <a class="text">
+                                    {{_obj.Name}}
+
+                                </a> <small class="smallText">{{_obj.Datatype}}</small>
+                            </div>
+                            <div class="col-xs-4" >
+
+                                <div ng-if="_obj.required === true" class="btn-group custombtnGroup">
+                                    <label style="color:brown;margin-right:5px;">
+                                        *Required.
+                                    </label>
+                                </div>
+
+                                <div ng-if="_obj.required === false" class="btn-group custombtnGroup">
+                                    <label class="switch1">
+                                        <input type="checkbox" ng-disabled="IsSaving" ng-change="UpdateCustomField(_obj)" ng-model="_obj.IsActive">
+                                        <div class="slider round"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="_LocalCustomActivityFieldsList.length==0 && IsActivityOpen==true">
+
+                <td>
+                    <div class="infoareas">
+                        <a class="NoDataAnchor">  No Custom Activity data column found with searched string</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+    <br /><br />
+
+</div>
+
+<a class="cd-top" onclick="scrollToTop()" title="Go to top"><i class="fa fa-arrow-up"></i></a>
+
+
+<a ng-click="Openbottommenu()" class="menubtn waves-effect">
+    <i class="fa fa-bars"></i>
+</a>
+
+<div id="bottommenumodal" class="modal bottommenu fade">
+    <div class="modal-body">
+        <ul class="animated slideInUp selectAction">
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-success btn"> <i class="fa fa-shopping-cart"></i> </a></li>
+            <li> <a href="#/reportmenu"><span class="newinv">Go to Report</span></a>  <a href="#/reportmenu" class=" waves-effect btn-primary btn"> <i class="fa fa-th-list"></i> </a></li>
+            <li class="bottomlink"><span data-dismiss="modal">Close</span><a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="filtermodal" class="modal animated bounceInRight">
+    <div class="modal-header">
+        <span class="close">
+            <i data-dismiss="modal" class="fa fa-times"></i>
+        </span>
+        <h4>Apply filters</h4>
+    </div>
+
+    <div style="padding:5px;" class="modal-body">
+
+        <div ng-show="IsUnitDataOpen==true">
+
+            <h4>Unit data columns</h4>
+
+            <div class="input-group">
+                <span style="background: #e99002;" class="input-group-addon"><i style="background: #e99002;" class="fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="UnitDataSearch" value="" class="form-control" />
+            </div>
+        </div>
+
+        <div ng-show="IsItemOpen==true">
+            <h4>Custom Item columns</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="CustomItemSearch" value="" class="form-control" />
+            </div>
+        </div>
+
+        <div ng-show="IsActivityOpen==true">
+            <h4>By Name</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <input type="text" name="name" ng-model="CustomActivitySearch" value="" class="form-control" />
+            </div>
+
+            <h4>By Datatype</h4>
+
+            <div class="input-group">
+                <span class="input-group-addon accent-color"><i class="accent-color fa fa-th-list"></i></span>
+                <select class="form-control" ng-model="CustomActivityDatatype">
+                    <option>Choose</option>
+                    <option value="string">String</option>
+                    <option value="currency">Currency</option>
+                    <option value="datetime">Date</option>
+                    <option value="number">Number</option>
+                    <option value="checkbox">Boolean</option>
+                    <option value="combobox">Dropdown</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-primary" ng-click="FilterDataColumns()" ><i  class="fa fa-filter"></i> Filter</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-gray" ><i class="fa fa-times"></i> Clear</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div ng-if="IsSaving==true">
+
+    <div class="modal-backdrop fade in"></div>
+    <div class="spinner" style="text-align:center; position:fixed; top:33%; width:100%;  z-index:10000">
+        <img src="img/loader.gif" alt="Alternate Text" />
+    </div>
+</div>
+<script>
+
+    var offset = 50;
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    var offset_opacity = 1200;
+    //duration of the top scrolling animation (in ms)
+    var scroll_top_duration = 700;
+    //grab the "back to top" link
+    var $back_to_top = $('.cd-top');
+
+    function scrollToTop() {
+
+        $('html, body').animate({ scrollTop: 0 }, 500, 'linear');
+    }
+
+
+
+    $(window).scroll(function () {
+        ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if ($(this).scrollTop() > offset_opacity) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+</script>
