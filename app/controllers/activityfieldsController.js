@@ -273,9 +273,10 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
 
              if (response.UpdateCustomColumnResult.Success == true) {
                  setTimeout(function () {                    
-                    $scope.GetAllData(true);
+                    //$scope.GetAllData(true);
                     $scope.IsSaving = false;
                     ShowSuccess("Saved");
+                    CheckScopeBeforeApply();
 
                  },1000);
              }
