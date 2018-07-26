@@ -2,22 +2,19 @@
 app.controller('activityfieldsController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
     $scope.CustomItemDataList = [];
     $scope.CustomActivityDataList = [];
-    $scope.MyinventoryFields = [];
-    $scope.UnitDataColumns = [];
+    $scope.MyinventoryFields = [];    
     $scope.SearchString = "";
     $scope.IsLoading = false;
     $scope.LocalItemFieldsList = [];
 
-    $scope.IsActivityOpen = true;
-    $scope.IsItemOpen = false;
-    $scope.IsSaving = false;
-    $scope.IsUnitDataOpen = false;
-    $scope.LocalCustomItemFieldsList = [];
+    $scope.IsActivityOpen = true;  
+    $scope.IsSaving = false;   
+   // $scope.LocalCustomItemFieldsList = [];
     $scope.LocalCustomActivityFieldsList = [];
     function init() {
        // FillLocalArray();
         $scope.GetAllData(true);
-        $scope.getUnitDataColumns(true);
+       
         CheckScopeBeforeApply();
 
 
@@ -26,31 +23,7 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
     $scope.Issearch = false;
 
 
-    $scope.openClosePanel=function(Type)
-    {
-        switch (Type) {
-            case 1:
-                $scope.IsUnitDataOpen = !$scope.IsUnitDataOpen;
-                $scope.IsItemOpen = false;
-                $scope.IsActivityOpen = false;
-                break;
-            case 2:
-                $scope.IsUnitDataOpen = false;
-                $scope.IsActivityOpen = false;
-                $scope.IsItemOpen = !$scope.IsItemOpen;
-                break;
-            case 3:
-                $scope.IsUnitDataOpen = false;
-                $scope.IsActivityOpen = $scope.IsActivityOpen;
-                $scope.IsItemOpen = false;
-                break;
-            default:
-
-        }
-
-        $('html, body').animate({ scrollTop: 0 }, 0, 'linear');
-        CheckScopeBeforeApply();
-    }
+ 
     $scope.GetClass = function (index) {
         if (index == 0 || index == 1) {
             return "accent-color";
@@ -63,22 +36,7 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
         }
     }
 
-    $scope.FilterDataColumns=function()
-    {
-        if(IsItemOpen==true)
-        {
-          
-
-        }
-        if(IsActivityOpen==true)
-        {
-
-        }
-        if(IsUnitDataOpen==true)
-        {
-
-        }
-    }
+   
 
     $scope.ClearFilter=function()
     {
@@ -146,10 +104,6 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
                     return $scope.CustomItemDataList[i];
                 }
             }
-
-
-
-
         }
         else if (type == 2) {
             for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
@@ -171,11 +125,7 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
                     return true;
                 }
             }
-
-
-            return _returnVar;
-
-        
+            return _returnVar;        
     }
     function GetColumnMap(Datatype, type) {
         var _length = 0;
@@ -230,117 +180,20 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
 
         }
     }
-    function updateLocalArray() {
-       
-        //var _itemField = CheckCustomFieldAvailable(1, "Item Notes");
-        //if (_itemField != undefined) {
-        //    $scope.LocalItemFieldsList[0].columnmap = _itemField.ColumnMap;
-        //    $scope.LocalItemFieldsList[0].cfdid = _itemField.cfdID;
-        //    $scope.LocalItemFieldsList[0].IsActive = CheckIntoAvailableMyinventoryColumns(_itemField.ColumnMap);
+    function updateLocalArray() {     
+        
 
 
-        //    $scope.LocalCustomItemFieldsList[0].columnmap = _itemField.ColumnMap;
-        //    $scope.LocalCustomItemFieldsList[0].cfdid = _itemField.cfdID;
-        //    $scope.LocalCustomItemFieldsList[0].IsActive = CheckIntoAvailableMyinventoryColumns(_itemField.ColumnMap);
+        //for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+        //    var _obj = $scope.CustomItemDataList[i];
+        //    if ($scope.CheckCustomFieldAvailableinLocalArray(_obj.cfdID) == false) {
 
-            
-        //    CheckScopeBeforeApply();
-        //}
-        //else {
-        //    $scope.LocalItemFieldsList[0].columnmap = GetColumnMap("string", 1);
-        //    $scope.LocalCustomItemFieldsList[0].columnmap = GetColumnMap("string", 1);
-        //    CheckScopeBeforeApply();
+
+        //        $scope.LocalCustomItemFieldsList.push({ IsActive: CheckIntoAvailableMyinventoryColumns(_obj.ColumnMap), Name: _obj.cfdName, Datatype: _obj.cfdDescriptiveDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: 1, cfdid: _obj.cfdID, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false })
+        //    }
         //}
 
-        //var _ActivityField1 = CheckCustomFieldAvailable(2, "Activity Notes");
-        //if (_ActivityField1 != undefined) {
-        //    $scope.LocalItemFieldsList[1].columnmap = _ActivityField1.ColumnMap;
-        //    $scope.LocalItemFieldsList[1].cfdid = _ActivityField1.cfdID;
-        //    $scope.LocalItemFieldsList[1].IsActive = CheckIntoAvailableActivityColumns(_ActivityField1.ColumnMap);
-
-
-        //    $scope.LocalCustomActivityFieldsList[0].columnmap = _ActivityField1.ColumnMap;
-        //    $scope.LocalCustomActivityFieldsList[0].cfdid = _ActivityField1.cfdID;
-        //    $scope.LocalCustomActivityFieldsList[0].IsActive = CheckIntoAvailableActivityColumns(_ActivityField1.ColumnMap);
-
-            
-        //    CheckScopeBeforeApply();
-        //}
-        //else {
-        //    $scope.LocalItemFieldsList[1].columnmap = GetColumnMap("string", 2);
-        //    $scope.LocalCustomActivityFieldsList[0].columnmap = GetColumnMap("string", 2);
-        //    CheckScopeBeforeApply();
-        //}
-
-
-        //var _ActivityField2 = CheckCustomFieldAvailable(2, "Sale Price");
-        //if (_ActivityField2 != undefined) {
-        //    $scope.LocalItemFieldsList[2].columnmap = _ActivityField2.ColumnMap;
-        //    $scope.LocalItemFieldsList[2].cfdid = _ActivityField2.cfdID;
-        //    $scope.LocalItemFieldsList[2].IsActive = CheckIntoAvailableActivityColumns(_ActivityField2.ColumnMap);
-
-
-        //    $scope.LocalCustomActivityFieldsList[1].columnmap = _ActivityField2.ColumnMap;
-        //    $scope.LocalCustomActivityFieldsList[1].cfdid = _ActivityField2.cfdID;
-        //    $scope.LocalCustomActivityFieldsList[1].IsActive = CheckIntoAvailableActivityColumns(_ActivityField2.ColumnMap);
-        //    CheckScopeBeforeApply();
-        //}
-        //else {
-        //    $scope.LocalItemFieldsList[2].columnmap = GetColumnMap("number", 2);
-        //    $scope.LocalCustomActivityFieldsList[1].columnmap = GetColumnMap("number", 2);
-        //    CheckScopeBeforeApply();
-        //}
-
-
-        //var _ActivityField3 = CheckCustomFieldAvailable(2, "Invoice #");
-        //if (_ActivityField3 != undefined) {
-        //    $scope.LocalItemFieldsList[3].columnmap = _ActivityField3.ColumnMap;
-        //    $scope.LocalItemFieldsList[3].cfdid = _ActivityField3.cfdID;
-        //    $scope.LocalItemFieldsList[3].IsActive = CheckIntoAvailableActivityColumns(_ActivityField3.ColumnMap);
-
-
-        //    $scope.LocalCustomActivityFieldsList[2].columnmap = _ActivityField3.ColumnMap;
-        //    $scope.LocalCustomActivityFieldsList[2].cfdid = _ActivityField3.cfdID;
-        //    $scope.LocalCustomActivityFieldsList[2].IsActive = CheckIntoAvailableActivityColumns(_ActivityField3.ColumnMap);
-        //    CheckScopeBeforeApply();
-        //}
-        //else {
-        //    $scope.LocalItemFieldsList[3].columnmap = GetColumnMap("string", 2);
-        //    $scope.LocalCustomActivityFieldsList[2].columnmap = GetColumnMap("string", 2);
-        //    CheckScopeBeforeApply();
-        //}
-        //var _ActivityField4 = CheckCustomFieldAvailable(2, "PO #");
-        //if (_ActivityField4 != undefined) {
-        //    $scope.LocalItemFieldsList[4].columnmap = _ActivityField4.ColumnMap;
-        //    $scope.LocalItemFieldsList[4].cfdid = _ActivityField4.cfdID;
-        //    $scope.LocalItemFieldsList[4].IsActive = CheckIntoAvailableActivityColumns(_ActivityField4.ColumnMap);
-
-        //    $scope.LocalCustomActivityFieldsList[3].columnmap = _ActivityField4.ColumnMap;
-        //    $scope.LocalCustomActivityFieldsList[3].cfdid = _ActivityField4.cfdID;
-        //    $scope.LocalCustomActivityFieldsList[3].IsActive = CheckIntoAvailableActivityColumns(_ActivityField4.ColumnMap);
-        //    CheckScopeBeforeApply();
-        //}
-        //else {
-        //    $scope.LocalItemFieldsList[4].columnmap = GetColumnMap("string", 2);
-        //    $scope.LocalCustomActivityFieldsList[3].columnmap = GetColumnMap("string", 2);
-        //    CheckScopeBeforeApply();
-        //}
-
-
-        for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-            var _obj = $scope.CustomItemDataList[i];
-            if ($scope.CheckCustomFieldAvailableinLocalArray(_obj.cfdID) == false) {
-
-
-                $scope.LocalCustomItemFieldsList.push({ IsActive: CheckIntoAvailableMyinventoryColumns(_obj.ColumnMap), Name: _obj.cfdName, Datatype: _obj.cfdDescriptiveDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", mobileorder: 1, cfdid: _obj.cfdID, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false })
-            }
-        }
-
-        CheckScopeBeforeApply();
-
-        console.log("=================================");
-        console.log($scope.CustomActivityDataList);
-        console.log("=================================");
+        CheckScopeBeforeApply();      
 
 
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
@@ -348,9 +201,7 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
             if ($scope.CheckCustomFieldAvailableinLocalArray(_obj.cfdID) == false) {
                 $scope.LocalCustomActivityFieldsList.push({ IsActive: _obj.cfdmobileorder == 0 ? false : true, Name: _obj.cfdName, Datatype: _obj.cfdDescriptiveDataType, CustomFieldType: _obj.cfdCustomFieldType, columnmap: _obj.ColumnMap, description: "", required: _obj.cfdIsRequired, mobileorder: _obj.cfdmobileorder, cfdid: _obj.cfdID, canincrease: _obj.cfdIncludeOnAdd, candecrease: _obj.cfdIncludeOnSubtract, cantag: _obj.cfdIncludeOnApply, canconvert: _obj.cfdIncludeOnConvert, canupdate: _obj.cfdIncludeOnApply, canmove: _obj.cfdIncludeOnMove })
             }
-            console.log("=================================");
-            console.log($scope.LocalCustomActivityFieldsList);
-            console.log("=================================");
+           
 
         }
 
@@ -359,13 +210,13 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
     }
 
     function FillLocalArray() {
-        $scope.LocalItemFieldsList.push({ IsActive: false, Name: "Item Notes", Datatype: "String", CustomFieldType: "Part", columnmap: "string_1", description: "This is item note field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
-        $scope.LocalCustomItemFieldsList.push({ IsActive: false, Name: "Item Notes", Datatype: "String", CustomFieldType: "Part", columnmap: "string_1", description: "This is item note field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
+        //$scope.LocalItemFieldsList.push({ IsActive: false, Name: "Item Notes", Datatype: "String", CustomFieldType: "Part", columnmap: "string_1", description: "This is item note field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
+        //$scope.LocalCustomItemFieldsList.push({ IsActive: false, Name: "Item Notes", Datatype: "String", CustomFieldType: "Part", columnmap: "string_1", description: "This is item note field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
 
-        $scope.LocalItemFieldsList.push({ IsActive: false, Name: "Activity Notes", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_1", description: "This is activity note field", mobileorder: 1, cfdid: 0, canincrease: true, candecrease: true, cantag: true, canconvert: true, canupdate: true, canmove: true });
-        $scope.LocalItemFieldsList.push({ IsActive: false, Name: "Sale Price", Datatype: "Number", CustomFieldType: "Inventory", columnmap: "number_1", description: "This is sale price field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: true, cantag: false, canconvert: false, canupdate: false, canmove: false });
-        $scope.LocalItemFieldsList.push({ IsActive: false, Name: "Invoice #", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_2", description: "This is invoice# field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: true, cantag: false, canconvert: false, canupdate: false, canmove: false });
-        $scope.LocalItemFieldsList.push({ IsActive: false, Name: "PO #", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_3", description: "This is invoice# field", mobileorder: 1, cfdid: 0, canincrease: true, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
+        //$scope.LocalItemFieldsList.push({ IsActive: false, Name: "Activity Notes", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_1", description: "This is activity note field", mobileorder: 1, cfdid: 0, canincrease: true, candecrease: true, cantag: true, canconvert: true, canupdate: true, canmove: true });
+        //$scope.LocalItemFieldsList.push({ IsActive: false, Name: "Sale Price", Datatype: "Number", CustomFieldType: "Inventory", columnmap: "number_1", description: "This is sale price field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: true, cantag: false, canconvert: false, canupdate: false, canmove: false });
+        //$scope.LocalItemFieldsList.push({ IsActive: false, Name: "Invoice #", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_2", description: "This is invoice# field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: true, cantag: false, canconvert: false, canupdate: false, canmove: false });
+        //$scope.LocalItemFieldsList.push({ IsActive: false, Name: "PO #", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_3", description: "This is invoice# field", mobileorder: 1, cfdid: 0, canincrease: true, candecrease: false, cantag: false, canconvert: false, canupdate: false, canmove: false });
 
         $scope.LocalCustomActivityFieldsList.push({ IsActive: false, Name: "Activity Notes", Datatype: "String", CustomFieldType: "Inventory", columnmap: "string_1", description: "This is activity note field", mobileorder: 1, cfdid: 0, canincrease: true, candecrease: true, cantag: true, canconvert: true, canupdate: true, canmove: true });
         $scope.LocalCustomActivityFieldsList.push({ IsActive: false, Name: "Sale Price", Datatype: "Number", CustomFieldType: "Inventory", columnmap: "number_1", description: "This is sale price field", mobileorder: 1, cfdid: 0, canincrease: false, candecrease: true, cantag: false, canconvert: false, canupdate: false, canmove: false });
@@ -379,51 +230,7 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
 
    
 
-    $scope.UpdateUnitData = function (TagID, IsActive, IsUnique) {
-
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            $scope.SecurityToken = authData.token;
-        }
-        ShowWaitingInv();
-        
-            $.ajax
-         ({
-             type: "POST",
-             url: serviceBase + 'UpdateUnitDataColumn',
-             contentType: 'application/json; charset=utf-8',
-             dataType: 'json',
-             data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "TagID": TagID, "IsActive": IsActive, "IsUnique": IsUnique }),
-             success: function (response) {
-                 debugger;
-                 HideWaitingInv();
-                 if (response.UpdateUnitDataColumnResult.Success == true) {
-
-                     setTimeout(function () {
-                         ShowSuccess("Saved");
-                     },1000)
-                   
-                     $scope.getUnitDataColumns(false);
-                 }
-                 else {
-                     $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.UpdateUnitDataColumnResult.Message)
-
-                 }
-
-
-
-                 CheckScopeBeforeApply();
-             },
-             error: function (err) {
-                 HideWaitingInv();
-                 $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
-
-
-             }
-         });
-
-
-    }
+    
 
 
 
@@ -527,59 +334,6 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
         $location.path('/login');
         CheckScopeBeforeApply();
     }
-    $scope.getUnitDataColumns = function (IsLoading) {
-        $scope.IsLoading = IsLoading;
-
-
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            $scope.SecurityToken = authData.token;
-        }
-
-        $.ajax
-           ({
-               type: "POST",
-               url: serviceBase + 'GetUnitDataColumns',
-               contentType: 'application/json; charset=utf-8',
-               dataType: 'json',
-               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
-               success: function (response) {
-
-
-                   $scope.UnitDataColumns = [];
-                   if (response.GetUnitDataColumnsResult.Success == true) {
-                       var _unitDataColumns = response.GetUnitDataColumnsResult.Payload;
-                      
-                       for (var i = 0; i < _unitDataColumns.length; i++) {
-                          // if (_unitDataColumns[i].ColumnName == "ReqValue" || _unitDataColumns[i].ColumnName == "UniqueDate") {
-
-                               $scope.UnitDataColumns.push(_unitDataColumns[i]);
-                           //}
-                       }
-
-                   }
-                   else
-                   {
-                       $scope.ShowErrorMessage("Getting unit data columns", 1, 1, response.GetUnitDataColumnsResult.Message)
-
-                   }
-
-
-                   $scope.IsLoading = false;
-                   CheckScopeBeforeApply();
-                   console.log("unit Data columns");
-                   console.log($scope.UnitDataColumns);
-               },
-               error: function (err) {
-                   $scope.IsLoading = false;
-                   CheckScopeBeforeApply();
-                   $scope.ShowErrorMessage("Getting unit data columns", 2, 1, err.statusText);
-
-
-               }
-           });
-
-    }
 
 
     $('#bottommenumodal').on('hidden.bs.modal', function () {
@@ -651,26 +405,26 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
 
 
                       // Custom Item Field 
-                      $scope.CustomItemDataList = response.GetAllDataResult.Payload[0].CustomItemField;
-                      CheckScopeBeforeApply();
+                      //$scope.CustomItemDataList = response.GetAllDataResult.Payload[0].CustomItemField;
+                      //CheckScopeBeforeApply();
 
-                      for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
-                          var _defaultValue = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
-                          if ($scope.CustomItemDataList[i].cfdDataType == "datetime") {
-                              if (_defaultValue != null && _defaultValue != "") {
-                                  $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
-                              }
-                          }
-                          else if ($scope.CustomItemDataList[i].cfdDataType == "currency" || $scope.CustomItemDataList[i].cfdDataType == "number") {
-                              if (_defaultValue != null && _defaultValue != "") {
-                                  var _myDefault = parseFloat(_defaultValue);
-                                  if (!isNaN(_myDefault)) {
-                                      $scope.CustomItemDataList[i].cfdDefaultValue = _myDefault;
+                      //for (var i = 0; i < $scope.CustomItemDataList.length; i++) {
+                      //    var _defaultValue = angular.copy($scope.CustomItemDataList[i].cfdDefaultValue);
+                      //    if ($scope.CustomItemDataList[i].cfdDataType == "datetime") {
+                      //        if (_defaultValue != null && _defaultValue != "") {
+                      //            $scope.CustomItemDataList[i].cfdDefaultValue = ConverttoMsJsonDate(_defaultValue);
+                      //        }
+                      //    }
+                      //    else if ($scope.CustomItemDataList[i].cfdDataType == "currency" || $scope.CustomItemDataList[i].cfdDataType == "number") {
+                      //        if (_defaultValue != null && _defaultValue != "") {
+                      //            var _myDefault = parseFloat(_defaultValue);
+                      //            if (!isNaN(_myDefault)) {
+                      //                $scope.CustomItemDataList[i].cfdDefaultValue = _myDefault;
 
-                                  }
-                              }
-                          }
-                      }
+                      //            }
+                      //        }
+                      //    }
+                      //}
                       CheckScopeBeforeApply();
                       // Custom Activity Field 
 
@@ -697,16 +451,19 @@ app.controller('activityfieldsController', ['$scope', 'localStorageService', 'au
                               }
                           }
                       }
-                      $scope.IsLoading = false;
+                     
 
                       $scope.LocalItemFieldsList = [];
 
-                      $scope.LocalCustomItemFieldsList = [];
+                      //$scope.LocalCustomItemFieldsList = [];
                       $scope.LocalCustomActivityFieldsList = [];
                       CheckScopeBeforeApply();
 
                      // FillLocalArray();
                       updateLocalArray();
+
+                      $scope.IsLoading = false;
+                      CheckScopeBeforeApply();
                   }
                   else {
                       $scope.ShowErrorMessage("Get All look ups", 1, 1, response.GetAllDataResult.Message)
