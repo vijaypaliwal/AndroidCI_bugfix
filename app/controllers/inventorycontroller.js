@@ -113,22 +113,34 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         TagID: 0
     }
 
+    function TryParseFloat(str, defaultValue) {
+        var retValue = defaultValue;
+        if (str !== null) {
+            if (str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseFloat(str);
+                }
+            }
+        }
+        return retValue;
+    }
+
     function GetProperUnitValue(_val, _Prefix, _Suffix) {
 
         if ($.trim(_val) != "") {
-
 
             _Prefix = $.trim(_Prefix) != "" ? _Prefix : "";
             _Suffix = $.trim(_Suffix) != "" ? _Suffix : "";
             _val = _val.replace(_Prefix, "");
             _val = _val.replace(_Suffix, "");
 
-            return _val;
+
+
+            return TryParseFloat(_val, "0");
         }
         return "";
 
     }
-
 
 
     var _IsItemSlide = false;
@@ -1635,6 +1647,90 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                         }
                     }
                 });
+
+
+                //Prefix/Suffix fields work
+                for (var i = 0; i < $scope.InventoryObject.CustomPartData.length; i++) {
+
+                    var _cfdID = $scope.InventoryObject.CustomPartData[i].CfdID;
+                    var _HasPrefix = $("#CustomItem_" + _cfdID).attr("data-prefix");
+                    var _HasSuffix = $("#CustomItem_" + _cfdID).attr("data-suffix");
+                    var _Value = $("#CustomItem_" + _cfdID).val();
+                    if ($.trim(_HasPrefix) != "" || $.trim(_HasSuffix) != "") {
+                        if ($.trim(_Value) != "") {
+                            $scope.InventoryObject.CustomPartData[i].Value = $("#CustomItem_" + _cfdID).attr("data-orginal-value");
+                        }
+                        else {
+                            $scope.InventoryObject.CustomPartData[i].Value = "";
+                        }
+                    }
+                }
+
+
+                for (var i = 0; i < $scope.InventoryObject.CustomTxnData.length; i++) {
+
+                    var _cfdID = $scope.InventoryObject.CustomTxnData[i].CfdID;
+                    var _HasPrefix = $("#CustomActivity_" + _cfdID).attr("data-prefix");
+                    var _HasSuffix = $("#CustomActivity_" + _cfdID).attr("data-suffix");
+                    var _Value = $("#CustomActivity_" + _cfdID).val();
+                    if ($.trim(_HasPrefix) != "" || $.trim(_HasSuffix) != "") {
+                        if ($.trim(_Value) != "") {
+                            $scope.InventoryObject.CustomTxnData[i].Value = $("#CustomActivity_" + _cfdID).attr("data-orginal-value");
+                        }
+                        else {
+                            $scope.InventoryObject.CustomTxnData[i].Value = "";
+                        }
+                    }
+                }
+
+                var _u1prefix = $("#UniqueTag").attr("data-prefix");
+                var _u1suffix = $("#UniqueTag").attr("data-suffix");
+                var _u1original = $("#UniqueTag").attr("data-original-value");
+                var _u1value = $("#UniqueTag").val();
+
+                if ($.trim(_u1prefix) != "" || $.trim(_u1suffix) != "") {
+
+                    if ($.trim(_u1value) != "") {
+                        $scope.InventoryObject.UniqueTag = _u1original;
+                    }
+                    else {
+                        $scope.InventoryObject.UniqueTag = "";
+                    }
+                }
+
+
+                var _u2prefix = $("#UnitTag2").attr("data-prefix");
+                var _u2suffix = $("#UnitTag2").attr("data-suffix");
+                var _u2original = $("#UnitTag2").attr("data-original-value");
+                var _u2value = $("#UnitTag2").val();
+
+                if ($.trim(_u2prefix) != "" || $.trim(_u2suffix) != "") {
+
+                    if ($.trim(_u2value) != "") {
+                        $scope.InventoryObject.UnitTag2 = _u2original;
+
+                    }
+                    else {
+                        $scope.InventoryObject.UnitTag2 = "";
+
+                    }
+                }
+
+                var _u3prefix = $("#UnitTag3").attr("data-prefix");
+                var _u3suffix = $("#UnitTag3").attr("data-suffix");
+                var _u3original = $("#UnitTag3").attr("data-original-value");
+                var _u3value = $("#UnitTag3").val();
+
+                if ($.trim(_u3prefix) != "" || $.trim(_u3suffix) != "") {
+                    $scope.InventoryObject.UnitTag3 = _u3original;
+
+                    if ($.trim(_u3value) != "") {
+                        $scope.InventoryObject.UnitTag3 = _u3original;
+                    }
+                    else {
+                        $scope.InventoryObject.UnitTag3 = "";
+                    }
+                }
 
 
                 var _inc1 = $scope.getUnitObjByName("ReqValue").FieldSpecialType == 0 ? GetProperUnitValue($scope.InventoryObject.UniqueTag, $scope.getUnitObjByName("ReqValue").Prefix, $scope.getUnitObjByName("ReqValue").Suffix) : 0;
