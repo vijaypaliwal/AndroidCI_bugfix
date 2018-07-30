@@ -115,7 +115,6 @@ $(document).on('input', 'input[type="text"],input[type="number"],input[type="ema
 
 $(document).on('change', 'input[type="text"],input[type="number"],input[type="email"],input[type="password"]', function () {
 
-
     $('input[type="text"]').not(".hideaddclear").addClear({
         symbolClass: "fa fa-times-circle"
     });
@@ -130,8 +129,6 @@ $(document).on('change', 'input[type="text"],input[type="number"],input[type="em
     $('input[type="email"]:input').addClear({
         symbolClass: "fa fa-times-circle"
     });
-
-
 
 });
 

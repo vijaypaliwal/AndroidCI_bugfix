@@ -2412,6 +2412,31 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         return null;
     }
+
+    function GetSeparatedValue(ColumnName, Value) {
+        var _returnValue = Value;
+
+        if ($.trim(_returnValue) != "") {
+
+            var _UnitObj = $scope.getUnitObjByName(ColumnName);
+            if (_UnitObj != null) {
+                if ($.trim(_UnitObj.Prefix) != "") {
+
+                    _returnValue = _returnValue.replace(_UnitObj.Prefix, "");
+                }
+
+                if ($.trim(_UnitObj.Suffix) != "") {
+
+                    _returnValue = _returnValue.replace(_UnitObj.Suffix, "");
+                }
+            }
+        }
+        else { _returnValue = ""; }
+        return _returnValue;
+    }
+
+
+
     function GetDataToSend(mainObjectToSend) {
         var _defaultQty = $scope.GetDefaultQty();
         if (mainObjectToSend.length > 0) {
@@ -2422,8 +2447,6 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     var _unitDate1 = ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1);
                     var _unitDate2 = ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2);
 
-                    console.log("unit Date 1" + _unitDate1);
-                    console.log("unit Date 2" + _unitDate2);
                     $scope.Cart.push({
                         InventoryID: mainObjectToSend[i].uId,
                         IsLineItemData: [],
@@ -2436,9 +2459,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                         MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                         UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                         ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: mainObjectToSend[i].iReqValue, UnitTag2: mainObjectToSend[i].iUnitTag2, UnitTag3: mainObjectToSend[i].iUnitTag3, UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
                     });
 
                     console.log($scope.Cart);
@@ -2451,6 +2474,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         }
         return $scope.Cart;
     }
+
 
 
 
