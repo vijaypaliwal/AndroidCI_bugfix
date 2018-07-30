@@ -91,6 +91,152 @@
 
 
 </style>
+
+<style>
+    .prepend, .append {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        line-height: 0 !important;
+        padding-top: 2px;
+    }
+
+
+        .prepend .inner {
+            background-color: #e9ecef !important;
+            color: #888 !important;
+            vertical-align: middle;
+            /* margin-top: 22px; */
+            padding: 9px;
+            padding-bottom: 9px;
+            padding-top: 10px;
+            font-size: 17px;
+            border-top-left-radius: 4px !important;
+            border-bottom-left-radius: 4px !important;
+            border: 1px solid #ccc;
+            /* line-height: 23px; */
+            font-weight: 100;
+            border-right: transparent;
+        }
+
+    .swiper-slide .prepend .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        /* margin-top: 22px; */
+        padding: 9px;
+        padding-bottom: 7px;
+        padding-top: 12px;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+    }
+
+
+    .prepostCustom {
+        width: calc(100% + 2px) !important;
+        margin-left: -2px !important;
+    }
+
+    .append .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        padding: 9px;
+        padding-bottom: 9px;
+        padding-top: 10px;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+    }
+
+    .swiper-slide .append .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        padding: 9px;
+        padding-bottom: 7px;
+        padding-top: 12px;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+    }
+
+    .unitprepend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .unitappend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+
+    .form-control {
+        border-radius: 2px !important;
+    }
+
+
+    .cartitems .input-group-addon.unitprepend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .cartitems .input-group-addon.unitappend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+</style>
+
+
 <!--CSS section - end -->
 
 <div class="activitycontent">
@@ -397,13 +543,19 @@
                                                     <label>{{ GetColumnLabel('iReqValue')}}</label>
                                                     <div class="input-group">
 
+                                                        <span ng-if="GetUnitDataFieldByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('ReqValue').Prefix}} </span>
+
+
                                                         <div class="fg-line">
                                                             <!--Prefix , Suffix,Open,Autocomplete,Email, Month-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType>=0 && GetUnitDataFieldByName('ReqValue').FieldSpecialType<=6 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=2 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=6">
                                                                 <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
 
-                                                                <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
-                                                                <input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==4" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
+                                                                <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('ReqValue').Prefix}}" data-suffix="{{GetUnitDataFieldByName('ReqValue').Suffix}}" data-original-value="{{GetUnitDataFieldByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{GetUnitDataFieldByName('ReqValue').Suffix}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag1" />
+  
+                                                                
+                                                                
+                                                                 <input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==4" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==5" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />-->
 
 
@@ -442,7 +594,11 @@
 
                                                             <span ng-if="tvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                         </div>
-                                                        <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
+                                                     
+                                                        <span ng-if="GetUnitDataFieldByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('ReqValue').Suffix}} </span>
+
+                                                        
+                                                           <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
                                                         <span ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span ng-if="$index==0" class="input-group-addon last">
@@ -471,6 +627,7 @@
 
 
                                                     <div class="input-group">
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag2').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag2').Prefix}} </span>
 
                                                         <div class="fg-line">
 
@@ -481,7 +638,7 @@
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=6">
                                                                 <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
 
-                                                                <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
+                                                                <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag2').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag2').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag2').Prefix}}{{InventoryObject.UnitTag2}}{{GetUnitDataFieldByName('UnitTag2').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag2" />
                                                                 <input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==4" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==5" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />-->
 
@@ -518,6 +675,8 @@
                                                             <span ng-if="tvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                         </div>
 
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag2').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag2').Suffix}} </span>
+
                                                         <span ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==12" ng-click="Unitradiolist('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
@@ -543,6 +702,7 @@
 
 
                                                     <div class="input-group">
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag3').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag3').Prefix}} </span>
 
                                                         <div class="fg-line">
 
@@ -552,7 +712,7 @@
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=6">
                                                                 <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
 
-                                                                <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
+                                                                <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag3').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag3').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag3').Prefix}}{{InventoryObject.UnitTag3}}{{GetUnitDataFieldByName('UnitTag3').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag3" />
                                                                 <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />-->
 
@@ -589,6 +749,9 @@
                                                             <span ng-if="tvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
 
                                                         </div>
+
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag3').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag3').Suffix}} </span>
+
 
                                                         <span ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==12" ng-click="Unitradiolist('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
@@ -963,13 +1126,14 @@
                                                 <div class="form-group">
                                                     <label>{{ GetColumnLabel('iReqValue')}}</label>
                                                     <div class="input-group">
+                                                        <span ng-if="GetUnitDataFieldByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('ReqValue').Prefix}} </span>
 
                                                         <div class="fg-line">
                                                             <!--Prefix , Suffix,Open,Autocomplete,Email, Month-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType>=0 && GetUnitDataFieldByName('ReqValue').FieldSpecialType<=6 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=2 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=6">
                                                                 <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
 
-                                                                <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
+                                                                <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('ReqValue').Prefix}}" data-suffix="{{GetUnitDataFieldByName('ReqValue').Suffix}}" data-original-value="{{GetUnitDataFieldByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{GetUnitDataFieldByName('ReqValue').Suffix}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
                                                                 <input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==4" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==5" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />-->
 
@@ -1009,6 +1173,9 @@
                                                             <span ng-if="tvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                         </div>
 
+                                                        <span ng-if="GetUnitDataFieldByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('ReqValue').Suffix}} </span>
+
+
                                                         <span ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
@@ -1038,6 +1205,7 @@
 
 
                                                     <div class="input-group">
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag2').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag2').Prefix}} </span>
 
                                                         <div class="fg-line">
 
@@ -1048,7 +1216,7 @@
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=6">
                                                                 <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
 
-                                                                <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
+                                                                <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag2').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag2').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag2').Prefix}}{{InventoryObject.UnitTag2}}{{GetUnitDataFieldByName('UnitTag2').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
                                                                 <input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==4" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==5" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />-->
                                                                 <select ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==5" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" data-type="string" class="form-control uniqueunitData monthPicker" selectvalue="{{CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2}}" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2">
@@ -1082,6 +1250,10 @@
 
                                                             <span ng-if="tvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                         </div>
+                                                        
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag2').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag2').Suffix}} </span>
+
+                                                        
                                                         <span ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                         <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==12" ng-click="Unitradiolist('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
@@ -1107,6 +1279,7 @@
 
 
                                                     <div class="input-group">
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag3').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag3').Prefix}} </span>
 
                                                         <div class="fg-line">
 
@@ -1114,8 +1287,9 @@
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=6">
                                                                 <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
 
-                                                                <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
-                                                                <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
+                                                                <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag3').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag3').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag3').Prefix}}{{InventoryObject.UnitTag3}}{{GetUnitDataFieldByName('UnitTag3').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
+                                                               
+                                                                 <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
                                                                 <!--<input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />-->
                                                                 <select ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" data-type="string" class="form-control uniqueunitData monthPicker" selectvalue="{{CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3}}" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3">
 
@@ -1150,7 +1324,10 @@
                                                             <span ng-if="tvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
 
                                                         </div>
-                                                        <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==12" ng-click="Unitradiolist('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ currentactiveobject.inventorydatalist.uid}}"><i class="fa fa-circle-o"></i></span>
+                                                        <span ng-if="GetUnitDataFieldByName('UnitTag3').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag3').Suffix}} </span>
+
+                                                        
+                                                         <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==12" ng-click="Unitradiolist('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ currentactiveobject.inventorydatalist.uid}}"><i class="fa fa-circle-o"></i></span>
 
                                                         <span ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
@@ -1313,7 +1490,11 @@
                                                 <label>{{_columns}}    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
 
                                                 <div class="input-group" ng-init="obj=CurrentActiveObject.IsLineItemData[$index]">
-                                                    <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
+                                                    <span style="padding-bottom:8px;" ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                        <span style="padding-top: 10px; padding-bottom: 9px;" class="inner">{{obj.cfdPrefix}}</span>
+                                                    </span>
+                                                    
+                                                     <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
 
                                                         <div ng-if="obj.cfdDataType=='string'">
 
@@ -1343,7 +1524,7 @@
 
                                                                 <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
 
-                                                                    <input type="text" id="LineItem_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType  prepostCustomActivity" />
+                                                                    <input type="text" id="LineItem_{{obj.cfdID}}" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType  prepostCustomActivity" />
                                                                 </div>
 
                                                             </div>
@@ -1424,7 +1605,12 @@
                                                         <input type="number" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='currency'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" ng-change="ConvertZeroCurrency(CurrentActiveObject.InventoryDataList.uId,$index)" />
 
                                                     </div>
-                                                    <div>
+                                                   
+                                                    <span style="padding-bottom:8px;" ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                        <span style="padding-top: 10px; padding-bottom: 9px;" class="inner">{{obj.cfdSuffix}}</span>
+                                                    </span>
+                                                    
+                                                     <div>
                                                         <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true && TrimValue(CurrentActiveObject.IsLineItemData[$index].CfValue)=='' " class="errorMessage">
                                                             {{CurrentActiveObject.IsLineItemData[$index].cfdName }} field is required.
 
@@ -1522,12 +1708,19 @@
 
                                     </div>
 
+
+                                    <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                        <span class="inner">{{obj.cfdPrefix}}</span>
+                                    </span>
+
                                     <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                        <input type="text" id="CustomActivity_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                        <input type="text" id="CustomActivity_{{obj.cfdID}}" data-orginal-value="{{obj.cfdPrefix}}{{InventoryObject.CustomTxnData[$index].Value}}{{obj.cfdSuffix}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                     </div>
 
+                                    <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                        <span class="inner">{{obj.cfdSuffix}}</span>
+                                    </span>                                     
+                                  
                                     <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                 </div>
 
@@ -1680,11 +1873,15 @@
 
                                             </div>
 
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                <span class="inner">{{obj.cfdPrefix}}</span>
+                                            </span>
                                             <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                                <input type="text" id="CustomActivity_Increase_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                                <input type="text" data-orginal-value="{{obj.cfdPrefix}}{{InventoryObject.CustomTxnData[$index].Value}}{{obj.cfdSuffix}}" id="CustomActivity_Increase_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                             </div>
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                <span class="inner">{{obj.cfdSuffix}}</span>
+                                            </span>
 
                                             <span class="input-group-addon last" ng-click="ScanLineItem(3,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                         </div>
@@ -1837,11 +2034,16 @@
 
                                             </div>
 
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                <span class="inner">{{obj.cfdPrefix}}</span>
+                                            </span>
+
                                             <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                                <input type="text" id="CustomActivity_Decrease_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                                <input type="text" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" id="CustomActivity_Decrease_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                             </div>
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                <span class="inner">{{obj.cfdSuffix}}</span>
+                                            </span>
 
                                             <span class="input-group-addon last" ng-click="ScanLineItem(4,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                         </div>
@@ -2199,13 +2401,14 @@
                                         <div class="form-group">
                                             <label>{{ GetColumnLabel('iReqValue')}}</label>
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('ReqValue').Prefix}} </span>
 
                                                 <div class="fg-line">
                                                     <!--Prefix , Suffix,Open,Autocomplete,Email, Month-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType>=0 && GetUnitDataFieldByName('ReqValue').FieldSpecialType<=6 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=2 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=6">
                                                         <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
 
-                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
+                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('ReqValue').Prefix}}" data-suffix="{{GetUnitDataFieldByName('ReqValue').Suffix}}" data-original-value="{{GetUnitDataFieldByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{GetUnitDataFieldByName('ReqValue').Suffix}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag1" />
                                                         <input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==4" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==5" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" />-->
 
@@ -2244,7 +2447,10 @@
 
                                                     <span ng-if="tvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
-                                                <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
+                                                <span ng-if="GetUnitDataFieldByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('ReqValue').Suffix}} </span>
+
+                                                
+                                                  <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
                                                 <span ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span class="input-group-addon last">
@@ -2273,6 +2479,7 @@
 
 
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag2').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag2').Prefix}} </span>
 
                                                 <div class="fg-line">
 
@@ -2283,7 +2490,7 @@
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=6">
                                                         <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
 
-                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
+                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag2').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag2').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag2').Prefix}}{{InventoryObject.UnitTag2}}{{GetUnitDataFieldByName('UnitTag2').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag2" />
                                                         <input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==4" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==5" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" />-->
 
@@ -2319,6 +2526,7 @@
 
                                                     <span ng-if="tvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag2').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag2').Suffix}} </span>
 
                                                 <span ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==12" ng-click="Unitradiolist('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
@@ -2345,6 +2553,7 @@
 
 
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag3').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag3').Prefix}} </span>
 
                                                 <div class="fg-line">
 
@@ -2353,8 +2562,10 @@
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=6">
                                                         <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
 
-                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
-                                                        <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
+                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag3').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag3').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag3').Prefix}}{{InventoryObject.UnitTag3}}{{GetUnitDataFieldByName('UnitTag3').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model="CurrentActiveObject.ApplyTransactionData.UnitTag3" />
+                                                       
+                                                        
+                                                         <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" />-->
 
                                                         <select ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" data-type="string" class="form-control uniqueunitData monthPicker" selectvalue="{{CurrentActiveObject.ApplyTransactionData.UnitTag3}}" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3">
@@ -2390,6 +2601,9 @@
                                                     <span ng-if="tvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
 
                                                 </div>
+
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag3').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag3').Suffix}} </span>
+
 
                                                 <span ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==12" ng-click="Unitradiolist('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
@@ -2760,13 +2974,14 @@
                                         <div class="form-group">
                                             <label>{{ GetColumnLabel('iReqValue')}}</label>
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('ReqValue').Prefix}} </span>
 
                                                 <div class="fg-line">
                                                     <!--Prefix , Suffix,Open,Autocomplete,Email, Month-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType>=0 && GetUnitDataFieldByName('ReqValue').FieldSpecialType<=6 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=2 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=6">
                                                         <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
 
-                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
+                                                        <input id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('ReqValue').Prefix}}" data-suffix="{{GetUnitDataFieldByName('ReqValue').Suffix}}" data-original-value="{{GetUnitDataFieldByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{GetUnitDataFieldByName('ReqValue').Suffix}}" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType!=3 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=4 && GetUnitDataFieldByName('ReqValue').FieldSpecialType!=5" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
                                                         <input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==4" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==5" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iReqValue')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" />-->
 
@@ -2805,6 +3020,7 @@
 
                                                     <span ng-if="tvar1==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
+                                                <span ng-if="GetUnitDataFieldByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('ReqValue').Suffix}} </span>
 
                                                 <span ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==3" ng-click="Unitautocomplete('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==12" ng-click="Unitradiolist('unittext1_',CurrentActiveObject.InventoryDataList.uId,'ReqValue')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
@@ -2835,6 +3051,7 @@
 
 
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag2').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag2').Prefix}} </span>
 
                                                 <div class="fg-line">
 
@@ -2845,7 +3062,8 @@
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=6">
                                                         <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
 
-                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
+                                                        <input id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag2').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag2').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag2').Prefix}}{{InventoryObject.UnitTag2}}{{GetUnitDataFieldByName('UnitTag2').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag2').FieldSpecialType!=5" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
+                                                       
                                                         <input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==4" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==5" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag2')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" />-->
 
@@ -2883,7 +3101,10 @@
 
                                                     <span ng-if="tvar2==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
                                                 </div>
-                                                <span ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
+                                              
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag2').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag2').Suffix}} </span>
+
+                                                  <span ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==3" ng-click="Unitautocomplete('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                                 <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==12" ng-click="Unitradiolist('unittext2_',CurrentActiveObject.InventoryDataList.uId,'UnitTag2')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}"><i class="fa fa-circle-o"></i></span>
 
                                                 <span class="input-group-addon last">
@@ -2908,6 +3129,7 @@
 
 
                                             <div class="input-group">
+                                                <span ng-if="GetUnitDataFieldByName('UnitTag3').Prefix != null" class="input-group-addon last unitprepend">{{GetUnitDataFieldByName('UnitTag3').Prefix}} </span>
 
                                                 <div class="fg-line">
 
@@ -2916,8 +3138,9 @@
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType>=0 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType<=6 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=2 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=6">
                                                         <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
 
-                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
-                                                        <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
+                                                        <input id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" data-prefix="{{GetUnitDataFieldByName('UnitTag3').Prefix}}" data-suffix="{{GetUnitDataFieldByName('UnitTag3').Suffix}}" data-original-value="{{GetUnitDataFieldByName('UnitTag3').Prefix}}{{InventoryObject.UnitTag3}}{{GetUnitDataFieldByName('UnitTag3').Suffix}}" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=3 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=4 && GetUnitDataFieldByName('UnitTag3').FieldSpecialType!=5" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="text" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
+                                                      
+                                                          <input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==4" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="email" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />
                                                         <!--<input ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" type="month" data-type="string" class="form-control uniqueunitData" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" />-->
 
                                                         <select ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==5" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)" data-type="string" class="form-control uniqueunitData monthPicker" selectvalue="{{CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3}}" placeholder1="{{ GetColumnLabel('iUnitTag3')}}" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3">
@@ -2954,6 +3177,10 @@
                                                     <span ng-if="tvar3==false" class="errorMessage">This value has already been used. Please enter a unique value.</span>
 
                                                 </div>
+                                               
+                                                 <span ng-if="GetUnitDataFieldByName('UnitTag3').Suffix != null" class="input-group-addon last unitappend">{{GetUnitDataFieldByName('UnitTag3').Suffix}} </span>
+
+                                                
                                                 <span class="input-group-addon last" ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==12" ng-click="Unitradiolist('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ currentactiveobject.inventorydatalist.uid}}"><i class="fa fa-circle-o"></i></span>
 
                                                 <span ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==3" ng-click="Unitautocomplete('unittext3_',CurrentActiveObject.InventoryDataList.uId,'UnitTag3')" uid="{{ CurrentActiveObject.InventoryDataList.uId}}" class="input-group-addon last"><i class="fa fa-search"></i></span>
@@ -3118,6 +3345,11 @@
                                         <label>{{_columns}}  <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
 
                                         <div class="input-group" ng-init="obj=CurrentActiveObject.IsLineItemData[$index]">
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                <span class="inner">{{obj.cfdPrefix}}</span>
+                                            </span>
+
+                                            
                                             <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
 
 
@@ -3147,13 +3379,9 @@
                                                             </select>
 
                                                         </div>
-
                                                         <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                                            <input type="text" id="LineItem_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType  prepostCustomActivity" />
+                                                            <input type="text" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" id="LineItem_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control stringType  prepostCustomActivity" />
                                                         </div>
-
                                                     </div>
 
                                                     <div ng-if="obj.cfdSpecialType == 1" ng-click="customradiolist(obj.ColumnMap, obj.cfdID, CurrentActiveObject.InventoryID, 'activity')">
@@ -3233,7 +3461,12 @@
                                                 <input type="number" id="LineItem_{{CurrentActiveObject.IsLineItemData[$index].cfdID}}" custom-data-type="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType}}" ng-if="CurrentActiveObject.IsLineItemData[$index].cfdDataType=='currency'" ng-model="CurrentActiveObject.IsLineItemData[$index].CfValue" class="form-control numberType" ng-change="ConvertZeroCurrency(CurrentActiveObject.InventoryDataList.uId,$index)" />
 
                                             </div>
-                                            <div>
+                                           
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                <span class="inner">{{obj.cfdSuffix}}</span>
+                                            </span>
+                                            
+                                             <div>
                                                 <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true && TrimValue(CurrentActiveObject.IsLineItemData[$index].CfValue)=='' " class="errorMessage">
                                                     {{CurrentActiveObject.IsLineItemData[$index].cfdName }} field is required.
 
@@ -3310,11 +3543,16 @@
 
                                                 </div>
 
+                                                <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                    <span class="inner">{{obj.cfdPrefix}}</span>
+                                                </span>
                                                 <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
 
-
-                                                    <input type="text" id="CustomActivity_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                                    <input type="text" id="CustomActivity_{{obj.cfdID}}" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                                 </div>
+                                                <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                    <span class="inner">{{obj.cfdSuffix}}</span>
+                                                </span>
 
                                                 <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                             </div>
@@ -3470,11 +3708,15 @@
 
                                                         </div>
 
+                                                        <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                            <span class="inner">{{obj.cfdPrefix}}</span>
+                                                        </span>
                                                         <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                                            <input type="text" id="CustomActivity_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                                            <input type="text" id="CustomActivity_{{obj.cfdID}}" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                                         </div>
+                                                        <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                            <span class="inner">{{obj.cfdSuffix}}</span>
+                                                        </span>
 
                                                         <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                                     </div>
@@ -3629,11 +3871,15 @@
 
                                                         </div>
 
+                                                        <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                            <span class="inner">{{obj.cfdPrefix}}</span>
+                                                        </span>
                                                         <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
-
-
-                                                            <input type="text" id="CustomActivity_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
+                                                            <input type="text" id="CustomActivity_{{obj.cfdID}}" data-prefix="{{obj.cfdPrefix}}" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject.CustomPartData[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" data-suffix="{{obj.cfdSuffix}}" data-cvalue="{{obj.CombineValue}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" class="form-control stringType  prepostCustomActivity" />
                                                         </div>
+                                                        <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                            <span class="inner">{{obj.cfdSuffix}}</span>
+                                                        </span>
 
                                                         <span class="input-group-addon last" ng-click="ScanLineItem(2,obj.cfdID,$index,0)"><i class="fa fa-barcode"></i></span>
                                                     </div>

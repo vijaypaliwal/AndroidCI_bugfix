@@ -3824,7 +3824,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         wcfDateStr123 = d122.toMSJSON();
 
-
+        debugger;
 
 
 
@@ -3959,7 +3959,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         for (_i = 0; _i < $scope.CurrentCart.length; _i++) {
 
-
+            debugger;
 
             _MyObjdata = {
                 InvID: 0,
@@ -4099,6 +4099,62 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             }
 
             if ($scope.CurrentOperation == "Apply") {
+
+                var _RecID = $scope.CurrentCart[k].InventoryDataList.uId;
+                var _u1prefix = $("#unittext1_" + _RecID).attr("data-prefix");
+                var _u1suffix = $("#unittext1_" + _RecID).attr("data-suffix");
+                var _u1original = $("#unittext1_" + _RecID).attr("data-original-value");
+                var _u1value = $("#unittext1_" + _RecID).val();
+
+                if ($.trim(_u1prefix) != "" || $.trim(_u1suffix) != "") {
+
+                    if ($.trim(_u1value) != "") {
+
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 = _u1prefix + _u1value + _u1suffix;
+
+
+                    }
+                    else {
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag1 = "";
+
+                    }
+                }
+
+
+                var _u2prefix = $("#unittext2_" + _RecID).attr("data-prefix");
+                var _u2suffix = $("#unittext2_" + _RecID).attr("data-suffix");
+                var _u2original = $("#unittext2_" + _RecID).attr("data-original-value");
+                var _u2value = $("#unittext2_" + _RecID).val();
+
+                if ($.trim(_u2prefix) != "" || $.trim(_u2suffix) != "") {
+
+                    if ($.trim(_u2value) != "") {
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag2 = _u2prefix + _u2value + _u2suffix;
+                    }
+                    else {
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag2 = "";
+
+                    }
+                }
+
+                var _u3prefix = $("#unittext3_" + _RecID).attr("data-prefix");
+                var _u3suffix = $("#unittext3_" + _RecID).attr("data-suffix");
+                var _u3original = $("#unittext3_" + _RecID).attr("data-original-value");
+                var _u3value = $("#unittext3_" + _RecID).val();
+
+                if ($.trim(_u3prefix) != "" || $.trim(_u3suffix) != "") {
+
+                    if ($.trim(_u3value) != "") {
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag3 = _u3prefix + _u3value + _u3suffix;
+                    }
+                    else {
+                        $scope.CurrentCart[k].ApplyTransactionData.UnitTag3 = "";
+
+                    }
+                }
+
+
+
                 _MyObjdata.incrementedValue = $scope.GetUnitDataFieldByName("ReqValue").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag1, $scope.GetUnitDataFieldByName("ReqValue").Prefix, $scope.GetUnitDataFieldByName("ReqValue").Suffix) : 0;
                 _MyObjdata1.incrementedValue2 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag2, $scope.GetUnitDataFieldByName("UnitTag2").Prefix, $scope.GetUnitDataFieldByName("UnitTag2").Suffix) : 0;
                 _MyObjdata2.incrementedValue3 = $scope.GetUnitDataFieldByName("UnitTag2").FieldSpecialType == 0 ? GetProperUnitValue($scope.CurrentCart[k].ApplyTransactionData.UnitTag3, $scope.GetUnitDataFieldByName("UnitTag3").Prefix, $scope.GetUnitDataFieldByName("UnitTag3").Suffix) : 0;
@@ -4118,6 +4174,60 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
 
             if ($scope.CurrentOperation == "MoveTagUpdate") {
+
+
+                var _RecID = $scope.CurrentCart[k].InventoryDataList.uId;
+                var _u1prefix = $("#unittext1_" + _RecID).attr("data-prefix");
+                var _u1suffix = $("#unittext1_" + _RecID).attr("data-suffix");
+                var _u1original = $("#unittext1_" + _RecID).attr("data-original-value");
+                var _u1value = $("#unittext1_" + _RecID).val();
+
+                if ($.trim(_u1prefix) != "" || $.trim(_u1suffix) != "") {
+
+                    if ($.trim(_u1value) != "") {
+
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1 = _u1prefix + _u1value + _u1suffix;
+
+
+                    }
+                    else {
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag1 = "";
+
+                    }
+                }
+
+
+                var _u2prefix = $("#unittext2_" + _RecID).attr("data-prefix");
+                var _u2suffix = $("#unittext2_" + _RecID).attr("data-suffix");
+                var _u2original = $("#unittext2_" + _RecID).attr("data-original-value");
+                var _u2value = $("#unittext2_" + _RecID).val();
+
+                if ($.trim(_u2prefix) != "" || $.trim(_u2suffix) != "") {
+
+                    if ($.trim(_u2value) != "") {
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2 = _u2prefix + _u2value + _u2suffix;
+                    }
+                    else {
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag2 = "";
+
+                    }
+                }
+
+                var _u3prefix = $("#unittext3_" + _RecID).attr("data-prefix");
+                var _u3suffix = $("#unittext3_" + _RecID).attr("data-suffix");
+                var _u3original = $("#unittext3_" + _RecID).attr("data-original-value");
+                var _u3value = $("#unittext3_" + _RecID).val();
+
+                if ($.trim(_u3prefix) != "" || $.trim(_u3suffix) != "") {
+
+                    if ($.trim(_u3value) != "") {
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3 = _u3prefix + _u3value + _u3suffix;
+                    }
+                    else {
+                        $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitTag3 = "";
+
+                    }
+                }
 
                 _TempQty = $scope.CurrentCart[k].MoveUpdateTagTransactionData.ActionQuantity;
                 _TempStatus = $scope.CurrentCart[k].MoveUpdateTagTransactionData.StatusToUpdate;
@@ -4343,7 +4453,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             if ($scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != undefined && $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2 != "") {
                 var dateVar = $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitDate2;
 
-                
+
                 if ($scope.GetUnitDataFieldByName('UnitDate2').FieldSpecialType == 16) {
                     if ($scope.CurrentOperation == "MoveTagUpdate") {
                         var _dateValuearray = dateVar.split("T");
@@ -4403,9 +4513,31 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 }
 
             }
+            //
+
+            for (var x = 0; x < $scope.CurrentCart[k].IsLineItemData.length; x++) {
+                var dynamicId = "#LineItem_" + $scope.CurrentCart[k].IsLineItemData[x].cfdID;
+                var _u3prefix = $(dynamicId).attr("data-prefix");
+                var _u3suffix = $(dynamicId).attr("data-suffix");
+                var _u3original = $(dynamicId).attr("data-original-value");
+
+                var _value = "";
+                if ($.trim(_u3prefix) != "" || $.trim(_u3suffix) != "") {
+                    if ($.trim(_u3original) != "") {
+                        _value = _u3original;
+                    }
+                    else {
+                        _value = "";
+                    }
+                }
+                else {
+                    _value = $scope.CurrentCart[k].IsLineItemData[x].CfValue;
+                }
+                $scope.CurrentCart[k].IsLineItemData[x].CfValue = _value;
+            }
 
 
-
+            //
             if (IsAdjustOnData == "True") {
 
                 var value = 0;
@@ -4509,7 +4641,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                     NewUnitDate2: wcfDateStr2New,
                     NewUnitNumber1: $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 == undefined || $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1 == null ? -1500 : $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber1,
                     NewUnitNumber2: $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == undefined || $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2 == null ? -1500 : $scope.CurrentCart[k].MoveUpdateTagTransactionData.UnitNumber2,
-                    myPostObj: _MyObjdata, IsLineItem: $scope.CurrentCart[k].IsLineItemData
+                    myPostObj: _MyObjdata,
+                    IsLineItem: $scope.CurrentCart[k].IsLineItemData
                 });
             }
 
