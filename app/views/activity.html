@@ -97,7 +97,7 @@
         padding-left: 0 !important;
         padding-right: 0 !important;
         line-height: 0 !important;
-        padding-top: 2px;
+        padding-top: 0px;
     }
 
 
@@ -124,8 +124,8 @@
         vertical-align: middle;
         /* margin-top: 22px; */
         padding: 9px;
-        padding-bottom: 7px;
-        padding-top: 12px;
+        padding-bottom: 9px;
+        padding-top: 10px;
         font-size: 17px;
         border-top-left-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
@@ -162,8 +162,8 @@
         color: #888 !important;
         vertical-align: middle;
         padding: 9px;
-        padding-bottom: 7px;
-        padding-top: 12px;
+        padding-bottom: 9px;
+        padding-top: 10px;
         font-size: 17px;
         border-top-right-radius: 4px !important;
         border-bottom-right-radius: 4px !important;
@@ -1490,8 +1490,8 @@
                                                 <label>{{_columns}}    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
 
                                                 <div class="input-group" ng-init="obj=CurrentActiveObject.IsLineItemData[$index]">
-                                                    <span style="padding-bottom:8px;" ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
-                                                        <span style="padding-top: 10px; padding-bottom: 9px;" class="inner">{{obj.cfdPrefix}}</span>
+                                                    <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                                        <span class="inner">{{obj.cfdPrefix}}</span>
                                                     </span>
                                                     
                                                      <div class="{{CurrentActiveObject.IsLineItemData[$index].cfdDataType!='checkbox'?'input-group':''}}">
@@ -1606,8 +1606,8 @@
 
                                                     </div>
                                                    
-                                                    <span style="padding-bottom:8px;" ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
-                                                        <span style="padding-top: 10px; padding-bottom: 9px;" class="inner">{{obj.cfdSuffix}}</span>
+                                                    <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=undefined && obj.cfdSuffix !=null && obj.cfdSuffix !='')" class="input-group-addon append last">
+                                                        <span class="inner">{{obj.cfdSuffix}}</span>
                                                     </span>
                                                     
                                                      <div>
