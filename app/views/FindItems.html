@@ -162,13 +162,14 @@
 
 
 
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iReqValue')" alt="iReqValue">{{GetUnitDataLabel('iReqValue')}}</a></li>
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag2')" alt="iUnitTag2">{{GetUnitDataLabel('iUnitTag2')}}</a></li>
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag3')" alt="iUnitTag3">{{GetUnitDataLabel('iUnitTag3')}}</a></li>
+
+                                    <li ng-if="IsAvailableUnitColumn('ReqValue')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iReqValue')" alt="iReqValue">{{GetUnitDataLabel('iReqValue')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag2')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag2')" alt="iUnitTag2">{{GetUnitDataLabel('iUnitTag2')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag3')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag3')" alt="iUnitTag3">{{GetUnitDataLabel('iUnitTag3')}}</a></li>
                                     <!--<li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUniqueDate')" alt="iUniqueDate">{{GetUnitDataLabel('iUniqueDate')}}</a></li>
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitDate2')" alt="iUnitDate2">{{GetUnitDataLabel('iUnitDate2')}}</a></li>-->
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber1')" alt="iUnitNumber1">{{GetUnitDataLabel('iUnitNumber1')}}</a></li>
-                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber2')" alt="iUnitNumber2">{{GetUnitDataLabel('iUnitNumber2')}}</a></li>
+                                   <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitDate2')" alt="iUnitDate2">{{GetUnitDataLabel('iUnitDate2')}}</a></li>-->
+                                    <li ng-if="IsAvailableUnitColumn('UnitNumber1')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber1')" alt="iUnitNumber1">{{GetUnitDataLabel('iUnitNumber1')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitNumber2')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber2')" alt="iUnitNumber2">{{GetUnitDataLabel('iUnitNumber2')}}</a></li>
 
 
                                 </ul>
