@@ -442,7 +442,7 @@
                 <li class="bottomlink" ng-if="totalrecords!=0 &&_areImagesShown==true" ng-click="Showhideimage('false')"> <span>Hide Image</span> <a class="waves-effect btn-info btn decrease" style="background-color: #C65E28;" data-dismiss="modal"> <i class="fa fa-image"></i> </a></li>
                 <li class="bottomlink" ng-if="totalrecords!=0 &&_areZeroRecordsShown==false" ng-click=" showhidezerorecord('true')"><span>Show Zero record</span> <a class="waves-effect btn-info btn decrease" style="background-color: #583782;" data-dismiss="modal"> 0 </a></li>
                 <li class="bottomlink" ng-if="totalrecords!=0 &&_areZeroRecordsShown==true" ng-click="showhidezerorecord('false')"><span>Hide Zero record</span> <a class="waves-effect btn-info btn decrease" style="background-color: #583782;" data-dismiss="modal"> 0 </a></li>
-                <li ng-click="SelectAll()" class="bottomlink"><span>Select All</span> <a class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-check"></i>  </a></li>
+                <li data-dismiss="modal" ng-click="SelectAll()" class="bottomlink"><span>Select All</span> <a class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-check"></i>  </a></li>
                 <li ng-click="ClearFilter()" class="bottomlink"><span data-dismiss="modal">Clear Filters</span> <a style="background:#bbb !important;" class=" waves-effect btn-primary btn decrease" data-dismiss="modal"> <i class="fa fa-times"></i>  </a></li>
             </ul>
         </div>
