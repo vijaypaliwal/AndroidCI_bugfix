@@ -90,7 +90,7 @@ $("#mysmallModal").click(function () {
     hideSuccess();
 });
 
-$(document).on('input', 'input[type="text"],input[type="number"],input[type="email"],input[type="password"]', function () {
+$(document).on('input', 'input[type="text"],input[type="number"],.emailtextbox,input[type="password"]', function () {
 
 
     $('input[type="text"]:input').not(".hideaddclear").addClear({
@@ -113,7 +113,7 @@ $(document).on('input', 'input[type="text"],input[type="number"],input[type="ema
     $(this).trigger("change");
 });
 
-$(document).on('change', 'input[type="text"],input[type="number"],input[type="email"],input[type="password"]', function () {
+$(document).on('change', 'input[type="text"],input[type="number"],.emailtextbox,input[type="password"]', function () {
 
     $('input[type="text"]').not(".hideaddclear").addClear({
         symbolClass: "fa fa-times-circle"
