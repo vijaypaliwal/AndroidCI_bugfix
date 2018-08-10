@@ -176,7 +176,7 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
 
 
     $scope.gotoregister = function () {
-        var url = "https://account.inventory4.com/signup/Mobilesignup";
+        var url = "https://account.clearlyinventory.com/signup/Mobilesignup";
 
         var ref = window.open(url, '_blank', 'location=no');
     }
@@ -194,11 +194,9 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     }
 
 
-    $("#Emailbox").keyup(function () {
-        $(this).attr("data-send-value", $(this).val());
-        $scope.loginData.userName = $("#Emailbox").attr("data-send-value");
-        $scope.userNamevalue = $("#Emailbox").attr("data-send-value");
-        $scope.$apply();
+    $(document).on("input keyup paste change", "#Passwordbox", function () {
+
+        debugger;
 
         if ($scope.loginData.userName == "" || $scope.loginData.password == "" || $scope.loginData.password == undefined) {
 
@@ -216,9 +214,11 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     });
 
 
-    $("#Passwordbox").keyup(function () {
-
-        debugger;
+    $(document).on("input keyup paste change", "#Emailbox", function () {
+        $(this).attr("data-send-value", $(this).val());
+        $scope.loginData.userName = $("#Emailbox").attr("data-send-value");
+        $scope.userNamevalue = $("#Emailbox").attr("data-send-value");
+        $scope.$apply();
 
         if ($scope.loginData.userName == "" || $scope.loginData.password == "" || $scope.loginData.password == undefined) {
 
@@ -232,7 +232,6 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
             $("#loginBtn").attr("disabled", false)
 
         }
-
     });
 
 
