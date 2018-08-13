@@ -577,6 +577,62 @@
     <script src="scripts/jquery-1.11.0.min.js"></script>
     <script src="scripts/jquery-ui.js"></script>
     <script src="scripts/jquery.touchSwipe.min.js"></script>
+
+    <script>
+
+        var serviceBaseUrl = "";
+        var serviceBase = "";
+        var signupLink = "";
+
+
+        $(document).on("change", "#ServiceBase", function () {
+            serviceBase = $(this).val();
+        });
+
+
+
+
+        $.ajax
+       ({
+           type: "POST",
+           url: 'http://clearlyinventorymobileweb.azurewebsites.net/MobileCrediantials',
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'text json',
+           data: JSON.stringify({ "UserKey": "ABC@123" }),
+           success: function (response) {
+
+               debugger;
+
+               ClearlybaseURL = response.serviceBaseUrl;
+               ClearlyURL = response.serviceBase;
+               Signupink = response.mobileSignupUrl;
+               serviceBaseUrl = ClearlybaseURL;
+               serviceBase = ClearlyURL;
+
+               signupLink = Signupink;
+               $("#ServiceBase").val(serviceBase);
+               $("#ServiceBase").trigger("change");
+
+               $("#Signuplink").val(signupLink);
+               $("#Signuplink").trigger("change");
+
+           },
+           error: function (response) {
+
+               alert("Error in Clearly API");
+               debugger;
+
+
+           },
+           complete: function () {
+
+
+           }
+       });
+    </script>
+
+
+
     
 
     <!-- Bootstrap libraries -->

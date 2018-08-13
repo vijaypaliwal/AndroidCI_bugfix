@@ -175,11 +175,7 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     };
 
 
-    $scope.gotoregister = function () {
-        var url = "https://account.clearlyinventory.com/signup/Mobilesignup";
-
-        var ref = window.open(url, '_blank', 'location=no');
-    }
+  
     $scope.Isshowpassword = true;
 
 
@@ -233,6 +229,21 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
 
         }
     });
+
+
+    $scope.SignUpUrl = signupLink;
+
+
+    $(document).on("change", "#Signuplink", function () {
+        $scope.SignUpUrl = $(this).val();
+        $scope.$apply();
+    });
+
+    $scope.gotoregister = function () {
+        var url = $scope.SignUpUrl;
+
+        var ref = window.open(url, '_blank', 'location=no');
+    }
 
 
 }]);

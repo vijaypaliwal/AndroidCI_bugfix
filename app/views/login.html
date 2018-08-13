@@ -64,7 +64,9 @@
                         </div>
                     </div>
                 </div>-->
+                 <input type="hidden" name="ServiceBase" id="ServiceBase" value="" />
 
+                 <input type="hidden" name="Signuplink" id="Signuplink" value="" />
 
                 <div class="row">
                     <div class="col-xs-12">
@@ -127,7 +129,8 @@
 
     <a style="color:#fff;">Don't have an account?</a>
 
-    <a ng-click="gotoregister()"  class="signuplink">Sign Up </a>
+    <a ng-if="SignUpUrl !=''" ng-click="gotoregister()" class="signuplink">Sign Up </a>
+    <a ng-if="SignUpUrl ==''" class="signuplink">Sign Up </a>
 </div>
 
 

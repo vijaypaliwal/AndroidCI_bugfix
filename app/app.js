@@ -224,8 +224,8 @@ app.config(function ($routeProvider) {
 //var serviceBaseUrl = 'https://mobile-stage.clearlyinventory.com/';
 //var serviceBase = 'https://mobile-stage.clearlyinventory.com/ClearlyInventoryAPI.svc/';
 
-var serviceBaseUrl = 'https://mobile-v2.clearlyinventory.com/';
-var serviceBase = 'https://mobile-v2.clearlyinventory.com/ClearlyInventoryAPI.svc/';
+//var serviceBaseUrl = 'https://mobile-v2.clearlyinventory.com/';
+//var serviceBase = 'https://mobile-v2.clearlyinventory.com/ClearlyInventoryAPI.svc/';
 
 
 app.constant('ngAuthSettings', {
