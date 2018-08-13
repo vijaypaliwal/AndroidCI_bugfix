@@ -2212,16 +2212,16 @@
                                                 </select>
                                             </div>
 
-                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && obj.cfdPrefix !=undefined" class="input-group-addon prepend last">
-                                                <span class="inner">{{obj.cfdPrefix}}</span>
-                                            </span>
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=null && obj.cfdPrefix !=undefined && obj.cfdPrefix !='')" class="input-group-addon prepend last"><span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=null && obj.cfdPrefix !=undefined && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                               <span class="inner">{{obj.cfdPrefix}}</span>
+                                                 </span>
                                             <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
 
 
                                                 <input type="text" data-prefix="{{obj.cfdPrefix}}" data-suffix="{{obj.cfdSuffix}}" data-value="{{obj.CombineValue}}" data-orginal-value="{{obj.cfdPrefix}}{{InventoryObject.CustomTxnData[$index].Value}}{{obj.cfdSuffix}}" id="CustomActivity_{{obj.cfdID}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control  prepostCustom" />
                                             </div>
 
-                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && obj.cfdSuffix !=undefined" class="input-group-addon append last">
+                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdSuffix !=null && obj.cfdSuffix !=undefined && obj.cfdSuffix !='' )" class="input-group-addon append last">
                                                 <span class="inner">{{obj.cfdSuffix}}</span>
                                             </span>
 
