@@ -120,6 +120,9 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
             $scope.loginData.account = authLocalData.AccountName;
             $scope.loginData.userName = authLocalData.userName;
             $scope.loginData.password = authLocalData.Password;
+            $('#Emailbox').val(authLocalData.userName);
+            $scope.userNamevalue = authLocalData.userName;
+            $scope.$apply();
         }
         $scope.GetCurrentDataBase();
         //  $scope.DefaultAccount();
