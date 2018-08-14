@@ -12,6 +12,7 @@ app.controller('AccountsController', ['$scope', '$location', 'authService', 'loc
     $scope.isSaving = false;
     $scope.CurrentAccount = "";
     $scope.Addinventory = false;
+    $scope.inventoryExists = true;
     $scope.StripeSubscription = "";
     $scope.InventoryObj={InventoryAccountName:"",InventoryAccountID:0,PlanCode:""}
     $scope.OwnedInventoryCount = 0;
@@ -45,22 +46,25 @@ app.controller('AccountsController', ['$scope', '$location', 'authService', 'loc
 
                 if (data.GetInventoryAccountsResult.Success == true) {
 
+                    if (data.GetInventoryAccountsResult.Payload.length != 0) {
+                        $scope.inventoryExists = true;
+                        if (data.GetInventoryAccountsResult != null && data.GetInventoryAccountsResult.Payload != null) {
+                            $scope.AccountsList = data.GetInventoryAccountsResult.Payload;
+                            $scope.OwnedInventoryCount = $scope.AccountsList[0].CurrentUserOwnedInventoryCount;
+                            $scope.StripeSubscription = $scope.AccountsList[0].CurrentUserStripeSubscription;
+
+                            if ($.trim($scope.StripeSubscription) != '' || $scope.OwnedInventoryCount == 0) {
+                                $scope.IsAddInventoryShown = true;
+                            }
+
+                            $scope.$emit("SendUp", $scope.AccountsList);
 
 
-                    if (data.GetInventoryAccountsResult != null && data.GetInventoryAccountsResult.Payload != null) {
-                        $scope.AccountsList = data.GetInventoryAccountsResult.Payload;
-
-                        $scope.OwnedInventoryCount = $scope.AccountsList[0].CurrentUserOwnedInventoryCount;
-                        $scope.StripeSubscription = $scope.AccountsList[0].CurrentUserStripeSubscription;
-
-                        if ($.trim($scope.StripeSubscription) != '' || $scope.OwnedInventoryCount == 0)
-                        {
-                            $scope.IsAddInventoryShown = true;
                         }
-
-                        $scope.$emit("SendUp", $scope.AccountsList);
-
-                    
+                    }
+                    else {
+                        //No inventory exists for that particular user.
+                        $scope.inventoryExists = false;                        
                     }
                 }
                 else {

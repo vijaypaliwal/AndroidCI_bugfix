@@ -3,12 +3,6 @@
 <link href="css/account.css" rel="stylesheet" />
 
 <style>
-    .loaderanimation {
-        left: 0;
-        top: 40%;
-    }
-
-
     .btn-next {
         height: 50px;
         width: 50px;
@@ -87,7 +81,7 @@
         float: right; /* adjust as needed */
         color: #069; /* adjust as needed */
         width: 11px;
-        margin-left:6px;
+        margin-left: 3px;
     }
 
     .panel-heading .accordion-toggle.collapsed:after {
@@ -174,7 +168,6 @@
         font-size: 17px;
     }
 
-
     .inventoryname {
         overflow: hidden;
         -ms-text-overflow: ellipsis;
@@ -189,6 +182,16 @@
         width: 100%;
         line-height: 29px !important;
     }
+
+    .col-xs-3 span {
+        font-size: 14px;
+    }
+
+   .loaderanimation
+   {
+       left:0;
+       top:40%;
+   }
 </style>
 
 
@@ -202,20 +205,22 @@
 
 
 
+<div ng-show="IsLoading==true" class="loaderanimation">
+    <img src="img/loader.gif" alt="Alternate Text" />
+</div>
+
 
 <div style="text-align:center; margin-bottom:15px;">
 
     <img style="height:55px; width: 55px; background: #2196F3; padding: 10px; margin-top:20px; border-radius: 100%;" src="img/u2.png" alt="Alternate Text" />
 
 </div>
-<div ng-show="IsLoading==true" class="loaderanimation">
-    <img src="img/loader.gif" alt="Alternate Text" />
-</div>
+
 <div ng-show="Addinventory==false" class="animated slideInDown">
 
 
 
-    
+ 
 
 
     <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; display:none; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
@@ -254,41 +259,51 @@
     </ul>-->
 
     <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID==_obj.MasterAccountID">
-            <div class="panel-heading" role="tab" id="heading{{_obj.InventoryAccountID}}">
-                <h4 class="panel-title">
+        <div ng-if="inventoryExists">
+            <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID==_obj.MasterAccountID">
 
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p class="inventoryname" ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName,_obj.BackColor)" style="background-color:{{_obj.BackColor}} !important"> {{_obj.InventoryName}}</p>
+                <div class="panel-heading" role="tab" id="heading{{_obj.InventoryAccountID}}">
+                    <h4 class="panel-title">
+
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <p class="inventoryname" ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName,_obj.BackColor)" style="background-color:{{_obj.BackColor}} !important"> {{_obj.InventoryName}}</p>
+                            </div>
+
+                            <div style="text-align:right;" class="col-xs-3">
+                                <a role="button" class="accordion-toggle collapsed" style="color: #069; display: block;" data-toggle="collapse" data-parent="#accordion" data-target="#{{_obj.InventoryAccountID}}" aria-expanded="true">
+                                    <span>Details </span>
+                                </a>
+                            </div>
                         </div>
 
-                        <div style="text-align:right;" class="col-xs-3">
-                            <a role="button" class="accordion-toggle collapsed" style="color: #069; display: block;" data-toggle="collapse" data-parent="#accordion" data-target="#{{_obj.InventoryAccountID}}" aria-expanded="true">
-                                <span>Details </span>
-                            </a>
-                        </div>
-                    </div>
-                </h4>
-            </div>
-            <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    <p ng-if="_obj.FirstName != ''" style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
-                    <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
-
-                    <p><span ng-if="_obj.DaysRemaining>0">({{_obj.DaysRemaining}} days remaining) </span></p>
 
 
-                    <!--<div class="row listbtn">
+                    </h4>
+                </div>
+                <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <p ng-if="_obj.FirstName != ''" style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
+                        <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
+
+                        <p><span ng-if="_obj.DaysRemaining>0">({{_obj.DaysRemaining}} days remaining) </span></p>
+
+
+                        <!--<div class="row listbtn">
                         <div class="col-md-12 bottomlinks">
 
                             <a ng-click="OpenEditInventoryModal(_obj)">Edit</a> | <a ng-click="CloseInventory(_obj.InventoryAccountID)">Update status</a>  <a ng-if="_obj.DaysRemaining>0" href="#/CreateSubscription">| Create new Subscription</a>
                         </div>
                     </div>-->
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div class="panel panel-default text-center alert alert-info" ng-if="!inventoryExists">
+            <p> You do not have any Inventory please create one from the Web version.</p>
+            <a href="#" class="btn btn-primary"><i class="fa fa-sign-out"></i>&nbsp;  Sign Out</a>
+        </div>
     </div>
 
 
