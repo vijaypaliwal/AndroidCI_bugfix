@@ -42,22 +42,14 @@
 <div id="content" class="top50 grey-blue" >
     <div ng-if="IsEditMode==false">
               <div class="swiper-container">
-
+                  <div style="width:100%; text-align:center;">
+                      <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
+                  </div>
                         <div class="swiper-wrapper">
 
                             <div ng-if="ImageListdetail.length > 0" ng-repeat="obj in ImageListdetail" class="swiper-slide">
 
-                                <table style="width:100%;">
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <div style="text-align:center">
-                                                <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
-                                            </div>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </table>
+                               
 
                                 <table style="display:none;" class="imagesection">
                                     <tr>
@@ -79,19 +71,7 @@
                                 </table>
                             </div>
 
-                            <div ng-if="ImageListdetail.length == 0" class="swiper-slide">
-
-                                <table style="width:100%;">
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <div style="text-align:center">
-                                                <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
-                                            </div>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </table>
+                            <div ng-if="ImageListdetail.length == 0" class="swiper-slide">                                
 
 
                                 <table style="display:none;" class="imagesection">
