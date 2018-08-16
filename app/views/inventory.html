@@ -3347,16 +3347,16 @@
 
                           
 
-                                <div class="form-group">
-                                    <label>Cost per ({{InventoryObject.Uom}})</label>
+                            <div class="form-group">
+                                <label>Cost per ({{InventoryObject.Uom}})</label>
 
-                                    <div class="input-group">
-                                        <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
-
-
-                                    </div>
+                                <div class="input-group">
+                                    <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
+                                    <span ng-click="GetLastValue('Inv_Cost','#Costperunit')" test-case condition="GetLastValueData('Inv_Cost')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
 
                                 </div>
+
+                            </div>
 
                            
                         </div>
