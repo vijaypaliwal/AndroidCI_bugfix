@@ -105,14 +105,12 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-xs-12">
-                        <a style="width:100%;" class="btn btn-gray animated center bouncein delay-6" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In </a>
-                     
-                     
-                        </div>
-                    </div>
+                 <div class="row">
+                     <div class="col-xs-12">
+                         <a style="width:100%;" ng-show="SignUpUrl ==''" class="btn btn-primary animated center bouncein delay-6"><i class="fa fa-sign-in"></i> Sign In </a>
+                         <a style="width:100%;" ng-show="SignUpUrl !=''" class="btn btn-gray animated center bouncein delay-6" id="loginBtn" data-ng-click="login()"><i class="fa fa-sign-in"></i> Sign In </a>
+                     </div>
+                 </div>
 
                  
                     </div>
