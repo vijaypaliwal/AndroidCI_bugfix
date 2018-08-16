@@ -1393,6 +1393,22 @@
                     </div>
 
 
+                    <div class="swiper-slide">
+
+                        <div class="form-group">
+                            <label>Cost per ({{InventoryObject.Uom}})</label>
+
+                            <div class="input-group">
+                                <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
                     <div ng-class="{'detailheight': slide==Totalslides }" class="swiper-slide" ng-show="Isopendiv==true">
                         <div ng-if="slide==Totalslides" class="allfields">
                             <div class="myCols innerCols" data-index="{{$index}}" data-type="myinventory" data-id="CustomItem_{{obj.cfdID}}" field-type="myinventorycols" data-column="{{obj.ColumnName}}" ng-repeat="obj in MyinventoryFields" end-repeat>
@@ -3327,6 +3343,22 @@
                                     <span ng-click="GetLastValue('Inv_UpdateDate','#UpdateDate')" test-case condition="GetLastValueData('Inv_UpdateDate')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                 </div>
                             </div>
+
+
+                          
+
+                                <div class="form-group">
+                                    <label>Cost per ({{InventoryObject.Uom}})</label>
+
+                                    <div class="input-group">
+                                        <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
+
+
+                                    </div>
+
+                                </div>
+
+                           
                         </div>
                     </div>
 
