@@ -1487,7 +1487,9 @@
 
                                         <div ng-class="parentIndex==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                             <div ng-if="CheckOnAdjust(CurrentActiveObject.IsLineItemData[$index].cfdID,CurrentActiveObject.ActionPerformed)" class="form-group">
-                                                <label>{{_columns}}    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true" class="errorMessage">*</span></label>
+                                                <label>{{_columns}}
+                                                    <span ng-if="CurrentActiveObject.IsLineItemData[$index].cfdIsRequired==true">*</span>
+                                                </label>
 
                                                 <div class="input-group" ng-init="obj=CurrentActiveObject.IsLineItemData[$index]">
                                                     <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=undefined && obj.cfdPrefix !=null && obj.cfdPrefix !='')" class="input-group-addon prepend last">
