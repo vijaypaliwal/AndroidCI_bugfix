@@ -13,6 +13,7 @@ app.controller('AccountsController', ['$scope', '$location', 'authService', 'loc
     $scope.CurrentAccount = "";
     $scope.Addinventory = false;
     $scope.inventoryExists = true;
+    $scope.otherInventoryExists = true;
     $scope.StripeSubscription = "";
     $scope.InventoryObj={InventoryAccountName:"",InventoryAccountID:0,PlanCode:""}
     $scope.OwnedInventoryCount = 0;
@@ -50,6 +51,18 @@ app.controller('AccountsController', ['$scope', '$location', 'authService', 'loc
                         $scope.inventoryExists = true;
                         if (data.GetInventoryAccountsResult != null && data.GetInventoryAccountsResult.Payload != null) {
                             $scope.AccountsList = data.GetInventoryAccountsResult.Payload;
+                           
+                            // Check for the existance of Other Inventory.
+                            for (var i = 0; i < $scope.AccountsList.length; i++)
+                            {
+                                if ($scope.AccountsList[i].CurrentUserMasterAccountID != $scope.AccountsList[i].MasterAccountID) {
+                                    $scope.otherInventoryExists = true;
+                                }
+                                else {
+                                    $scope.otherInventoryExists = false;
+                                }
+                            }
+
                             $scope.OwnedInventoryCount = $scope.AccountsList[0].CurrentUserOwnedInventoryCount;
                             $scope.StripeSubscription = $scope.AccountsList[0].CurrentUserStripeSubscription;
 

@@ -192,16 +192,16 @@
        left:0;
        top:40%;
    }
+    #toolbar {
+        background-color: #2196F3;
+        padding-top: 7px;
+    }
 </style>
 
+ <div style="display:block !important;" id="toolbar" > <span class="title" > <i class="fa fa-cogs" > 
+     </i > Manage Your Inventories</span > 
+ </div >
 
-
-<div style="display:block !important;" id="toolbar" class="primary-color">
-
-    <span class="title"> <i class="fa fa-cogs"></i> Manage Your Inventories</span>
-
-
-</div>
 
 
 
@@ -337,37 +337,44 @@
 
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID!=_obj.MasterAccountID">
-            <div class="panel-heading" role="tab" id="heading{{_obj.InventoryAccountID}}">
-                <h4 class="panel-title">
 
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p class="inventoryname" ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName,_obj.BackColor)" style="background-color:{{_obj.BackColor}} !important"> {{_obj.InventoryName}}</p>
+        <div ng-if="otherInventoryExists">
+            <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID!=_obj.MasterAccountID">
+                <div class="panel-heading" role="tab" id="heading{{_obj.InventoryAccountID}}">
+                    <h4 class="panel-title">
+
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <p class="inventoryname" ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName,_obj.BackColor)" style="background-color:{{_obj.BackColor}} !important"> {{_obj.InventoryName}}</p>
+                            </div>
+
+                            <div style="text-align:right;" class="col-xs-3">
+                                <a role="button" class="accordion-toggle" style="color: #069; display: block;" data-toggle="collapse" data-parent="#accordion" data-target="#{{_obj.InventoryAccountID}}" aria-expanded="true">
+                                    <span>Details </span>
+                                </a>
+                            </div>
                         </div>
 
-                        <div style="text-align:right;" class="col-xs-3">
-                            <a role="button" class="accordion-toggle" style="color: #069; display: block;" data-toggle="collapse" data-parent="#accordion" data-target="#{{_obj.InventoryAccountID}}" aria-expanded="true">
-                                <span>Details </span>
-                            </a>
-                        </div>
+
+
+                    </h4>
+                </div>
+                <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <p style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
+                        <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
+                        <p><span ng-if="_obj.DaysRemaining>0">{{_obj.DaysRemaining}} days remaining </span></p>
+
+
                     </div>
-
-
-
-                </h4>
-            </div>
-            <div id="{{_obj.InventoryAccountID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    <p style="text-transform:capitalize; font-weight:700;"> <i class="fa fa-user"></i> {{_obj.FirstName}} {{_obj.LastName}} <span class="pull-right" style="font-size: 11px !important; text-transform: lowercase; background: #e2e2e2; padding: 4px; border-radius: 6px; color: #888;"> {{_obj.Status}}</span></p>
-                    <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
-                    <p><span ng-if="_obj.DaysRemaining>0">{{_obj.DaysRemaining}} days remaining </span></p>
-
-
                 </div>
             </div>
-        </div>
 
+        </div>
+        
+        <div class="panel panel-default text-center alert alert-info" ng-if="!otherInventoryExists">
+            <p> You do not have any Other Inventory.</p>           
+        </div>
     </div>
 </div>
 
