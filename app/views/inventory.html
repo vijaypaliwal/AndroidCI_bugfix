@@ -696,11 +696,11 @@
 
                                 <div class="input-group">
 
-                                    <span ng-if="getUnitObjByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('ReqValue').Prefix}} </span>
+                                    <span ng-if="getUnitObjByName('ReqValue').Prefix != null && getUnitObjByName('ReqValue').Prefix != '' && getUnitObjByName('ReqValue').Prefix != undefined" class="input-group-addon last unitprepend">{{getUnitObjByName('ReqValue').Prefix}} </span>
 
                                     <input id="UniqueTag" data-prefix="{{getUnitObjByName('ReqValue').Prefix}}" data-suffix="{{getUnitObjByName('ReqValue').Suffix}}" data-value="{{getUnitObjByName('ReqValue').FieldDefaultValue}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" data-original-value="{{getUnitObjByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{getUnitObjByName('ReqValue').Suffix}}" type="text" ng-model="InventoryObject.UniqueTag" class="form-control prepostUnit" />
 
-                                    <span ng-if="getUnitObjByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('ReqValue').Suffix}} </span>
+                                    <span ng-if="getUnitObjByName('ReqValue').Suffix != null && getUnitObjByName('ReqValue').Suffix != '' && getUnitObjByName('ReqValue').Suffix != undefined" class="input-group-addon last unitappend">{{getUnitObjByName('ReqValue').Suffix}} </span>
 
                                     <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                 </div>
@@ -2073,7 +2073,7 @@
                                                 </select>
                                             </div>
 
-                                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=undefined || GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=null)" class="input-group-addon last prepend"> <span class="inner"> {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}} </span> </span>
+                                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !='')" class="input-group-addon last prepend"> <span class="inner"> {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}} </span> </span>
 
                                             <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3'">
 
@@ -2082,7 +2082,7 @@
                                             </div>
 
 
-                                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
+                                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !='')" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
                                             <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
                                         </div>
@@ -2228,9 +2228,10 @@
                                                 </select>
                                             </div>
 
-                                            <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=null && obj.cfdPrefix !=undefined && obj.cfdPrefix !='')" class="input-group-addon prepend last"><span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=null && obj.cfdPrefix !=undefined && obj.cfdPrefix !='')" class="input-group-addon prepend last">
+                                           <span ng-if="(obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3') && (obj.cfdPrefix !=null && obj.cfdPrefix !=undefined && obj.cfdPrefix !='')" class="input-group-addon prepend last">
                                                <span class="inner">{{obj.cfdPrefix}}</span>
-                                                 </span>
+                                             </span>
+
                                             <div ng-if="obj.cfdprefixsuffixtype=='1'|| obj.cfdprefixsuffixtype=='2'|| obj.cfdprefixsuffixtype=='3'">
 
 
@@ -2511,11 +2512,11 @@
                                     <div ng-if="ReqValueFieldSpecialType == 0">
 
                                         <div class="input-group">
-                                            <span ng-if="getUnitObjByName('ReqValue').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('ReqValue').Prefix}} </span>
+                                            <span ng-if="getUnitObjByName('ReqValue').Prefix != null && getUnitObjByName('ReqValue').Prefix != '' && getUnitObjByName('ReqValue').Prefix != undefined" class="input-group-addon last unitprepend">{{getUnitObjByName('ReqValue').Prefix}} </span>
 
                                             <input id="UniqueTag" data-prefix="{{getUnitObjByName('ReqValue').Prefix}}" data-suffix="{{getUnitObjByName('ReqValue').Suffix}}" data-value="{{getUnitObjByName('ReqValue').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('ReqValue').Prefix}}{{InventoryObject.UniqueTag}}{{getUnitObjByName('ReqValue').Suffix}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" class="form-control prepostUnit" />
 
-                                            <span ng-if="getUnitObjByName('ReqValue').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('ReqValue').Suffix}} </span>
+                                            <span ng-if="getUnitObjByName('ReqValue').Suffix != null && getUnitObjByName('ReqValue').Suffix != '' && getUnitObjByName('ReqValue').Suffix != undefined" class="input-group-addon last unitappend">{{getUnitObjByName('ReqValue').Suffix}} </span>
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
@@ -2639,11 +2640,11 @@
                                     <div ng-if="UnitTag2FieldSpecialType == 0">
                                         <div class="input-group">
 
-                                            <span ng-if="getUnitObjByName('UnitTag2').Prefix != null" class="input-group-addon last unitprepend"> {{getUnitObjByName('UnitTag2').Prefix}}</span>
+                                            <span ng-if="getUnitObjByName('UnitTag2').Prefix != null && getUnitObjByName('UnitTag2').Prefix != '' && getUnitObjByName('UnitTag2').Prefix != undefined" class="input-group-addon last unitprepend"> {{getUnitObjByName('UnitTag2').Prefix}}</span>
 
                                             <input id="UnitTag2" data-prefix="{{getUnitObjByName('UnitTag2').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag2').Suffix}}" data-value="{{getUnitObjByName('UnitTag2').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag2').Prefix}}{{InventoryObject.UnitTag2}}{{getUnitObjByName('UnitTag2').Suffix}}" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control prepostUnit" />
 
-                                            <span ng-if="getUnitObjByName('UnitTag2').Suffix != null" class="input-group-addon last unitappend"> {{getUnitObjByName('UnitTag2').Suffix}}</span>
+                                            <span ng-if="getUnitObjByName('UnitTag2').Suffix != null && getUnitObjByName('UnitTag2').Suffix != '' && getUnitObjByName('UnitTag2').Suffix != undefined" class="input-group-addon last unitappend"> {{getUnitObjByName('UnitTag2').Suffix}}</span>
 
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
