@@ -411,9 +411,56 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         return false;
     }
 
+    $scope.Accountlimit = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetAccountLimit',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+                   $scope.objOverLimit = response.GetAccountLimitResult.Payload;
+
+                   console.log($scope.objOverLimit);
+
+               },
+               error: function (err) {
+                   alert("Error");
+               }
+           });
+    }
+
+    $scope.Accountlimit();
+
     $scope.CreateNew = function (Type) {
-        $scope.CreateType = Type;
-        $("#createnewlabel").modal('show');
+
+        if (Type == 1) {
+
+            if ($scope.objOverLimit.canAddLocation) {
+                $scope.CreateType = Type;
+                $("#createnewlabel").modal('show');
+            }
+            else {
+                $("#overLimitAlert").modal("show");
+            }
+
+        }
+
+        else {
+            $scope.CreateType = Type;
+            $("#createnewlabel").modal('show');
+
+        }
+
+
     }
 
     $scope.GoToNext = function () {
@@ -1593,10 +1640,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
 
-
-    $scope.addinventory = function () {
-
-
+    $scope.addinventoryNew = function() {
         if ($scope.CheckUnitDataFieldValueAll() == true) {
 
 
@@ -2009,6 +2053,18 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             log.error("Please enter unique values in unit data columns.")
         }
     }
+
+
+    $scope.addinventory = function () {
+        if ($scope.objOverLimit.canAddItem && $scope.objOverLimit.canAddInventory) {
+            $scope.addinventoryNew();
+        }
+        else {
+            $("#overLimitAlert").modal("show");
+        }
+    }
+
+   
 
     $scope.Inventoryerrorbox = function (error) {
 
@@ -5551,6 +5607,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     }
 
     $scope.notmove = function () {
+
+        $scope.Accountlimit();
+
         //window.location.reload();
         if ($("#requiredfields").hasClass("collapsed")) {
 

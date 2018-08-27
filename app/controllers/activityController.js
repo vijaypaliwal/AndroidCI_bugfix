@@ -174,12 +174,55 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     }
 
 
-    $scope.CreateNewModal = function (Type, _index) {
-        $scope.CreateType = Type;
-        $scope.CurrentNewLabelIndex = _index;
+    $scope.Accountlimit = function () {
 
-        CheckScopeBeforeApply();
-        $("#createnewlabel").modal('show');
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetAccountLimit',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+                   $scope.objOverLimit = response.GetAccountLimitResult.Payload;                
+
+               },
+               error: function (err) {
+
+                   alert("Error");
+
+               }
+           });
+    }
+
+    $scope.Accountlimit();
+
+
+    $scope.CreateNewModal = function (Type, _index) {
+        if (Type == 3) {
+            if ($scope.objOverLimit.canAddLocation) {
+                $scope.CreateType = Type;
+                $scope.CurrentNewLabelIndex = _index;
+                CheckScopeBeforeApply();
+                $("#createnewlabel").modal('show');
+            }
+            else {
+                $("#overLimitAlert").modal("show");
+            }
+        }
+        else {
+            $scope.CreateType = Type;
+            $scope.CurrentNewLabelIndex = _index;
+            CheckScopeBeforeApply();
+            $("#createnewlabel").modal('show');
+        }
+
     }
     $scope.checkDuplicate = function (type) {
 

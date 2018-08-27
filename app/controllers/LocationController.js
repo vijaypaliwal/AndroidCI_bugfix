@@ -28,6 +28,36 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
     $scope.check = false;
 
 
+    $scope.Accountlimit = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetAccountLimit',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+                   $scope.objOverLimit = response.GetAccountLimitResult.Payload;
+
+               },
+               error: function (err) {
+
+                   alert("Error");
+
+               }
+           });
+    }
+
+    $scope.Accountlimit();
+
+
     $('#bottommenumodal').on('hidden.bs.modal', function () {
         $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
     });
@@ -239,7 +269,6 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
 
 
     $scope.addlocation = function () {
-
         $scope.locationdata = {
             LocationName: "",
             LocationID: 0,
@@ -247,9 +276,13 @@ app.controller('LocationController', ['$scope', 'localStorageService', 'authServ
             LocationDescription: ""
         };
 
-        $scope.mode = 2;
+        if ($scope.objOverLimit.canAddLocation) {
+            $scope.mode = 2;
+        }
+        else {
+            $("#overLimitAlert").modal("show");
+        }
         $scope.$apply();
-
     }
 
 
