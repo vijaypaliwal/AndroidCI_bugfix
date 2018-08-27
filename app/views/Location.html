@@ -1,4 +1,16 @@
-﻿
+﻿<style>
+    .mainmodal {
+        height: 100%;
+        width: 100%;
+        display: table;
+    }
+
+    .wrappermodal {
+        display: table-cell;
+        height: 100%;
+        vertical-align: middle;
+    }
+</style>
 <link href="css/settingmenu.css" rel="stylesheet" />
 
 
@@ -192,6 +204,34 @@
             <li ng-if="checkpermission('URL:Manage/UnitOfMeasure')==true"> <a href="#/uom"><span class="newinv">Manage UOM</span></a>  <a href="#/uom" class=" waves-effect btn-success btn"> <i class="fa fa-cog"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
         </ul>
+    </div>
+</div>
+
+
+<div style="width: calc(100% - 30px); margin: 0 auto; overflow: hidden;" id="overLimitAlert" class="modal animated zoomIn" data-backdrop="static" data-keyboard="false">
+
+    <div class="mainmodal">
+        <div class="wrappermodal">
+
+            <div style="background: #f04124; color: #fff;" class="modal-header">
+
+                <h4>   You have exceeded your limits!</h4>
+            </div>
+
+            <div style="padding: 12px; background: #fff; box-shadow: 0px 2px 10px #ccc; border:1px solid #f5f5f5" class="modal-body">
+
+                <p><b> Please Upgrade Your Plan Now !!</b></p>
+
+                <p>1. {{objOverLimit.ItemMessage}}</p>
+                <p>2. {{objOverLimit.LocationMessage}}</p>
+                <p>3. {{objOverLimit.InventoryMessage}}</p>
+            </div>
+
+            <div class="modal-footer" style="background: #d8d8d8; margin-top: 0; padding-top: 10px; padding-bottom: 10px; margin-top: 0; text-align:left">
+                <a href="#" data-dismiss="modal" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel</a>
+            </div>
+
+        </div>
     </div>
 </div>
 <script>
