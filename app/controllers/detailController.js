@@ -306,10 +306,11 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         $scope.myImage = imageData;
 
-        CheckScopeBeforeApply();
         UsFullImg = true;
         //$("#myModalforCropImg").modal("show");
+        $scope.ImageList.push(_ImgObj);
 
+        CheckScopeBeforeApply();
     }
 
 

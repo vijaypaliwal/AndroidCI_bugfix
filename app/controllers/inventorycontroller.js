@@ -3904,14 +3904,14 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
         $scope.myImage = '';
         $scope.myCroppedImage = '';
 
-        $scope.myImage = imageData;
-
-        CheckScopeBeforeApply();
+        $scope.myImage = imageData;      
 
         UsFullImg = true;
 
         //$("#myModalforCropImg").modal("show");
         savebase64AsImageFile(folderpath, filename, myBase64, contentType);
+        $scope.ImageList.push(_ImgObj);
+        CheckScopeBeforeApply();
         // log.success("Images captured length"+$scope.ImageList.length);
 
     }

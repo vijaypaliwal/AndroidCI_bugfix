@@ -361,8 +361,7 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
     $scope.getPhoto = function (source) {
         // Retrieve image file location from specified source
         navigator.camera.getPicture($scope.onPhotoURISuccessNew, $scope.onFail, {
-            quality: 50,
-          
+            quality: 50,          
             destinationType: destinationType.DATA_URL,
             correctOrientation: true,
             allowEdit: true,
