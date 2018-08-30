@@ -192,10 +192,11 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         CheckScopeBeforeApply();
         UsFullImg = true;
-        $("#myModalforCropImg").modal("show");
+
+        //$("#myModalforCropImg").modal("show");
 
 
-        //$scope.ImageList.push(_ImgObj);
+        $scope.ImageList.push(_ImgObj);
         //CheckScopeBeforeApply();
 
     }
@@ -228,6 +229,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             targeHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
+            allowEdit: true,
             saveToPhotoAlbum: true,
         });
     }
@@ -271,6 +273,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
             quality: 50,
             destinationType: destinationType.DATA_URL,
             correctOrientation: true,
+            allowEdit: true,
             sourceType: pictureSource.PHOTOLIBRARY
         });
     }
@@ -305,7 +308,7 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         CheckScopeBeforeApply();
         UsFullImg = true;
-        $("#myModalforCropImg").modal("show");
+        //$("#myModalforCropImg").modal("show");
 
     }
 

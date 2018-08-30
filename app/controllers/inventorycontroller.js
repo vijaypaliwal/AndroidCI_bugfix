@@ -3910,7 +3910,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         UsFullImg = true;
 
-        $("#myModalforCropImg").modal("show");
+        //$("#myModalforCropImg").modal("show");
         savebase64AsImageFile(folderpath, filename, myBase64, contentType);
         // log.success("Images captured length"+$scope.ImageList.length);
 
@@ -4058,7 +4058,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             //targetHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
-            allowEdit: false,
+            allowEdit: true,
             saveToPhotoAlbum: false,
         });
     }
@@ -5693,9 +5693,9 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
         UsFullImg = true;
 
-        $("#myModalforCropImg").modal("show");
+        //$("#myModalforCropImg").modal("show");
 
-        //$scope.ImageList.push(_ImgObj);       
+        $scope.ImageList.push(_ImgObj);       
 
     }
 
@@ -5705,6 +5705,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
             quality: 50,
             destinationType: destinationType.DATA_URL,
             correctOrientation: true,
+            allowEdit: true,
             sourceType: pictureSource.PHOTOLIBRARY
         });
     }
