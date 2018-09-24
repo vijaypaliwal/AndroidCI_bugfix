@@ -54,6 +54,8 @@
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
+<plugin name="cordova-plugin-x-socialsharing" source="npm" />
+
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />-->
