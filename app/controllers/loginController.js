@@ -8,23 +8,14 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
         useRefreshTokens: false
     };
     $scope.IsProduction = true;
-    if (serviceBase == "http://dev.style.u8i9.com/API/ClearlyInventoryAPI.svc/") {
-
-        $("#currentserver").html("Development");
-
-    }
-    else {
-        $("#currentserver").html("");
-    }
+  
 
     $scope.message = "";
 
     $scope.passwordtype = "password";
-    $scope.DefaultAccount = function () {
-
-
+    $scope.DefaultAccount = function ()
+    {
         $.ajax({
-
             type: "POST",
             url: serviceBase + "DefaultAccount",
             contentType: 'application/json; charset=utf-8',

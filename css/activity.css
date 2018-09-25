@@ -738,3 +738,250 @@ input:checked + .slider:before {
     {
         word-break:break-all;
     }
+
+       .input-group-addon .dropdown-menu {
+        right: 0px;
+        text-align: left;
+    }
+    .updiv {
+        background: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        height: 42px;
+        border-radius: 5px !important;
+    }
+
+    .dropdown-listcustom {
+        width: 100%;
+        position: relative;
+        z-index: 1500;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    .collapsible-header {
+        position: fixed;
+        width: 100%;
+        top: 36px;
+        color: #000;
+        background: #CECECE;
+        z-index: 100;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .cartitems {
+        display: block;
+    }
+
+
+    .collapsible-body {
+        margin-top: 85px;
+    }
+
+    body {
+        overflow-x: hidden !important;
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+    .smallBtn {
+        padding: 0px;
+        height: 40px;
+        width: 40px;
+        background: #2196F3;
+        border-radius: 100%;
+        color: #fff !important;
+    }
+    .emailError
+    {
+        color:red;
+    }
+
+
+    #headerrow {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #mycartModal .modal-body {
+        height: 100%;
+        width: 100%;
+        background: transparent;
+    }
+
+    #mycartModal span {
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        margin-right: 0px;
+        text-transform: capitalize;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(204, 204, 204);
+        border-image: initial;
+        border-radius: 12px;
+        padding: 5px 15px;
+        background: rgb(255, 255, 255);
+    }
+    .errorMessage {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        margin-top: 43px;
+        display: none;
+    }
+
+      .prepend, .append {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        line-height: 0 !important;
+        padding-top: 0px;
+    }
+
+
+        .prepend .inner {
+            background-color: #e9ecef !important;
+            color: #888 !important;
+            vertical-align: middle;
+            /* margin-top: 22px; */
+            padding: 9px;
+            padding-bottom: 9px;
+            padding-top: 11px;
+            font-size: 17px;
+            border-top-left-radius: 4px !important;
+            border-bottom-left-radius: 4px !important;
+            border: 1px solid #ccc;
+            /* line-height: 23px; */
+            font-weight: 100;
+            border-right: transparent;
+        }
+
+    .swiper-slide .prepend .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        /* margin-top: 22px; */
+        padding: 9px;
+        padding-bottom: 9px;
+        padding-top: 10px;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+    }
+
+
+    .prepostCustom {
+        width: calc(100% + 2px) !important;
+        margin-left: -2px !important;
+    }
+
+    .append .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        padding: 9px;
+        padding-bottom: 9px;
+        padding-top: 11px;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+    }
+
+    .swiper-slide .append .inner {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        vertical-align: middle;
+        padding: 9px;
+        padding-bottom: 9px;
+        padding-top: 10px;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+    }
+
+    .unitprepend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .unitappend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+
+    .form-control {
+        border-radius: 2px !important;
+    }
+
+
+    .cartitems .input-group-addon.unitprepend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-right: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .cartitems .input-group-addon.unitappend {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        font-size: 17px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        border: 1px solid #ccc;
+        /* line-height: 23px; */
+        font-weight: 100;
+        border-left: transparent;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+      .mainmodal {
+        height: 100%;
+        width: 100%;
+        display: table;
+    }
+
+    .wrappermodal {
+        display: table-cell;
+        height: 100%;
+        vertical-align: middle;
+    }

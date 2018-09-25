@@ -606,5 +606,280 @@
   from, to { opacity: 1 }
   50% { opacity: 0 }
 }
+
+
+          #Permissionlink {
+            display: none !important;
+        }
+
+
+        #filtermodal .form-group
+        {
+            margin-bottom:0;
+        }
+
+        #Inventorylistmodal {
+            background: #fff;
+            width: calc(100% - 20px);
+            margin-left: 10px;
+            margin: 0 auto;
+            margin: 0 auto;
+            margin-top: 10px;
+            bottom: auto;
+            margin-top: 14px;
+            position: fixed;
+            z-index: 1100;           
+            left: 10px;
+        }
+
+        #bottommenumodal .selectAction li span {
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 5px;
+            font-size: 14px;
+            background: #fff;
+            padding-left: 15px;
+            /* text-shadow: -3px -1px 4px #ccc; */
+            padding-right: 15px;
+            text-transform:capitalize;
+        }
+
+
+
+            #Inventorylistmodal .modal-header {
+                background-color: #f5f5f5;
+            }
+
+                #Inventorylistmodal .modal-header h4 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    color: #5f5f5f;
+                }
+
+            #Inventorylistmodal .modal-footer {
+                background-color: #ccc;
+                text-align: center;
+            }
+
+            #Inventorylistmodal .modal-footer {
+                display: block;
+                padding-bottom: 8px;
+                padding-top: 8px;
+            }
+
+
+
+            #Inventorylistmodal .modal-body {
+                min-height: 370px;
+                overflow-y: auto;
+             
+            }
+
+            #Inventorylistmodal .btn {
+                width: 100%;
+                margin-bottom: 12px;
+                color: #fff;
+                border-radius: 15px;
+                text-align: left;
+            }
+
+            #Inventorylistmodal .modal-body {
+                padding: 0;
+            }
+
+        #toolbar i {
+            font-size: 18px;
+            line-height: 25px;
+        }
+
+        #toolbar .title {
+            background: #fff;
+            color: #333;
+            border-radius: 15px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            font-size: 15px;
+            min-width: 45px;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            display: -webkit-inline-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            margin-bottom: 0;
+            line-height: 28px !important;
+            height: 31px;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            vertical-align: top;
+        }
+
+        .sidenav-header .avatar {
+            margin: 20px;
+            height: 40px;
+            width: 38px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 3px;
+            border: 1px solid #ccc;
+            margin-right: 7px;
+        }
+
+        .sidenav-header .avatar-body h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .sidenav-header .avatar-body p {
+            color: #fff;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .side-nav .no-child {
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .Inventorylist li {
+            list-style-type:none;
+            width:100%;
+        }
+
+            .Inventorylist li a span {
+                padding: 6px;
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-top: 5px;
+                border-radius: 100%;
+            }
+
+            .Inventorylist li a span i
+            {
+                font-size:15px;
+                color:#fff;
+            }
+
+            .Inventorylist li .fa-angle-right
+            {
+                float:right;
+                color:#888;
+
+            }
+
+            .Inventorylist li  a
+            {
+                width:100%;
+                display:block;
+                padding:12px;
+                text-transform:capitalize;
+                font-size:16px;
+                text-align:left;
+            }
+            
+             .Inventorylist li:nth-child(even) {
+                background: #fbfbfb;
+            }
+
+            .Inventorylist li:nth-child(odd) {
+                background: #fff;
+            }
+
+        .arrow_box {
+            position: relative;
+         
+        }
+
+            .arrow_box:after, .arrow_box:before {
+                bottom: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .arrow_box:after {
+                border-color: rgba(136, 183, 213, 0);
+                border-bottom-color: #ccc;
+                border-width: 15px;
+                margin-left: -21px;
+            }
+
+            .arrow_box:before {
+                border-color: rgba(194, 225, 245, 0);
+                border-bottom-color: #f5f5f5;
+                border-width: 20px;
+                margin-left: -26px;
+            }
+
+        .changeinvloader {
+            width: 100%;
+            position: fixed;
+            text-align: center;
+        }
+        
+        
+        
+         .changeinvloader div {
+         
+            margin: 0 auto;
+            padding: 10px;
+            padding-top: 15px;
+            margin-top: 75px;
+          
+            border-radius: 5px;
+            width:160px;
+          
+        }
+        .switchinv {
+            background: #e6e4e4 !important;
+            color: #333;
+            border-radius: 15px !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            font-size: 15px;
+            padding-left: 10px;
+            padding-right: 8px;
+            height: 31px;
+            width: 40px;
+            display: inline-block;
+            line-height: 30px !important;
+            vertical-align: top;
+        }
+
+
+            .switchinv i {
+                color: #333 !important;
+            }
+
+        .Inventorylist .invname {
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            display: -webkit-inline-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            margin-bottom: 0;
+            line-height: 17px !important;
+            width: calc(100% - 70px);
+            border-radius: 0;
+            padding: 0;
+            padding-left: 12px;
+            padding-top: 0px;
+        }
+        .modal-backdrop.in {
+            opacity: 0.9 !important;
+        }
      
     

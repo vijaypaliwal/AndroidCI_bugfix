@@ -2,201 +2,7 @@
 
 <link href="css/account.css" rel="stylesheet" />
 
-<style>
-    .btn-next {
-        height: 50px;
-        width: 50px;
-        border-radius: 100%;
-        text-align: center;
-        line-height: 50px;
-        padding: 0;
-        color: #333;
-        background: #f2f2f2;
-        float: right;
-        border: 1px solid #ccc;
-    }
 
-        .btn-next i {
-            color: #888;
-        }
-
-    .list-group {
-        min-height: 40px;
-    }
-
-
-    .list-group-item:nth-child(even) {
-        background: #f5f5f5;
-    }
-
-    .list-group-item:nth-child(odd) {
-        background: #FFF;
-    }
-
-    body {
-        background: #edecec;
-    }
-
-    .bottommenu {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        text-align: center;
-        background: #ccc;
-        color: #333;
-        padding-top: 7px;
-        padding-bottom: 7px;
-    }
-
-        .bottommenu i {
-            display: block;
-            font-size: 20px;
-        }
-
-        .bottommenu a:hover {
-            color: #fff;
-        }
-
-    .row.listbtn {
-        height: 25px;
-    }
-
-
-    .listbtn a {
-        color: #069;
-    }
-
-    .btn-xs {
-        padding: 1px 5px;
-        font-size: 12px;
-        line-height: 1.5;
-        border-radius: 3px;
-    }
-
-    .panel-heading .accordion-toggle:after {
-        /* symbol for "opening" panels */
-        font-family: 'FontAwesome'; /* essential for enabling glyphicon */
-        content: "\f107"; /* adjust as needed, taken from bootstrap.css */
-        float: right; /* adjust as needed */
-        color: #069; /* adjust as needed */
-        width: 11px;
-        margin-left: 3px;
-    }
-
-    .panel-heading .accordion-toggle.collapsed:after {
-        /* symbol for "collapsed" panels */
-        content: "\f105"; /* adjust as needed, taken from bootstrap.css */
-    }
-
-    .sub-btn {
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
-    .alert-info {
-        background-color: #d9edf7;
-        border-color: #d9edf7;
-        color: #2196f3;
-    }
-
-    .alert {
-        padding: 15px;
-        margin-bottom: 18px;
-        border: 1px solid transparent;
-        border-radius: 2px;
-    }
-
-    .panel p {
-        font-size: 13px;
-        margin-bottom: 7px;
-    }
-
-        .panel p i {
-            font-size: 18px;
-            color: #888;
-            width: 18px;
-        }
-
-    .bottomlinks {
-        position: absolute;
-        background: #f5f5f5;
-        left: 2px;
-        right: 2px;
-        width: auto;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        margin-top: 9px;
-    }
-
-    .inventoryname {
-        padding: 10px;
-        color: #fff;
-        margin-bottom: 0 !important;
-        border-radius: 25px;
-        font-size: 17px !important;
-        text-align: center;
-    }
-
-    .col-xs-9 {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .col-xs-3 {
-        padding-left: 0;
-        padding-right: 5px;
-    }
-
-        .col-xs-3 a {
-            margin-top: 10px;
-        }
-
-    .container .row {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    #toolbar .title {
-        background: transparent;
-        color: #fff;
-        padding: 5px;
-        border-radius: 15px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        font-size: 17px;
-    }
-
-    .inventoryname {
-        overflow: hidden;
-        -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        display: -webkit-inline-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        -ms-word-break: break-all;
-        word-break: break-all;
-        margin-bottom: 0;
-        width: 100%;
-        line-height: 29px !important;
-    }
-
-    .col-xs-3 span {
-        font-size: 14px;
-    }
-
-   .loaderanimation
-   {
-       left:0;
-       top:40%;
-   }
-    #toolbar {
-        background-color: #2196F3;
-        padding-top: 7px;
-    }
-</style>
 
  <div style="display:block !important;" id="toolbar" > <span class="title" > <i class="fa fa-cogs" > 
      </i > Manage Your Inventories</span > 
@@ -212,52 +18,14 @@
 
 <div style="text-align:center; margin-bottom:15px;">
 
-    <img style="height:55px; width: 55px; background: #2196F3; padding: 10px; margin-top:20px; border-radius: 100%;" src="img/u2.png" alt="Alternate Text" />
+    <img style="height: 70px; width: 70px; background: #2196F3; box-shadow: 0 3px 15px rgba(49, 46, 46, 0.69), 0 11px 19px rgba(0, 9, 128, 0.1); padding: 10px; margin-top: 20px; border-radius: 100%; " src="img/u2.png" alt="Alternate Text" />
 
 </div>
 
 <div ng-show="Addinventory==false" class="animated slideInDown">
 
-
-
- 
-
-
     <p style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Your Inventories <button style="height: 36px; display:none; line-height: 36px; margin-top: -5px;" ng-click="AddNewAccount()" type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> New</button> </p>
-
-    <!--<ul class="list-group">
-
-        <li ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID==_obj.MasterAccountID" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.InventoryName,_obj.InventoryAccountID)==true}">
-
-
-            <div class="row">
-
-
-                <div ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName)" class="col-xs-4">
-                    <button style="background-color:{{_obj.BackColor}} !important" type="button" class="btn btn-sm btn-primary"><i class="fa fa-cubes"></i> {{_obj.InventoryName}}</button>
-                    </div>
-
-                <div class="col-xs-8">
-
-                    <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
-                    <p>{{_obj.Email}}</p>
-                    <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired==true">TRIAL </span> <span ng-if="_obj.TrialExpired!=true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small>
-                    <div style="padding-top:5px;" class="row listbtn">
-                        <div class="col-md-12">
-                            <a >Edit</a> | <a >Update status</a> | <a >Subscibe</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </li>
-
-
-    </ul>-->
-
+    
     <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
         <div ng-if="inventoryExists">
             <div class="panel panel-default" ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID==_obj.MasterAccountID">
@@ -287,14 +55,7 @@
                         <p><i class="fa fa-envelope"></i> {{_obj.Email}}</p>
 
                         <p><span ng-if="_obj.DaysRemaining>0">({{_obj.DaysRemaining}} days remaining) </span></p>
-
-
-                        <!--<div class="row listbtn">
-                        <div class="col-md-12 bottomlinks">
-
-                            <a ng-click="OpenEditInventoryModal(_obj)">Edit</a> | <a ng-click="CloseInventory(_obj.InventoryAccountID)">Update status</a>  <a ng-if="_obj.DaysRemaining>0" href="#/CreateSubscription">| Create new Subscription</a>
-                        </div>
-                    </div>-->
+                       
                     </div>
                 </div>
             </div>
@@ -310,31 +71,7 @@
 
     <p style="background: #ccc; margin-bottom: 0; padding: 15px;"><i style="color:#888" class="fa fa-cubes"></i> Other Inventories </p>
 
-    <!--<ul class="list-group">
-        <li ng-repeat="_obj in AccountsList" ng-if="_obj.CurrentUserMasterAccountID!=_obj.MasterAccountID" class="list-group-item" ng-class="{'selected':CheckCurrentAccount(_obj.InventoryName,_obj.InventoryAccountID)==true}">
-
-
-            <div class="row">
-
-
-                <div ng-click="UpdateSecurityToken(_obj.InventoryAccountID,_obj.InventoryName)" class="col-xs-10">
-                    <h4>{{_obj.InventoryName}} <small style="color:brown !important; font-size:11px !important;"> - <span ng-if="_obj.TrialExpired!=true">TRIAL </span> <span ng-if="_obj.TrialExpired==true">  <span ng-if="_obj.IsOpen==true">Open</span><span ng-if="_obj.IsOpen!=true">Closed</span> </span></small> </h4>
-                    <p>{{_obj.FirstName}} {{_obj.LastName}}</p>
-                    <p>{{_obj.Email}}</p>
-
-                </div>
-
-                <div class="col-xs-2" ng-click="UpdateSecurityToken(_obj.AccountID,_obj.AccountName)">
-                    <a class="btn btn-next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-
-            </div>
-
-        </li>
-    </ul>-->
-
+   
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -378,39 +115,11 @@
     </div>
 </div>
 
-<p ng-if="Addinventory==true" style="background: #ccc; margin-bottom: 0; padding: 15px; padding-right:10px;"> <i class="fa fa-cubes"></i> Add/Update Inventory </p>
 
 
 
 
 
-<div ng-if="Addinventory==true" class="animated zoomIn" style="background:#fff;padding:10px;">
 
-    <div ng-if="IsAddInventoryShown==true">
-        <span ng-if="OwnedInventoryCount>1 && InventoryObj.InventoryAccountID==0" style="display:block;" class="alert alert-info">
-            Additional inventories are only $29.99, share your users across inventories for Free!
-        </span>
-
-        <div class="form-group">
-            <label>Inventory Name</label>
-            <input type="text" class="form-control" name="name" ng-model="InventoryObj.InventoryAccountName" />
-        </div>
-        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==false" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus"></i> Add </a>
-        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID==0 && isSaving==true" ng-click="CreateNewInventoryAccount()"> <i class="fa fa-plus fa-spin"></i> Add </a>
-        <a class="btn btn-primary {{GetDisabledClass()}}" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==false" ng-click="UpdateInventoryName()"> <i class="fa fa-pencil"></i> Update </a>
-        <a class="btn btn-primary disabled" ng-if="InventoryObj.InventoryAccountID!=0 && isSaving==true"> <i class="fa fa-pencil fa-spin"></i> Update </a>
-
-
-        <a ng-click="CancelNewAccount()" class="btn btn-gray"> <i class="fa fa-times"></i> Cancel </a>
-
-    </div>
-    <div ng-if="IsAddInventoryShown==false">
-        <p style=" color: #6b1110; background-color: #f5d2d2; border-color: #f1c1c0; font-size:15px; " class="alert">
-            You have not subscribed to create new inventory
-            please create subscription by web App.
-        </p>
-        <a ng-click="CancelNewAccount()" class="btn btn-gray sub-btn"> <i class="fa fa-times"></i> Cancel </a>
-    </div>
-</div>
 
 
