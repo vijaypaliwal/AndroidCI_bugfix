@@ -240,4 +240,12 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     }
 
 
+    $scope.forgotURL = "https://account.inventory4.com/login/mobileforgotpassword"
+
+    $scope.forgotpassword = function () {
+     
+        var ref = window.open($scope.forgotURL, '_blank', 'location=no');
+    }
+
+
 }]);
