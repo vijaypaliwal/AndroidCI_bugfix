@@ -233,6 +233,11 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
         $scope.$apply();
     });
 
+    $(document).on("change", "#Forgotlink", function () {
+        $scope.forgotURL = $(this).val();
+        $scope.$apply();
+    });
+
     $scope.gotoregister = function () {
         var url = $scope.SignUpUrl;
 
@@ -240,7 +245,7 @@ app.controller('loginController', ['$scope', 'localStorageService', '$location',
     }
 
 
-    $scope.forgotURL = "https://account.inventory4.com/login/mobileforgotpassword"
+    $scope.forgotURL = forgotlink;
 
     $scope.forgotpassword = function () {
      

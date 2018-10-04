@@ -306,18 +306,16 @@
 
     <script>
 
-        //var serviceBaseUrl = "https://staging-mobile.azurewebsites.net/ClearlyInventoryAPI.svc/";
-        //var serviceBase = "https://staging-mobile.azurewebsites.net/ClearlyInventoryAPI.svc/";
-        //var signupLink = "https://account.inventory4.com/signup/mobilesignup";
-
         var serviceBaseUrl = "";
         var serviceBase = "";
         var signupLink = "";
+        var forgotlink = "";
 
 
         $(document).on("change", "#ServiceBase", function () {
             serviceBase = $(this).val();
         });
+
 
 
         $.ajax
@@ -326,14 +324,14 @@
            url: 'https://www.clearlyinventory.com/mobilesettings',
            contentType: 'application/json; charset=utf-8',
            dataType: 'text json',
-           //data: JSON.stringify({ "UserKey": "ABC@123" }),
+           // data: JSON.stringify({ "UserKey": "ABC@123" }),
            success: function (response) {
-
-               debugger;
 
                ClearlybaseURL = response.serviceBaseUrl;
                ClearlyURL = response.serviceBase;
                Signupink = response.mobileSignupUrl;
+               forgotlink = response.mobileForgotPasswordUrl;
+
                serviceBaseUrl = ClearlybaseURL;
                serviceBase = ClearlyURL;
 
@@ -343,6 +341,10 @@
 
                $("#Signuplink").val(signupLink);
                $("#Signuplink").trigger("change");
+
+
+               $("#Forgotlink").val(forgotlink);
+               $("#Forgotlink").trigger("change");
 
            },
            error: function (response) {
@@ -358,6 +360,12 @@
            }
        });
     </script>
+
+
+
+
+
+
 
 
 
