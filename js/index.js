@@ -498,27 +498,8 @@ function UpdateStatusBar(Type) {
 
 
 }
-var recognition;
+
 function onDeviceReady() {
-
-
-    recognition = new SpeechRecognition();
-    recognition.onresult = function (event) {
-
-        alert("1");
-
-        if (event.results.length > 0) {
-
-            alert("2");
-
-            q.value = event.results[0][0].transcript;
-
-            alert("Mere shabd --" + q.value);
-
-            // q.form.submit();
-        }
-    }
-
 
     var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
     pictureSource = navigator.camera.PictureSourceType;

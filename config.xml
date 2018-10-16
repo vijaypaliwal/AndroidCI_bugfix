@@ -55,8 +55,6 @@
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
 <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-  
-    <plugin name="phonegap-plugin-speech-recognition" />
 
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
