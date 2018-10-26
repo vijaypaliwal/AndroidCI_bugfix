@@ -584,28 +584,25 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
     $scope.UpdateInventory = function () {
 
-
-
-
         //Prefix/Suffix fields work
-        for (var i = 0; i < $scope.InventoryObject.length; i++) {
+        //for (var i = 0; i < $scope.InventoryObject.length; i++) {
 
-            var _cfdID = $scope.InventoryObject[i].CfdID;
-            var _HasPrefix = $("#CustomItem_" + _cfdID).attr("data-prefix");
-            var _HasSuffix = $("#CustomItem_" + _cfdID).attr("data-suffix");
-            var _Value = $("#CustomItem_" + _cfdID).val();
+        //    var _cfdID = $scope.InventoryObject[i].CfdID;
+        //    var _HasPrefix = $("#CustomItem_" + _cfdID).attr("data-prefix");
+        //    var _HasSuffix = $("#CustomItem_" + _cfdID).attr("data-suffix");
+        //    var _Value = $("#CustomItem_" + _cfdID).val();
 
-            debugger;
+        //    debugger;
 
-            if ($.trim(_HasPrefix) != "" || $.trim(_HasSuffix) != "") {
-                if ($.trim(_Value) != "") {
-                    $scope.InventoryObject[i].Value = $("#CustomItem_" + _cfdID).attr("data-orginal-value");
-                }
-                else {
-                    $scope.InventoryObject[i].Value = "";
-                }
-            }
-        }
+        //    if ($.trim(_HasPrefix) != "" || $.trim(_HasSuffix) != "") {
+        //        if ($.trim(_Value) != "") {
+        //            $scope.InventoryObject[i].Value = $("#CustomItem_" + _cfdID).attr("data-orginal-value");
+        //        }
+        //        else {
+        //            $scope.InventoryObject[i].Value = "";
+        //        }
+        //    }
+        //}
 
 
 
