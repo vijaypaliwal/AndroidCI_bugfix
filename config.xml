@@ -50,14 +50,12 @@
   <plugin name="cordova-plugin-splashscreen"   source="npm" spec="2.1.0" />
   
   <plugin name="ionic-plugin-keyboard" source="npm"/>
- 
+  <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1"/>
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
-  <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-  
-  
-  
+<plugin name="cordova-plugin-x-socialsharing" source="npm" />
+
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />-->
@@ -69,9 +67,6 @@
     <param name="key" value="willoughby"/>
   </feature>
 
-  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-  
-  
   <preference name="webviewbounce" value="true" />
   <preference name="UIWebViewBounce" value="true" />
   <preference name="DisallowOverscroll" value="false" />
@@ -88,9 +83,7 @@
   <preference name="HideKeyboardFormAccessoryBar" value="true"/>
   <preference name="KeyboardShrinksView" value="true" />
   <preference name="SplashScreenDelay" value="10000"/>
-  <preference name="android-targetSdkVersion" value="26" />
-
-  
+  <preference name="android-targetSdkVersion" value="26" /> 
   
   <icon src="icon.png" />
 
