@@ -55,7 +55,7 @@
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
 <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />-->
@@ -85,7 +85,7 @@
   <preference name="SplashScreenDelay" value="10000"/>
   <preference name="android-targetSdkVersion" value="26" />
 
-  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+  
   
   <icon src="icon.png" />
 
