@@ -50,7 +50,7 @@
   <plugin name="cordova-plugin-splashscreen"   source="npm" spec="2.1.0" />
   
   <plugin name="ionic-plugin-keyboard" source="npm"/>
-  <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1"/>
+ 
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
