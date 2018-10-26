@@ -1,5 +1,205 @@
 ﻿<link href="css/itemdetail.css" rel="stylesheet" />
 
+<style>
+    .prepend, .append {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        line-height: 0 !important;
+        padding-top: 2px;
+    }
+
+        .prepend .inner {
+            background-color: #e9ecef !important;
+            color: #888 !important;
+            vertical-align: middle;
+            /* margin-top: 22px; */
+            padding: 9px;
+            padding-bottom: 8px;
+            padding-top: 11px;
+            font-size: 17px;
+            border-top-left-radius: 4px !important;
+            border-bottom-left-radius: 4px !important;
+            border: 1px solid #ccc;
+            /* line-height: 23px; */
+            font-weight: 100;
+            border-right: transparent;
+        }
+
+        .append .inner {
+            background-color: #e9ecef !important;
+            color: #888 !important;
+            vertical-align: middle;
+            padding: 9px;
+            padding-bottom: 8px;
+            padding-top: 11px;
+            font-size: 17px;
+            border-top-right-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
+            border: 1px solid #ccc;
+            /* line-height: 23px; */
+            font-weight: 100;
+            border-left: transparent;
+        }
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+
+    .switch1 {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        .switch1 input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 35px;
+            width: 35px;
+            left: 1px;
+            border: 1px solid #ccc;
+            bottom: 0px;
+            background-color: white;
+            -webkit-transition: .4s;
+            -moz-transition: .4s;
+            -o-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: rgb(100, 189, 99);
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px rgb(100, 189, 99);
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        -moz-transform: translateX(26px);
+        -o-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+        width: 60px;
+        height: 34px;
+        margin-left: 7px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    .slider {
+        height: auto;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -o-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 33px;
+            width: 35px;
+            left: -1px;
+            border: 1px solid #ccc;
+            bottom: 0px;
+            background-color: white;
+            -webkit-transition: .4s;
+            -moz-transition: .4s;
+            -o-transition: .4s;
+            transition: .4s;
+        }
+
+    .emailError {
+        color: brown;
+    }
+
+    .form-control {
+        border-radius: 0 !important;
+    }
+
+    .spinner {
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        margin-top: 160px;
+        z-index: 100;
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+        .form-group label {
+            margin-top: 15px;
+        }
+
+    .input-group .form-control {
+        border-radius: 0 !important;
+    }
+
+    input[type=email] {
+        /* Remove First */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /* Then Style */
+        outline: none;
+    }
+
+    .table-bordered p
+    {
+        font-size:13px;
+        margin-bottom:0;
+    }
+
+   .table-bordered tr:nth-child(even) {
+        background: #f5f5f5;
+    }
+
+    .table-bordered tr:nth-child(odd) {
+        background: #FFF;
+    }
+</style>
+
 
 
 <div class="title-header">
@@ -13,14 +213,18 @@
 
 <a href="#/FindItems" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
-<a ng-if="IsEditMode==false && checkpermission('URL:Manage/Item')==true && IsActiveItemLibrary==true" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-pencil"></i> </a>
+<a ng-if="IsEditMode==false" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-pencil"></i> </a>
 
-<a ng-if="IsEditMode==true && checkpermission('URL:Manage/Item')==true  && IsActiveItemLibrary==true" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
+<a ng-if="IsEditMode==true" ng-click="ToggleEditView()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-times"></i> </a>
 <a ng-if="IsActiveItemLibrary==false" ng-click="locked()" class="btn waves-effect btn-danger roundbtntitle"> <i class="fa fa-lock"></i> </a>
 
+<div ng-show="loaditemfields==false" class="spinner" style="text-align:center">
+    <br /><br /><br />
+    <img src="img/loader.gif" alt="Alternate Text" />
+</div>
 
 <div id="content" class="top50 grey-blue" >
-    <div ng-if="IsEditMode==false">
+    <div ng-show="IsEditMode==false">
               <div class="swiper-container">
                   <div style="width:100%; text-align:center;">
                       <img style="margin-top:12px; width:40px !important; " class="loadingimage" src="img/loader.gif" alt="Alternate Text" />
@@ -164,6 +368,38 @@
 
         </div>
 
+      
+
+                <div style="padding:12px;" class="c-widget-body">
+                    <h4 class="primary-color" style="text-align: center; color: #fff; margin: 0; padding: 12px; font-size: 16px; text-transform: capitalize;">All Item field details</h4>
+
+                    <div style="text-align:center;" ng-show="itemsummaryload==false">
+                        <p><img style="height:30px;" src="img/loader.gif" alt="Alternate Text" /> </p>
+
+
+                    </div>
+
+                    <table ng-show="itemsummaryload==true" class="table table-bordered">
+                        <tr ng-repeat="summary in Itemsummary">
+                            <td style="text-align:right;" width="50%;">
+                                <p> {{summary.cfdName}} </p>
+                            </td>
+                            <td style="text-align:left;" width="50%;">
+                                <p style="color:#888" ng-if="summary.cfdValue != null"> {{summary.cfdValue}} </p>
+
+                                <p style="color:#888" ng-if="summary.cfdValue == null"> N/A </p>
+
+
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+         
+
 <br /><br />
 
     </div>
@@ -184,7 +420,7 @@
     </div>
 
     <div id="content" class="grey-blue">
-        <div class="" ng-if="IsEditMode==true">
+        <div class="" ng-show="IsEditMode==true">
 
             <h4 style="color:#000; padding-left:12px; text-align:left;">
                 Edit Item -
@@ -215,6 +451,154 @@
                     </div>
                 </div>
 
+                <div ng-repeat="obj in MyinventoryFields" class="form-group">
+
+                    <!--<p>Val - {{InventoryObject[obj.CustomFieldIndex].Value}}</p>-->
+                    <label> {{obj.cfdName}} <span ng-if="obj.Required" class="redText">*</span>  </label>
+
+                    <div ng-if="obj.cfdDataType=='string'">
+
+                        <div class="input-group" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType !=1">
+                            <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='1'&& GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='2'&& GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='3'">
+
+
+                                <input maxlength="{{GetCustomItemObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='text' || GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask==0" type="text" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control" />
+
+                                <input ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" class="form-control" />
+
+                                <!--<input id="CustomItem_{{obj.cfdID}}" ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)!='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='month'" type="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask}}" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" class="form-control" />-->
+
+                                <select ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)!='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='month'" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control">
+
+                                    <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject[obj.CustomFieldIndex].Value"> {{n.Text}}</option>
+                                </select>
+
+                                <input id="CustomItem_{{obj.cfdID}}" ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)!='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='email'" type="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask}}" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="emailtextbox form-control" />
+
+                                <select id="CustomItem_{{obj.cfdID}}" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control weekPicker" selectvalue="{{InventoryObject[obj.CustomFieldIndex].Value}}" ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)!='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='week'">
+                                    <option value="">choose week</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                    <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                </select>
+                            </div>
+
+                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix != null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix != '')" class="input-group-addon last prepend"> <span class="inner"> {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}} </span> </span>
+
+                            <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3'">
+
+
+                                <input id="CustomItem_{{obj.cfdID}}" type="text" data-prefix="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}" data-suffix="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" data-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).CombineValue}}" data-orginal-value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}}{{InventoryObject[obj.CustomFieldIndex].Value}}{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control  prepostCustom" />
+                            </div>
+
+
+                            <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=null)" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
+
+
+                        </div>
+
+                        <div ng-click="customradiolist(obj.ColumnName, obj.cfdID, 'item')" class="input-group" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType ==1">
+                            <input id="CustomItem_{{obj.cfdID}}" disabled type="text" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control" />
+
+                            <span class="input-group-addon last" ng-click="customradiolist(obj.ColumnName, obj.cfdID, 'item')"><i class="fa fa-circle-o"></i></span>
+                        </div>
+
+                    </div>
+
+
+                    <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
+                        <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==2" type="datetime-local" class="form-control customFieldDatePicker FormDateType" />
+                        <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==3" type="time" class="form-control customFieldDatePicker FormDateType" />
+                        <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=3 && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=2" type="date" class="form-control customFieldDatePicker FormDateType" />
+
+                    </div>
+
+                    <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
+
+
+
+                        <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete != true" class="select">
+                            <select ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control">
+
+                                <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index" ng-selected="_optionValue == InventoryObject[obj.CustomFieldIndex].Value">{{_optionValue}}</option>
+
+                            </select>
+                        </div>
+
+                        <div ng-click="customautocomplete(obj.ColumnName, obj.cfdID, 'item')">
+                            <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" disabled ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete == true" id="CustomItem_{{obj.cfdID}}" class="form-control" type="text" />
+                        </div>
+
+
+                    </div>
+
+
+                    <div ng-if="obj.cfdDataType=='number'" class="input-group">
+
+                        <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" id="CustomItem_{{obj.cfdID}}" max="{{GetCustomItemObjByColumnmap(obj.ColumnName).MaximumValue}}" min="{{GetCustomItemObjByColumnmap(obj.ColumnName).MinimumValue}}" name="CustomItem_{{obj.ColumnName}}" type="number" class="form-control FormControlType" />
+
+                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental==true" ng-click="UpDownValue(obj.ColumnName,false,1)" class="input-group-addon last">
+                            <i class="fa fa-minus"></i>
+                        </span>
+                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental==true" ng-click="UpDownValue(obj.ColumnName,true,1)" class="input-group-addon last">
+                            <i class="fa fa-plus"></i>
+                        </span>
+
+                    </div>
+
+                    <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+                        <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject[obj.CustomFieldIndex].Value" />
+                    </div>
+
+
+                    <div ng-if="obj.cfdDataType=='checkbox'">
+
+
+                        <div class="btn-group custombtnGroup" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=4 && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=5">
+                            <label style="width:100%" class="switch1">
+                                <input ng-if="InventoryObject[obj.CustomFieldIndex].Value =='true' || InventoryObject[obj.CustomFieldIndex].Value ==true" id="CustomItem_{{obj.cfdID}}" ng-init="InventoryObject[obj.CustomFieldIndex].Value=true" type="checkbox" ng-model="InventoryObject[obj.CustomFieldIndex].Value">
+
+                                <input ng-if="InventoryObject[obj.CustomFieldIndex].Value=='false' || InventoryObject[obj.CustomFieldIndex].Value ==false || InventoryObject[obj.CustomFieldIndex].Value ==null" id="CustomItem_{{obj.cfdID}}" type="checkbox" ng-model="InventoryObject[obj.CustomFieldIndex].Value">
+
+                                <div class="slider round"></div>
+
+                                <span style="margin-left:75px; -webkit-box-decoration-break: clone;" ng-if="InventoryObject[obj.CustomFieldIndex].Value==true">
+                                    {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdTruelabel}}
+                                </span>
+
+                                <span style="margin-left:75px; -webkit-box-decoration-break: clone;" ng-if="InventoryObject[obj.CustomFieldIndex].Value!=true">
+                                    {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdFalselabel}}
+                                </span>
+                            </label>
+                        </div>
+
+                        <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==4">
+
+
+                            <select id="CustomItem_{{obj.cfdID}}" class="form-control radioselectlist" ng-model="InventoryObject[obj.CustomFieldIndex].Value" selectvalue="{{InventoryObject[obj.CustomFieldIndex].Value}}">
+                                <option ng-selected="InventoryObject[obj.CustomFieldIndex].Value==true" value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdTruelabel}}">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdTruelabel}}</option>
+                                <option ng-selected="InventoryObject[obj.CustomFieldIndex].Value==false" ng-value="false" value="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdFalselabel}}">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdFalselabel}}</option>
+                            </select>
+                        </div>
+
+
+                        <div class="" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==5">
+                            <p class="todo-element">
+                                <input name="CustomItem_{{obj.cfdID}}" id="CustomItem_{{obj.cfdID}}" ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-value="true" value="true" ng-checked="InventoryObject.obj.CustomFieldIndex].Value==true" type="radio"> <label class="chekasradiotrue" currentvalue="{{InventoryObject[obj.CustomFieldIndex].Value}}" for="CustomItem_{{obj.cfdID}}">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdTruelabel}}</label>
+                                <input name="CustomItem_{{obj.cfdID}}" id="CustomItem1_{{obj.cfdID}}" ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-value="false" value="false" ng-checked="InventoryObject[obj.CustomFieldIndex].Value==false" type="radio"> <label class="chekasradiofalse" currentvalue="{{InventoryObject[obj.CustomFieldIndex].Value}}" for="CustomItem1_{{obj.cfdID}}">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdFalselabel}}</label>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <!--<div class="input-group">
+            <input type="text" class="form-control" value="{{obj.cfdValue}}" />
+
+        </div>-->
+                </div>
+
           
                 <br/>
 
@@ -238,7 +622,7 @@
                 
                 
                 <button ng-click="OpenBox()" class="waves-effect btn btn-primary"> <i class="fa fa-plus"></i> Add Images  </button>
-                <button type="button" ng-click="UpdateInventory()" ng-if="SavingData==false" ng-disabled="CurrentInventory.pPart==''" class="waves-effect btn btn-primary"> <i class="fa fa-pencil"></i> Update</button>
+                <button type="button" ng-click="UpdateInventory()" ng-if="SavingData==false" ng-class="{'Btndisabled':CheckCustomRequiredFields()==true}" ng-disabled="CheckCustomRequiredFields()==true || CurrentInventory.pPart=='' || CheckEmailFields()==true" class="waves-effect btn btn-primary"> <i class="fa fa-pencil"></i> Update</button>
                 <button type="button" ng-if="SavingData==true" disabled class="waves-effect btn btn-primary"> <i class="fa fa-pencil fa-spin"></i> Update</button>
               
 
@@ -249,6 +633,56 @@
     <div>
         <br />
         <br />
+    </div>
+
+    <div style="background:#fff;" id="customautolistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span> <i class="fa fa-times"></i> </span>
+            </button>
+            <h4>Select Item  </h4>
+            <div class="form-group">
+                <div class="input-group">
+                    <input ng-model="searchcustom" type="text" placeholder="Type Keyword to find value" class="form-control" autofocus />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-body">
+
+            <ul ng-repeat="obj in currtrentcustomauto | filter:searchcustom track by $index">
+                <a ng-click="fillcustomvalue(obj)">{{obj }}</a>
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div style="background:#fff;" id="customradiotextmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span> <i class="fa fa-times"></i> </span>
+            </button>
+            <h4>Select Item  </h4>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <p ng-repeat="obj in currtrentcustomradiovalue" class="todo-element">
+                <input ng-click="fillcurrentradiovalue(obj)" id="{{obj}}" name="dashrath" type="radio"> <label for="{{obj}}">{{obj}}</label>
+            </p>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <a ng-click="fillvaluetoradio()" class="waves-effect btn btn-primary"> <i class="fa fa-check"></i> OK</a>
+                    <a data-dismiss="modal" class="waves-effect btn btn-gray"> <i class="fa fa-times"></i> Cancel </a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!--<input type="file" id="files" name="files" />-->
