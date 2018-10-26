@@ -54,10 +54,10 @@
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
-<plugin name="cordova-plugin-x-socialsharing" source="npm" />
+  <plugin name="cordova-plugin-x-socialsharing" source="npm" />
   
   
-  <preference name="AndroidPersistentFileLocation" value="Internal" />
+  
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />-->
@@ -69,6 +69,9 @@
     <param name="key" value="willoughby"/>
   </feature>
 
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+  
+  
   <preference name="webviewbounce" value="true" />
   <preference name="UIWebViewBounce" value="true" />
   <preference name="DisallowOverscroll" value="false" />
