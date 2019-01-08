@@ -54,7 +54,7 @@
   <plugin name="cordova-plugin-android-permissions" source="npm" spec="~0.10.0"/>
   <plugin name="cordova-plugin-x-toast" source="npm" />
   <plugin name="cordova-plugin-background-app" source="npm" spec="~2.0.0" />
-
+<!--<plugin name="cordova-plugin-x-socialsharing" source="npm" />-->
 
   
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>
@@ -70,8 +70,7 @@
   <preference name="webviewbounce" value="true" />
   <preference name="UIWebViewBounce" value="true" />
   <preference name="DisallowOverscroll" value="false" />
-  <preference name='phonegap-version' value='cli-7.0.1' />
-  <preference name='pgb-builder-version' value='1' />
+  <preference name="phonegap-version"  value="cli-6.5.0" />
   <preference name="orientation"   value="default" />
   <preference name="target-device"  value="universal" />
   <preference name="fullscreen" value="false" />
@@ -84,9 +83,7 @@
   <preference name="HideKeyboardFormAccessoryBar" value="true"/>
   <preference name="KeyboardShrinksView" value="true" />
   <preference name="SplashScreenDelay" value="10000"/>
-
-  <preference name="android-minSdkVersion" value="14" />
-  <preference name="android-targetSdkVersion" value="27" /> 
+  <preference name="android-targetSdkVersion" value="26" /> 
   
   <icon src="icon.png" />
 
