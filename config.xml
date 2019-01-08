@@ -74,8 +74,9 @@
   <preference name="orientation"   value="default" />
   <preference name="target-device"  value="universal" />
   <preference name="fullscreen" value="false" />
-  
 
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+  
   <preference name="StatusBarOverlaysWebView" value="false" />
   <preference name="StatusBarBackgroundColor" value="#2196F3" />
   <preference name="StatusBarStyle" value="lightcontent" />
