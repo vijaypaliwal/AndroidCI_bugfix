@@ -83,7 +83,7 @@
   <preference name="HideKeyboardFormAccessoryBar" value="true"/>
   <preference name="KeyboardShrinksView" value="true" />
   <preference name="SplashScreenDelay" value="10000"/>
-  <preference name="android-targetSdkVersion" value="27" /> 
+  <preference name="android-targetSdkVersion" value="28" /> 
   
   <icon src="icon.png" />
 
