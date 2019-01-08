@@ -16,9 +16,11 @@
                 </div>
                 <div class="col-md-4 col-xs-6">
                     <div style="text-align:center">
-                        <a ng-if="CurrentOperation!='Apply' && CurrentOperation!='MoveTagUpdate'">{{CurrentOperation}}</a>
-                        <a ng-if="CurrentOperation=='Apply'">Tag</a>
-                        <a style="font-size:14px; white-space:nowrap" ng-if="CurrentOperation=='MoveTagUpdate'">Move, Tag, & Update</a>
+                        <a ng-if="CurrentOperation!='Apply' && CurrentOperation!='MoveTagUpdate' && CurrentOperation!='Increase' && CurrentOperation!='Decrease'">{{CurrentOperation}}</a>
+                        <a ng-if="CurrentOperation=='Apply'">Change</a>
+                        <a ng-if="CurrentOperation=='Increase'">Add</a>
+                        <a ng-if="CurrentOperation=='Decrease'">Remove</a>
+                        <a style="font-size:14px; white-space:nowrap" ng-if="CurrentOperation=='MoveTagUpdate'">Move & Change</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-3">
@@ -1431,14 +1433,14 @@
                 <div class="customActivityData form-inputs" data-type="Activity" data-index="{{GetProperIndex(1)}}">
 
 
-                    <h4>Activity data</h4>
+                    <h4>Circumstance data</h4>
 
 
                     <div ng-if="CurrentOperation!='Adjust'">
 
 
                         <div class="form-group">
-                            <label>Activity Date <span>*</span> </label>
+                            <label>Circumstance Date <span>*</span> </label>
                             <div class="input-group">
                                 <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
@@ -3772,7 +3774,7 @@
                                 <br />
                                 <div class="row form-inputs" ng-if="CanAutoClear==false" style=" background-color: #eee; padding-top: 15px">
                                     <div class=" col-xs-9">
-                                        If processing the cart results in a record with "0" quantity, clear the record.
+                                        If processing the cart results in a statement with "0" quantity, clear the statement.
                                     </div>
                                     <div class="col-xs-3">
                                         <label class="switch1">
@@ -4139,7 +4141,7 @@
 
             <div class="row Newrow" ng-if="CanAutoClear==false">
                 <div class=" col-xs-8">
-                    <span style="font-size:12px;"> If processing the cart results in a record with "0" quantity, clear the record. </span>
+                    <span style="font-size:12px;"> If processing the cart results in a statement with "0" quantity, clear the statement. </span>
                 </div>
                 <div class="col-xs-4">
                     <label class="switch1">
@@ -4351,13 +4353,13 @@
 
     <div class="modal-body">
         <ul class="animated slideInUp transactionbody selectAction">
-            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanIncrease=='True'" data-ng-click=" Operate(1)"><span>Increase</span> <a style="background-color: #177B3D;" class="btn waves-effect-success btn decrease"> <i class="fa fa-plus"></i> </a></li>
-            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanDecrease=='True'" data-ng-click=" Operate(-1)"><span>Decrease</span> <a style="background-color: #AF2525;" class="btn waves-effect-danger btn decrease"> <i class="fa fa-minus-circle"></i> </a></li>
+            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanIncrease=='True'" data-ng-click=" Operate(1)"><span>Add</span> <a style="background-color: #177B3D;" class="btn waves-effect-success btn decrease"> <i class="fa fa-plus"></i> </a></li>
+            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanDecrease=='True'" data-ng-click=" Operate(-1)"><span>Remove</span> <a style="background-color: #AF2525;" class="btn waves-effect-danger btn decrease"> <i class="fa fa-minus-circle"></i> </a></li>
             <li class="bottomlink" data-dismiss="modal" data-ng-show="CanIncrease=='True' &&  CanDecrease=='True'" data-ng-click=" Operate(12)"><span>Adjust</span> <a style="background-color: #f8c217;" class="btn waves-effect-danger btn adjust"> <i class="fa fa-arrows-v"></i> </a></li>
             <li class="bottomlink" data-dismiss="modal" data-ng-show="CanMove=='True'" data-ng-click=" Operate(0)"><span>Move</span> <a style="background-color: #C65E28;" class="btn waves-effect-warning btn decrease"> <i class="fa fa-exchange"></i>  </a></li>
-            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanApply=='True'" data-ng-click=" Operate(4)"><span>Tag</span> <a style="background-color: #0D190F" class="btn waves-effect-info btn decrease"> <i class="fa fa-tag"></i>  </a></li>
+            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanApply=='True'" data-ng-click=" Operate(4)"><span>Change</span> <a style="background-color: #0D190F" class="btn waves-effect-info btn decrease"> <i class="fa fa-tag"></i>  </a></li>
             <li class="bottomlink" data-dismiss="modal" data-ng-show="CanStatus=='True'" data-ng-click=" Operate(3)"><span>Update</span> <a style=" background-color: #583782" class="btn waves-effect-info btn decrease"> <i class="fa fa-pencil"></i>  </a></li>
-            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanMoveTagUpdate=='True'" data-ng-click="Operate(5)"><span>Move, Tag, & Update</span> <a class=" bgm-MoveTagUpdate waves-effect btn-warning btn decrease" data-dismiss="modal">&</a></li>
+            <li class="bottomlink" data-dismiss="modal" data-ng-show="CanMoveTagUpdate=='True'" data-ng-click="Operate(5)"><span>Move & Change</span> <a class=" bgm-MoveTagUpdate waves-effect btn-warning btn decrease" data-dismiss="modal">&</a></li>
 
             <li class="bottomlink" data-dismiss="modal" data-ng-show=" CanConvert=='True'" data-ng-click=" Operate(2)"><span>Convert</span> <a style="background-color: #CE59A1" class="btn waves-effect-info btn decrease"> <i class="fa fa-refresh"></i>  </a></li>
             <li class="bottomlink" data-dismiss="modal" data-ng-click=" changeMode()"><span>Switch mode</span> <a style="background-color: #616161" class="btn waves-effect-info btn decrease"> <i class="fa fa-undo"></i>  </a></li>

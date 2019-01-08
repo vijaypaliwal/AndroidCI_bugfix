@@ -45,11 +45,11 @@
         </div>
     </div>
 
-    <h4>Recent Activities</h4>
+    <h4>Recent Events</h4>
     <div class="row">
         <div class="col-xs-6">
             <div class="form-group">
-                <label>Activity Date </label>
+                <label>Event Date </label>
                 <div class="fg-line">
                     <input id="ActivityDate" ng-change="GetRecentActivities()" ng-model="ActivityDate" class="form-control ItemAutoComplete" type="date" name="name" value="" />
                 </div>
@@ -58,24 +58,24 @@
         </div>
         <div class="col-xs-6">
             <div class="form-group">
-                <label>Activity </label>
+                <label>Event </label>
 
                 <div class="dropdown" >
                     <button style=" width:100%; height:47px;padding:0px; border:transparent;" type="button" data-toggle="dropdown" class="waves-effect btn btn-warning">
-                    <span ng-if="Activity==''">Activity </span> 
+                    <span ng-if="Activity==''">Event </span> 
                     <span ng-if="Activity!=''">
-                        <span style="font-size:13px;text-transform:capitalize;" ng-if="Activity!='Apply'">{{Activity}} </span>
-                        <span ng-if="Activity=='Apply'">Tag </span></span> 
+                        <span style="font-size:13px;text-transform:capitalize;">{{Activity}} </span>
+                        </span>
                      <i class="fa fa-caret-down"></i></button>
                     <ul class="dropdown-menu" style="width:100%;">
                         <li><a ng-click="Activity=''">All</a></li>
-                        <li><a ng-click="Activity='Increase'">Increase</a></li>
-                        <li><a ng-click="Activity='Decrease'">Decrease</a></li>
+                        <li><a ng-click="Activity='Add'">Add</a></li>
+                        <li><a ng-click="Activity='Remove'">Remove</a></li>
                         <li><a ng-click="Activity='Convert'">Convert</a></li>
                         <li><a ng-click="Activity='Update'">Update</a></li>
-                        <li><a ng-click="Activity='Apply'">Tag</a></li>
+                        <li><a ng-click="Activity='Change'">Change</a></li>
                         <li><a ng-click="Activity='Move'">Move</a></li>
-                        <li><a ng-click="Activity='Move, Tag, & Update'">Move, Tag, & Update</a></li>
+                        <li><a ng-click="Activity='Move & Change'">Move & Change</a></li>
                     </ul>
                 </div>
             </div>
@@ -87,15 +87,15 @@
     <div ng-repeat="_obj in Recentactivities" ng-if="isSearching==false && Recentactivities.length>0">
 
 
-        <div ng-if="_obj.ParentAction=='Increase'" class="activityinfo bgm-increase">
+        <div ng-if="_obj.ParentAction=='Add'" class="activityinfo bgm-increase">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        I
+                        A
                     </span>
                 </div>
                 <div class="col-xs-7">
-                    <h5>Increase {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    <h5>Add {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
                 </div>
                 <div class="col-xs-3">
                     <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
@@ -105,15 +105,15 @@
             </div>
 
         </div>
-        <div ng-if="_obj.ParentAction=='Decrease'" class="bgm-decrease activityinfo">
+        <div ng-if="_obj.ParentAction=='Remove'" class="bgm-decrease activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        D
+                        R
                     </span>
                 </div>
                 <div class="col-xs-7">
-                    <h5>Decrease {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    <h5>Remove {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
                 </div>
                 <div class="col-xs-3">
                     <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
@@ -177,15 +177,15 @@
             </div>
         </div>
 
-        <div ng-if="_obj.ParentAction=='Apply'" class="bgm-apply activityinfo">
+        <div ng-if="_obj.ParentAction=='Change'" class="bgm-apply activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        T
+                        C
                     </span>
                 </div>
                 <div class="col-xs-7">
-                    <h5>Tag {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    <h5>Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
                 </div>
                 <div class="col-xs-3">
                     <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
@@ -195,7 +195,7 @@
             </div>
         </div>
 
-        <div ng-if="_obj.ParentAction=='Move, Tag, & Update'" class="bgm-movetagupdate activityinfo">
+        <div ng-if="_obj.ParentAction=='Move & Change'" class="bgm-movetagupdate activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
@@ -203,7 +203,7 @@
                     </span>
                 </div>
                 <div class="col-xs-7">
-                    <h5>Move, Tag, & Update {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    <h5>Move & Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
                 </div>
                 <div class="col-xs-3">
                     <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">

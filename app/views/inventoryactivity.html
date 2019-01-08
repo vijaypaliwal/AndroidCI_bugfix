@@ -1,14 +1,13 @@
 ﻿<link href="css/activityreport.css" rel="stylesheet" />
 
 <div class="title-header">
-
     <div class="row">
-
         <div class="col-xs-12">
-            <h4 class="titletext">{{CurrentView.Name}} </h4>
+            <h4 class="titletext">
+                <span ng-if="CurrentView.Name=='Inventory Activity'">Inventory Event</span>
+                <span ng-if="CurrentView.Name!='Inventory Activity'">{{CurrentView.Name}}</span>
+            </h4>
         </div>
-
-
     </div>
 </div>
 
@@ -63,7 +62,7 @@
 
     <div ng-if="isviewload==true" class="paginationtext">
 
-        <span style="font-size:13px;">{{currentrecord}} of {{totalrecords}} <span>records shown <span class="pull-right" ng-click="clearfilterArray()"></span> </span> </span>
+        <span style="font-size:13px;">{{currentrecord}} of {{totalrecords}} <span>statements shown <span class="pull-right" ng-click="clearfilterArray()"></span> </span> </span>
     </div>
 
 
@@ -100,7 +99,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h4>No such records found !!</h4>
+                    <h4>No such statement found !!</h4>
                 </div>
             </div>
 
@@ -198,23 +197,23 @@
 
 
                                 <div class="row">
-                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Increase')">
+                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Add')">
 
                                         <div class="bgm-increase">
 
                                             <div class="incarrow"><i class="fa fa-arrow-up"></i></div>
 
-                                            <span> Increase</span>
-                                            <i ng-if="_obj.SearchValue=='Increase' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
+                                            <span> Add</span>
+                                            <i ng-if="_obj.SearchValue=='Add' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
                                         </div>
 
                                     </div>
-                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Decrease')">
+                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Remove')">
                                         <div class="bgm-decrease">
 
                                             <div class="deccarrow"><i class="fa fa-arrow-down"></i> </div>
-                                            <span>Decrease</span>
-                                            <i ng-if="_obj.SearchValue=='Decrease' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
+                                            <span>Remove</span>
+                                            <i ng-if="_obj.SearchValue=='Remove' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="col-xs-6" ng-click="UpdateParentAction($index,'Move')">
@@ -232,11 +231,11 @@
                                             <i ng-if="_obj.SearchValue=='Update' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Tag')">
+                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Change')">
                                         <div class="bgm-apply">
                                             <div class="tagarrow"><i class="fa fa-tag"></i></div>
-                                            <span> Tag </span>
-                                            <i ng-if="_obj.SearchValue=='Tag' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
+                                            <span> Change </span>
+                                            <i ng-if="_obj.SearchValue=='Change' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="col-xs-6" ng-click="UpdateParentAction($index,'Convert')">
@@ -248,11 +247,11 @@
                                     </div>
 
 
-                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Move, Tag, & Update')">
+                                    <div class="col-xs-6" ng-click="UpdateParentAction($index,'Move & Change')">
                                         <div class="bgm-MoveTagUpdate" style="width: 210px;margin-left:3px;">
                                             <div style="font-size:21px; line-height:42px;" class="movarrow">&nbsp; &</div>
-                                            <span> Move, Tag, & Update </span>
-                                            <i ng-if="_obj.SearchValue=='Move, Tag, & Update' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
+                                            <span> Move & Change </span>
+                                            <i ng-if="_obj.SearchValue=='Move & Change' && _obj.ColumnName=='ParentAction'" class="fa fa-check"></i>
                                         </div>
                                     </div>
                                 </div>
