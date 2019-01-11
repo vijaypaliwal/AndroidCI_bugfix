@@ -499,7 +499,41 @@ function UpdateStatusBar(Type) {
 
 }
 
+function scanApiNotification(event) {
+    event = JSON.parse(event);
+
+    if (event.type) {
+        //alert('receive an event: ' + event.type);
+        //  document.getElementById('eventRec').innerHTML = 'receive an event: ' + event.type;
+        // document.getElementById('eventRec').setAttribute("class", "blink");
+        if (event.type === 'decodedData') {
+            alert('decodedData: ', event.decodedData);
+            //  document.getElementById('eventData').innerHTML = event.decodedData.join(",");
+            var scannedV = '';
+            for (var i = 0; i < event.decodedData.length; i++) {
+                scannedV = scannedV + String.fromCharCode(event.decodedData[i]); + '';
+            }
+
+            var $focused = $(':focus');
+
+            $focused.val(scannedV);
+
+            $focused.trigger("change");
+
+       
+
+        }
+    }
+
+
+
+
+}
+
 function onDeviceReady() {
+
+
+    SocketScanApi.useScanApi('', scanApiNotification.bind(event));
 
     var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
     pictureSource = navigator.camera.PictureSourceType;

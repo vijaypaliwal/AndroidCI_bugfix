@@ -2,6 +2,20 @@
 
 <link href="css/inventory.css" rel="stylesheet" />
 
+<style>
+    .input-group-addon.currency {
+        background-color: #e9ecef !important;
+        color: #888 !important;
+        padding-left: 12px;
+        padding-right: 12px;
+        border: 1px solid #ccc;
+        border-right: transparent;
+        font-size: 17px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+</style>
+
 
 
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
@@ -260,6 +274,7 @@
                             <label>Cost per ({{InventoryObject.Uom}})</label>
 
                             <div class="input-group">
+                                <span class="input-group-addon currency"> $</span>
                                 <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
 
                             </div>
@@ -658,7 +673,7 @@
                                 <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                             </div>-->
                             <!--NumberType Unit Data Fields-->
-                            <div ng-if="UnitNumber1FieldSpecialType != 14">
+                            <div ng-if="UnitNumber1FieldSpecialType != 14 && UnitNumber1FieldSpecialType != 21">
                                 <div class="input-group customnumbergroup">
                                     <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
                                     <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
@@ -679,6 +694,17 @@
                                     </span>
                                 </div>
                             </div>
+
+
+                            <!--Currency Unit Data Fields-->
+                            <div ng-if="UnitNumber1FieldSpecialType == 21">
+                                <div class="input-group customnumbergroup">
+                                    <span class="input-group-addon currency"> $</span>
+                                    <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                  
+                                </div>
+                            </div>
                         </div>
 
                         <div ng-if="obj.ColumnName=='iUnitNumber2'" class="form-group">
@@ -690,7 +716,7 @@
                                 <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                             </div>-->
                             <!--NumberType Unit Data Fields-->
-                            <div ng-if="UnitNumber2FieldSpecialType!= 14">
+                            <div ng-if="UnitNumber2FieldSpecialType!= 14 && UnitNumber2FieldSpecialType!= 21">
                                 <div class="input-group customnumbergroup">
                                     <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
                                     <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
@@ -708,6 +734,17 @@
                                     <span ng-click="UpDownValueUnit('UnitNumber2',true)" class="input-group-addon last">
                                         <i class="fa fa-plus"></i>
                                     </span>
+                                </div>
+                            </div>
+
+                            <!--NumberIncrementerType Unit Data Fields-->
+                            <div ng-if="UnitNumber2FieldSpecialType == 21">
+                                <div class="input-group customnumbergroup">
+                                    <span class="input-group-addon currency"> $</span>
+
+                                    <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                 
                                 </div>
                             </div>
                         </div>
@@ -850,6 +887,7 @@
 
 
                             <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+                                <span class="input-group-addon currency"> $</span>
 
                                 <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" ng-change="" value="{{obj.CfValue}}" />
 
@@ -999,6 +1037,7 @@
                             </div>
 
                             <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+                                <span class="input-group-addon currency"> $</span>
                                 <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                             </div>
@@ -1024,6 +1063,7 @@
                             <label>Cost per ({{InventoryObject.Uom}})</label>
 
                             <div class="input-group">
+                                <span class="input-group-addon currency"> $</span>
                                 <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
 
 
@@ -1817,6 +1857,8 @@
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
 
+                                        <span class="input-group-addon currency"> $</span>
+
                                         <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -1971,6 +2013,8 @@
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+
+                                        <span class="input-group-addon currency"> $</span>
                                         <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -2117,6 +2161,7 @@
                                     <label>Cost per ({{InventoryObject.Uom}})</label>
 
                                     <div class="input-group">
+                                        <span class="input-group-addon currency"> $</span>
                                         <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
                                         <span ng-click="GetLastValue('Inv_Cost','#Costperunit')" test-case condition="GetLastValueData('Inv_Cost')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                     </div>
@@ -2573,7 +2618,7 @@
                                     <label>{{obj.ColumnLabel}}</label>
 
                                     <!--NumberType Unit Data Fields-->
-                                    <div ng-if="UnitNumber1FieldSpecialType != 14">
+                                    <div ng-if="UnitNumber1FieldSpecialType != 14 && UnitNumber1FieldSpecialType != 21">
                                         <div class="input-group customnumbergroup">
                                             <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
@@ -2596,6 +2641,18 @@
                                             </span>
                                         </div>
                                     </div>
+
+
+                                    <!--Currency Unit Data Fields-->
+                                    <div ng-if="UnitNumber1FieldSpecialType == 21">
+                                        <div class="input-group customnumbergroup">
+                                            <span class="input-group-addon currency"> $</span>
+                                            <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                            <span ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
 
 
@@ -2604,7 +2661,7 @@
 
 
                                     <!--NumberType Unit Data Fields-->
-                                    <div ng-if="UnitNumber2FieldSpecialType!= 14">
+                                    <div ng-if="UnitNumber2FieldSpecialType!= 14 && UnitNumber2FieldSpecialType!= 21">
                                         <div class="input-group customnumbergroup">
                                             <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
@@ -2627,6 +2684,20 @@
                                             <span ng-click="UpDownValueUnit('UnitNumber2',true)" class="input-group-addon last">
                                                 <i class="fa fa-plus"></i>
                                             </span>
+                                        </div>
+                                    </div>
+
+                                    <!--currency Unit Data Fields-->
+                                    <div ng-if="UnitNumber2FieldSpecialType == 21">
+
+                                        <div class="input-group customnumbergroup">
+
+                                            <span class="input-group-addon currency"> $</span>
+                                            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2791,6 +2862,8 @@
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
 
+                                        <span class="input-group-addon currency"> $</span>
+
                                         <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -2951,6 +3024,7 @@
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
+                                        <span class="input-group-addon currency"> $</span>
                                         <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
@@ -2975,6 +3049,7 @@
                                 <label>Cost per ({{InventoryObject.Uom}})</label>
 
                                 <div class="input-group">
+                                    <span class="input-group-addon currency"> $</span>
                                     <input ng-model="InventoryObject.Cost" min="0" id="Costperunit" class="form-control" type="number" name="cost" value="" />
                                     <span ng-click="GetLastValue('Inv_Cost','#Costperunit')" test-case condition="GetLastValueData('Inv_Cost')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
 
