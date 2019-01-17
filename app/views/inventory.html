@@ -74,7 +74,7 @@
 
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <label>Item Name   </label>
+                                            <label>{{obj.ColumnLabel}}  </label>
                                         </div>
                                     </div>
 
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="form-group" ng-if="obj.ColumnName=='pDescription'">
-                            <label>Item Description </label>
+                            <label>{{obj.ColumnLabel}}  </label>
                             <div class="input-group">
                                 <input type="text" id="pDescriptionForm" my-enter="GoToNext()" ng-model="InventoryObject.Description" name="name" class="form-control" value="" />
 
@@ -1573,13 +1573,13 @@
 
                                             <div class="">
                                                 <div class="">
-                                                    <label>Item Name  </label>
+                                                    <label>{{obj.ColumnLabel}}  </label>
 
                                                 </div>
 
                                             </div>
 
-                                            <div ng-if="InventoryObject.AutoID==false && IsItemLibrary==true && IsActiveItemLibrary==true" class="input-group">
+                                            <div class="input-group">
                                                 <div>
 
                                                     <input type="text" id="ItemName" class="form-control" ng-keyup="SetItemChoseFalse()" ng-blur="SwitchModeItemChange()" ng-change="itemvaluechange()" my-enter="GoToNext()" ng-model="InventoryObject.ItemID" required="" />
@@ -1639,7 +1639,7 @@
                                 </div>
 
                                 <div class="form-group" ng-if="obj.ColumnName=='pDescription'">
-                                    <label>Item Description </label>
+                                    <label>{{obj.ColumnLabel}}  </label>
                                     <div class="input-group">
                                         <input type="text" id="pDescriptionForm" my-enter="GoToNext()" ng-model="InventoryObject.Description" name="name" class="form-control" value="" />
 
@@ -3433,7 +3433,7 @@
             <div style="margin-top:15px;" class="row ">
 
                 <div ng-click="getstep(0,'pPart')" class="col-xs-12 form-group">
-                    <span class="mylabel">Item name</span> <span>  {{InventoryObject.ItemID}} </span>
+                    <span class="mylabel">{{realItemname}}</span> <span>  {{InventoryObject.ItemID}} </span>
                 </div>
 
                 <div ng-click="getstep(2,'iQty')" class="col-xs-12 form-group">
@@ -3454,7 +3454,7 @@
 
                 <div ng-click="getstep(1,'pDescription')" class="col-md-12 col-xs-12  form-group">
 
-                    <span class="mylabel">Description</span>  <span> {{ InventoryObject.Description }} </span>
+                    <span class="mylabel">{{realDescname}}</span>  <span> {{ InventoryObject.Description }} </span>
 
                 </div>
 

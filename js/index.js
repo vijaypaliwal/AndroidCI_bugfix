@@ -503,7 +503,7 @@ function scanApiNotification(event) {
     event = JSON.parse(event);
 
     if (event.type) {
-       alert('Event: ' + event.type);
+      
         //  document.getElementById('eventRec').innerHTML = 'receive an event: ' + event.type;
         // document.getElementById('eventRec').setAttribute("class", "blink");
         if (event.type === 'decodedData') {

@@ -359,6 +359,81 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
     }
 
 
+    $scope.realItemname = "Name";
+    $scope.realDescname = "Description";
+
+    $scope.GetMyinventoryColumns = function () {
+
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax
+          ({
+              type: "POST",
+              url: serviceBase + 'GetMyInventoryColumns',
+              contentType: 'application/json; charset=utf-8',
+
+              dataType: 'json',
+              data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+              success: function (response) {
+
+
+
+
+
+                  if (response.GetMyInventoryColumnsResult.Success == true) {
+
+                      var _TempArray = response.GetMyInventoryColumnsResult.Payload;
+
+                      for (var i = 0; i < _TempArray.length; i++) {
+                          var _ColName = _TempArray[i].ColumnName.split("#");
+                          _TempArray[i].ColumnName = _ColName[0];
+                          if (_TempArray[i].Show == "True") {
+                              $scope.MyinventoryFields.push(_TempArray[i]);
+                          }
+
+                          if (_TempArray[i].ColumnName == "pPart") {
+                              $scope.realItemname = _TempArray[i].ColumnLabel;
+
+                          }
+
+                          if (_TempArray[i].ColumnName == "pDescription") {
+                              $scope.realDescname = _TempArray[i].ColumnLabel;
+
+                          }
+
+                      }
+                      CheckScopeBeforeApply()
+                  }
+                  else {
+                      $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
+
+                  }
+
+              },
+              error: function (err, textStatus, errorThrown) {
+                  if (err.readyState == 0 || err.status == 0) {
+
+                  }
+                  else {
+                      if (textStatus != "timeout") {
+                          console.log(err);
+                          $scope.ShowErrorMessage("My inventory Columns", 2, 1, err.statusText);
+                      }
+                  }
+
+
+              }
+          });
+
+    }
+
+
+    $scope.GetMyinventoryColumns()
+
+
 
 
     init();

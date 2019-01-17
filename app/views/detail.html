@@ -298,8 +298,8 @@
                     <i class="fa fa-info udt"></i>
                 </div>
                 <div class="c-widget-body">
-                    <p class="m-0" style="color:black;"> <span>Name:</span> {{itemlabel}} </p>
-                    <p class="m-0" style="color:black;"> <span>Description:</span> {{CurrentInventory.pDescription}} </p>
+                    <p class="m-0" style="color:black;"> <span>{{realItemname}}:</span> {{itemlabel}} </p>
+                    <p class="m-0" style="color:black;"> <span>{{realDescname}}:</span> {{CurrentInventory.pDescription}} </p>
 
                 </div>
             </div>
@@ -432,7 +432,7 @@
 
             <div style="text-align:left; color:#000; padding:10px;" class="editsection maincontent" ng-if="IsEditMode==true">
                 <div class="form-group">
-                    <label>Item Name <span class="redText">*</span></label>
+                    <label>{{realItemname}} <span class="redText">*</span></label>
                     <div class="input-group">
                         <input type="text" class="form-control" ng-model="CurrentInventory.pPart" />
                         <span class="input-group-addon last">
@@ -442,7 +442,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Item Description</label>
+                    <label>{{realDescname}}</label>
                     <div class="input-group">
                         <input type="text" class="form-control" ng-model="CurrentInventory.pDescription" />
                         <span class="input-group-addon last">

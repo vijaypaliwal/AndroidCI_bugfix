@@ -2814,6 +2814,16 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
                           if (_TempArray[i].Show == "True") {
                               $scope.MyinventoryFields.push(_TempArray[i]);
                           }
+                          if (_TempArrayDummy[i].ColumnName == "pPart") {
+                              $scope.realItemname = _TempArrayDummy[i].ColumnLabel;
+
+
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName == "pDescription") {
+                              $scope.realDescname = _TempArrayDummy[i].ColumnLabel;
+
+                          }
                       }
                       CheckScopeBeforeApply()
                   }
