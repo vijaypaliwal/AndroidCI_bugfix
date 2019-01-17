@@ -500,32 +500,45 @@ function UpdateStatusBar(Type) {
 }
 
 function scanApiNotification(event) {
+
     event = JSON.parse(event);
 
+
     if (event.type) {
-      
+        //alert('receive an event: ' + event.type);
         //  document.getElementById('eventRec').innerHTML = 'receive an event: ' + event.type;
         // document.getElementById('eventRec').setAttribute("class", "blink");
+
+        if (event.type === 'scanApiTerminated') {
+            alert("Scanner having issue and we are trying to re-start");
+            reStartTheScanner();
+        }
+
         if (event.type === 'decodedData') {
-            alert('decodedData: ', event.decodedData);
-            //  document.getElementById('eventData').innerHTML = event.decodedData.join(",");
             var scannedV = '';
             for (var i = 0; i < event.decodedData.length; i++) {
                 scannedV = scannedV + String.fromCharCode(event.decodedData[i]); + '';
             }
+            try {
+                var $focused = document.activeElement;
 
-            var $focused = $(':focus');
+                //   alert("Active element = " + $focused.tagName);
 
-            $focused.val(scannedV);
+                if ($focused.tagName != 'INPUT' || $focused.tagName == undefined || $focused.tagName == null) {
+                    alert("Scanning not available for select option");
 
-            $focused.trigger("change");
-
-       
+                } else {
+                    $($focused).val(scannedV);
+                    $($focused).trigger("change");
+                }
+                //  alert("Scanned Value:" + scannedV);
+            } catch (err) {
+                //alert("focus error");
+            }
 
         }
+
     }
-
-
 
 
 }
