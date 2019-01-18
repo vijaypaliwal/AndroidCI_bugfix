@@ -1964,6 +1964,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
                           }
 
+                          if (_TempArrayDummy[i].ColumnName == "iStatusValue") {
+                              $scope.statusLabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
                       }
                       CheckScopeBeforeApply()
                   }
