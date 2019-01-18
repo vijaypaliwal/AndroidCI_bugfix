@@ -275,7 +275,7 @@
                                         <div class="row">
                                             <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                                 <div class="form-group">
-                                                    <label>Status</label>
+                                                    <label>{{statusLabel}}</label>
                                                     <div class="input-group">
                                                         <div class="select">
                                                             <select class="form-control" ng-model="CurrentActiveObject.UpdateTransactionData.StatusToUpdate">
@@ -4002,7 +4002,7 @@
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.UpdateTransactionData.StatusToUpdate}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].UpdateTransactionData.StatusToUpdate}}</span>
 
-                                                            status
+                                                            {{statusLabel}}
                                                         </span>
                                                         <span ng-if="CurrentOperation=='Convert'">
                                                             Convert  From quantity
@@ -4070,8 +4070,8 @@
                                                             <span ng-if="IsSingleMode==false">Location:{{CurrentCart[0].MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
 
 
-                                                            <span ng-if="IsSingleMode==true">Status:{{_groupRow.MoveUpdateTagTransactionData.StatusToUpdate}} <br /></span>
-                                                            <span ng-if="IsSingleMode==false">Status:{{CurrentCart[0].MoveUpdateTagTransactionData.StatusToUpdate}}<br /></span>
+                                                            <span ng-if="IsSingleMode==true">    {{statusLabel}}:{{_groupRow.MoveUpdateTagTransactionData.StatusToUpdate}} <br /></span>
+                                                            <span ng-if="IsSingleMode==false">    {{statusLabel}}:{{CurrentCart[0].MoveUpdateTagTransactionData.StatusToUpdate}}<br /></span>
 
                                                             <span ng-if="IsSingleMode==true">
                                                                 <span ng-if="IsMyInventoryColumns('iReqValue')==true">{{GetColumnLabel('iReqValue')}}: {{_groupRow.MoveUpdateTagTransactionData.UnitTag1}} <br /></span>
@@ -4372,13 +4372,13 @@
 <div style="background:#fff;" id="createnewlabel" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-header">
-        <h4>Create new <span ng-if="CreateType==3">Location</span><span ng-if="CreateType==1">Unit of measure</span> <span ng-if="CreateType==2">Status</span></h4>
+        <h4>Create new <span ng-if="CreateType==3">Location</span><span ng-if="CreateType==1">Unit of measure</span> <span ng-if="CreateType==2">    {{statusLabel}}</span></h4>
     </div>
 
     <div style="padding:15px;" class="modal-body">
 
         <div class="form-group">
-            <label>Enter new <newtag ng-if="CreateType==3">Location</newtag> <newtag ng-if="CreateType==1">Unit of measure</newtag> <newtag ng-if="CreateType==2">Status</newtag> </label>
+            <label>Enter new <newtag ng-if="CreateType==3">Location</newtag> <newtag ng-if="CreateType==1">Unit of measure</newtag> <newtag ng-if="CreateType==2">    {{statusLabel}}</newtag> </label>
 
             <div class="input-group">
                 <input type="text" ng-model="CreateNewLabel" class="form-control" value="" />

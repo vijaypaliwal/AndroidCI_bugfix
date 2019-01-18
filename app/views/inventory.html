@@ -173,7 +173,7 @@
 
 
                         <div class="form-group" ng-if="obj.ColumnName=='iStatusValue'">
-                            <label>Status </label>
+                            <label>{{obj.ColumnLabel}} </label>
                             <div class="input-group">
                                 <select class="form-control" id="Status" ng-model="InventoryObject.Status">
                                     <option value="">None</option>
@@ -2066,7 +2066,7 @@
 
 
                                 <div class="form-group" ng-if="obj.ColumnName=='iStatusValue'">
-                                    <label>Status </label>
+                                    <label>{{obj.ColumnLabel}} </label>
                                     <div class="input-group">
                                         <select class="form-control" id="Status" ng-model="InventoryObject.Status">
                                             <option value="">None</option>
@@ -3673,13 +3673,13 @@
 
             <div style="background: #2196F3; color:#fff;" class="modal-header">
 
-                <h4>Create new  <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">Status</span></h4>
+                <h4>Create new  <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">{{statusLabel}}</span></h4>
             </div>
 
             <div style="padding: 12px; background: #fff; box-shadow: 0px 2px 10px #ccc; border:1px solid #f5f5f5" class="modal-body">
 
                 <div class="form-group">
-                    <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">Status</span> </label>
+                    <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">{{statusLabel}}</span> </label>
 
                     <div class="input-group">
                         <input type="text" ng-model="CreateNewLabel" class="form-control" value="" autocorrect="off" autocapitalize="none" />

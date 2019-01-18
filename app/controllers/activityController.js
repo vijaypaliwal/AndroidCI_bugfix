@@ -2515,6 +2515,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                           if (_TempArrayMyInventory[i].mobileorder != 0) {
                               $scope.MyinventoryFields.push(_TempArrayMyInventory[i]);
                           }
+
+                          if (_TempArrayMyInventory[i].ColumnName == "iStatusValue") {
+                              $scope.statusLabel = _TempArrayMyInventory[i].ColumnLabel;
+                          }
                       }
 
                   }

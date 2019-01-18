@@ -404,6 +404,10 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
                           }
 
+                          if (_TempArray[i].ColumnName == "iStatusValue") {
+                              $scope.statusLabel = _TempArray[i].ColumnLabel;
+                          }
+
                       }
                       CheckScopeBeforeApply()
                   }
