@@ -42,6 +42,78 @@ app.controller('InventoryHistoryController', ['$scope', 'localStorageService', '
         $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
     });
 
+    $scope.GetMyinventoryColumns = function () {
+
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax
+          ({
+              type: "POST",
+              url: serviceBase + 'GetMyInventoryColumns',
+              contentType: 'application/json; charset=utf-8',
+
+              dataType: 'json',
+              data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+              success: function (response) {
+
+
+
+
+
+                  if (response.GetMyInventoryColumnsResult.Success == true) {
+
+                      var _TempArray = response.GetMyInventoryColumnsResult.Payload;
+
+                      for (var i = 0; i < _TempArray.length; i++) {
+
+
+
+                          if (_TempArray[i].ColumnName == "pPart") {
+                              $scope.realItemname = _TempArray[i].ColumnLabel;
+
+                          }
+
+                          if (_TempArray[i].ColumnName == "pDescription") {
+                              $scope.realDescname = _TempArray[i].ColumnLabel;
+
+                          }
+
+                          if (_TempArray[i].ColumnName == "iStatusValue") {
+                              $scope.statusLabel = _TempArray[i].ColumnLabel;
+                          }
+
+                      }
+                      CheckScopeBeforeApply()
+                  }
+                  else {
+                      $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
+
+                  }
+
+              },
+              error: function (err, textStatus, errorThrown) {
+                  if (err.readyState == 0 || err.status == 0) {
+
+                  }
+                  else {
+                      if (textStatus != "timeout") {
+                          console.log(err);
+                          $scope.ShowErrorMessage("My inventory Columns", 2, 1, err.statusText);
+                      }
+                  }
+
+
+              }
+          });
+
+    }
+
+
+    $scope.GetMyinventoryColumns()
+
 
     $scope.Openbottommenu = function () {
 
