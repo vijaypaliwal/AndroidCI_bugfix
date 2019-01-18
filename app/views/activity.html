@@ -859,7 +859,7 @@
                                         <div class="row">
                                             <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                                 <div class="form-group">
-                                                    <label>Status </label>
+                                                    <label>{{statusLabel}} </label>
                                                     <div class="input-group">
                                                         <div class="select">
 
@@ -2132,7 +2132,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
-                                            <label>To Status</label>
+                                            <label>To {{statusLabel}}</label>
                                             <div class="input-group">
                                                 <div class="select">
 
@@ -2708,7 +2708,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
-                                            <label>Status</label>
+                                            <label>{{statusLabel}}</label>
                                             <div class="input-group">
                                                 <div class="select">
 
@@ -3921,7 +3921,7 @@
                                                         </span>
                                                         <span ng-if="IsMyInventoryColumns('iStatusValue')==true">
                                                             <span ng-show="_groupRow.InventoryDataList.iStatusValue!=null && _groupRow.InventoryDataList.iStatusValue!=''&& _groupRow.InventoryDataList.iStatusValue!=undefined">
-                                                                Status:<b> {{_groupRow.InventoryDataList.iStatusValue}}</b>,
+                                                                {{statusLabel}}:<b> {{_groupRow.InventoryDataList.iStatusValue}}</b>,
                                                             </span>
                                                         </span>
                                                         <span ng-if="IsMyInventoryColumns('iReqValue')==true">
