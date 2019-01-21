@@ -516,7 +516,7 @@ function scanApiNotification(event) {
             }
 
             if (event.type === 'error') {
-                alert("Scan Error - The scanner has reported an error.  ");
+                alert("Scan Error - The scanner has reported an error.");
             }
 
             if (event.type === 'decodedData') {
@@ -544,7 +544,7 @@ function scanApiNotification(event) {
                     }
                 }
                 else {
-                    alert("Please turn on Socket Mobile from Default Settings page.");
+                    alert("Scan Error - Please turn on scanner from default settings page.");
                 }
            }
         }       
