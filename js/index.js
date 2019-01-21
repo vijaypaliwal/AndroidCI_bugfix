@@ -401,6 +401,9 @@ function playBeep() {
 
 
 
+
+
+
 function UpdateStatusBar(Type) {
 
 
@@ -491,57 +494,66 @@ function UpdateStatusBar(Type) {
 
                 }
                 break;
-
-
         }
     }
-
-
 }
-
 function scanApiNotification(event) {
 
-    event = JSON.parse(event);
+    if (allowsocketmobile == true || allowsocketmobile == "true") {
+        event = JSON.parse(event);
+        if (event.type) {
+            //alert('receive an event: ' + event.type);
+            //  document.getElementById('eventRec').innerHTML = 'receive an event: ' + event.type;
+            // document.getElementById('eventRec').setAttribute("class", "blink");        
 
-
-    if (event.type) {
-        //alert('receive an event: ' + event.type);
-        //  document.getElementById('eventRec').innerHTML = 'receive an event: ' + event.type;
-        // document.getElementById('eventRec').setAttribute("class", "blink");
-
-        if (event.type === 'scanApiTerminated') {
-            alert("Scanner having issue and we are trying to re-start");
-            reStartTheScanner();
-        }
-
-        if (event.type === 'decodedData') {
-            var scannedV = '';
-            for (var i = 0; i < event.decodedData.length; i++) {
-                scannedV = scannedV + String.fromCharCode(event.decodedData[i]); + '';
+            if (event.type === 'scanApiTerminated') {
+                alert("Scan Error - The scanner has lost its connection. Please reconnect it in Bluetooth settings.");
+                reStartTheScanner();
             }
-            try {
-                var $focused = document.activeElement;
 
-                //   alert("Active element = " + $focused.tagName);
+            if (event.type === 'deviceRemoval') {
+                alert("Scan Error - The scanner is not connected. Please reconnect it in Bluetooth settings.");
+            }
 
-                if ($focused.tagName != 'INPUT' || $focused.tagName == undefined || $focused.tagName == null) {
-                    alert("Scanning not available for select option");
+            if (event.type === 'error') {
+                alert("Scan Error - The scanner has reported an error.  ");
+            }
 
-                } else {
-                    $($focused).val(scannedV);
-                    $($focused).trigger("change");
+            if (event.type === 'decodedData') {
+                var scannedV = '';
+                for (var i = 0; i < event.decodedData.length; i++) {
+                    scannedV = scannedV + String.fromCharCode(event.decodedData[i]); + '';
                 }
-                //  alert("Scanned Value:" + scannedV);
-            } catch (err) {
-                //alert("focus error");
+                try {
+                    var $focused = document.activeElement;
+
+                    //   alert("Active element = " + $focused.tagName);
+
+                    if ($focused.tagName != 'INPUT' || $focused.tagName == undefined || $focused.tagName == null) {
+                        alert("Scan Error - This field will not accept scanned data. Please use manual entry or pick list.");
+                    } else {
+                        $($focused).val(scannedV);
+                        $($focused).trigger("change");
+                    }
+                    //  alert("Scanned Value:" + scannedV);
+                } catch (err) {
+                    //alert("focus error");
+                }
             }
-
         }
-
+        else {
+            alert("Please turn on Socket Mobile from Default Settings page.");
+        }
     }
-
-
 }
+
+
+function reStartTheScanner() {
+
+    SocketScanApi.useScanApi('', scanApiNotification.bind(event));
+    alert("Re-started, please continue scanning");
+}
+
 
 function onDeviceReady() {
 

@@ -2,7 +2,7 @@
 app.controller('configuresettingController', ['$scope', 'localStorageService', 'authService', '$location', 'log', function ($scope, localStorageService, authService, $location, log) {
 
 
-    $scope.SettingsVm = { AutoClear: "", AllowNegative: "", DefaultQty: "", Defaultmode: false }
+    $scope.SettingsVm = { AutoClear: "", AllowNegative: "", DefaultQty: "", Defaultmode: false, socketmobile: allowsocketmobile }
     $scope.accountID = 0;
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
@@ -105,6 +105,25 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
             }
         });
     }
+
+
+
+    if (allowsocketmobile == true || allowsocketmobile == 'true') {
+        $scope.SettingsVm.socketmobile = true;
+        CheckScopeBeforeApply();
+    }
+
+
+
+
+    $scope.setsocketmobile = function () {
+
+        localStorage.setItem("allowsocket", $scope.SettingsVm.socketmobile);
+        CheckScopeBeforeApply();
+
+    }
+
+
 
     $scope.UpdateSettings = function (value, Type) {
         debugger;

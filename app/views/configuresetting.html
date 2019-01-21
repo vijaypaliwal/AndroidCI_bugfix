@@ -139,6 +139,35 @@
 
     </div>
     
+
+    <div class="well">
+        <div class="row">
+
+
+            <div class="col-xs-8">
+
+                <a class="text">Allow Socket Mobile scan</a>
+
+            </div>
+            <div class="col-xs-4">
+                <div class="btn-group custombtnGroup">
+                    <label class="switch1">
+                        <input type="checkbox" ng-change="setsocketmobile()" ng-model="SettingsVm.socketmobile">
+
+                        <!--<input type="checkbox" ng-checked="SettingsVm.socketmobile==true || SettingsVm.socketmobile=='true'" ng-change="setsocketmobile()" ng-model="SettingsVm.socketmobile">-->
+                        <div class="slider round"></div>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <p style="font-size:13px; color:#888">If checked, You will Scan barcode with socket mobile scanner.</p>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 
