@@ -57,7 +57,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.StatusList = [];
     $scope.UnitDataList = [];
     $scope.loadingblock = false;
-
+    $scope.statusLabel = "Status";
  
     $scope.ActiveUnitDataFields = [];
 
@@ -1603,8 +1603,11 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         if (_TempArrayMyInventory[i].mobileorder != 0) {
                             $scope.MyinventoryFields.push(_TempArrayMyInventory[i]);
                         }
-                    }
 
+                        if (_TempArrayMyInventory[i].ColumnName == "iStatusValue") {
+                            $scope.statusLabel = _TempArrayMyInventory[i].ColumnLabel;
+                        }
+                    }
                     CheckScopeBeforeApply();
                 }
                 else {
