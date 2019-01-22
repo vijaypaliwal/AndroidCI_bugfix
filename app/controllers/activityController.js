@@ -3114,7 +3114,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         if ($scope.CurrentOperation == "Adjust") {
 
 
-            if ($scope.ActionQuantityValue != "" && $scope.ActionQuantityValue != null && $scope.ActionQuantityValue != undefined) {
+            if ($.trim($scope.ActionQuantityValue) != "" && $.trim($scope.ActionQuantityValue) != null && $.trim($scope.ActionQuantityValue) != undefined) {
 
                 if ($scope.ActionQuantityValue > $scope.CurrentCart[Index].InventoryDataList.oquantity) {
                     value = $scope.ActionQuantityValue - $scope.CurrentCart[Index].InventoryDataList.oquantity;
@@ -5017,10 +5017,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 break;
 
             case 5:
-                log.error("Seems like you haven't fill all required fields for activity data, please fill them first in following cart items " + _itemIDs)
+                log.error("Seems like you haven't fill all required fields for event data, please fill them first in following cart items " + _itemIDs)
                 break;
             case 6:
-                log.error("Activity date is required field, please fill them first")
+                log.error("Event date is required field, please fill them first")
                 break;
             default:
 
@@ -5486,7 +5486,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     function ShowErrorMessage(Action) {
         var _MsgTitle = "DATA HAS NOT CHANGED";
-        var _Msg = "Please update at least one unit data field or change status or location to perform an activity.";
+        var _Msg = "Please update at least one unit data field or change status or location to perform an event.";
         switch (Action) {
             case "Move":
                 _MsgTitle = "ONE (OR MORE) LOCATIONs HAVE NOT CHANGED";
@@ -5943,7 +5943,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 case "Decrease":
                 case "Adjust":
                     for (k = 0; k < _totalLength; k++) {
-                        if ($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity == undefined || $scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity == null || $scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity == "") {
+                        if ($.trim($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity) == undefined || $.trim($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity) == null || $.trim($scope.CurrentCart[k].IncreaseDecreaseVMData.ActionQuantity) == "") {
                             $scope.IssueType = 1;
                             $scope.GoToStep(k);
                             return true;
@@ -5957,7 +5957,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                 }
                                 else {
                                     $scope.GoToStep(k);
@@ -6026,7 +6026,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                 }
                                 else {
                                     $scope.GoToStep(k);
@@ -6096,7 +6096,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                 }
                                 else {
                                     if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
@@ -6232,7 +6232,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                     if ($scope.IsSingleMode == false) {
                                         $scope.GoToStep(0);
-                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                     }
                                     else {
                                         if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
@@ -6339,7 +6339,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                     if ($scope.IsSingleMode == false) {
                                         $scope.GoToStep(0);
-                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                        log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                     }
                                     else {
                                         if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
@@ -6379,7 +6379,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                                 if ($scope.IsSingleMode == false) {
                                     $scope.GoToStep(0);
-                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for activity, please update");
+                                    log.error("Seems like " + $scope.CurrentCart[k].ItemID + " item is having more than original quantity for event, please update");
                                 }
                                 else {
                                     if ($scope.AffectedItemIds.indexOf($scope.CurrentCart[k].ItemID) >= -1) {
