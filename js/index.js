@@ -363,7 +363,7 @@ function whenResume() {
 
 function whenPause() {
  
-    isResume = true;
+  //  isResume = true;
 
 }
 
@@ -530,6 +530,9 @@ function scanApiNotification(event) {
             if (isResume == false) {
                 $("#scannerAlert").modal("show");
                 $("#scannererror").html("The scanner is not connected. Please reconnect it in Bluetooth settings.")
+            }
+            else {
+                isResume = false;
             }
 
         }
