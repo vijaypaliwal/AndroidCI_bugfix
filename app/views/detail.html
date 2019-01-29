@@ -462,9 +462,9 @@
                             <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='1'&& GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='2'&& GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype!='3'">
 
 
-                                <input maxlength="{{GetCustomItemObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='text' || GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask==0" type="text" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control" />
+                                <input id="CustomItem_{{obj.cfdID}}" maxlength="{{GetCustomItemObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='text' || GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask==0" type="text" ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control" />
 
-                                <input ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" class="form-control" />
+                                <input id="CustomItem_{{obj.cfdID}}" ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" class="form-control" />
 
                                 <!--<input id="CustomItem_{{obj.cfdID}}" ng-if="$.trim(GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask)!='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask=='month'" type="{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdInputMask}}" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" class="form-control" />-->
 
@@ -482,6 +482,8 @@
                                     <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
                                     <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
                                 </select>
+
+
                             </div>
 
                             <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix != null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix != '')" class="input-group-addon last prepend"> <span class="inner"> {{GetCustomItemObjByColumnmap(obj.ColumnName).cfdPrefix}} </span> </span>
@@ -495,7 +497,7 @@
 
                             <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !='' && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=null)" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
 
-
+                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa waves-effect  fa-barcode"></i></span>
                         </div>
 
                         <div ng-click="customradiolist(obj.ColumnName, obj.cfdID, 'item')" class="input-group" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType ==1">
@@ -511,7 +513,7 @@
                         <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==2" type="datetime-local" class="form-control customFieldDatePicker FormDateType" />
                         <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType==3" type="time" class="form-control customFieldDatePicker FormDateType" />
                         <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=3 && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType!=2" type="date" class="form-control customFieldDatePicker FormDateType" />
-
+                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa waves-effect  fa-barcode"></i></span>
                     </div>
 
                     <div class="input-group" ng-if="obj.cfdDataType=='combobox'">
@@ -520,7 +522,7 @@
 
                         <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete != true" class="select">
                             <select ng-model="InventoryObject[obj.CustomFieldIndex].Value" class="form-control">
-
+                                <option value="">-Select-</option>
                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index" ng-selected="_optionValue == InventoryObject[obj.CustomFieldIndex].Value">{{_optionValue}}</option>
 
                             </select>
@@ -530,7 +532,7 @@
                             <input ng-model="InventoryObject[obj.CustomFieldIndex].Value" disabled ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete == true" id="CustomItem_{{obj.cfdID}}" class="form-control" type="text" />
                         </div>
 
-
+                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa waves-effect  fa-barcode"></i></span>
                     </div>
 
 
@@ -545,10 +547,14 @@
                             <i class="fa fa-plus"></i>
                         </span>
 
+                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa waves-effect  fa-barcode"></i></span>
+
                     </div>
 
                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
                         <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject[obj.CustomFieldIndex].Value" />
+
+                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa waves-effect  fa-barcode"></i></span>
                     </div>
 
 
