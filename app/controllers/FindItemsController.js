@@ -1607,6 +1607,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         if (_TempArrayMyInventory[i].ColumnName == "iStatusValue") {
                             $scope.statusLabel = _TempArrayMyInventory[i].ColumnLabel;
                         }
+
+                        if (_TempArrayMyInventory[i].ColumnName == "pPart") {
+                            $scope.itemlabel = _TempArrayMyInventory[i].ColumnLabel;
+                        }
                     }
                     CheckScopeBeforeApply();
                 }

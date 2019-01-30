@@ -14,10 +14,18 @@
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
     }
+
+    #toolbar .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
 </style>
 
 
+<div class="spinner" style="text-align:center">
 
+    <img src="img/loader.gif" alt="Alternate Text" />
+</div>
 <a ng-click="viewall()" class="btn btn-danger waves-effect roundbtntitle"> <i class="fa fa-info"></i> </a>
 <a href="#/mainmenu" class="newbackbtn"> <i class="fa fa-arrow-left"></i> </a>
 
@@ -25,10 +33,7 @@
 <div ng-if="switchmode==false" class="maincontent animated slideInLeft">
     <form id="myform" name="myform">
         <div class="device">
-            <div class="spinner" style="text-align:center">
-                <br /><br /><br />
-                <img src="img/loader.gif" alt="Alternate Text" />
-            </div>
+            
 
             <div style="display:none;" class="swiper-container">
 
@@ -289,7 +294,7 @@
                                 <div class="col-xs-4">
                                     <div ng-if="CurrentActiveField=='Image'">
                                         <div>
-                                            <a class="btn btn btn-gray iamgebtn" ng-click="OpenBox()">
+                                            <a class="btn btn waves-effect btn-gray iamgebtn" ng-click="OpenBox()">
                                                 <i class="fa fa-picture-o"></i> <span ng-if="ImageList.length==0"> Add </span><span ng-if="ImageList.length>0"> More </span>
                                                 <input type="file" style="visibility:hidden" id="files" accept="image/*;" />
                                             </a>
@@ -358,6 +363,7 @@
                             <div ng-if="ReqValueFieldSpecialType == 2">
                                 <div class="input-group">
                                     <select ng-model="InventoryObject.UniqueTag" id="UniqueTag" class="form-control">
+                                        <option value="">-Select-</option>
                                         <option ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" ng-repeat="obj in UniqueTagCombovalues">{{obj}}</option>
                                     </select>
                                     <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
@@ -464,6 +470,7 @@
                             <div ng-if="UnitTag2FieldSpecialType == 2">
                                 <div class="input-group">
                                     <select ng-model="InventoryObject.UnitTag2" id="UnitTag2" class="form-control">
+                                        <option value="">-Select-</option>
                                         <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
                                     </select>
                                     <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
@@ -567,6 +574,7 @@
                             <div ng-if="UnitTag3FieldSpecialType == 2">
                                 <div class="input-group">
                                     <select ng-model="InventoryObject.UnitTag3" id="UnitTag3" class="form-control">
+                                        <option value="">-Select-</option>
                                         <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
                                     </select>
                                     <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
@@ -852,7 +860,7 @@
                                 <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete != true" class="input-group select">
 
                                     <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value">
-
+                                        <option value="">-Select-</option>
                                         <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                     </select>
@@ -1005,7 +1013,7 @@
                                 <div class="input-group" ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsAutoComplete != true">
                                     <div class="select">
                                         <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
-
+                                            <option value="">-Select-</option>
                                             <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                         </select>
@@ -1423,8 +1431,8 @@
 
                             <td ng-if="IsinavailableInventoryField(CurrentActiveField)==true">
                                 <div class="alignright">
-                                    <button class="scanbtn btn btn-gray" type="button" ng-disabled="InventoryObject.AutoID==true || IsItemLibrary==false" ng-if="CurrentActiveField=='pPart'" ng-click="ScanNew()"> <i class="fa fa-barcode"></i>Scan</button>
-                                    <a class="scanbtn waves-effect btn btn-gray" ng-if="CurrentActiveField!='pPart'&& CurrentActiveField!='iQty' && UnitNumber1FieldSpecialType!=14 && UnitNumber2FieldSpecialType!=14" ng-click="ScanNew()"> <i class="fa fa-barcode"></i>Scan</a>
+                                    <button class="scanbtn btn btn-gray" type="button" ng-disabled="InventoryObject.AutoID==true || IsItemLibrary==false" ng-if="CurrentActiveField=='pPart'" ng-click="ScanNew()"> <i class="fa fa-barcode waves-effect"></i>Scan</button>
+                                    <a class="scanbtn waves-effect btn btn-gray" ng-if="CurrentActiveField!='pPart'&& CurrentActiveField!='iQty' && UnitNumber1FieldSpecialType!=14 && UnitNumber2FieldSpecialType!=14" ng-click="ScanNew()"> <i class="fa fa-barcode waves-effect"></i>Scan</a>
                                 </div>
 
                             </td>
@@ -1432,7 +1440,7 @@
 
                             <td ng-if="(GetCustomActivityObjByColumnmap(CurrentActiveField).cfdIsIncremental!=true && GetCustomColumn(CurrentActiveField).cfdIsIncremental!=true) && (CurrentActiveField.indexOf('string_')>-1 || CurrentActiveField.indexOf('bool_')>-1 || CurrentActiveField.indexOf('number_')>-1 || CurrentActiveField.indexOf('date_')>-1 )">
                                 <div class="alignright">
-                                    <a class="scanbtn waves-effect btn btn-gray" ng-click="ScanNewCustom()"> <i class="fa fa-barcode"></i>Scan</a>
+                                    <a class="scanbtn waves-effect btn btn-gray" ng-click="ScanNewCustom()"> <i class="fa fa-barcode waves-effect"></i>Scan</a>
                                 </div>
                             </td>
 
@@ -1590,7 +1598,7 @@
 
 
                                                 <span ng-click="GetLastValue('Inv_ItemID','#ItemName')" test-case condition="GetLastValueData('Inv_ItemID')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                                <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                                <span class="input-group-addon last" test-case condition="InventoryObject.AutoID==true || IsItemLibrary==false" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                             </div>
 
 
@@ -1644,7 +1652,7 @@
                                         <input type="text" id="pDescriptionForm" my-enter="GoToNext()" ng-model="InventoryObject.Description" name="name" class="form-control" value="" />
 
                                         <span ng-click="GetLastValue('Inv_Description','#pDescriptionForm')" test-case condition="GetLastValueData('Inv_Description')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
@@ -1679,7 +1687,7 @@
                                         <span ng-click="locationlist()" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                         <span ng-click="GetLastValue('Inv_Location','#Location')" test-case condition="GetLastValueData('Inv_Location')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
 
@@ -1701,7 +1709,7 @@
 
 
                                         <span ng-click="GetLastValue('Inv_Uom','#UOM')" test-case condition="GetLastValueData('Inv_Uom')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
@@ -1748,7 +1756,7 @@
 
                                             <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !='')" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
                                             <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
 
                                         <div ng-click="customradiolist(obj.ColumnName, obj.cfdID, 'item')" class="input-group" ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdSpecialType ==1">
@@ -1801,7 +1809,7 @@
 
                                         <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete != true" class="select">
                                             <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -1825,7 +1833,7 @@
 
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
@@ -1835,7 +1843,7 @@
 
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='number'" class="input-group">
@@ -1851,7 +1859,7 @@
                                         </span>
                                         <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
 
-                                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
 
@@ -1862,7 +1870,7 @@
                                         <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -1909,7 +1917,7 @@
                                             </span>
 
                                             <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
 
 
@@ -1969,7 +1977,7 @@
 
                                         <div ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsAutoComplete != true" class="select">
                                             <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -1984,7 +1992,7 @@
                                         <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsAutoComplete == true" ng-click="customautocomplete(obj.ColumnMap, obj.cfdID, 'activity')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
 
@@ -1994,7 +2002,7 @@
                                         <input id="CustomActivity_{{obj.cfdID}}" ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdSpecialType!=3 && GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdSpecialType!=2" type="date" class="form-control customFieldDatePicker FormDateType" ng-model="InventoryObject.CustomTxnData[$index].Value" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='number'" class="input-group">
@@ -2009,7 +2017,7 @@
                                         </span>
 
                                         <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
@@ -2018,7 +2026,7 @@
                                         <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -2055,7 +2063,7 @@
                                         <input type="text" class="form-control" id="lZone" ng-model="InventoryObject.lZone" />
 
                                         <span ng-click="GetLastValue('Inv_lZone','#lZone')" test-case condition="GetLastValueData('Inv_lZone')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div class="input-group" ng-if="IsActiveLocationLibrary==false">
@@ -2076,7 +2084,7 @@
 
                                         <span ng-if="IsActiveStatusLibrary==true" ng-click="CreateNew(3)" class="input-group-addon last"><i class="fa fa-plus"></i></span>
                                         <span ng-click="GetLastValue('Inv_Status','#Status')" test-case condition="GetLastValueData('Inv_Status')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
@@ -2147,7 +2155,7 @@
                                                 <span ng-click="Itemgrouplistmodal()" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                                 <span ng-click="GetLastValue('Inv_ItemGroup','#itemgroup')" test-case condition="GetLastValueData('Inv_ItemGroup')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                                <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                                <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                             </div>
 
 
@@ -2187,7 +2195,7 @@
                                             <span ng-if="getUnitObjByName('ReqValue').Suffix != null && getUnitObjByName('ReqValue').Suffix != '' && getUnitObjByName('ReqValue').Suffix != undefined" class="input-group-addon last unitappend">{{getUnitObjByName('ReqValue').Suffix}} </span>
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2197,7 +2205,7 @@
                                             <input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2207,12 +2215,13 @@
                                             <!--<input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="text" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />-->
 
                                             <select ng-model="InventoryObject.UniqueTag" id="UniqueTag" class="form-control">
+                                                <option value="">-Select-</option>  
                                                 <option ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" ng-repeat="obj in UniqueTagCombovalues">{{obj}}</option>
                                             </select>
 
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2233,7 +2242,7 @@
 
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2245,7 +2254,7 @@
                                             <input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="email" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2260,7 +2269,7 @@
                                             </select>
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2280,7 +2289,7 @@
                                             <!--<input id="UniqueTag" ng-blur="mtuvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'))" type="week" ng-model="InventoryObject.UniqueTag" class="form-control" value="" />-->
                                             <span ng-if="mtuvar1==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UniqueTag','#UniqueTag')" test-case condition="GetLastValueData('Inv_UniqueTag')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2295,7 +2304,7 @@
                                             <span class="input-group-addon last" ng-click="Unitradiolist('UniqueTag')"><i class="fa fa-circle-o"></i></span>
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2317,7 +2326,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2328,7 +2337,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2339,6 +2348,7 @@
                                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
                                             <select ng-model="InventoryObject.UnitTag2" id="UnitTag2" class="form-control">
+                                                <option value="">-Select-</option>
                                                 <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
                                             </select>
 
@@ -2346,7 +2356,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2366,7 +2376,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2377,7 +2387,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2392,7 +2402,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2413,7 +2423,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2433,7 +2443,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2456,7 +2466,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2467,7 +2477,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2478,6 +2488,7 @@
                                             <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
 
                                             <select ng-model="InventoryObject.UnitTag3" id="UnitTag3" class="form-control">
+                                                <option value="">-Select-</option>
                                                 <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
                                             </select>
 
@@ -2485,7 +2496,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2505,7 +2516,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2517,7 +2528,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2534,7 +2545,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2556,7 +2567,7 @@
                                             <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag3','#UnitTag3')" test-case condition="GetLastValueData('Inv_UnitTag3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2575,7 +2586,7 @@
                                             <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2593,7 +2604,7 @@
                                         <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
 
                                         <span ng-click="GetLastValue('Inv_UniqueDate','#UniqueDate')" test-case condition="GetLastValueData('Inv_UniqueDate')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
@@ -2608,7 +2619,7 @@
                                         <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
 
                                         <span ng-click="GetLastValue('Inv_UnitDate2','#UnitDate2')" test-case condition="GetLastValueData('Inv_UnitDate2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
@@ -2623,7 +2634,7 @@
                                             <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2650,7 +2661,7 @@
                                             <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2666,7 +2677,7 @@
                                             <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
 
@@ -2697,7 +2708,7 @@
                                             <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2751,7 +2762,7 @@
 
                                             <span ng-if="(GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='1'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='2'||GetCustomItemObjByColumnmap(obj.ColumnName).cfdprefixsuffixtype=='3') && (GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=undefined && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !=null && GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix !='')" class="input-group-addon append last"> <span class="inner">{{GetCustomItemObjByColumnmap(obj.ColumnName).cfdSuffix}}</span>  </span>
                                             <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
 
 
                                         </div>
@@ -2811,7 +2822,7 @@
 
                                         <div ng-if="GetCustomItemObjByColumnmap(obj.ColumnName).cfdIsAutoComplete != true" class="select">
                                             <select id="CustomItem_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -2832,7 +2843,7 @@
 
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='date'||obj.cfdDataType=='datetime'" class="input-group">
@@ -2842,7 +2853,7 @@
 
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='number'" class="input-group">
@@ -2856,7 +2867,7 @@
                                             <i class="fa fa-plus"></i>
                                         </span>
                                         <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span ng-if="GetCustomColumn(obj.ColumnName).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
 
@@ -2867,7 +2878,7 @@
                                         <input id="CustomItem_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomPartData[obj.CustomFieldIndex].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,1)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -2915,7 +2926,7 @@
                                             </span>
 
                                             <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
 
                                         <div ng-click="customradiolist(obj.ColumnMap, obj.cfdID, 'activity')" class="input-group" ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdSpecialType == 1">
@@ -2974,7 +2985,7 @@
 
                                         <div ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsAutoComplete != true" class="select">
                                             <select id="CustomActivity_{{obj.cfdID}}" class="form-control" ng-model="InventoryObject.CustomTxnData[$index].Value">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -2995,7 +3006,7 @@
                                         <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsAutoComplete == true" ng-click="customautocomplete(obj.ColumnMap, obj.cfdID, 'activity')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
 
@@ -3005,7 +3016,7 @@
                                         <input id="CustomActivity_{{obj.cfdID}}" ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdSpecialType!=3 && GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdSpecialType!=2" type="date" class="form-control customFieldDatePicker FormDateType" ng-model="InventoryObject.CustomTxnData[$index].Value" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='number'" class="input-group">
@@ -3020,7 +3031,7 @@
                                         </span>
 
                                         <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span ng-if="GetCustomActivityObjByColumnmap(obj.ColumnMap).cfdIsIncremental!=true" class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
 
                                     <div ng-if="obj.cfdDataType=='currency'" class="input-group">
@@ -3028,7 +3039,7 @@
                                         <input id="CustomActivity_{{obj.cfdID}}" type="number" class="form-control FormControlType" ng-model="InventoryObject.CustomTxnData[$index].Value" ng-change="" value="{{obj.CfValue}}" />
 
                                         <span ng-click="GetLastValueCustom(obj.cfdID,2)" test-case condition="GetLastValueData(obj.cfdID,1)" class="input-group-addon last"><i class="fa fa-undo"></i></span>
-                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewCustomSwitch(obj.cfdID,obj.ColumnName,2)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -3187,7 +3198,7 @@
             <div class="input-group">
                 <input id="searchitem" type="text" placeholder="Type Keyword to find items" ng-change="OnChangeItemNameFunction()" class="form-control" ng-model="SearchItemValue" required="" autofocus />
                 <span class="input-group-addon waves-effect last">
-                    <a ng-click="ScanNewsearch()"><i class="fa fa-barcode"></i></a>
+                    <a ng-click="ScanNewsearch()"><i class="fa fa-barcode waves-effect"></i></a>
                 </span>
             </div>
         </div>
@@ -3286,7 +3297,7 @@
             <div class="input-group">
                 <input type="text" id="searchlocation" placeholder="Type Keyword to find locations" ng-change="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
                 <span class="input-group-addon waves-effect last">
-                    <a ng-click="ScanLocationsearch()"><i class="fa fa-barcode"></i></a>
+                    <a ng-click="ScanLocationsearch()"><i class="fa fa-barcode waves-effect"></i></a>
                 </span>
             </div>
         </div>
@@ -3365,7 +3376,7 @@
             <div class="input-group">
                 <input type="text" id="searchuom" placeholder="Type Keyword to find uom" ng-change="OnChangeUOMFunction()" class="form-control" ng-model="SearchUOMValue" required="" autofocus />
                 <span class="input-group-addon waves-effect last">
-                    <a ng-click="ScanUOMsearch()"><i class="fa fa-barcode"></i></a>
+                    <a ng-click="ScanUOMsearch()"><i class="fa fa-barcode waves-effect"></i></a>
                 </span>
             </div>
         </div>
@@ -3682,8 +3693,8 @@
                     <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">{{statusLabel}}</span> </label>
 
                     <div class="input-group">
-                        <input type="text" ng-model="CreateNewLabel" class="form-control" value="" autocorrect="off" autocapitalize="none" />
-
+                        <input id="myscanvalue" type="text" ng-model="CreateNewLabel" class="form-control" value="" autocorrect="off" autocapitalize="none" />
+                        <span class="input-group-addon last" ng-click="scanloc()"> <i class="fa waves-effect  fa-barcode"></i></span>
                     </div>
                     <br />
 
@@ -3720,7 +3731,9 @@
                     <label>Enter new value </label>
 
                     <div class="input-group">
-                        <input type="text" ng-model="dropdownLabel" class="form-control" value="" />
+                        <input id="addcustomdrop" type="text" ng-model="dropdownLabel" class="form-control" value="" />
+
+                        <span class="input-group-addon last" ng-click="scancustomfield()"> <i class="fa waves-effect  fa-barcode"></i></span>
                     </div>
                     <br />
 

@@ -350,6 +350,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag1==obj" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -432,6 +433,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag2==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -506,6 +508,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -928,6 +931,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -1008,6 +1012,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -1081,6 +1086,7 @@
                                                             <!--Dropdown-->
                                                             <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                                 <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
+                                                                    <option value="">-Select-</option>
                                                                     <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                                 </select>
                                                             </div>
@@ -1565,7 +1571,7 @@
 
                                 <div class="select" ng-if="obj.cfdIsAutoComplete != true">
                                     <select id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
-
+                                        <option value="">-Select-</option>
                                         <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                     </select>
@@ -1728,7 +1734,7 @@
 
                                         <div class="select" ng-if="obj.cfdIsAutoComplete != true">
                                             <select id="CustomActivityIncrease_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -1891,7 +1897,7 @@
 
                                         <div class="select" ng-if="obj.cfdIsAutoComplete != true">
                                             <select id="CustomActivityDecrease_{{obj.cfdID}}" name="CustomActivityDecrease_{{obj.cfdID}}" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" class="form-control">
-
+                                                <option value="">-Select-</option>
                                                 <option value="{{_optionValue}}" ng-repeat="_optionValue in obj.cfdComboValues track by $index">{{_optionValue}}</option>
 
                                             </select>
@@ -2208,6 +2214,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
+                                                            <option value="">-Select-</option>
                                                             <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" value="{{obj}}" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag1==obj" ng-value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
@@ -2363,6 +2370,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.ApplyTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
+                                                            <option value="">-Select-</option>
                                                             <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.ApplyTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
@@ -2781,6 +2789,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('ReqValue').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1" id="unittext1_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('ReqValue',CheckIsAllowDuplicate('ReqValue'),$index)">
+                                                            <option value="">-Select-</option>
                                                             <option ng-repeat="obj in GetUnitDataFieldByName('ReqValue').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag1==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
@@ -2863,6 +2872,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag2').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2" id="unittext2_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'),$index)">
+                                                            <option value="">-Select-</option>
                                                             <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag2').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag2==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
@@ -2939,6 +2949,7 @@
                                                     <!--Dropdown-->
                                                     <div ng-if="GetUnitDataFieldByName('UnitTag3').FieldSpecialType==2">
                                                         <select class="form-control uniqueunitData" ng-model=" CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3" id="unittext3_{{ CurrentActiveObject.InventoryDataList.uId}}" ng-blur="tvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'),$index)">
+                                                            <option value="">-Select-</option>
                                                             <option ng-repeat="obj in GetUnitDataFieldByName('UnitTag3').FieldComboValues" ng-selected="CurrentActiveObject.MoveUpdateTagTransactionData.UnitTag3==obj" value="{{obj}}" ng-value="{{obj}}">{{obj}}</option>
                                                         </select>
                                                     </div>
@@ -4260,7 +4271,7 @@
 
 <!--Modal Section - Start -->
 <!--Keep Cart/Leave Page Modal-->
-<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated bounceIn">
+<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated zoomIn">
     <div style="background:#fff;" class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
         <h4>What do you want? </h4>
@@ -4610,7 +4621,7 @@
     $(init);
 
     function init() {
-        $('.changebtn').draggable();
+      //  $('.changebtn').draggable();
     }
 
 

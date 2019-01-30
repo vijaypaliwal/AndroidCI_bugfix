@@ -2603,6 +2603,13 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                        for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
 
+
+
+                           if ($.trim($scope.CustomActivityDataList[i].cfdComboValues) != '') {
+                               $scope.CustomActivityDataList[i].cfdComboValues = $scope.CustomActivityDataList[i].cfdComboValues.filter(function (e) { return e });
+                           }
+
+
                            var _defaultValue = angular.copy($scope.CustomActivityDataList[i].cfdDefaultValue);
 
 

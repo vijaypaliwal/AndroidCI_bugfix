@@ -1164,6 +1164,12 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
                         _obj.cfdID = _CustomObj.cfdID;
                         _obj.cfdDataType = _CustomObj.cfdDataType;
                         _obj.cfdComboValues = _CustomObj.cfdComboValues;
+
+
+                        if ($.trim(_obj.cfdComboValues) != '') {
+                            _obj.cfdComboValues = _obj.cfdComboValues.filter(function (e) { return e });
+                        }
+
                         // _obj.CfValue = ($.trim(_CustomObj.cfdprefixsuffixtype) != "" ? _CustomObj.CombineValue : _CustomObj.cfdValue);
 
                         _obj.CfValue = _CustomObj.cfdValue;
@@ -1238,6 +1244,13 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
                 $scope.loaditemfields = true;
                 CheckScopeBeforeApply();
+
+                setTimeout(function () {
+
+                    $("select.form-control").each(function () {
+                        $(this).trigger("change");
+                    })
+                }, 300)
 
 
             },

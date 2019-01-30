@@ -41,10 +41,7 @@
         <table class="searchtable">
             <tbody>
                 <tr>
-
                     <td>
-
-
                         <div class="input-group">
 
                             <span class="input-group-addon finditems" id="addonData">
@@ -55,7 +52,7 @@
 
                                 <ul class="dropdown-menu dm-icon searchlist" id="dynamicd">
                                     <li class="suggestItem1"><a ng-click="searchfunction('All')" alt="All">All</a></li>
-                                    <li class="suggestItem2"><a ng-click="searchfunction('pPart')" alt="pPart">Items</a></li>
+                                    <li class="suggestItem2"><a ng-click="searchfunction('pPart')" alt="pPart">{{itemlabel}}</a></li>
                                     <li class="suggestItem3"><a ng-click="searchfunction('lLoc')" alt="lLoc">Location</a></li>
                                     <li class="suggestItem4"><a ng-click="searchfunction('iStatusValue')" alt="iStatusValue">{{statusLabel}}</a></li>
                                     <li class="suggestItem5"><a ng-click="searchfunction('uomUOM')" alt="uomUOM">UOM</a></li>

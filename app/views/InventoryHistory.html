@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <div ng-if="isSearching==true" style=" text-align: center;">
+    <div class="spinner" ng-if="isSearching==true" style=" text-align: center;">
         <img src="img/loader.gif"  />
     </div>
     <div ng-repeat="_obj in Recentactivities" ng-if="isSearching==false && Recentactivities.length>0">
