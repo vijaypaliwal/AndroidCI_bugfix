@@ -53,6 +53,21 @@
         button, a {
             outline: none !important;
         }
+
+        .ripple {
+            background-position: center;
+            transition: background 0.8s;
+        }
+
+            .ripple:hover {
+                background: #fff radial-gradient(circle, transparent 1%, #fff 1%) center/15000%;
+            }
+
+            .ripple:active {
+                background-color: #6eb9f7;
+                background-size: 100%;
+                transition: background 0s;
+            }
     </style>
 
   
@@ -501,7 +516,7 @@
 
     <script src="app/controllers/permissionController.js?v=2"></script>
     <script src="app/controllers/itemgroupController.js?v=2"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKTubnywg4QcYcBViqABbYrKM8l0mY8kI"></script>
     <script src="app/controllers/contactController.js?v=2"></script>
     <script src="app/controllers/configuresettingController.js?v=2"></script>
 
