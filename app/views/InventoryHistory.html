@@ -86,8 +86,10 @@
     </div>
     <div ng-repeat="_obj in Recentactivities" ng-if="isSearching==false && Recentactivities.length>0">
 
+      
 
-        <div ng-if="_obj.ParentAction=='Add'" class="activityinfo bgm-increase">
+
+        <div ng-if="_obj.ParentAction=='Add' || _obj.ParentAction=='Increase'" class="activityinfo bgm-increase">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
@@ -105,7 +107,7 @@
             </div>
 
         </div>
-        <div ng-if="_obj.ParentAction=='Remove'" class="bgm-decrease activityinfo">
+        <div ng-if="_obj.ParentAction=='Remove' || _obj.ParentAction=='Decrease'" class="bgm-decrease activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
@@ -177,7 +179,7 @@
             </div>
         </div>
 
-        <div ng-if="_obj.ParentAction=='Change'" class="bgm-apply activityinfo">
+        <div ng-if="_obj.ParentAction=='Change' || _obj.ParentAction=='Tag'" class="bgm-apply activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
@@ -195,7 +197,7 @@
             </div>
         </div>
 
-        <div ng-if="_obj.ParentAction=='Move & Change'" class="bgm-movetagupdate activityinfo">
+        <div ng-if="_obj.ParentAction=='Move & Change' || obj.ParentAction=='Move, Tag & Update'" class="bgm-movetagupdate activityinfo">
             <div class="row">
                 <div class="col-xs-2">
                     <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
