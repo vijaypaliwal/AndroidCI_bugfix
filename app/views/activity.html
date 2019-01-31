@@ -4186,8 +4186,8 @@
             </div>
 
             <br />
-            <div class="row Newrow">
-                <div class="col-xs-12">
+            <div class="row stickybtn">
+                <div class="col-xs-6">
 
                     <a ng-if="IsProcessing==false" ng-click="SubmitAllActivities()" class="btn  waves-effect  btn-primary">
                         <i class="fa fa-check"></i>
@@ -4195,6 +4195,9 @@
                     </a>
 
                     <a ng-if="IsProcessing==true" ng-click="SubmitAllActivities()" class="linkdisabled btn waves-effect  btn-primary"><i style="color:#fff;" class="fa fa-check fa-spin"></i> Process</a>
+                   
+                </div>
+                <div class="col-xs-6">
                     <a class="btn waves-effect btn-gray" ng-click="LeavePage()"><i class="fa fa-times"></i> Cancel</a>
                 </div>
             </div>

@@ -836,41 +836,7 @@ input:checked + .slider:before {
         margin-bottom: 5px;
     }
 
-    .stickybtn {
-        position: fixed;
-        bottom: 0;
-        z-index: 100;
-        width: 100%;
-        background: #fff;
-        padding-top: 13px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.19);
-    }
-
-        .stickybtn .btn {
-            width: 100%;
-            color: #fff;
-            text-transform: capitalize;
-            border-radius: 0;
-            font-size: 14px;
-            margin-bottom: 10px;
-            padding-left: 7px;
-            border-radius: 20px;
-            padding-right: 7px;
-        }
-
-    .row.stickybtn {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .stickybtn .col-xs-4 {
-        padding-left: 7px;
-        padding-right: 7px;
-    }
-
-    .stickybtn i {
-        font-size: 14px;
-    }
+ 
 
     .menubtn {
         bottom: 60px;
