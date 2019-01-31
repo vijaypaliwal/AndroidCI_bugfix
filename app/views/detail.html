@@ -616,30 +616,30 @@
 
                     </span>
                     
-                    <div class="row">
-                        <div class="col-md-12">
-                            <br />
-                            <br />
-                        </div>
-
-                    </div>
+                    
                 </div>
 
+
+                <div class="row stickybtn">
+                    <div class="col-xs-6">
+                        <button ng-click="OpenBox()" class="waves-effect btn btn-primary"> <i class="fa fa-plus"></i> Add Images  </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" ng-click="UpdateInventory()" ng-if="SavingData==false" ng-class="{'Btndisabled':CheckCustomRequiredFields()==true}" ng-disabled="CheckCustomRequiredFields()==true || CurrentInventory.pPart=='' || CheckEmailFields()==true" class="waves-effect btn btn-primary"> <i class="fa fa-pencil"></i> Update</button>
+                        <button type="button" ng-if="SavingData==true" disabled class="waves-effect btn btn-primary"> <i class="fa fa-pencil fa-spin"></i> Update</button>
+                    </div>
+                </div>
                 
                 
-                <button ng-click="OpenBox()" class="waves-effect btn btn-primary"> <i class="fa fa-plus"></i> Add Images  </button>
-                <button type="button" ng-click="UpdateInventory()" ng-if="SavingData==false" ng-class="{'Btndisabled':CheckCustomRequiredFields()==true}" ng-disabled="CheckCustomRequiredFields()==true || CurrentInventory.pPart=='' || CheckEmailFields()==true" class="waves-effect btn btn-primary"> <i class="fa fa-pencil"></i> Update</button>
-                <button type="button" ng-if="SavingData==true" disabled class="waves-effect btn btn-primary"> <i class="fa fa-pencil fa-spin"></i> Update</button>
+               
+               
               
 
             </div>
         </div>
 
         </div>
-    <div>
-        <br />
-        <br />
-    </div>
+  
 
     <div style="background:#fff;" id="customautolistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
         <div class="modal-header">

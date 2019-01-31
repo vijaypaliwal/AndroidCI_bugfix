@@ -35,7 +35,7 @@
       
 
         <div class="input-group">
-            <input style="border-radius:0px; border-bottom:transparent;" ng-change="FilterRecordsLength.length=(UOMList | filter:SearchData.test).length" class="form-control hideaddclear" placeholder="Type to Search" type="text" ng-model="SearchData.test">
+            <input style="margin-bottom:12px;" ng-change="FilterRecordsLength.length=(UOMList | filter:SearchData.test).length" class="form-control hideaddclear" placeholder="Search" type="text" ng-model="SearchData.test">
             <i ng-if="SearchData.test!=''" id="btnClearSearch" ng-click="ClearFilter()" class="fa filtercross fa-times-circle"></i>
         </div>
 
@@ -128,8 +128,8 @@
         <ul class="animated slideInUp selectAction">
             <li ng-if="IsActiveUOMLibrary==true"> <a ng-click="LockOrUnlockLibrary(false,3)"><span class="newinv">Lock Library</span></a>  <a ng-click="LockOrUnlockLibrary(false,3)" class=" waves-effect btn-danger btn"> <i class="fa fa-lock"></i> </a></li>
             <li ng-if="IsActiveUOMLibrary==false"> <a ng-click="LockOrUnlockLibrary(true,3)"><span class="newinv">Unlock Library</span></a>  <a ng-click="LockOrUnlockLibrary(true,3)" class=" waves-effect btn-danger btn"> <i class="fa fa-unlock"></i> </a></li>
-            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
-            <li ng-if="checkpermission('URL:Manage/Location')==true"> <a href="#/Location"><span class="newinv">Manage Location</span></a>  <a href="#/Location" class=" waves-effect btn-success btn"> <i class="fa fa-map-marker"></i> </a></li>
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">New Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-success btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-warning btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
         </ul>
     </div>

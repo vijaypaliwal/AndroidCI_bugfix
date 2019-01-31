@@ -52,7 +52,7 @@
                                 <div style="position:relative" class="fg-line">
 
 
-                                    <input style="border-radius:0px;" id="MasterSearch" ng-change="GetLocations()" type="text" ng-model="SearchData.SearchValue" class="form-control hideaddclear" placeholder="Type to Search">
+                                    <input style="margin-bottom:10px;" id="MasterSearch" ng-change="GetLocations()" type="text" ng-model="SearchData.SearchValue" class="form-control hideaddclear" placeholder="Search">
 
 
                                     <i></i>
@@ -99,7 +99,7 @@
                         <a ng-click="deletelocation(obj)" id="Delete_{{obj.LocationID}}" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:0px;" class="btn btn-danger pull-right">
                             <i class="fa fa-trash-o"></i>
                         </a>
-                        <a ng-click="editlocation(obj)" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:0px;" class="btn btn-warning pull-right">
+                        <a ng-click="editlocation(obj)" style="height:40px; width:40px; padding:0px; line-height:40px; border-radius:0px;" class="btn btn-warning btn-primary pull-right">
                             <i class="fa fa-pencil"></i>
                         </a>
                     </div>
@@ -200,8 +200,8 @@
             
             <li ng-if="IsActiveLocationLibrary==true"> <a ng-click="LockOrUnlockLibrary(false,1)"><span class="newinv">Lock Library</span></a>  <a ng-click="LockOrUnlockLibrary(false,1)" class=" waves-effect btn-danger btn"> <i class="fa fa-lock"></i> </a></li>
             <li ng-if="IsActiveLocationLibrary==false"> <a ng-click="LockOrUnlockLibrary(true,1)"><span class="newinv">Unlock Library</span></a>  <a ng-click="LockOrUnlockLibrary(true,1)" class=" waves-effect btn-danger btn"> <i class="fa fa-unlock"></i> </a></li>
-            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
-            <li ng-if="checkpermission('URL:Manage/UnitOfMeasure')==true"> <a href="#/uom"><span class="newinv">Manage UOM</span></a>  <a href="#/uom" class=" waves-effect btn-success btn"> <i class="fa fa-cog"></i> </a></li>
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">New Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-success btn"> <i class="fa fa-plus"></i> </a></li>
+            <li> <a href="#/FindItems"><span class="newinv">Go to Inventory</span></a>  <a href="#/FindItems" class=" waves-effect btn-warning btn"> <i class="fa fa-shopping-cart"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
         </ul>
     </div>

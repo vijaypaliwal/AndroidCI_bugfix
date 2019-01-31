@@ -222,8 +222,9 @@
 <div id="bottommenumodal" class="modal bottommenu fade">
     <div class="modal-body">
         <ul class="animated slideInUp selectAction">
-            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">Add Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-warning btn"> <i class="fa fa-plus"></i> </a></li>
-            <li ng-if="checkpermission('URL:Manage/Location')==true"> <a href="#/Location"><span class="newinv">Manage Location</span></a>  <a href="#/Location" class=" waves-effect btn-success btn"> <i class="fa fa-map-marker"></i> </a></li>
+            <li ng-if="checkpermission('ACTION:CanAddInventory')==true"> <a href="#/inventory"><span class="newinv">New Inventory</span></a>  <a href="#/inventory" class=" waves-effect btn-success btn"> <i class="fa fa-plus"></i> </a></li>
+
+            <li ng-if="checkpermission('URL:Manage/Location')==true"> <a href="#/Location"><span class="newinv">Manage Location</span></a>  <a href="#/Location" class=" waves-effect btn-warning btn"> <i class="fa fa-map-marker"></i> </a></li>
             <li ng-if="checkpermission('URL:Manage/Status')==true"> <a href="#/status"><span class="newinv">Manage status</span></a>  <a href="#/status" class=" waves-effect btn-primary btn"> <i class="fa fa-check-circle-o"></i> </a></li>
         </ul>
     </div>
