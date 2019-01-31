@@ -54,20 +54,12 @@
             outline: none !important;
         }
 
-        .ripple {
-            background-position: center;
-            transition: background 0.8s;
+        #toolbar {
+            height:58px;
         }
 
-            .ripple:hover {
-                background: #fff radial-gradient(circle, transparent 1%, #fff 1%) center/15000%;
-            }
 
-            .ripple:active {
-                background-color: #6eb9f7;
-                background-size: 100%;
-                transition: background 0s;
-            }
+
     </style>
 
   
@@ -211,7 +203,7 @@
         <div class="row">
             <div style="width:15%" class="col-xs-4">
                 <div class="open-left" id="side-left">
-                    <i class="fa fa-bars" style="font-size:17px;"></i>
+                    <i class="fa fa-bars" style="font-size:24px;"></i>
                 </div>
             </div>
             <div style="width:70%" class="col-xs-4">
@@ -228,7 +220,7 @@
 
             </div>
             <div style="width:15%" class="col-xs-4">
-                <div class="dropdown open-right">
+                <div style="margin-right:12px;" class="dropdown open-right">
                     <a style="padding-left:0" data-toggle="dropdown" class="dropdown-toggle ">
                         <img id="myimgProfile" src="{{ProfilePicURl}}" onerror="this.onerror = null; this.src = 'img/dummy-user48.png';" alt="" style=" height: 50px; width:50px; border: 2px solid #ccc;" class="circle">
                     </a>
