@@ -79,7 +79,7 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
     var _IsSavedItemGroup = false;
     var _IsSavedItemGroupData = "";
     $scope.InventoryObject = {
-        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "unit/s", UomID: 0, Location: "Inventory", lZone: "", LocationID: 0, UniqueTag: "", Cost: 0,
+        IsFullPermission: true, AutoID: false, PID: 0, ItemID: "", Description: "", DefaultItemLocationID: 0, DefaultItemUOM: 0, pDefaultCost: 0, pTargetQty: null, pReorderQty: null, Quantity: "", Uom: "unit/s", UomID: 0, Location: "Inventory", lZone: "", LocationID: 0, UniqueTag: "", Cost: null,
         UpdateDate: GetDefaultDate(), Status: "", ItemGroup: "", UniqueDate: null, UnitDate2: null, UnitNumber1: "", UnitNumber2: "", UnitTag2: "",
         UnitTag3: "", CustomPartData: [], CustomTxnData: []
     };
@@ -1658,6 +1658,11 @@ app.controller('inventoryController', ['$scope', '$location', 'authService', 'lo
 
 
                 var _TempObj = $scope.InventoryObject;
+
+                if ($.trim($scope.InventoryObject.Cost) == '') {
+
+                    $scope.InventoryObject.Cost = 0;
+                }
 
                 var ImageData = $("#list123").find("img").attr("src");
                 $.each(_TempObj, function (datakey, datavalue) {

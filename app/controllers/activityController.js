@@ -2812,6 +2812,16 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         $scope.totalLength = $scope.IsSingleMode == true ? $scope.CurrentCart.length + 2 : 3;
 
+
+        for (var i = 0; i < $scope.CurrentCart.length; i++) {
+           
+
+            if ($scope.CurrentCart[i].iCostPerItem == 0) {
+                $scope.CurrentCart[i].iCostPerItem = null;
+            }
+
+        }
+
         GetMyInventoryColumns();
 
         GetCustomDataField(1);
