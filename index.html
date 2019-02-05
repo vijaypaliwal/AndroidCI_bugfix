@@ -362,7 +362,7 @@
 
         var serviceBaseUrl = "";
         var serviceBase = "";
-        var signupLink = "test";
+        var signupLink = "";
         var forgotlink = "";
 
 
@@ -370,52 +370,52 @@
             serviceBase = $(this).val();
         });
 
-        var serviceBaseUrl = 'https://staging-mobile.azurewebsites.net/';
-        var serviceBase = 'https://staging-mobile.azurewebsites.net/ClearlyInventoryAPI.svc/';
+        //var serviceBaseUrl = 'https://staging-mobile.azurewebsites.net/';
+        //var serviceBase = 'https://staging-mobile.azurewebsites.net/ClearlyInventoryAPI.svc/';
 
 
 
-       // $.ajax
-       //({
-       //    type: "GET",
-       //    url: 'https://www.clearlyinventory.com/mobilesettings',
-       //    contentType: 'application/json; charset=utf-8',
-       //    dataType: 'text json',
-       //    // data: JSON.stringify({ "UserKey": "ABC@123" }),
-       //    success: function (response) {
+        $.ajax
+       ({
+           type: "GET",
+           url: 'https://www.clearlyinventory.com/mobilesettings',
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'text json',
+           // data: JSON.stringify({ "UserKey": "ABC@123" }),
+           success: function (response) {
 
-       //        ClearlybaseURL = response.serviceBaseUrl;
-       //        ClearlyURL = response.serviceBase;
-       //        Signupink = response.mobileSignupUrl;
-       //        forgotlink = response.mobileForgotPasswordUrl;
+               ClearlybaseURL = response.serviceBaseUrl;
+               ClearlyURL = response.serviceBase;
+               Signupink = response.mobileSignupUrl;
+               forgotlink = response.mobileForgotPasswordUrl;
 
-       //        serviceBaseUrl = ClearlybaseURL;
-       //        serviceBase = ClearlyURL;
+               serviceBaseUrl = ClearlybaseURL;
+               serviceBase = ClearlyURL;
 
-       //        signupLink = Signupink;
-       //        $("#ServiceBase").val(serviceBase);
-       //        $("#ServiceBase").trigger("change");
+               signupLink = Signupink;
+               $("#ServiceBase").val(serviceBase);
+               $("#ServiceBase").trigger("change");
 
-       //        $("#Signuplink").val(signupLink);
-       //        $("#Signuplink").trigger("change");
-
-
-       //        $("#Forgotlink").val(forgotlink);
-       //        $("#Forgotlink").trigger("change");
-
-       //    },
-       //    error: function (response) {
-
-       //        alert("Error in Clearly API");
-       //        debugger;
+               $("#Signuplink").val(signupLink);
+               $("#Signuplink").trigger("change");
 
 
-       //    },
-       //    complete: function () {
+               $("#Forgotlink").val(forgotlink);
+               $("#Forgotlink").trigger("change");
+
+           },
+           error: function (response) {
+
+               alert("Error in Clearly API");
+               debugger;
 
 
-       //    }
-       //});
+           },
+           complete: function () {
+
+
+           }
+       });
     </script>
 
 
