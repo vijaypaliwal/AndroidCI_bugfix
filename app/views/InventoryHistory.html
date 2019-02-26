@@ -1,6 +1,39 @@
 
 <link href="css/history.css" rel="stylesheet" />
 
+<style>
+    .inventorydetail h4 {
+        font-size: 17px;
+        margin-bottom: 0;
+    }
+
+    .inventorydetail small {
+        color: #888 !important;
+        margin-bottom: 0;
+    }
+
+    .inventorydetail {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .activityinfo {
+        border-radius: 32px;
+    }
+
+    .btn-floating {
+        margin-top: 7px;
+    }
+
+    .activityinfo h5 {
+        margin: 0;
+        padding-top: 14px;
+    }
+</style>
+
+
+
+
 
 
 <div class="title-header">
@@ -15,209 +48,195 @@
 
 <a href="#/detail" class="newbackbtn left15"> <i class="fa fa-arrow-left"></i> </a>
 
-<div style="text-align:left; padding-left:12px; padding-right:12px;" class="top50 container" >
+<div style="text-align:left; padding-left:12px; padding-right:12px;" class="top50 container">
 
-
-    <div class="iteminfo">
-        <div class="row">
-            <div class="col-xs-7">
-                <p style="margin-bottom:4px;">{{CurrentInventory.pPart}} </p>
-                <p style="font-size:13px;"> {{CurrentInventory.pDescription}} </p>
-            </div>
-            <div class="col-xs-5">
-                <div style="text-align:right">
-                    <h4 class="label label-warning">{{CurrentInventory.iQty}} {{CurrentInventory.uomUOM}}</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-6">
-                <p>Loc: {{CurrentInventory.lLoc}} </p>
-              
-            </div>
-            <div class="col-xs-6">
-                <div style="text-align:right">
-                    <p>{{statusLabel}}: {{CurrentInventory.iStatusValue}} </p>
-                </div>
-               
-            </div>
-        </div>
+    <div style="margin-bottom:12px;" class="inventorydetail">
+        <h4>{{CurrentInventory.pPart}} </h4>
+        <small>{{CurrentInventory.pDescription}}</small>
+        <p style="margin-top: 5px; margin-bottom: 0px; font-size: 13px;"> {{CurrentInventory.iQty}} {{CurrentInventory.uomUOM}}</p>
+        <p style="font-size:13px; margin-bottom:0">{{CurrentInventory.lLoc}} </p>
+        <p ng-if="CurrentInventory.iStatusValue !=''" style="font-size:13px;"> <span style="color:#888"> Status -</span> {{CurrentInventory.iStatusValue}} </p>
     </div>
 
-    <h4>Recent Events</h4>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="form-group">
-                <label>Event Date </label>
-                <div class="fg-line">
-                    <input id="ActivityDate" ng-change="GetRecentActivities()" ng-model="ActivityDate" class="form-control ItemAutoComplete" type="date" name="name" value="" />
-                </div>
 
+    <h4 style="background-color: #069; margin: 0; color: #fff; padding: 12px; text-transform: capitalize; font-size: 15px; text-align: center;">Recent Events</h4>
+    <div style="padding:7px; background:#fff; border:1px solid #ccc;">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+
+                    <div class="fg-line">
+                        <input id="ActivityDate" ng-change="GetRecentActivities()" ng-model="ActivityDate" class="form-control ItemAutoComplete" type="date" name="name" value="" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+
+
+                    <div class="dropdown">
+                        <button style=" width:100%; height:47px;padding:0; border:transparent;" type="button" data-toggle="dropdown" class="waves-effect btn btn-warning">
+                            <span ng-if="Activity==''">Event </span>
+                            <span ng-if="Activity!=''">
+                                <span style="font-size:13px;text-transform:capitalize;">{{Activity}} </span>
+
+                            </span>
+
+                            <i style="font-size:12px;" class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" style="width:100%;">
+                            <li><a ng-click="Activity=''">All</a></li>
+                            <li><a ng-click="Activity='Add'">Add</a></li>
+                            <li><a ng-click="Activity='Remove'">Remove</a></li>
+                            <li><a ng-click="Activity='Convert'">Convert</a></li>
+                            <li><a ng-click="Activity='Update'">Update</a></li>
+                            <li><a ng-click="Activity='Change'">Change</a></li>
+                            <li><a ng-click="Activity='Move'">Move</a></li>
+                            <li><a ng-click="Activity='Move & Change'">Move & Change</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xs-6">
-            <div class="form-group">
-                <label>Event </label>
+        <div class="spinner" ng-if="isSearching==true" style=" text-align: center;">
+            <img src="img/loader.gif" />
+        </div>
+        <div ng-repeat="_obj in Recentactivities" ng-if="isSearching==false && Recentactivities.length>0">
 
-                <div class="dropdown" >
-                    <button style=" width:100%; height:47px;padding:0px; border:transparent;" type="button" data-toggle="dropdown" class="waves-effect btn btn-warning">
-                    <span ng-if="Activity==''">Event </span> 
-                    <span ng-if="Activity!=''">
-                        <span style="font-size:13px;text-transform:capitalize;">{{Activity}} </span>
+
+            <div ng-if="_obj.ParentAction=='Add' || _obj.ParentAction=='Increase'" class="activityinfo bgm-increase">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            A
                         </span>
-                     <i class="fa fa-caret-down"></i></button>
-                    <ul class="dropdown-menu" style="width:100%;">
-                        <li><a ng-click="Activity=''">All</a></li>
-                        <li><a ng-click="Activity='Add'">Add</a></li>
-                        <li><a ng-click="Activity='Remove'">Remove</a></li>
-                        <li><a ng-click="Activity='Convert'">Convert</a></li>
-                        <li><a ng-click="Activity='Update'">Update</a></li>
-                        <li><a ng-click="Activity='Change'">Change</a></li>
-                        <li><a ng-click="Activity='Move'">Move</a></li>
-                        <li><a ng-click="Activity='Move & Change'">Move & Change</a></li>
-                    </ul>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Add {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:10px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="_obj.ParentAction=='Remove' || _obj.ParentAction=='Decrease'" class="bgm-decrease activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            R
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Remove {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div ng-if="_obj.ParentAction=='Move'" class="bgm-move activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            M
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Move {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="_obj.ParentAction=='Convert'" class="bgm-convert activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            C
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Convert {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="_obj.ParentAction=='Update'" class="bgm-status activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            U
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Update {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="_obj.ParentAction=='Change' || _obj.ParentAction=='Apply' || _obj.ParentAction=='Tag'" class="bgm-apply activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            C
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="_obj.ParentAction=='Move & Change' || _obj.ParentAction=='Move, Tag, & Update'" class="bgm-movetagupdate activityinfo">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+                            M
+                        </span>
+                    </div>
+                    <div class="col-xs-7">
+                        <h5>Move & Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
+                    </div>
+                    <div class="col-xs-3">
+                        <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
+                            <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="Recentactivities.length==0 && isSearching==false">
+            <h4>No Data available, please update your search data and then give it another shot. </h4>
         </div>
     </div>
-    <div class="spinner" ng-if="isSearching==true" style=" text-align: center;">
-        <img src="img/loader.gif"  />
-    </div>
-    <div ng-repeat="_obj in Recentactivities" ng-if="isSearching==false && Recentactivities.length>0">
-
-      
 
 
-        <div ng-if="_obj.ParentAction=='Add' || _obj.ParentAction=='Increase'" class="activityinfo bgm-increase">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        A
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Add {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div ng-if="_obj.ParentAction=='Remove' || _obj.ParentAction=='Decrease'" class="bgm-decrease activityinfo">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        R
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Remove {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="_obj.ParentAction=='Move'" class="bgm-move activityinfo">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                       M
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Move {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="_obj.ParentAction=='Convert'" class="bgm-convert activityinfo">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        C
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Convert {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="_obj.ParentAction=='Update'" class="bgm-status activityinfo">
-            <div class="row">
-               <div class="col-xs-2">
-                <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                    U
-                </span>
-            </div>
-            <div class="col-xs-7">
-                <h5>Update {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-            </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="_obj.ParentAction=='Change' || _obj.ParentAction=='Tag'" class="bgm-apply activityinfo">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        C
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="_obj.ParentAction=='Move & Change' || obj.ParentAction=='Move, Tag & Update'" class="bgm-movetagupdate activityinfo">
-            <div class="row">
-                <div class="col-xs-2">
-                    <span class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
-                        M
-                    </span>
-                </div>
-                <div class="col-xs-7">
-                    <h5>Move & Change {{_obj.itQtyChange}} {{_obj.uomUOM}} on {{_obj.itUpdateDate}}</h5>
-                </div>
-                <div class="col-xs-3">
-                    <div style="text-align:right; margin-right:5px; margin-top:12px;" ng-if="_obj.CanUndo==true">
-                        <a style="height:30px; width:30px; background:#fff; border-radius:100%; border:transparent; padding:0px; line-height:30px; text-align:center;" class="btn waves-effect" ng-click="Undo(_obj.itID,_obj.itInvID,_obj.itParentTransID)"> <i class="fa fa-undo"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div ng-if="Recentactivities.length==0 && isSearching==false">
-        <h4>No Data available, please update your search data and then give it another shot. </h4>
-    </div>
 </div>
 
 <a ng-click="Openbottommenu()" class="menubtn waves-effect btn-info">

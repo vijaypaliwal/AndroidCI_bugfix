@@ -65,6 +65,11 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.iReqValueFieldSpecialType = "";
     $scope.iUnitTag2FieldSpecialType = "";
     $scope.iUnitTag3FieldSpecialType = "";
+    $scope.iUnitTag4FieldSpecialType = "";
+    $scope.iUnitTag5FieldSpecialType = "";
+    $scope.iUnitTag6FieldSpecialType = "";
+    $scope.iUnitTag7FieldSpecialType = "";
+    $scope.iUnitTag8FieldSpecialType = "";
 
     $scope.weeklist = [];
 
@@ -717,12 +722,22 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             case "iReqValue":
             case "iUnitTag2":
             case "iUnitTag3":
+            case "iUnitTag4":
+            case "iUnitTag5":
+            case "iUnitTag6":
+            case "iUnitTag7":
+            case "iUnitTag8":
+
                 $scope.CurrentActiveSearchOperator = "img/filter/Contains.gif";
                 break
             case "iUniqueDate":
             case "iUnitDate2":
+            case "iUnitDate3":
+            case "iUnitDate4":
             case "iUnitNumber1":
             case "iUnitNumber2":
+            case "iUnitNumber3":
+            case "iUnitNumber4":
             case "iStatusValue":
 
                 $scope.CurrentActiveSearchOperator = "img/filter/EqualTo.gif";
@@ -992,6 +1007,22 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 $scope.SearchFromText = "All";
                 $('#MasterSearch').attr("placeholder", "Type to Search");
                 break;
+            case "iUnitDate4":
+                $scope.CurrentActiveSearchField = "iUnitDate4";
+                $scope.CurrentActiveSearchType = 3;
+                var _label = $scope.GetUnitDataLabel('iUnitDate4');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
+            case "iUnitDate3":
+                $scope.CurrentActiveSearchField = "iUnitDate3";
+                $scope.CurrentActiveSearchType = 3;
+                var _label = $scope.GetUnitDataLabel('iUnitDate3');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
             case "iUnitDate2":
                 $scope.CurrentActiveSearchField = "iUnitDate2";
                 $scope.CurrentActiveSearchType = 3;
@@ -1141,6 +1172,221 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 $('#MasterSearch').attr("placeholder", "Search by " + _label);
                 $scope.SearchFromText = _label;
                 break;
+            case "iUnitTag4":
+                $scope.CurrentActiveSearchField = "iUnitTag4";
+
+                $scope.iUnitTag4FieldSpecialType = getFieldSpecialType("UnitTag4");
+
+                if ($scope.iUnitTag4FieldSpecialType != "") {
+                    switch ($scope.iUnitTag4FieldSpecialType) {
+                        case 2:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag4", 2);
+                            break;
+                        case 3:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag4", 3);
+                            break;
+
+                        case 12:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag4", 12);
+                            break;
+
+                        case 5:
+                            $scope.CurrentActiveSearchType = 5;
+                            break;
+
+                        case 6:
+                            $scope.CurrentActiveSearchType = 6;
+                            break;
+
+                        default: $scope.CurrentActiveSearchType = 1;
+
+                    }
+                }
+                else {
+                    $scope.CurrentActiveSearchType = 1;
+                }
+
+                //$scope.CurrentActiveSearchType = 1;
+                var _label = $scope.GetUnitDataLabel('iUnitTag4');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
+            case "iUnitTag5":
+                $scope.CurrentActiveSearchField = "iUnitTag5";
+
+                $scope.iUnitTag5FieldSpecialType = getFieldSpecialType("UnitTag5");
+
+                if ($scope.iUnitTag5FieldSpecialType != "") {
+                    switch ($scope.iUnitTag5FieldSpecialType) {
+                        case 2:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag5", 2);
+                            break;
+                        case 3:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag5", 3);
+                            break;
+
+                        case 12:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag5", 12);
+                            break;
+
+                        case 5:
+                            $scope.CurrentActiveSearchType = 5;
+                            break;
+
+                        case 6:
+                            $scope.CurrentActiveSearchType = 6;
+                            break;
+
+                        default: $scope.CurrentActiveSearchType = 1;
+
+                    }
+                }
+                else {
+                    $scope.CurrentActiveSearchType = 1;
+                }
+
+                //$scope.CurrentActiveSearchType = 1;
+                var _label = $scope.GetUnitDataLabel('iUnitTag5');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
+            case "iUnitTag6":
+                $scope.CurrentActiveSearchField = "iUnitTag6";
+
+                $scope.iUnitTag6FieldSpecialType = getFieldSpecialType("UnitTag6");
+
+                if ($scope.iUnitTag6FieldSpecialType != "") {
+                    switch ($scope.iUnitTag6FieldSpecialType) {
+                        case 2:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag6", 2);
+                            break;
+                        case 3:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag6", 3);
+                            break;
+
+                        case 12:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag6", 12);
+                            break;
+
+                        case 5:
+                            $scope.CurrentActiveSearchType = 5;
+                            break;
+
+                        case 6:
+                            $scope.CurrentActiveSearchType = 6;
+                            break;
+
+                        default: $scope.CurrentActiveSearchType = 1;
+
+                    }
+                }
+                else {
+                    $scope.CurrentActiveSearchType = 1;
+                }
+
+                //$scope.CurrentActiveSearchType = 1;
+                var _label = $scope.GetUnitDataLabel('iUnitTag6');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
+            case "iUnitTag7":
+                $scope.CurrentActiveSearchField = "iUnitTag7";
+
+                $scope.iUnitTag7FieldSpecialType = getFieldSpecialType("UnitTag7");
+
+                if ($scope.iUnitTag7FieldSpecialType != "") {
+                    switch ($scope.iUnitTag7FieldSpecialType) {
+                        case 2:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag7", 2);
+                            break;
+                        case 3:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag7", 3);
+                            break;
+
+                        case 12:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag7", 12);
+                            break;
+
+                        case 5:
+                            $scope.CurrentActiveSearchType = 5;
+                            break;
+
+                        case 6:
+                            $scope.CurrentActiveSearchType = 6;
+                            break;
+
+                        default: $scope.CurrentActiveSearchType = 1;
+
+                    }
+                }
+                else {
+                    $scope.CurrentActiveSearchType = 1;
+                }
+
+                //$scope.CurrentActiveSearchType = 1;
+                var _label = $scope.GetUnitDataLabel('iUnitTag7');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
+            case "iUnitTag8":
+                $scope.CurrentActiveSearchField = "iUnitTag8";
+
+                $scope.iUnitTag8FieldSpecialType = getFieldSpecialType("UnitTag8");
+
+                if ($scope.iUnitTag8FieldSpecialType != "") {
+                    switch ($scope.iUnitTag8FieldSpecialType) {
+                        case 2:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag8", 2);
+                            break;
+                        case 3:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag8", 3);
+                            break;
+
+                        case 12:
+                            $scope.CurrentActiveSearchType = 7;
+                            $scope.dropDownValues = getDropDownValues("UnitTag8", 12);
+                            break;
+
+                        case 5:
+                            $scope.CurrentActiveSearchType = 5;
+                            break;
+
+                        case 6:
+                            $scope.CurrentActiveSearchType = 6;
+                            break;
+
+                        default: $scope.CurrentActiveSearchType = 1;
+
+                    }
+                }
+                else {
+                    $scope.CurrentActiveSearchType = 1;
+                }
+
+                //$scope.CurrentActiveSearchType = 1;
+                var _label = $scope.GetUnitDataLabel('iUnitTag8');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearch').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break;
             case "iUnitNumber1":
                 $scope.CurrentActiveSearchField = "iUnitNumber1";
                 $scope.CurrentActiveSearchType = 2;
@@ -1153,6 +1399,22 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 $scope.CurrentActiveSearchField = "iUnitNumber2";
                 $scope.CurrentActiveSearchType = 2;
                 var _label = $scope.GetUnitDataLabel('iUnitNumber2');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearchNumber').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break
+            case "iUnitNumber3":
+                $scope.CurrentActiveSearchField = "iUnitNumber3";
+                $scope.CurrentActiveSearchType = 2;
+                var _label = $scope.GetUnitDataLabel('iUnitNumber3');
+                _label = _label != undefined && _label != "" ? _label : "";
+                $('#MasterSearchNumber').attr("placeholder", "Search by " + _label);
+                $scope.SearchFromText = _label;
+                break
+            case "iUnitNumber4":
+                $scope.CurrentActiveSearchField = "iUnitNumber4";
+                $scope.CurrentActiveSearchType = 2;
+                var _label = $scope.GetUnitDataLabel('iUnitNumber4');
                 _label = _label != undefined && _label != "" ? _label : "";
                 $('#MasterSearchNumber').attr("placeholder", "Search by " + _label);
                 $scope.SearchFromText = _label;
@@ -1270,10 +1532,20 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
         { ColumnName: 'iUniqueDate', FilterOperator: 'date-eq', SearchValue: $('#iUniqueDate-filter').val() },
         { ColumnName: 'iUnitDate2', FilterOperator: 'date-eq', SearchValue: $('#iUnitDate2-filter').val() },
+        { ColumnName: 'iUnitDate3', FilterOperator: 'date-eq', SearchValue: $('#iUnitDate3-filter').val() },
+        { ColumnName: 'iUnitDate4', FilterOperator: 'date-eq', SearchValue: $('#iUnitDate4-filter').val() },
         { ColumnName: 'iUnitNumber1', FilterOperator: 'num-eq', SearchValue: $('#iUnitNumber1-filter').val() },
         { ColumnName: 'iUnitNumber2', FilterOperator: 'num-eq', SearchValue: $('#iUnitNumber2-filter').val() },
+        { ColumnName: 'iUnitNumber3', FilterOperator: 'num-eq', SearchValue: $('#iUnitNumber3-filter').val() },
+        { ColumnName: 'iUnitNumber4', FilterOperator: 'num-eq', SearchValue: $('#iUnitNumber4-filter').val() },
         { ColumnName: 'iUnitTag2', FilterOperator: 'cn', SearchValue: $('#iUnitTag2-filter').val() },
         { ColumnName: 'iUnitTag3', FilterOperator: 'cn', SearchValue: $('#iUnitTag3-filter').val() },
+        { ColumnName: 'iUnitTag4', FilterOperator: 'cn', SearchValue: $('#iUnitTag4-filter').val() },
+        { ColumnName: 'iUnitTag5', FilterOperator: 'cn', SearchValue: $('#iUnitTag5-filter').val() },
+        { ColumnName: 'iUnitTag6', FilterOperator: 'cn', SearchValue: $('#iUnitTag6-filter').val() },
+        { ColumnName: 'iUnitTag7', FilterOperator: 'cn', SearchValue: $('#iUnitTag7-filter').val() },
+        { ColumnName: 'iUnitTag8', FilterOperator: 'cn', SearchValue: $('#iUnitTag8-filter').val() },
+
         { ColumnName: 'string_1', FilterOperator: 'cn', SearchValue: $('#string_1-filter').val() },
         { ColumnName: 'string_2', FilterOperator: 'cn', SearchValue: $('#string_2-filter').val() },
         { ColumnName: 'string_3', FilterOperator: 'cn', SearchValue: $('#string_3-filter').val() },
@@ -1635,7 +1907,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
 
     $scope.IsAnyUnitDataFieldActive = function () {
-        var _Array = ["iReqValue", "iUnitTag2", "iUnitTag3", "iUnitNumber1", "iUnitNumber2", "iUniqueDate", "iUnitDate2"]
+        var _Array = ["iReqValue", "iUnitTag2", "iUnitTag3", "iUnitTag4", "iUnitTag5", "iUnitTag6", "iUnitTag7", "iUnitTag8", "iUnitNumber1", "iUnitNumber2", "iUnitNumber3", "iUnitNumber4", "iUniqueDate", "iUnitDate2", "iUnitDate3", "iUnitDate4"]
         var _returnData = false;
         for (var i = 0; i < _Array.length; i++) {
             if ($scope.IsAvailableMyInventoryColumn(_Array[i]) == true) {
@@ -1665,11 +1937,38 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             case "iUnitNumber2":
                 _defaultValue = "UN2";
                 break;
+            case "iUnitNumber3":
+                _defaultValue = "UN3";
+                break;
+            case "iUnitNumber4":
+                _defaultValue = "UN4";
+                break;
             case "iUniqueDate":
                 _defaultValue = "UD1";
                 break;
             case "iUnitDate2":
                 _defaultValue = "UD2";
+                break;
+            case "iUnitDate3":
+                _defaultValue = "UD3";
+                break
+            case "iUnitDate4":
+                _defaultValue = "UD4";
+                break
+            case "iUnitTag8":
+                _defaultValue = "US8";
+                break;
+            case "iUnitTag7":
+                _defaultValue = "US7";
+                break;
+            case "iUnitTag6":
+                _defaultValue = "US6";
+                break;
+            case "iUnitTag5":
+                _defaultValue = "US5";
+                break;
+            case "iUnitTag4":
+                _defaultValue = "US4";
                 break;
             case "iUnitTag3":
                 _defaultValue = "US3";
@@ -2102,6 +2401,34 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     }
 
                     break;
+
+                case 3:
+                    if ($scope.getUnitObjByName("UnitDate3").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
+
+                    else if ($scope.getUnitObjByName("UnitDate3").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
+
+                    break;
+
+                case 4:
+                    if ($scope.getUnitObjByName("UnitDate4").FieldSpecialType == 16) {
+                        return ConverttoMsJsonDateTime(value);
+                    }
+
+                    else if ($scope.getUnitObjByName("UnitDate4").FieldSpecialType == 17) {
+                        return ConvertToTime(value);
+                    }
+                    else {
+                        return formatDate(value);
+                    }
+
+                    break;
                 default:
 
             }
@@ -2181,9 +2508,18 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                             Action: '',
                             // CurrentInvObj: v,
                             iUniqueDate_date: (v.iUniqueDate),
+                            iUnitNumber4: v.iUnitNumber4,
+                            iUnitNumber3: v.iUnitNumber3,
                             iUnitNumber2: v.iUnitNumber2,
                             iUnitNumber1: v.iUnitNumber1,
                             iUnitDate2_date: (v.iUnitDate2),
+                            iUnitDate3_date: (v.iUnitDate3),
+                            iUnitDate4_date: (v.iUnitDate4),
+                            iUnitTag8: v.iUnitTag8,
+                            iUnitTag7: v.iUnitTag7,
+                            iUnitTag6: v.iUnitTag6,
+                            iUnitTag5: v.iUnitTag5,
+                            iUnitTag4: v.iUnitTag4,
                             iUnitTag3: v.iUnitTag3,
                             iUnitTag2: v.iUnitTag2,
                             pCountFrq: v.pCountFrq,
@@ -2312,9 +2648,18 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     pDescription: v.pDescription,
                     Action: '',
                     iUniqueDate_date: (v.iUniqueDate),
+                    iUnitNumber4: v.iUnitNumber4,
+                    iUnitNumber3: v.iUnitNumber3,
                     iUnitNumber2: v.iUnitNumber2,
                     iUnitNumber1: v.iUnitNumber1,
                     iUnitDate2_date: (v.iUnitDate2),
+                    iUnitDate3_date: (v.iUnitDate3),
+                    iUnitDate4_date: (v.iUnitDate4),
+                    iUnitTag8: v.iUnitTag8,
+                    iUnitTag7: v.iUnitTag7,
+                    iUnitTag6: v.iUnitTag6,
+                    iUnitTag5: v.iUnitTag5,
+                    iUnitTag4: v.iUnitTag4,
                     iUnitTag3: v.iUnitTag3,
                     iUnitTag2: v.iUnitTag2,
                     pCountFrq: v.pCountFrq,
@@ -2462,6 +2807,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                     var _unitDate1 = ConvertToProperDate(mainObjectToSend[i].iUniqueDate_date, 1);
                     var _unitDate2 = ConvertToProperDate(mainObjectToSend[i].iUnitDate2_date, 2);
+                    var _unitDate3 = ConvertToProperDate(mainObjectToSend[i].iUnitDate3_date, 3);
+                    var _unitDate4 = ConvertToProperDate(mainObjectToSend[i].iUnitDate4_date, 4);
 
                     $scope.Cart.push({
                         InventoryID: mainObjectToSend[i].uId,
@@ -2475,9 +2822,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                         MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                         UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3),UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4),UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5),UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6),UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7),UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2,UnitDate3: _unitDate3,UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2, UnitNumber3: mainObjectToSend[i].iUnitNumber3 , UnitNumber4: mainObjectToSend[i].iUnitNumber4  }),
                         ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 }),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3),UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4),UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5),UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6),UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7),UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2,UnitDate3: _unitDate3,UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 , UnitNumber3: mainObjectToSend[i].iUnitNumber3, UnitNumber4: mainObjectToSend[i].iUnitNumber4}),
                     });
 
                     console.log($scope.Cart);

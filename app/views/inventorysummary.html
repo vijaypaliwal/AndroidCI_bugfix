@@ -277,7 +277,7 @@
                         </span>
 
 
-                        <div ng-if="_obj.ColumnName != 'iReqValue' && _obj.ColumnName != 'iUnitTag2' && _obj.ColumnName != 'iUnitTag3'">
+                        <div ng-if="_obj.ColumnName != 'iReqValue' && _obj.ColumnName != 'iUnitTag2' && _obj.ColumnName != 'iUnitTag3'&& _obj.ColumnName != 'iUnitTag4'&& _obj.ColumnName != 'iUnitTag5'&& _obj.ColumnName != 'iUnitTag6'&& _obj.ColumnName != 'iUnitTag7'&& _obj.ColumnName != 'iUnitTag8'">
                             <div ng-if="getColumnType(_obj.ColumnName) == 'system'">
                                 <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
                             </div>
@@ -320,7 +320,7 @@
                         </div>
 
 
-                        <div ng-if="_obj.ColumnName == 'iReqValue' || _obj.ColumnName == 'iUnitTag2' || _obj.ColumnName == 'iUnitTag3'">
+                        <div ng-if="_obj.ColumnName == 'iReqValue' || _obj.ColumnName == 'iUnitTag2' || _obj.ColumnName == 'iUnitTag3'|| _obj.ColumnName == 'iUnitTag4'|| _obj.ColumnName == 'iUnitTag5'|| _obj.ColumnName == 'iUnitTag6'|| _obj.ColumnName == 'iUnitTag7'|| _obj.ColumnName == 'iUnitTag8'">
                             <div ng-if="_obj.ColumnName == 'iReqValue'">
                                 <!--Others-->
                                 <div ng-if="getUnitSpecialType('ReqValue') != 2 && getUnitSpecialType('ReqValue') != 3 && getUnitSpecialType('ReqValue') != 12 && getUnitSpecialType('ReqValue') != 5 && getUnitSpecialType('ReqValue') != 6">
@@ -478,6 +478,273 @@
                                 </div>
                             </div>
 
+                            <div ng-if="_obj.ColumnName == 'iUnitTag4'">
+
+                                <!--Others-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') != 2 && getUnitSpecialType('UnitTag4') != 3 && getUnitSpecialType('UnitTag4') != 12 && getUnitSpecialType('UnitTag4') != 5 && getUnitSpecialType('UnitTag4') != 6">
+
+                                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+
+                                </div>
+
+
+                                <!--DropDown-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') == 2">
+                                    <select id="UniqueTag4" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag4') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Autocomplete-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') == 3">
+                                    <select id="UniqueTag4" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag4') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Radio-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') == 12">
+                                    <select id="UniqueTag4" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag4') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+
+
+                                <!--MonthPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') == 5">
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select>
+                                </div>
+
+                                <!--WeekPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag4') == 6">
+                                    <select id="UniqueTag4" ng-model="_obj.SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div ng-if="_obj.ColumnName == 'iUnitTag5'">
+
+                                <!--Others-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') != 2 && getUnitSpecialType('UnitTag5') != 3 && getUnitSpecialType('UnitTag5') != 12 && getUnitSpecialType('UnitTag5') != 5 && getUnitSpecialType('UnitTag5') != 6">
+
+                                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+
+                                </div>
+
+
+                                <!--DropDown-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') == 2">
+                                    <select id="UniqueTag5" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag5') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Autocomplete-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') == 3">
+                                    <select id="UniqueTag5" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag5') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Radio-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') == 12">
+                                    <select id="UniqueTag5" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag5') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+
+
+                                <!--MonthPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') == 5">
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select>
+                                </div>
+
+                                <!--WeekPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag5') == 6">
+                                    <select id="UniqueTag5" ng-model="_obj.SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-if="_obj.ColumnName == 'iUnitTag6'">
+
+                                <!--Others-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') != 2 && getUnitSpecialType('UnitTag6') != 3 && getUnitSpecialType('UnitTag6') != 12 && getUnitSpecialType('UnitTag6') != 5 && getUnitSpecialType('UnitTag6') != 6">
+
+                                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+
+                                </div>
+
+
+                                <!--DropDown-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') == 2">
+                                    <select id="UniqueTag6" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag6') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Autocomplete-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') == 3">
+                                    <select id="UniqueTag6" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag6') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Radio-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') == 12">
+                                    <select id="UniqueTag6" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag6') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+
+
+                                <!--MonthPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') == 5">
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select>
+                                </div>
+
+                                <!--WeekPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag6') == 6">
+                                    <select id="UniqueTag6" ng-model="_obj.SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-if="_obj.ColumnName == 'iUnitTag7'">
+
+                                <!--Others-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') != 2 && getUnitSpecialType('UnitTag7') != 3 && getUnitSpecialType('UnitTag7') != 12 && getUnitSpecialType('UnitTag7') != 5 && getUnitSpecialType('UnitTag7') != 6">
+
+                                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+
+                                </div>
+
+
+                                <!--DropDown-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') == 2">
+                                    <select id="UniqueTag7" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag7') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Autocomplete-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') == 3">
+                                    <select id="UniqueTag7" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag7') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Radio-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') == 12">
+                                    <select id="UniqueTag7" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag7') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+
+
+                                <!--MonthPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') == 5">
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select>
+                                </div>
+
+                                <!--WeekPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag7') == 6">
+                                    <select id="UniqueTag7" ng-model="_obj.SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-if="_obj.ColumnName == 'iUnitTag8'">
+
+                                <!--Others-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') != 2 && getUnitSpecialType('UnitTag8') != 3 && getUnitSpecialType('UnitTag8') != 12 && getUnitSpecialType('UnitTag8') != 5 && getUnitSpecialType('UnitTag8') != 6">
+
+                                    <input class="form-control" type="text" name="name" ng-model="_obj.SearchValue" value="" />
+
+                                </div>
+
+
+                                <!--DropDown-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') == 2">
+                                    <select id="UniqueTag8" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag8') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Autocomplete-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') == 3">
+                                    <select id="UniqueTag8" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag8') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue"> {{n}}</option>
+                                    </select>
+                                </div>
+                                <!--Radio-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') == 12">
+                                    <select id="UniqueTag8" ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in getComboValues('UnitTag8') track by $index" value="{{n}}" ng-selected="n == _obj.SearchValue">{{n}}</option>
+                                    </select>
+                                </div>
+
+
+                                <!--MonthPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') == 5">
+                                    <!--<input class="form-control" type="month" name="name" ng-model="_obj.SearchValue" value="" />-->
+                                    <select ng-model="_obj.SearchValue" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == _obj.SearchValue"> {{n.Text}}</option>
+                                    </select>
+                                </div>
+
+                                <!--WeekPicker-->
+                                <div ng-if="getUnitSpecialType('UnitTag8') == 6">
+                                    <select id="UniqueTag8" ng-model="_obj.SearchValue" class="form-control">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -509,7 +776,7 @@
                             </ul>
                         </span>
 
-                        <div ng-if="_obj.ColumnName != 'iUniqueDate' && _obj.ColumnName != 'iUnitDate2'">
+                        <div ng-if="_obj.ColumnName != 'iUniqueDate' && _obj.ColumnName != 'iUnitDate2'&& _obj.ColumnName != 'iUnitDate3'&& _obj.ColumnName != 'iUnitDate4'">
 
                             <div ng-if="getColumnType(_obj.ColumnName) == 'system'">
                                 <input class="form-control" type="date" name="name" ng-model="_obj.SearchValue" value="" />
@@ -756,6 +1023,178 @@
 
 
                             <div ng-if="getUnitSpecialType('UnitDate2') == 17">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="time" step="1" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-hour'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-minute'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-second'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="_obj.ColumnName == 'iUnitDate3'">
+
+                            <div ng-if="getUnitSpecialType('UnitDate3') == 15">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="date" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-year'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-month'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-day'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="getUnitSpecialType('UnitDate3') == 16">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="datetime-local" step="1" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-year'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-month'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-day'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-hour'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-minute'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-second'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="getUnitSpecialType('UnitDate3') == 17">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="time" step="1" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-hour'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-minute'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-second'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="_obj.ColumnName == 'iUnitDate4'">
+
+                            <div ng-if="getUnitSpecialType('UnitDate4') == 15">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="date" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-year'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-month'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x.id}}">{{x.text}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-day'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="getUnitSpecialType('UnitDate4') == 16">
+                                <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
+                                    <input class="form-control" type="datetime-local" step="1" name="name" ng-model="_obj.SearchValue" value="" />
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-year'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in yearList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-month'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in monthList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-day'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in dayList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+
+                                <div ng-if="_obj.FilterOperator=='date-hour'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in hourList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-minute'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in minuteList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                                <div ng-if="_obj.FilterOperator=='date-second'">
+                                    <select class="form-control" name="name" ng-model="_obj.SearchValue">
+                                        <option ng-repeat="x in secondList" ng-selected="x == _obj.SearchValue" value="{{x}}">{{x}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="getUnitSpecialType('UnitDate4') == 17">
                                 <div ng-if="_obj.FilterOperator=='date-eq' || _obj.FilterOperator=='date-before' || _obj.FilterOperator=='date-after' || _obj.FilterOperator =='Empty'">
                                     <input class="form-control" type="time" step="1" name="name" ng-model="_obj.SearchValue" value="" />
                                 </div>

@@ -726,7 +726,12 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
             case "iStatusValue":
                 return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iStatusValue != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iStatusValue : "";
                 break;
-
+            case "iUnitNumber4":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber4 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber4) : "";
+                break;
+            case "iUnitNumber3":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber3 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber3) : "";
+                break;
             case "iUnitNumber2":
                 return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber2 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitNumber2) : "";
                 break;
@@ -738,9 +743,34 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
                 return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate2 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate2 : "";
                 break;
 
+            case "iUnitDate3":
+
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate3 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate3 : "";
+                break;
+
+            case "iUnitDate4":
+
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate4 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitDate4 : "";
+                break;
+
             case "iCostPerUnit":
                 return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].AvgCostPerUnit != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].AvgCostPerUnit : "";
 
+                break
+            case "iUnitTag8":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag8 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag8 : "";
+                break;
+            case "iUnitTag7":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag7 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag7 : "";
+                break;
+            case "iUnitTag6":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag6 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag6 : "";
+                break;
+            case "iUnitTag5":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag5 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag5 : "";
+                break;
+            case "iUnitTag4":
+                return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag4 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag4 : "";
                 break;
             case "iUnitTag3":
                 return $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag3 != null ? $scope.InventoryListGrouped[parentIndex].OtherPrespectives[Index].iUnitTag3 : "";
@@ -998,17 +1028,45 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
             case "iUnitNumber2":
                 return $scope.InventoryListGrouped[Index].iUnitNumber2 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[Index].iUnitNumber2) : "";
                 break;
+            case "iUnitNumber3":
+                return $scope.InventoryListGrouped[Index].iUnitNumber3 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[Index].iUnitNumber3) : "";
+                break;
+            case "iUnitNumber4":
+                return $scope.InventoryListGrouped[Index].iUnitNumber4 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[Index].iUnitNumber4) : "";
+                break;
             case "iUnitNumber1":
                 return $scope.InventoryListGrouped[Index].iUnitNumber1 != null ? ChangeIntoNumberFormat($scope.InventoryListGrouped[Index].iUnitNumber1) : "";
                 break;
             case "iUnitDate2":
-
                 return $scope.InventoryListGrouped[Index].iUnitDate2 != null ? $scope.InventoryListGrouped[Index].iUnitDate2 : "";
+                break;
+
+            case "iUnitDate3":
+                return $scope.InventoryListGrouped[Index].iUnitDate3 != null ? $scope.InventoryListGrouped[Index].iUnitDate3 : "";
+                break;
+
+            case "iUnitDate4":
+                return $scope.InventoryListGrouped[Index].iUnitDate4 != null ? $scope.InventoryListGrouped[Index].iUnitDate4 : "";
                 break;
 
             case "iCostPerUnit":
                 return $scope.InventoryListGrouped[Index].AvgCostPerUnit != null ? $scope.InventoryListGrouped[Index].AvgCostPerUnit : "";
 
+                break;
+            case "iUnitTag8":
+                return $scope.InventoryListGrouped[Index].iUnitTag8 != null ? $scope.InventoryListGrouped[Index].iUnitTag8 : "";
+                break;
+            case "iUnitTag7":
+                return $scope.InventoryListGrouped[Index].iUnitTag7 != null ? $scope.InventoryListGrouped[Index].iUnitTag7 : "";
+                break;
+            case "iUnitTag6":
+                return $scope.InventoryListGrouped[Index].iUnitTag6 != null ? $scope.InventoryListGrouped[Index].iUnitTag6 : "";
+                break;
+            case "iUnitTag5":
+                return $scope.InventoryListGrouped[Index].iUnitTag5 != null ? $scope.InventoryListGrouped[Index].iUnitTag5 : "";
+                break;
+            case "iUnitTag4":
+                return $scope.InventoryListGrouped[Index].iUnitTag4 != null ? $scope.InventoryListGrouped[Index].iUnitTag4 : "";
                 break;
             case "iUnitTag3":
                 return $scope.InventoryListGrouped[Index].iUnitTag3 != null ? $scope.InventoryListGrouped[Index].iUnitTag3 : "";
@@ -1631,7 +1689,7 @@ app.controller('inventorysummaryController', ['$scope', 'localStorageService', '
 
                     }
                 }
-                if ($scope.FilterArray[i].ColumnName == "iUniqueDate" || $scope.FilterArray[i].ColumnName == "iUnitDate2") {
+                if ($scope.FilterArray[i].ColumnName == "iUniqueDate" || $scope.FilterArray[i].ColumnName == "iUnitDate2" || $scope.FilterArray[i].ColumnName == "iUnitDate3" || $scope.FilterArray[i].ColumnName == "iUnitDate4") {
                     var fieldSpecialType = $scope.getUnitSpecialType($scope.FilterArray[i].ColumnName.slice(1));
                     if (fieldSpecialType != undefined) {
                         if (fieldSpecialType == 17) {

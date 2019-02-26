@@ -63,11 +63,17 @@
                                     <li ng-if="IsAvailableUnitColumn('ReqValue')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iReqValue')" alt="iReqValue">{{GetUnitDataLabel('iReqValue')}}</a></li>
                                     <li ng-if="IsAvailableUnitColumn('UnitTag2')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag2')" alt="iUnitTag2">{{GetUnitDataLabel('iUnitTag2')}}</a></li>
                                     <li ng-if="IsAvailableUnitColumn('UnitTag3')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag3')" alt="iUnitTag3">{{GetUnitDataLabel('iUnitTag3')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag4')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag4')" alt="iUnitTag4">{{GetUnitDataLabel('iUnitTag4')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag5')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag5')" alt="iUnitTag5">{{GetUnitDataLabel('iUnitTag5')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag6')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag6')" alt="iUnitTag6">{{GetUnitDataLabel('iUnitTag6')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag7')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag7')" alt="iUnitTag7">{{GetUnitDataLabel('iUnitTag7')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitTag8')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitTag8')" alt="iUnitTag8">{{GetUnitDataLabel('iUnitTag8')}}</a></li>
                                     <!--<li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUniqueDate')" alt="iUniqueDate">{{GetUnitDataLabel('iUniqueDate')}}</a></li>
                                    <li class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitDate2')" alt="iUnitDate2">{{GetUnitDataLabel('iUnitDate2')}}</a></li>-->
                                     <li ng-if="IsAvailableUnitColumn('UnitNumber1')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber1')" alt="iUnitNumber1">{{GetUnitDataLabel('iUnitNumber1')}}</a></li>
                                     <li ng-if="IsAvailableUnitColumn('UnitNumber2')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber2')" alt="iUnitNumber2">{{GetUnitDataLabel('iUnitNumber2')}}</a></li>
-
+                                    <li ng-if="IsAvailableUnitColumn('UnitNumber3')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber3')" alt="iUnitNumber3">{{GetUnitDataLabel('iUnitNumber3')}}</a></li>
+                                    <li ng-if="IsAvailableUnitColumn('UnitNumber4')" class="unitSearchFields suggestItem5" style="display: block;"><a ng-click="searchfunction('iUnitNumber4')" alt="iUnitNumber4">{{GetUnitDataLabel('iUnitNumber4')}}</a></li>
 
                                 </ul>
 
@@ -267,6 +273,21 @@
                                 <span ng-if="_obj.iUnitTag3 != ''">
                                     {{TrimFirstThreeLetter('iUnitTag3')}}:{{_obj.iUnitTag3}},
                                 </span>
+                                <span ng-if="_obj.iUnitTag4 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag4')}}:{{_obj.iUnitTag4}},
+                                </span>
+                                <span ng-if="_obj.iUnitTag5 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag5')}}:{{_obj.iUnitTag5}},
+                                </span>
+                                <span ng-if="_obj.iUnitTag6 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag6')}}:{{_obj.iUnitTag6}},
+                                </span>
+                                <span ng-if="_obj.iUnitTag7 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag7')}}:{{_obj.iUnitTag7}},
+                                </span>
+                                <span ng-if="_obj.iUnitTag8 != ''">
+                                    {{TrimFirstThreeLetter('iUnitTag8')}}:{{_obj.iUnitTag8}},
+                                </span>
 
 
                                 <span ng-if="_obj.iUniqueDate != null && _obj.iUniqueDate!=''">
@@ -276,7 +297,12 @@
                                 <span ng-if="_obj.iUnitDate2 != null && _obj.iUnitDate2!=''">
                                     {{TrimFirstThreeLetter('iUnitDate2')}}:{{_obj.iUnitDate2}}
                                 </span>
-
+                                <span ng-if="_obj.iUnitDate3 != null && _obj.iUnitDate3!=''">
+                                    {{TrimFirstThreeLetter('iUnitDate3')}}:{{_obj.iUnitDate3}}
+                                </span>
+                                <span ng-if="_obj.iUnitDate4 != null && _obj.iUnitDate4!=''">
+                                    {{TrimFirstThreeLetter('iUnitDate4')}}:{{_obj.iUnitDate4}}
+                                </span>
                                 <span ng-if="_obj.iUnitNumber1 != '' && _obj.iUnitNumber1!=null">
                                     {{TrimFirstThreeLetter('iUnitNumber1')}}:{{_obj.iUnitNumber1}},
                                 </span>
@@ -285,6 +311,13 @@
                                     {{TrimFirstThreeLetter('iUnitNumber2')}}:{{_obj.iUnitNumber2}}
                                 </span>
 
+                                <span ng-if="_obj.iUnitNumber3 != '' && _obj.iUnitNumber4!=null">
+                                    {{TrimFirstThreeLetter('iUnitNumber3')}}:{{_obj.iUnitNumber3}}
+                                </span>
+
+                                <span ng-if="_obj.iUnitNumber4 != '' && _obj.iUnitNumber4!=null">
+                                    {{TrimFirstThreeLetter('iUnitNumber4')}}:{{_obj.iUnitNumber4}}
+                                </span>
 
 
                             </div>

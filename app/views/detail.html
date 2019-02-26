@@ -198,6 +198,21 @@
     .table-bordered tr:nth-child(odd) {
         background: #FFF;
     }
+
+    .inventorydetail h4 {
+        font-size: 17px;
+        margin-bottom: 0;
+    }
+
+    .inventorydetail small {
+        color: #888 !important;
+        margin-bottom: 0;
+    }
+
+    .itemdetail table p {
+        margin-bottom: 0;
+        font-size: 12px;
+    }
 </style>
 
 
@@ -292,115 +307,137 @@
          
      
         <!-- Profile Content -->
-        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;">
-            <div class="c-widget">
-                <div class="c-widget-figure primary-color">
-                    <i class="fa fa-info udt"></i>
-                </div>
-                <div class="c-widget-body">
-                    <p class="m-0" style="color:black;"> <span>{{realItemname}}:</span> {{itemlabel}} </p>
-                    <p class="m-0" style="color:black;"> <span>{{realDescname}}:</span> {{CurrentInventory.pDescription}} </p>
-
-                </div>
-            </div>
+        <div style="margin-bottom:12px;" class="inventorydetail">
+            <h4> {{itemlabel}} </h4>
+            <small>{{CurrentInventory.pDescription}}</small>
+            <p style="margin-top: 5px; margin-bottom: 0px; font-size: 13px;"> {{CurrentInventory.iQty}} {{CurrentInventory.uomUOM}}</p>
+            <p style="font-size: 13px; margin-bottom: 0px;">{{CurrentInventory.lLoc}} </p>
+            <p ng-if="CurrentInventory.iStatusValue !=''" style="font-size:13px;"> <span style="color:#888"> Status -</span> {{CurrentInventory.iStatusValue}} </p>
         </div>
 
-        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;">
-            <div class="c-widget">
-                <div class="c-widget-figure primary-color">
-                   
-                    <i class="fa fa-map-marker udt"></i>
-                </div>
-                <div class="c-widget-body">
-                    <p class="m-0" style="color:black;"> <span>Quantity:</span> {{CurrentInventory.iQty}} {{CurrentInventory.uomUOM}} </p>
-                    <p class="m-0"> <span>Location:</span> {{CurrentInventory.lLoc}} </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card m-t-10 animated fadeinup delay-1" style="padding:10px;" ng-if="IsEmptyAllcheck(CurrentInventory)==true">
-            <div class="c-widget">
-                <div class="c-widget-figure primary-color">
-                    <i class="fa fa-list udt"></i>
-                </div>
+        <div class="itemdetail">
 
 
-                <div class="c-widget-body">
 
-                    <p class="m-0" ng-if="CurrentInventory.iStatusValue!=''"> <span>{{statusLabel}}:</span> {{CurrentInventory.iStatusValue}} </p>
+            <h4 style="background-color: #069; margin: 0; color: #fff; padding: 12px; text-transform: capitalize; font-size: 15px; text-align: center; ">Attribute fields</h4>
 
+            <div style="text-align:center;" ng-show="itemsummaryload==false">
+                <p><img style="height:30px;" src="img/loader.gif" alt="Alternate Text" /> </p>
 
-                    <p class="m-0" ng-if="CurrentInventory.iReqValue != ''">
-                        <span> {{GetUnitDataLabel('iReqValue')}}:</span> {{CurrentInventory.iReqValue}}
-                    </p>
-                    <p class="m-0" ng-if="CurrentInventory.iUnitTag2 != ''">
-                        <span> {{GetUnitDataLabel('iUnitTag2')}}:</span> {{CurrentInventory.iUnitTag2}}
-                    </p>
-
-                    <p class="m-0" ng-if="CurrentInventory.iUnitTag3 != ''">
-                        <span>{{GetUnitDataLabel('iUnitTag3')}}:</span> {{CurrentInventory.iUnitTag3}}
-                    </p>
-
-
-                    <p class="m-0" ng-if="CurrentInventory.iUniqueDate != null">
-                        <span> {{GetUnitDataLabel('iUniqueDate')}}:</span> {{CurrentInventory.iUniqueDate}}
-                    </p>
-
-                    <p class="m-0" ng-if="CurrentInventory.iUnitDate2 != null">
-                        <span> {{GetUnitDataLabel('iUnitDate2')}}: </span>{{CurrentInventory.iUnitDate2}}
-                    </p>
-
-                    <p class="m-0" ng-if="CurrentInventory.iUnitNumber1 != null">
-                        <span> {{GetUnitDataLabel('iUnitNumber1')}}: </span>{{CurrentInventory.iUnitNumber1}}
-                    </p>
-
-                    <p class="m-0" ng-if="CurrentInventory.iUnitNumber2 != null">
-                        <span> {{GetUnitDataLabel('iUnitNumber2')}}: </span>{{CurrentInventory.iUnitNumber2}}
-                    </p>
-
-                </div>
 
             </div>
 
+            <table style="margin-bottom:0" ng-show="itemsummaryload==true" class="table table-bordered">
+                <tr ng-repeat="summary in Itemsummary">
+                    <td style="text-align:right;" width="50%;">
+                        <p> {{summary.cfdName}} </p>
+                    </td>
+                    <td style="text-align:left;" width="50%;">
+                        <p style="color:#888" ng-if="summary.cfdValue != null"> {{summary.cfdValue}} </p>
+
+                        <p style="color:#888" ng-if="summary.cfdValue == null"> N/A </p>
 
 
+
+                    </td>
+                </tr>
+            </table>
 
 
         </div>
 
-      
+        <!-- Profile Content -->
 
-                <div style="padding:12px;" class="c-widget-body">
-                    <h4 class="primary-color" style="text-align: center; color: #fff; margin: 0; padding: 12px; font-size: 16px; text-transform: capitalize;">All Attribute field details</h4>
+        <div class="statedetail">
+            <h4 style="background-color: #069; margin: 0; color: #fff; padding: 12px; text-transform: capitalize; font-size: 15px; text-align: center; ">State fields</h4>
 
-                    <div style="text-align:center;" ng-show="itemsummaryload==false">
-                        <p><img style="height:30px;" src="img/loader.gif" alt="Alternate Text" /> </p>
+            <table class="table table-bordered">
+                <tr ng-if="CurrentInventory.iReqValue != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iReqValue')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iReqValue}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag2 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag2')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag2}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag3 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag3')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag3}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag4 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag4')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag4}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag5 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag5')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag5}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag6 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag6')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag6}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag7 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag7')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag7}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitTag8 != ''">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitTag8')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitTag8}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUniqueDate != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUniqueDate')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUniqueDate}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitDate2 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitDate2')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitDate2}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitDate3 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitDate3')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitDate3}}</td>
+                </tr>
+
+                <tr ng-if="CurrentInventory.iUnitDate4 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitDate4')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitDate4}}</td>
+                </tr>
 
 
-                    </div>
+                <tr ng-if="CurrentInventory.iUnitNumber1 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitNumber1')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitNumber1}}</td>
+                </tr>
 
-                    <table ng-show="itemsummaryload==true" class="table table-bordered">
-                        <tr ng-repeat="summary in Itemsummary">
-                            <td style="text-align:right;" width="50%;">
-                                <p> {{summary.cfdName}} </p>
-                            </td>
-                            <td style="text-align:left;" width="50%;">
-                                <p style="color:#888" ng-if="summary.cfdValue != null"> {{summary.cfdValue}} </p>
+                <tr ng-if="CurrentInventory.iUnitNumber2 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitNumber2')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitNumber2}}</td>
+                </tr>
 
-                                <p style="color:#888" ng-if="summary.cfdValue == null"> N/A </p>
+                <tr ng-if="CurrentInventory.iUnitNumber3 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitNumber3')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitNumber3}}</td>
+                </tr>
 
+                <tr ng-if="CurrentInventory.iUnitNumber4 != null">
+                    <td style="text-align:right; width:50%">{{GetUnitDataLabel('iUnitNumber4')}}</td>
+                    <td style="width:50%; text-align:left">{{CurrentInventory.iUnitNumber4}}</td>
+                </tr>
+            </table>
 
-
-                            </td>
-                        </tr>
-                    </table>
-
-
-                </div>
-
+        </div>
          
 
-<br /><br />
+
 
     </div>
 

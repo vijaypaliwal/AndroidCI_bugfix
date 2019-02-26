@@ -1035,7 +1035,12 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             case "ItemSupplier":
                 return $scope.ActivityList[Index].ItemSupplier != null ? $scope.ActivityList[Index].ItemSupplier : "";
                 break;
-
+            case "itUnitNumber4":
+                return $scope.ActivityList[Index].itUnitNumber4 != null ? ChangeIntoNumberFormat($scope.ActivityList[Index].itUnitNumber4) : "";
+                break;
+            case "itUnitNumber3":
+                return $scope.ActivityList[Index].itUnitNumber3 != null ? ChangeIntoNumberFormat($scope.ActivityList[Index].itUnitNumber3) : "";
+                break;
             case "itUnitNumber2":
                 return $scope.ActivityList[Index].itUnitNumber2 != null ? ChangeIntoNumberFormat($scope.ActivityList[Index].itUnitNumber2) : "";
                 break;
@@ -1080,6 +1085,13 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                 return $scope.ActivityList[Index].itUnitDate2 != null ? $scope.ActivityList[Index].itUnitDate2 : "";
                 break;
 
+            case "itUnitDate3":
+                return $scope.ActivityList[Index].itUnitDate3 != null ? $scope.ActivityList[Index].itUnitDate3 : "";
+                break;
+            case "itUnitDate4":
+                return $scope.ActivityList[Index].itUnitDate4 != null ? $scope.ActivityList[Index].itUnitDate4 : "";
+                break;
+
 
             case "itUpdateDate":
                 return $scope.ActivityList[Index].itUpdateDate != null ? $scope.ActivityList[Index].itUpdateDate : "";
@@ -1095,7 +1107,21 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
             case "itUnitTag3":
                 return $scope.ActivityList[Index].itUnitTag3 != null ? $scope.ActivityList[Index].itUnitTag3 : "";
                 break;
-
+            case "itUnitTag4":
+                return $scope.ActivityList[Index].itUnitTag4 != null ? $scope.ActivityList[Index].itUnitTag4 : "";
+                break;
+            case "itUnitTag5":
+                return $scope.ActivityList[Index].itUnitTag5 != null ? $scope.ActivityList[Index].itUnitTag5 : "";
+                break;
+            case "itUnitTag6":
+                return $scope.ActivityList[Index].itUnitTag6 != null ? $scope.ActivityList[Index].itUnitTag6 : "";
+                break;
+            case "itUnitTag7":
+                return $scope.ActivityList[Index].itUnitTag7 != null ? $scope.ActivityList[Index].itUnitTag7 : "";
+                break;
+            case "itUnitTag8":
+                return $scope.ActivityList[Index].itUnitTag8 != null ? $scope.ActivityList[Index].itUnitTag8 : "";
+                break;
 
             case "string_1":
                 return $scope.ActivityList[Index].string_1 != null ? $scope.ActivityList[Index].string_1 : "";
@@ -1983,7 +2009,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
 
                     }
                 }
-                if ($scope.FilterArray[i].ColumnName == "itUniqueDate" || $scope.FilterArray[i].ColumnName == "itUnitDate2") {
+                if ($scope.FilterArray[i].ColumnName == "itUniqueDate" || $scope.FilterArray[i].ColumnName == "itUnitDate2" || $scope.FilterArray[i].ColumnName == "itUnitDate3" || $scope.FilterArray[i].ColumnName == "itUnitDate4") {
                     var fieldSpecialType = $scope.getUnitSpecialType($scope.FilterArray[i].ColumnName.slice(2));
                     if (fieldSpecialType != undefined) {
                         if (fieldSpecialType == 17) {
