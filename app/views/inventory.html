@@ -471,7 +471,7 @@
                                 <div class="input-group">
                                     <select ng-model="InventoryObject.UnitTag2" id="UnitTag2" class="form-control">
                                         <option value="">-Select-</option>
-                                        <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
+                                        <option ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
                                     </select>
                                     <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
                                 </div>
@@ -480,7 +480,7 @@
                             <!--Autocomplete-->
                             <div ng-if="UnitTag2FieldSpecialType == 3">
                                 <div ng-click="Unitautocomplete('UnitTag2')" class="input-group">
-                                    <input id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="autolistview form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
+                                    <input id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="autolistview form-control" type="text" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
                                     <span ng-click="Unitautocomplete('UnitTag2')" class="input-group-addon last"><i class="fa fa-search"></i></span>
                                     <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
                                 </div>
@@ -575,7 +575,7 @@
                                 <div class="input-group">
                                     <select ng-model="InventoryObject.UnitTag3" id="UnitTag3" class="form-control">
                                         <option value="">-Select-</option>
-                                        <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
+                                        <option ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
                                     </select>
                                     <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
                                 </div>
@@ -586,7 +586,7 @@
                                 <div ng-click="Unitautocomplete('UnitTag3')" class="input-group">
                                     <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
 
-                                    <input id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="autolistview form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
+                                    <input id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="autolistview form-control" type="text" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
                                     <span ng-click="Unitautocomplete('UnitTag3')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
                                     <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
@@ -642,6 +642,526 @@
                             </div>
                         </div>
 
+                        <div ng-if="obj.ColumnName=='iUnitTag4'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--Prefix , Suffix-->
+                            <div ng-if="UnitTag4FieldSpecialType == 0">
+
+                                <div class="input-group">
+
+                                    <span ng-if="getUnitObjByName('UnitTag4').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag4').Prefix}} </span>
+
+                                    <input id="UnitTag4" data-prefix="{{getUnitObjByName('UnitTag4').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag4').Suffix}}" data-value="{{getUnitObjByName('UnitTag4').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag4').Prefix}}{{InventoryObject.UnitTag4}}{{getUnitObjByName('UnitTag4').Suffix}}" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="text" ng-model="InventoryObject.UnitTag4" class="form-control prepostUnit" />
+
+
+                                    <span ng-if="getUnitObjByName('UnitTag4').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag4').Suffix}} </span>
+
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Open Field-->
+                            <div ng-if="UnitTag4FieldSpecialType == 1">
+                                <div class="input-group">
+                                    <input id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="text" ng-model="InventoryObject.UnitTag4" class="form-control" value="" />
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Dropdown-->
+                            <div ng-if="UnitTag4FieldSpecialType == 2">
+                                <div class="input-group">
+                                    <select ng-model="InventoryObject.UnitTag4" id="UnitTag4" class="form-control">
+                                        <option value="">-Select-</option>
+                                        <option ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" ng-repeat="obj in UniqueTag4Combovalues">{{obj}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Autocomplete-->
+                            <div ng-if="UnitTag4FieldSpecialType == 3">
+                                <div ng-click="Unitautocomplete('UnitTag4')" class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                    <input id="UnitTag4" ng-model="InventoryObject.UnitTag4" class="autolistview form-control" type="text" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" />
+                                    <span ng-click="Unitautocomplete('UnitTag4')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Email-->
+                            <div ng-if="UnitTag4FieldSpecialType == 4">
+                                <div class="input-group">
+                                    <input id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="email" ng-model="InventoryObject.UnitTag4" class="form-control" value="" />
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Month-->
+                            <div ng-if="UnitTag4FieldSpecialType == 5">
+                                <div class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <select id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" ng-model="InventoryObject.UnitTag4" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag4"> {{n.Text}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Week-->
+                            <div ng-if="UnitTag4FieldSpecialType == 6">
+                                <div class="input-group">
+                                    <select id="UnitTag4" ng-model="InventoryObject.UnitTag4" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag4}}" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Radio-->
+                            <div ng-if="UnitTag4FieldSpecialType == 12">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag4')">
+                                    <input type="text" id="UnitTag4" disabled="disabled" ng-model="InventoryObject.UnitTag4" class="form-control" />
+                                    <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag4')"><i class="fa fa-circle-o"></i></span>
+                                    <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitTag5'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--Prefix , Suffix-->
+                            <div ng-if="UnitTag5FieldSpecialType == 0">
+
+                                <div class="input-group">
+
+                                    <span ng-if="getUnitObjByName('UnitTag5').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag5').Prefix}} </span>
+
+                                    <input id="UnitTag5" data-prefix="{{getUnitObjByName('UnitTag5').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag5').Suffix}}" data-value="{{getUnitObjByName('UnitTag5').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag5').Prefix}}{{InventoryObject.UnitTag5}}{{getUnitObjByName('UnitTag5').Suffix}}" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="text" ng-model="InventoryObject.UnitTag5" class="form-control prepostUnit" />
+
+
+                                    <span ng-if="getUnitObjByName('UnitTag5').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag5').Suffix}} </span>
+
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Open Field-->
+                            <div ng-if="UnitTag5FieldSpecialType == 1">
+                                <div class="input-group">
+                                    <input id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="text" ng-model="InventoryObject.UnitTag5" class="form-control" value="" />
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Dropdown-->
+                            <div ng-if="UnitTag5FieldSpecialType == 2">
+                                <div class="input-group">
+                                    <select ng-model="InventoryObject.UnitTag5" id="UnitTag5" class="form-control">
+                                        <option value="">-Select-</option>
+                                        <option ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" ng-repeat="obj in UniqueTag5Combovalues">{{obj}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Autocomplete-->
+                            <div ng-if="UnitTag5FieldSpecialType == 3">
+                                <div ng-click="Unitautocomplete('UnitTag5')" class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                    <input id="UnitTag5" ng-model="InventoryObject.UnitTag5" class="autolistview form-control" type="text" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" />
+                                    <span ng-click="Unitautocomplete('UnitTag5')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Email-->
+                            <div ng-if="UnitTag5FieldSpecialType == 4">
+                                <div class="input-group">
+                                    <input id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="email" ng-model="InventoryObject.UnitTag5" class="form-control" value="" />
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Month-->
+                            <div ng-if="UnitTag5FieldSpecialType == 5">
+                                <div class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <select id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" ng-model="InventoryObject.UnitTag5" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag5"> {{n.Text}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Week-->
+                            <div ng-if="UnitTag5FieldSpecialType == 6">
+                                <div class="input-group">
+                                    <select id="UnitTag5" ng-model="InventoryObject.UnitTag5" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag5}}" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Radio-->
+                            <div ng-if="UnitTag5FieldSpecialType == 12">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag5')">
+                                    <input type="text" id="UnitTag5" disabled="disabled" ng-model="InventoryObject.UnitTag5" class="form-control" />
+                                    <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag5')"><i class="fa fa-circle-o"></i></span>
+                                    <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitTag6'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--Prefix , Suffix-->
+                            <div ng-if="UnitTag6FieldSpecialType == 0">
+
+                                <div class="input-group">
+
+                                    <span ng-if="getUnitObjByName('UnitTag6').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag6').Prefix}} </span>
+
+                                    <input id="UnitTag6" data-prefix="{{getUnitObjByName('UnitTag6').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag6').Suffix}}" data-value="{{getUnitObjByName('UnitTag6').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag6').Prefix}}{{InventoryObject.UnitTag6}}{{getUnitObjByName('UnitTag6').Suffix}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="text" ng-model="InventoryObject.UnitTag6" class="form-control prepostUnit" />
+
+
+                                    <span ng-if="getUnitObjByName('UnitTag6').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag6').Suffix}} </span>
+
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Open Field-->
+                            <div ng-if="UnitTag6FieldSpecialType == 1">
+                                <div class="input-group">
+                                    <input id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="text" ng-model="InventoryObject.UnitTag6" class="form-control" value="" />
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Dropdown-->
+                            <div ng-if="UnitTag6FieldSpecialType == 2">
+                                <div class="input-group">
+                                    <select ng-model="InventoryObject.UnitTag6" id="UnitTag6" class="form-control">
+                                        <option value="">-Select-</option>
+                                        <option ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" ng-repeat="obj in UniqueTag6Combovalues">{{obj}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Autocomplete-->
+                            <div ng-if="UnitTag6FieldSpecialType == 3">
+                                <div ng-click="Unitautocomplete('UnitTag6')" class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                    <input id="UnitTag6" ng-model="InventoryObject.UnitTag6" class="autolistview form-control" type="text" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" />
+                                    <span ng-click="Unitautocomplete('UnitTag6')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Email-->
+                            <div ng-if="UnitTag6FieldSpecialType == 4">
+                                <div class="input-group">
+                                    <input id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="email" ng-model="InventoryObject.UnitTag6" class="form-control" value="" />
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Month-->
+                            <div ng-if="UnitTag6FieldSpecialType == 5">
+                                <div class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <select id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" ng-model="InventoryObject.UnitTag6" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag6"> {{n.Text}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Week-->
+                            <div ng-if="UnitTag6FieldSpecialType == 6">
+                                <div class="input-group">
+                                    <select id="UnitTag6" ng-model="InventoryObject.UnitTag6" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag6}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Radio-->
+                            <div ng-if="UnitTag6FieldSpecialType == 12">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag6')">
+                                    <input type="text" id="UnitTag6" disabled="disabled" ng-model="InventoryObject.UnitTag6" class="form-control" />
+                                    <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag6')"><i class="fa fa-circle-o"></i></span>
+                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitTag7'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--Prefix , Suffix-->
+                            <div ng-if="UnitTag7FieldSpecialType == 0">
+
+                                <div class="input-group">
+
+                                    <span ng-if="getUnitObjByName('UnitTag7').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag7').Prefix}} </span>
+
+                                    <input id="UnitTag7" data-prefix="{{getUnitObjByName('UnitTag7').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag7').Suffix}}" data-value="{{getUnitObjByName('UnitTag7').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag7').Prefix}}{{InventoryObject.UnitTag7}}{{getUnitObjByName('UnitTag7').Suffix}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="text" ng-model="InventoryObject.UnitTag7" class="form-control prepostUnit" />
+
+
+                                    <span ng-if="getUnitObjByName('UnitTag7').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag7').Suffix}} </span>
+
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Open Field-->
+                            <div ng-if="UnitTag7FieldSpecialType == 1">
+                                <div class="input-group">
+                                    <input id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="text" ng-model="InventoryObject.UnitTag7" class="form-control" value="" />
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Dropdown-->
+                            <div ng-if="UnitTag7FieldSpecialType == 2">
+                                <div class="input-group">
+                                    <select ng-model="InventoryObject.UnitTag7" id="UnitTag7" class="form-control">
+                                        <option value="">-Select-</option>
+                                        <option ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" ng-repeat="obj in UniqueTag7Combovalues">{{obj}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Autocomplete-->
+                            <div ng-if="UnitTag7FieldSpecialType == 3">
+                                <div ng-click="Unitautocomplete('UnitTag7')" class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                    <input id="UnitTag7" ng-model="InventoryObject.UnitTag7" class="autolistview form-control" type="text" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" />
+                                    <span ng-click="Unitautocomplete('UnitTag7')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Email-->
+                            <div ng-if="UnitTag7FieldSpecialType == 4">
+                                <div class="input-group">
+                                    <input id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="email" ng-model="InventoryObject.UnitTag7" class="form-control" value="" />
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Month-->
+                            <div ng-if="UnitTag7FieldSpecialType == 5">
+                                <div class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <select id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" ng-model="InventoryObject.UnitTag7" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag7"> {{n.Text}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Week-->
+                            <div ng-if="UnitTag7FieldSpecialType == 6">
+                                <div class="input-group">
+                                    <select id="UnitTag7" ng-model="InventoryObject.UnitTag7" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag7}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Radio-->
+                            <div ng-if="UnitTag7FieldSpecialType == 12">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag7')">
+                                    <input type="text" id="UnitTag7" disabled="disabled" ng-model="InventoryObject.UnitTag7" class="form-control" />
+                                    <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag7')"><i class="fa fa-circle-o"></i></span>
+                                    <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitTag8'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />
+            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--Prefix , Suffix-->
+                            <div ng-if="UnitTag8FieldSpecialType == 0">
+
+                                <div class="input-group">
+
+                                    <span ng-if="getUnitObjByName('UnitTag8').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag8').Prefix}} </span>
+
+                                    <input id="UnitTag8" data-prefix="{{getUnitObjByName('UnitTag8').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag8').Suffix}}" data-value="{{getUnitObjByName('UnitTag8').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag8').Prefix}}{{InventoryObject.UnitTag8}}{{getUnitObjByName('UnitTag8').Suffix}}" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="text" ng-model="InventoryObject.UnitTag8" class="form-control prepostUnit" />
+
+
+                                    <span ng-if="getUnitObjByName('UnitTag8').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag8').Suffix}} </span>
+
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Open Field-->
+                            <div ng-if="UnitTag8FieldSpecialType == 1">
+                                <div class="input-group">
+                                    <input id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="text" ng-model="InventoryObject.UnitTag8" class="form-control" value="" />
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Dropdown-->
+                            <div ng-if="UnitTag8FieldSpecialType == 2">
+                                <div class="input-group">
+                                    <select ng-model="InventoryObject.UnitTag8" id="UnitTag8" class="form-control">
+                                        <option value="">-Select-</option>
+                                        <option ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" ng-repeat="obj in UniqueTag8Combovalues">{{obj}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Autocomplete-->
+                            <div ng-if="UnitTag8FieldSpecialType == 3">
+                                <div ng-click="Unitautocomplete('UnitTag8')" class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                    <input id="UnitTag8" ng-model="InventoryObject.UnitTag8" class="autolistview form-control" type="text" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" />
+                                    <span ng-click="Unitautocomplete('UnitTag8')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Email-->
+                            <div ng-if="UnitTag8FieldSpecialType == 4">
+                                <div class="input-group">
+                                    <input id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="email" ng-model="InventoryObject.UnitTag8" class="form-control" value="" />
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--Month-->
+                            <div ng-if="UnitTag8FieldSpecialType == 5">
+                                <div class="input-group">
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <select id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" ng-model="InventoryObject.UnitTag8" class="form-control">
+
+                                        <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag8"> {{n.Text}}</option>
+                                    </select>
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Week-->
+                            <div ng-if="UnitTag8FieldSpecialType == 6">
+                                <div class="input-group">
+                                    <select id="UnitTag8" ng-model="InventoryObject.UnitTag8" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag8}}" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))">
+                                        <option value="">choose week</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                        <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                    </select>
+
+                                    <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+
+                            <!--Radio-->
+                            <div ng-if="UnitTag8FieldSpecialType == 12">
+                                <div class="input-group" ng-click="Unitradiolist('UnitTag8')">
+                                    <input type="text" id="UnitTag8" disabled="disabled" ng-model="InventoryObject.UnitTag8" class="form-control" />
+                                    <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag8')"><i class="fa fa-circle-o"></i></span>
+                                    <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div ng-if="obj.ColumnName=='iUniqueDate'" class="form-group">
                             <label>{{obj.ColumnLabel}}</label>
 
@@ -652,10 +1172,10 @@
 
 
                             <div class="input-group">
-                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==16" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="datetime-local" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==17" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="time" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType!=16 && UniqueDateFieldSpecialType!=17" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==16" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="datetime-local" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==17" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="time" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType!=16 && UniqueDateFieldSpecialType!=17" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                <span ng-if="mtuvar9==false" class="redText">Please input some unique data</span>
                             </div>
                         </div>
 
@@ -667,10 +1187,39 @@
                                 <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
                             </div>-->
                             <div class="input-group">
-                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==16" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="datetime-local" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==17" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="time" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType!=16 && UnitDate2FieldSpecialType!=17" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==16" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="datetime-local" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==17" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="time" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType!=16 && UnitDate2FieldSpecialType!=17" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                <span ng-if="mtuvar10==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                        <div ng-if="obj.ColumnName=='iUnitDate3'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitDate2" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" value="" />
+            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <div class="input-group">
+                                <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType==16" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="datetime-local" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType==17" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="time" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType!=16 && UnitDate3FieldSpecialType!=17" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="date" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                <span ng-if="mtuvar11==false" class="redText">Please input some unique data</span>
+                            </div>
+                        </div>
+                         
+                        <div ng-if="obj.ColumnName=='iUnitDate4'" class="form-group">
+
+                            <label>{{obj.ColumnLabel}}</label>
+                            <!--<div class="input-group">
+            <input id="UnitDate2" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" value="" />
+            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <div class="input-group">
+                                <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType==16" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="datetime-local" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType==17" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="time" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType!=16 && UnitDate4FieldSpecialType!=17" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="date" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                <span ng-if="mtuvar12==false" class="redText">Please input some unique data</span>
                             </div>
                         </div>
 
@@ -683,16 +1232,16 @@
                             <!--NumberType Unit Data Fields-->
                             <div ng-if="UnitNumber1FieldSpecialType != 14 && UnitNumber1FieldSpecialType != 21">
                                 <div class="input-group customnumbergroup">
-                                    <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                    <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                    <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                 </div>
                             </div>
 
                             <!--NumberIncrementerType Unit Data Fields-->
                             <div ng-if="UnitNumber1FieldSpecialType == 14">
                                 <div class="input-group customnumbergroup">
-                                    <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                    <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                    <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                     <span ng-click="UpDownValueUnit('UnitNumber1',false)" class="input-group-addon last">
                                         <i class="fa fa-minus"></i>
                                     </span>
@@ -708,8 +1257,8 @@
                             <div ng-if="UnitNumber1FieldSpecialType == 21">
                                 <div class="input-group customnumbergroup">
                                     <span class="input-group-addon currency"> $</span>
-                                    <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                    <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                    <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                   
                                 </div>
                             </div>
@@ -726,16 +1275,17 @@
                             <!--NumberType Unit Data Fields-->
                             <div ng-if="UnitNumber2FieldSpecialType!= 14 && UnitNumber2FieldSpecialType!= 21">
                                 <div class="input-group customnumbergroup">
-                                    <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                
+                                    <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                    <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
                                 </div>
                             </div>
 
                             <!--NumberIncrementerType Unit Data Fields-->
                             <div ng-if="UnitNumber2FieldSpecialType == 14">
                                 <div class="input-group customnumbergroup">
-                                    <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                    <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                    <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
                                     <span ng-click="UpDownValueUnit('UnitNumber2',false)" class="input-group-addon last">
                                         <i class="fa fa-minus"></i>
                                     </span>
@@ -750,9 +1300,93 @@
                                 <div class="input-group customnumbergroup">
                                     <span class="input-group-addon currency"> $</span>
 
-                                    <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                    <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                    <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                    <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
                                  
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitNumber3'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
+
+                            <!--<div class="input-group">
+
+            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
+            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--NumberType Unit Data Fields-->
+                            <div ng-if="UnitNumber3FieldSpecialType!= 14 && UnitNumber3FieldSpecialType!= 21">
+                                <div class="input-group customnumbergroup">
+                                    <input id="UnitNumber3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                    <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--NumberIncrementerType Unit Data Fields-->
+                            <div ng-if="UnitNumber3FieldSpecialType == 14">
+                                <div class="input-group customnumbergroup">
+                                    <input id="UnitNumber3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                    <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+                                    <span ng-click="UpDownValueUnit('UnitNumber3',false)" class="input-group-addon last">
+                                        <i class="fa fa-minus"></i>
+                                    </span>
+                                    <span ng-click="UpDownValueUnit('UnitNumber3',true)" class="input-group-addon last">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--NumberIncrementerType Unit Data Fields-->
+                            <div ng-if="UnitNumber3FieldSpecialType == 21">
+                                <div class="input-group customnumbergroup">
+                                    <span class="input-group-addon currency"> $</span>
+
+                                    <input id="UnitNumbe3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                    <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="obj.ColumnName=='iUnitNumber4'" class="form-group">
+                            <label>{{obj.ColumnLabel}}</label>
+
+                            <!--<div class="input-group">
+
+            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" class="form-control" value="" ng-model="InventoryObject.UnitNumber2" />
+            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+        </div>-->
+                            <!--NumberType Unit Data Fields-->
+                            <div ng-if="UnitNumber4FieldSpecialType!= 14 && UnitNumber4FieldSpecialType!= 21">
+                                <div class="input-group customnumbergroup">
+                                    <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                    <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+                                </div>
+                            </div>
+
+                            <!--NumberIncrementerType Unit Data Fields-->
+                            <div ng-if="UnitNumber4FieldSpecialType == 14">
+                                <div class="input-group customnumbergroup">
+                                    <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                    <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+                                    <span ng-click="UpDownValueUnit('UnitNumber4',false)" class="input-group-addon last">
+                                        <i class="fa fa-minus"></i>
+                                    </span>
+                                    <span ng-click="UpDownValueUnit('UnitNumber4',true)" class="input-group-addon last">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--NumberIncrementerType Unit Data Fields-->
+                            <div ng-if="UnitNumber4FieldSpecialType == 21">
+                                <div class="input-group customnumbergroup">
+                                    <span class="input-group-addon currency"> $</span>
+
+                                    <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                    <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+
                                 </div>
                             </div>
                         </div>
@@ -1097,12 +1731,40 @@
 
                                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag3}}</span>
                                 </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag4'" ng-click="getstep(0,'iUnitTag4')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag4}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag5'" ng-click="getstep(0,'iUnitTag5')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag5}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag6'" ng-click="getstep(0,'iUnitTag6')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag6}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag7'" ng-click="getstep(0,'iUnitTag7')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag7}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitTag8'" ng-click="getstep(0,'iUnitTag8')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag8}}</span>
+                                </div>
                                 <div ng-if="obj.ColumnName=='iUniqueDate'" ng-click="getstep(0,'iUniqueDate')" class="form-group">
                                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueDate}}</span>
                                 </div>
                                 <div ng-if="obj.ColumnName=='iUnitDate2'" ng-click="getstep(0,'iUnitDate2')" class="form-group">
 
                                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate2}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitDate3'" ng-click="getstep(0,'iUnitDate3')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate3}}</span>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitDate4'" ng-click="getstep(0,'iUnitDate4')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate4}}</span>
                                 </div>
                                 <div ng-if="obj.ColumnName=='iUnitNumber1'" ng-click="getstep(0,'iUnitNumber1')" class="form-group">
                                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber1}}</span>
@@ -1111,6 +1773,16 @@
                                 <div ng-if="obj.ColumnName=='iUnitNumber2'" ng-click="getstep(0,'iUnitNumber2')" class="form-group">
 
                                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber2}}</span>
+
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitNumber3'" ng-click="getstep(0,'iUnitNumber3')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber3}}</span>
+
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitNumber4'" ng-click="getstep(0,'iUnitNumber4')" class="form-group">
+
+                                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber4}}</span>
 
                                 </div>
 
@@ -1247,6 +1919,20 @@
                                     <a ng-click="UpDownValueUnit('UnitNumber2',true)" class="btn btn-gray"><i class="fa fa-plus"></i>Increase</a>
                                 </div>
                             </td>
+
+                            <td ng-if="CurrentActiveField=='iUnitNumber3' && UnitNumber3FieldSpecialType==14">
+
+                                <div>
+                                    <a ng-click="UpDownValueUnit('UnitNumber3',true)" class="btn btn-gray"><i class="fa fa-plus"></i>Increase</a>
+                                </div>
+                            </td>
+
+                            <td ng-if="CurrentActiveField=='iUnitNumber4' && UnitNumber4FieldSpecialType==14">
+
+                                <div>
+                                    <a ng-click="UpDownValueUnit('UnitNumber4',true)" class="btn btn-gray"><i class="fa fa-plus"></i>Increase</a>
+                                </div>
+                            </td>
                             <td ng-if="(GetCustomActivityObjByColumnmap(CurrentActiveField).cfdIsIncremental==true || GetCustomColumn(CurrentActiveField).cfdIsIncremental==true) &&(GetCustomActivityObjByColumnmap(CurrentActiveField).cfdDataType==true ||  GetCustomColumn(CurrentActiveField).cfdDataType=='number')">
 
                                 <div>
@@ -1277,6 +1963,18 @@
 
                                 <div class="alignright">
                                     <a ng-click="UpDownValueUnit('UnitNumber2',false)" class="btn btn-gray"><i class="fa fa-minus"></i>Decrease</a>
+                                </div>
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitNumber3' && UnitNumber3FieldSpecialType==14">
+
+                                <div class="alignright">
+                                    <a ng-click="UpDownValueUnit('UnitNumber3',false)" class="btn btn-gray"><i class="fa fa-minus"></i>Decrease</a>
+                                </div>
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitNumber4' && UnitNumber4FieldSpecialType==14">
+
+                                <div class="alignright">
+                                    <a ng-click="UpDownValueUnit('UnitNumber4',false)" class="btn btn-gray"><i class="fa fa-minus"></i>Decrease</a>
                                 </div>
                             </td>
 
@@ -1390,7 +2088,36 @@
                                 </div>
 
                             </td>
+                            <td ng-if="CurrentActiveField=='iUnitTag4'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
 
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitTag5'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitTag6'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitTag7'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitTag8'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
                             <td ng-if="CurrentActiveField=='iUniqueDate'">
                                 <div>
                                     <a ng-click="GetLastValue('Inv_UniqueDate','#UniqueDate')" test-case condition="GetLastValueData('Inv_UniqueDate')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
@@ -1400,6 +2127,18 @@
                             <td ng-if="CurrentActiveField=='iUnitDate2'">
                                 <div>
                                     <a ng-click="GetLastValue('Inv_UnitDate2','#UnitDate2')" test-case condition="GetLastValueData('Inv_UnitDate2')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitDate3'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitDate3','#UnitDate3')" test-case condition="GetLastValueData('Inv_UnitDate3')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitDate4'">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitDate4','#UnitDate4')" test-case condition="GetLastValueData('Inv_UnitDate4')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
                                 </div>
 
                             </td>
@@ -1415,7 +2154,18 @@
                                 </div>
 
                             </td>
+                            <td ng-if="CurrentActiveField=='iUnitNumber3' && UnitNumber3FieldSpecialType!=14">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitNumber3','#UnitNumber3')" test-case condition="GetLastValueData('Inv_UnitNumber3')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
 
+                            </td>
+                            <td ng-if="CurrentActiveField=='iUnitNumber4' && UnitNumber4FieldSpecialType!=14">
+                                <div>
+                                    <a ng-click="GetLastValue('Inv_UnitNumber4','#UnitNumber4')" test-case condition="GetLastValueData('Inv_UnitNumber4')" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
+                                </div>
+
+                            </td>
                             <td ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && obj.ColumnMap==CurrentActiveField && CurrentActiveFieldType.toLowerCase()=='inventory'">
                                 <div>
                                     <a ng-click="GetLastValueCustom(obj.cfdID,1)" test-case condition="GetLastValueData(obj.cfdID,1)" class="btn btn-gray waves-effect"><i class="fa fa-undo"></i>Reuse</a>
@@ -1432,7 +2182,7 @@
                             <td ng-if="IsinavailableInventoryField(CurrentActiveField)==true">
                                 <div class="alignright">
                                     <button class="scanbtn btn btn-gray" type="button" ng-disabled="InventoryObject.AutoID==true || IsItemLibrary==false" ng-if="CurrentActiveField=='pPart'" ng-click="ScanNew()"> <i class="fa fa-barcode waves-effect"></i>Scan</button>
-                                    <a class="scanbtn waves-effect btn btn-gray" ng-if="CurrentActiveField!='pPart'&& CurrentActiveField!='iQty' && UnitNumber1FieldSpecialType!=14 && UnitNumber2FieldSpecialType!=14" ng-click="ScanNew()"> <i class="fa fa-barcode waves-effect"></i>Scan</a>
+                                    <a class="scanbtn waves-effect btn btn-gray" ng-if="CurrentActiveField!='pPart'&& CurrentActiveField!='iQty' && UnitNumber1FieldSpecialType!=14 && UnitNumber2FieldSpecialType!=14 && Unitnumber3fieldspecialtype!=14 && Unitnumber4fieldspecialtype!=14" ng-click="ScanNew()"> <i class="fa fa-barcode waves-effect"></i>Scan</a>
                                 </div>
 
                             </td>
@@ -2349,7 +3099,7 @@
 
                                             <select ng-model="InventoryObject.UnitTag2" id="UnitTag2" class="form-control">
                                                 <option value="">-Select-</option>
-                                                <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
+                                                <option ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" ng-repeat="obj in UniqueTag2Combovalues">{{obj}}</option>
                                             </select>
 
 
@@ -2365,7 +3115,7 @@
                                         <div class="input-group" ng-click="Unitautocomplete('UnitTag2')">
                                             <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
 
-                                            <input id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
+                                            <input id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control" type="text" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" />
                                             <span ng-click="Unitautocomplete('UnitTag2')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
@@ -2411,7 +3161,7 @@
                                     <div ng-if="UnitTag2FieldSpecialType == 6">
                                         <div class="input-group">
 
-                                            <select id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag2}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))">
+                                            <select id="UnitTag2" ng-model="InventoryObject.UnitTag2" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag2}}" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))">
                                                 <option value="">choose week</option>
                                                 <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                                 <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -2489,7 +3239,7 @@
 
                                             <select ng-model="InventoryObject.UnitTag3" id="UnitTag3" class="form-control">
                                                 <option value="">-Select-</option>
-                                                <option ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
+                                                <option ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" ng-repeat="obj in UniqueTag3Combovalues">{{obj}}</option>
                                             </select>
 
 
@@ -2505,7 +3255,7 @@
                                         <div class="input-group" ng-click="Unitautocomplete('UnitTag3')">
                                             <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
 
-                                            <input id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" type="text" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
+                                            <input id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control" type="text" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" />
                                             <span ng-click="Unitautocomplete('UnitTag3')" class="input-group-addon last"><i class="fa fa-search"></i></span>
 
 
@@ -2554,7 +3304,7 @@
                                     <div ng-if="UnitTag3FieldSpecialType == 6">
                                         <div class="input-group">
 
-                                            <select id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag3}}" ng-blur="mtuvar1=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))">
+                                            <select id="UnitTag3" ng-model="InventoryObject.UnitTag3" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag3}}" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))">
                                                 <option value="">choose week</option>
                                                 <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
                                                 <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
@@ -2583,9 +3333,714 @@
 
 
 
-                                            <span ng-if="mtuvar2==false" class="redText">Please input some unique data</span>
+                                            <span ng-if="mtuvar3==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitTag2','#UnitTag2')" test-case condition="GetLastValueData('Inv_UnitTag2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iUnitTag4'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <!--Prefix , Suffix-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 0">
+                                        <div class="input-group">
+                                            <span ng-if="getUnitObjByName('UnitTag4').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag4').Prefix}}</span>
+
+                                            <input id="UnitTag4" data-prefix="{{getUnitObjByName('UnitTag4').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag4').Suffix}}" data-value="{{getUnitObjByName('UnitTag4').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag4').Prefix}}{{InventoryObject.UnitTag4}}{{getUnitObjByName('UnitTag4').Suffix}}" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="text" ng-model="InventoryObject.UnitTag4" class="form-control prepostUnit" />
+
+                                            <span ng-if="getUnitObjByName('UnitTag4').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag4').Suffix}}</span>
+
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Open Field-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 1">
+                                        <div class="input-group">
+                                            <input id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="text" ng-model="InventoryObject.UnitTag4" class="form-control" value="" />
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Dropdown-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 2">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select ng-model="InventoryObject.UnitTag4" id="UnitTag4" class="form-control">
+                                                <option value="">-Select-</option>
+                                                <option ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" ng-repeat="obj in UniqueTag4Combovalues">{{obj}}</option>
+                                            </select>
+
+
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Autocomplete-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 3">
+                                        <div class="input-group" ng-click="Unitautocomplete('UnitTag4')">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <input id="UnitTag4" ng-model="InventoryObject.UnitTag4" class="form-control" type="text" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" />
+                                            <span ng-click="Unitautocomplete('UnitTag4')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+
+
+
+
+
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Email-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 4">
+                                        <div class="input-group">
+                                            <input id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" type="email" ng-model="InventoryObject.UnitTag4" class="form-control" value="" />
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Month-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 5">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select id="UnitTag4" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))" ng-model="InventoryObject.UnitTag4" class="form-control">
+
+                                                <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag4"> {{n.Text}}</option>
+                                            </select>
+
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Week-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 6">
+                                        <div class="input-group">
+
+                                            <select id="UnitTag4" ng-model="InventoryObject.UnitTag4" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag4}}" ng-blur="mtuvar4=CheckUnitDataFieldValue('UnitTag4',CheckIsAllowDuplicate('UnitTag4'))">
+                                                <option value="">choose week</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                            </select>
+
+
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Radio-->
+                                    <div ng-if="UnitTag4FieldSpecialType == 12">
+                                        <div class="input-group" ng-click="Unitradiolist('UnitTag4')">
+                                            <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
+
+                                            <input type="text" id="UnitTag4" disabled="disabled" ng-model="InventoryObject.UnitTag4" class="form-control" />
+
+                                            <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag4')"><i class="fa fa-circle-o"></i></span>
+
+
+
+                                            <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag4','#UnitTag4')" test-case condition="GetLastValueData('Inv_UnitTag4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iUnitTag5'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <!--Prefix , Suffix-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 0">
+                                        <div class="input-group">
+                                            <span ng-if="getUnitObjByName('UnitTag5').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag5').Prefix}}</span>
+
+                                            <input id="UnitTag5" data-prefix="{{getUnitObjByName('UnitTag5').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag5').Suffix}}" data-value="{{getUnitObjByName('UnitTag5').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag5').Prefix}}{{InventoryObject.UnitTag5}}{{getUnitObjByName('UnitTag5').Suffix}}" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="text" ng-model="InventoryObject.UnitTag5" class="form-control prepostUnit" />
+
+                                            <span ng-if="getUnitObjByName('UnitTag5').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag5').Suffix}}</span>
+
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Open Field-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 1">
+                                        <div class="input-group">
+                                            <input id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="text" ng-model="InventoryObject.UnitTag5" class="form-control" value="" />
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Dropdown-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 2">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select ng-model="InventoryObject.UnitTag5" id="UnitTag5" class="form-control">
+                                                <option value="">-Select-</option>
+                                                <option ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" ng-repeat="obj in UniqueTag5Combovalues">{{obj}}</option>
+                                            </select>
+
+
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Autocomplete-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 3">
+                                        <div class="input-group" ng-click="Unitautocomplete('UnitTag5')">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <input id="UnitTag5" ng-model="InventoryObject.UnitTag5" class="form-control" type="text" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" />
+                                            <span ng-click="Unitautocomplete('UnitTag5')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+
+
+
+
+
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Email-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 4">
+                                        <div class="input-group">
+                                            <input id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" type="email" ng-model="InventoryObject.UnitTag5" class="form-control" value="" />
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Month-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 5">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select id="UnitTag5" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))" ng-model="InventoryObject.UnitTag5" class="form-control">
+
+                                                <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag5"> {{n.Text}}</option>
+                                            </select>
+
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Week-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 6">
+                                        <div class="input-group">
+
+                                            <select id="UnitTag5" ng-model="InventoryObject.UnitTag5" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag5}}" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitTag5',CheckIsAllowDuplicate('UnitTag5'))">
+                                                <option value="">choose week</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                            </select>
+
+
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5......','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Radio-->
+                                    <div ng-if="UnitTag5FieldSpecialType == 12">
+                                        <div class="input-group" ng-click="Unitradiolist('UnitTag5')">
+                                            <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
+
+                                            <input type="text" id="UnitTag5" disabled="disabled" ng-model="InventoryObject.UnitTag5" class="form-control" />
+
+                                            <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag5')"><i class="fa fa-circle-o"></i></span>
+
+
+
+                                            <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag5','#UnitTag5')" test-case condition="GetLastValueData('Inv_UnitTag5')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iUnitTag6'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <!--Prefix , Suffix-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 0">
+                                        <div class="input-group">
+                                            <span ng-if="getUnitObjByName('UnitTag6').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag6').Prefix}}</span>
+
+                                            <input id="UnitTag6" data-prefix="{{getUnitObjByName('UnitTag6').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag6').Suffix}}" data-value="{{getUnitObjByName('UnitTag6').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag6').Prefix}}{{InventoryObject.UnitTag6}}{{getUnitObjByName('UnitTag6').Suffix}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="text" ng-model="InventoryObject.UnitTag6" class="form-control prepostUnit" />
+
+                                            <span ng-if="getUnitObjByName('UnitTag6').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag6').Suffix}}</span>
+
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Open Field-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 1">
+                                        <div class="input-group">
+                                            <input id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="text" ng-model="InventoryObject.UnitTag6" class="form-control" value="" />
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Dropdown-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 2">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select ng-model="InventoryObject.UnitTag6" id="UnitTag6" class="form-control">
+                                                <option value="">-Select-</option>
+                                                <option ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" ng-repeat="obj in UniqueTag6Combovalues">{{obj}}</option>
+                                            </select>
+
+
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Autocomplete-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 3">
+                                        <div class="input-group" ng-click="Unitautocomplete('UnitTag6')">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <input id="UnitTag6" ng-model="InventoryObject.UnitTag6" class="form-control" type="text" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" />
+                                            <span ng-click="Unitautocomplete('UnitTag6')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+
+
+
+
+
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Email-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 4">
+                                        <div class="input-group">
+                                            <input id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" type="email" ng-model="InventoryObject.UnitTag6" class="form-control" value="" />
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Month-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 5">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select id="UnitTag6" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))" ng-model="InventoryObject.UnitTag6" class="form-control">
+
+                                                <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag6"> {{n.Text}}</option>
+                                            </select>
+
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Week-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 6">
+                                        <div class="input-group">
+
+                                            <select id="UnitTag6" ng-model="InventoryObject.UnitTag6" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag6}}" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitTag6',CheckIsAllowDuplicate('UnitTag6'))">
+                                                <option value="">choose week</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                            </select>
+
+
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Radio-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 12">
+                                        <div class="input-group" ng-click="Unitradiolist('UnitTag6')">
+                                            <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
+
+                                            <input type="text" id="UnitTag6" disabled="disabled" ng-model="InventoryObject.UnitTag6" class="form-control" />
+
+                                            <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag6')"><i class="fa fa-circle-o"></i></span>
+
+
+
+                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag6','#UnitTag6')" test-case condition="GetLastValueData('Inv_UnitTag6')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iUnitTag7'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <!--Prefix , Suffix-->
+                                    <div ng-if="UnitTag6FieldSpecialType == 0">
+                                        <div class="input-group">
+                                            <span ng-if="getUnitObjByName('UnitTag6').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag7').Prefix}}</span>
+
+                                            <input id="UnitTag7" data-prefix="{{getUnitObjByName('UnitTag7').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag6').Suffix}}" data-value="{{getUnitObjByName('UnitTag7').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag7').Prefix}}{{InventoryObject.UnitTag7}}{{getUnitObjByName('UnitTag7').Suffix}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="text" ng-model="InventoryObject.UnitTag7" class="form-control prepostUnit" />
+
+                                            <span ng-if="getUnitObjByName('UnitTag7').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag7').Suffix}}</span>
+
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Open Field-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 1">
+                                        <div class="input-group">
+                                            <input id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="text" ng-model="InventoryObject.UnitTag7" class="form-control" value="" />
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Dropdown-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 2">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select ng-model="InventoryObject.UnitTag7" id="UnitTag7" class="form-control">
+                                                <option value="">-Select-</option>
+                                                <option ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" ng-repeat="obj in UniqueTag7Combovalues">{{obj}}</option>
+                                            </select>
+
+
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Autocomplete-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 3">
+                                        <div class="input-group" ng-click="Unitautocomplete('UnitTag7')">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <input id="UnitTag7" ng-model="InventoryObject.UnitTag7" class="form-control" type="text" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" />
+                                            <span ng-click="Unitautocomplete('UnitTag7')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+
+
+
+
+
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Email-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 4">
+                                        <div class="input-group">
+                                            <input id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" type="email" ng-model="InventoryObject.UnitTag7" class="form-control" value="" />
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Month-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 5">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select id="UnitTag7" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))" ng-model="InventoryObject.UnitTag7" class="form-control">
+
+                                                <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag7"> {{n.Text}}</option>
+                                            </select>
+
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Week-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 6">
+                                        <div class="input-group">
+
+                                            <select id="UnitTag7" ng-model="InventoryObject.UnitTag7" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag7}}" ng-blur="mtuvar7=CheckUnitDataFieldValue('UnitTag7',CheckIsAllowDuplicate('UnitTag7'))">
+                                                <option value="">choose week</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                            </select>
+
+
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Radio-->
+                                    <div ng-if="UnitTag7FieldSpecialType == 12">
+                                        <div class="input-group" ng-click="Unitradiolist('UnitTag7')">
+                                            <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
+
+                                            <input type="text" id="UnitTag7" disabled="disabled" ng-model="InventoryObject.UnitTag7" class="form-control" />
+
+                                            <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag7')"><i class="fa fa-circle-o"></i></span>
+
+
+
+                                            <span ng-if="mtuvar7==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag7','#UnitTag7')" test-case condition="GetLastValueData('Inv_UnitTag7')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.ColumnName=='iUnitTag8'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <!--Prefix , Suffix-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 0">
+                                        <div class="input-group">
+                                            <span ng-if="getUnitObjByName('UnitTag8').Prefix != null" class="input-group-addon last unitprepend">{{getUnitObjByName('UnitTag8').Prefix}}</span>
+
+                                            <input id="UnitTag8" data-prefix="{{getUnitObjByName('UnitTag8').Prefix}}" data-suffix="{{getUnitObjByName('UnitTag8').Suffix}}" data-value="{{getUnitObjByName('UnitTag8').FieldDefaultValue}}" data-original-value="{{getUnitObjByName('UnitTag8').Prefix}}{{InventoryObject.UnitTag8}}{{getUnitObjByName('UnitTag8').Suffix}}" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="text" ng-model="InventoryObject.UnitTag8" class="form-control prepostUnit" />
+
+                                            <span ng-if="getUnitObjByName('UnitTag8').Suffix != null" class="input-group-addon last unitappend">{{getUnitObjByName('UnitTag8').Suffix}}</span>
+
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Open Field-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 1">
+                                        <div class="input-group">
+                                            <input id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="text" ng-model="InventoryObject.UnitTag8" class="form-control" value="" />
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Dropdown-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 2">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select ng-model="InventoryObject.UnitTag8" id="UnitTag8" class="form-control">
+                                                <option value="">-Select-</option>
+                                                <option ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" ng-repeat="obj in UniqueTag8Combovalues">{{obj}}</option>
+                                            </select>
+
+
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Autocomplete-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 3">
+                                        <div class="input-group" ng-click="Unitautocomplete('UnitTag8')">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="text" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <input id="UnitTag8" ng-model="InventoryObject.UnitTag8" class="form-control" type="text" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" />
+                                            <span ng-click="Unitautocomplete('UnitTag8')" class="input-group-addon last"><i class="fa fa-search"></i></span>
+
+
+
+
+
+
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Email-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 4">
+                                        <div class="input-group">
+                                            <input id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" type="email" ng-model="InventoryObject.UnitTag8" class="form-control" value="" />
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Month-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 5">
+                                        <div class="input-group">
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="month" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+
+                                            <select id="UnitTag8" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))" ng-model="InventoryObject.UnitTag8" class="form-control">
+
+                                                <option ng-repeat="n in MonthlistGlobal track by n.Value" value="{{n.Value}}" ng-selected="n.Value == InventoryObject.UnitTag8"> {{n.Text}}</option>
+                                            </select>
+
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Week-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 6">
+                                        <div class="input-group">
+
+                                            <select id="UnitTag8" ng-model="InventoryObject.UnitTag8" class="form-control weekPicker" selectvalue="{{InventoryObject.UnitTag8}}" ng-blur="mtuvar8=CheckUnitDataFieldValue('UnitTag8',CheckIsAllowDuplicate('UnitTag8'))">
+                                                <option value="">choose week</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear-1}}-W{{n}}">Week {{n}}, {{CurrentYear-1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear}}-W{{n}}">Week {{n}}, {{CurrentYear}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+1}}-W{{n}}">Week {{n}}, {{CurrentYear+1}}</option>
+                                                <option ng-repeat="n in weeklist" value="{{CurrentYear+2}}-W{{n}}">Week {{n}}, {{CurrentYear+2}}</option>
+                                            </select>
+
+
+                                            <!--<input id="UnitTag3" ng-blur="mtuvar3=CheckUnitDataFieldValue('UnitTag3',CheckIsAllowDuplicate('UnitTag3'))" type="week" ng-model="InventoryObject.UnitTag3" class="form-control" value="" />-->
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Radio-->
+                                    <div ng-if="UnitTag8FieldSpecialType == 12">
+                                        <div class="input-group" ng-click="Unitradiolist('UnitTag8')">
+                                            <!--<input id="UnitTag2" ng-blur="mtuvar2=CheckUnitDataFieldValue('UnitTag2',CheckIsAllowDuplicate('UnitTag2'))" type="text" ng-model="InventoryObject.UnitTag2" class="form-control" />-->
+
+                                            <input type="text" id="UnitTag8" disabled="disabled" ng-model="InventoryObject.UnitTag8" class="form-control" />
+
+                                            <span class="input-group-addon last" ng-click="Unitradiolist('UnitTag8')"><i class="fa fa-circle-o"></i></span>
+
+
+
+                                            <span ng-if="mtuvar8==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitTag8','#UnitTag8')" test-case condition="GetLastValueData('Inv_UnitTag8')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
@@ -2594,14 +4049,16 @@
 
 
 
+
+
                                 <div ng-if="obj.ColumnName=='iUniqueDate'" class="form-group">
                                     <label>{{obj.ColumnLabel}}</label>
 
                                     <div class="input-group">
-                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==16" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="datetime-local" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==17" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="time" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType!=16 && UniqueDateFieldSpecialType!=17" ng-blur="mtuvar4=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" />
-                                        <span ng-if="mtuvar4==false" class="redText">Please input some unique data</span>
+                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==16" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="datetime-local" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType==17" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="time" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                        <input id="UniqueDate" ng-if="UniqueDateFieldSpecialType!=16 && UniqueDateFieldSpecialType!=17" ng-blur="mtuvar9=CheckUnitDataFieldValue('UniqueDate',CheckIsAllowDuplicate('UniqueDate'))" type="date" ng-model="InventoryObject.UniqueDate" class="form-control" />
+                                        <span ng-if="mtuvar9==false" class="redText">Please input some unique data</span>
 
                                         <span ng-click="GetLastValue('Inv_UniqueDate','#UniqueDate')" test-case condition="GetLastValueData('Inv_UniqueDate')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
@@ -2613,16 +4070,44 @@
                                     <label>{{obj.ColumnLabel}}</label>
 
                                     <div class="input-group">
-                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==16" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="datetime-local" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==17" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="time" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType!=16 && UnitDate2FieldSpecialType!=17" ng-blur="mtuvar5=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" />
-                                        <span ng-if="mtuvar5==false" class="redText">Please input some unique data</span>
+                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==16" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="datetime-local" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType==17" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="time" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                        <input id="UnitDate2" ng-if="UnitDate2FieldSpecialType!=16 && UnitDate2FieldSpecialType!=17" ng-blur="mtuvar10=CheckUnitDataFieldValue('UnitDate2',CheckIsAllowDuplicate('UnitDate2'))" type="date" ng-model="InventoryObject.UnitDate2" class="form-control" />
+                                        <span ng-if="mtuvar10==false" class="redText">Please input some unique data</span>
 
                                         <span ng-click="GetLastValue('Inv_UnitDate2','#UnitDate2')" test-case condition="GetLastValueData('Inv_UnitDate2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
                                 </div>
 
+                                <div ng-if="obj.ColumnName=='iUnitDate3'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <div class="input-group">
+                                        <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType==16" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="datetime-local" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                        <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType==17" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="time" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                        <input id="UnitDate3" ng-if="UnitDate3FieldSpecialType!=16 && UnitDate3FieldSpecialType!=17" ng-blur="mtuvar11=CheckUnitDataFieldValue('UnitDate3',CheckIsAllowDuplicate('UnitDate3'))" type="date" ng-model="InventoryObject.UnitDate3" class="form-control" />
+                                        <span ng-if="mtuvar11==false" class="redText">Please input some unique data</span>
+
+                                        <span ng-click="GetLastValue('Inv_UnitDate3','#UnitDate3')" test-case condition="GetLastValueData('Inv_UnitDate3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                    </div>
+                                </div>
+                                <div ng-if="obj.ColumnName=='iUnitDate4'" class="form-group">
+
+                                    <label>{{obj.ColumnLabel}}</label>
+
+                                    <div class="input-group">
+                                        <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType==16" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="datetime-local" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                        <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType==17" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="time" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                        <input id="UnitDate4" ng-if="UnitDate4FieldSpecialType!=16 && UnitDate4FieldSpecialType!=17" ng-blur="mtuvar12=CheckUnitDataFieldValue('UnitDate4',CheckIsAllowDuplicate('UnitDate4'))" type="date" ng-model="InventoryObject.UnitDate4" class="form-control" />
+                                        <span ng-if="mtuvar12==false" class="redText">Please input some unique data</span>
+
+                                        <span ng-click="GetLastValue('Inv_UnitDate4','#UnitDate4')" test-case condition="GetLastValueData('Inv_UnitDate4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                        <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                    </div>
+                                </div>
 
 
                                 <div ng-if="obj.ColumnName=='iUnitNumber1'" class="form-group">
@@ -2631,8 +4116,10 @@
                                     <!--NumberType Unit Data Fields-->
                                     <div ng-if="UnitNumber1FieldSpecialType != 14 && UnitNumber1FieldSpecialType != 21">
                                         <div class="input-group customnumbergroup">
-                                            <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                        
+
+                                            <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                            <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
@@ -2641,8 +4128,8 @@
                                     <!--NumberIncrementerType Unit Data Fields-->
                                     <div ng-if="UnitNumber1FieldSpecialType == 14">
                                         <div class="input-group customnumbergroup">
-                                            <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                            <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                            <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                             <span ng-click="UpDownValueUnit('UnitNumber1',false)" class="input-group-addon last">
                                                 <i class="fa fa-minus"></i>
                                             </span>
@@ -2658,8 +4145,8 @@
                                     <div ng-if="UnitNumber1FieldSpecialType == 21">
                                         <div class="input-group customnumbergroup">
                                             <span class="input-group-addon currency"> $</span>
-                                            <input id="UnitNumber1" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                            <input id="UnitNumber1" ng-blur="mtuvar13=CheckUnitDataFieldValue('UnitNumber1',CheckIsAllowDuplicate('UnitNumber1'))" type="number" max="{{UnitNumber1FieldNumberMax}}" min="{{UnitNumber1FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber1" />
+                                            <span ng-if="mtuvar13==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber1','#UnitNumber1')" test-case condition="GetLastValueData('Inv_UnitNumber1')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
@@ -2674,8 +4161,10 @@
                                     <!--NumberType Unit Data Fields-->
                                     <div ng-if="UnitNumber2FieldSpecialType!= 14 && UnitNumber2FieldSpecialType!= 21">
                                         <div class="input-group customnumbergroup">
-                                            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+
+                                        
+                                            <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                            <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
                                             <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
@@ -2685,8 +4174,8 @@
                                     <div ng-if="UnitNumber2FieldSpecialType == 14">
 
                                         <div class="input-group customnumbergroup">
-                                            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                            <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                            <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="UpDownValueUnit('UnitNumber2',false)" class="input-group-addon last">
                                                 <i class="fa fa-minus"></i>
@@ -2703,11 +4192,115 @@
 
                                         <div class="input-group customnumbergroup">
 
+                                        
+
                                             <span class="input-group-addon currency"> $</span>
-                                            <input id="UnitNumber2" ng-blur="mtuvar6=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
-                                            <span ng-if="mtuvar6==false" class="redText">Please input some unique data</span>
+                                            <input id="UnitNumber2" ng-blur="mtuvar14=CheckUnitDataFieldValue('UnitNumber2',CheckIsAllowDuplicate('UnitNumber2'))" type="number" max="{{UnitNumber2FieldNumberMax}}" min="{{UnitNumber2FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber2" />
+                                            <span ng-if="mtuvar14==false" class="redText">Please input some unique data</span>
 
                                             <span ng-click="GetLastValue('Inv_UnitNumber2','#UnitNumber2')" test-case condition="GetLastValueData('Inv_UnitNumber2')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div ng-if="obj.ColumnName=='iUnitNumber3'" class="form-group">
+                                    <label>{{obj.ColumnLabel}}</label>
+
+
+                                    <!--NumberType Unit Data Fields-->
+                                    <div ng-if="UnitNumber3FieldSpecialType!= 14 && UnitNumber3FieldSpecialType!= 21">
+                                        <div class="input-group customnumbergroup">
+
+                                     
+                                            <input id="UnitNumber3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                            <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+                                            <span ng-click="GetLastValue('Inv_UnitNumber3','#UnitNumber3')" test-case condition="GetLastValueData('Inv_UnitNumber3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--NumberIncrementerType Unit Data Fields-->
+                                    <div ng-if="UnitNumber3FieldSpecialType == 14">
+
+                                        <div class="input-group customnumbergroup">
+
+                                         
+                                            <input id="UnitNumber3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                            <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="UpDownValueUnit('UnitNumber3',false)" class="input-group-addon last">
+                                                <i class="fa fa-minus"></i>
+                                            </span>
+
+                                            <span ng-click="UpDownValueUnit('UnitNumber3',true)" class="input-group-addon last">
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!--currency Unit Data Fields-->
+                                    <div ng-if="UnitNumber3FieldSpecialType == 21">
+
+                                        <div class="input-group customnumbergroup">
+
+                                        
+
+                                            <span class="input-group-addon currency"> $</span>
+                                            <input id="UnitNumber3" ng-blur="mtuvar15=CheckUnitDataFieldValue('UnitNumber3',CheckIsAllowDuplicate('UnitNumber3'))" type="number" max="{{UnitNumber3FieldNumberMax}}" min="{{UnitNumber3FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber3" />
+                                            <span ng-if="mtuvar15==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="GetLastValue('Inv_UnitNumber3','#UnitNumber3')" test-case condition="GetLastValueData('Inv_UnitNumber3')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div ng-if="obj.ColumnName=='iUnitNumber4'" class="form-group">
+                                    <label>{{obj.ColumnLabel}}</label>
+
+
+                                    <!--NumberType Unit Data Fields-->
+                                    <div ng-if="UnitNumber4FieldSpecialType!= 14 && UnitNumber4FieldSpecialType!= 21">
+                                        <div class="input-group customnumbergroup">
+
+                                       
+                                            <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                            <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+                                            <span ng-click="GetLastValue('Inv_UnitNumber4','#UnitNumber4')" test-case condition="GetLastValueData('Inv_UnitNumber4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
+                                            <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <!--NumberIncrementerType Unit Data Fields-->
+                                    <div ng-if="UnitNumber4FieldSpecialType == 14">
+
+                                        <div class="input-group customnumbergroup">
+
+                                     
+                                            <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                            <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+
+                                            <span ng-click="UpDownValueUnit('UnitNumber4',false)" class="input-group-addon last">
+                                                <i class="fa fa-minus"></i>
+                                            </span>
+
+                                            <span ng-click="UpDownValueUnit('UnitNumber4',true)" class="input-group-addon last">
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!--currency Unit Data Fields-->
+                                    <div ng-if="UnitNumber4FieldSpecialType == 21">
+
+                                        <div class="input-group customnumbergroup">
+                                            <span class="input-group-addon currency"> $</span>
+                                            <input id="UnitNumber4" ng-blur="mtuvar16=CheckUnitDataFieldValue('UnitNumber4',CheckIsAllowDuplicate('UnitNumber4'))" type="number" max="{{UnitNumber4FieldNumberMax}}" min="{{UnitNumber4FieldNumberMin}}" class="form-control" ng-model="InventoryObject.UnitNumber4" />
+                                            <span ng-if="mtuvar16==false" class="redText">Please input some unique data</span>
+                                            <span ng-click="GetLastValue('Inv_UnitNumber4','#UnitNumber4')" test-case condition="GetLastValueData('Inv_UnitNumber4')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                             <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                         </div>
                                     </div>
@@ -3516,12 +5109,40 @@
 
                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag3}}</span>
                 </div>
+                <div ng-if="obj.ColumnName=='iUnitTag4'" ng-click="getstep(0,'iUnitTag4')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag4}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitTag5'" ng-click="getstep(0,'iUnitTag5')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag5}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitTag6'" ng-click="getstep(0,'iUnitTag6')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag6}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitTag7'" ng-click="getstep(0,'iUnitTag7')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag7}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitTag8'" ng-click="getstep(0,'iUnitTag8')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitTag8}}</span>
+                </div>
                 <div ng-if="obj.ColumnName=='iUniqueDate'" ng-click="getstep(0,'iUniqueDate')" class="form-group">
                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UniqueDate}}</span>
                 </div>
                 <div ng-if="obj.ColumnName=='iUnitDate2'" ng-click="getstep(0,'iUnitDate2')" class="form-group">
 
                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate2}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitDate3'" ng-click="getstep(0,'iUnitDate3')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate3}}</span>
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitDate4'" ng-click="getstep(0,'iUnitDate4')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitDate4}}</span>
                 </div>
                 <div ng-if="obj.ColumnName=='iUnitNumber1'" ng-click="getstep(0,'iUnitNumber1')" class="form-group">
                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber1}}</span>
@@ -3530,6 +5151,16 @@
                 <div ng-if="obj.ColumnName=='iUnitNumber2'" ng-click="getstep(0,'iUnitNumber2')" class="form-group">
 
                     <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber2}}</span>
+
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitNumber3'" ng-click="getstep(0,'iUnitNumber3')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber3}}</span>
+
+                </div>
+                <div ng-if="obj.ColumnName=='iUnitNumber4'" ng-click="getstep(0,'iUnitNumber4')" class="form-group">
+
+                    <span class="mylabel">{{obj.ColumnLabel}}</span> <span>{{InventoryObject.UnitNumber4}}</span>
 
                 </div>
 
@@ -3872,6 +5503,21 @@
     </a>
     <a ng-if="IsProperEmail(InventoryObject.UnitTag3) == false" ng-click="getstep(3,'iUnitTag3')">
         Unit Tag3
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag4) == false" ng-click="getstep(3,'iUnitTag4')">
+        Unit Tag4
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag5) == false" ng-click="getstep(3,'iUnitTag5')">
+        Unit Tag5
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag6) == false" ng-click="getstep(3,'iUnitTag6')">
+        Unit Tag6
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag7) == false" ng-click="getstep(3,'iUnitTag7')">
+        Unit Tag7
+    </a>
+    <a ng-if="IsProperEmail(InventoryObject.UnitTag8) == false" ng-click="getstep(3,'iUnitTag8')">
+        Unit Tag8
     </a>
     <a ng-click="getstepCustom(1,obj.ColumnMap)" ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && IsProperEmail(InventoryObject.CustomPartData[$index].Value)==false">
 
