@@ -496,11 +496,11 @@ input[type=text]:focus {
 }
 
 
-.Increase {
+.Add {
     background-color: rgba(23,123,61,0.2) !important;
 }
 
-.Decrease {
+.Remove {
     background-color: rgba(175,37,37,0.2) !important;
 }
 
@@ -508,12 +508,12 @@ input[type=text]:focus {
     background-color: rgba(198,94,40,0.2) !important;
 }
 
-.Tag {
+.Change {
     background-color: rgba(13,25,15,0.2) !important;
 }
 
-.MoveTagUpdate {
-    background-color: rgba(140,105,0,0.4) !important;
+.Move.Change {
+    background-color: rgba(145,104,0,0.4) !important;
 }
 
 .bgm-MoveTagUpdate {
@@ -531,11 +531,11 @@ input[type=text]:focus {
 
 
 
-.morebtn.Increase {
+.morebtn.Add {
     background-color: rgb(23,123,61) !important;
 }
 
-.morebtn.Decrease {
+.morebtn.Remove {
     background-color: rgb(175,37,37) !important;
 }
 
@@ -543,7 +543,7 @@ input[type=text]:focus {
     background-color: rgb(198,94,40) !important;
 }
 
-.morebtn.Tag {
+.morebtn.Change {
     background-color: rgb(13,25,15) !important;
 }
 
@@ -555,9 +555,9 @@ input[type=text]:focus {
     background-color: rgb(206,89,161) !important;
 }
 
-.morebtn.MoveTagUpdate {
-    background-color: #C65E28;
-   
+.morebtn.Move.Change {
+    background-color: #8C6900 !important;
+ 
 }
 
 
