@@ -1609,14 +1609,14 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
         var _beforePos = $(_id).css("height").replace("px", "");
         var _afterPos = $(_id).css("height").replace("px", "");
         var _isOpen = false;
-        if ($(_iconID).hasClass("fa-chevron-up")) {
+        if ($(_iconID).hasClass("fa-chevron-down")) {
             _isOpen = true;
-            $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+            $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
             $(_id).find(".Celldata").removeClass("overflowtext");
         }
         else {
             _isOpen = false;
-            $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+            $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
             $(_id).find(".Celldata").addClass("overflowtext");
         }
 

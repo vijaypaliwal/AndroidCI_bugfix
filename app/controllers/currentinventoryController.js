@@ -492,7 +492,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "Type": Type }),
                success: function (response) {
 
-
+                   debugger;
 
 
                    if (response.GetCustomFieldsDataResult.Success == true) {
@@ -648,7 +648,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     // Function to get special type of unit data fields.
 
     $scope.getUnitSpecialType = function (FieldName) {
-
+        debugger;
         if ($scope.UnitDataList.length > 0) {
             for (var i = 0; i < $scope.UnitDataList.length; i++) {
                 if ($scope.UnitDataList[i].FieldName == FieldName || "i" + $scope.UnitDataList[i].FieldName == FieldName) {
@@ -796,8 +796,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
     }
 
     // Get cell's data according to column name and index
-    $scope.GetCellData = function (columnName, Index, isCalculated) {
-
+    $scope.GetCellData = function (columnName, Index, isCalculated) {     
         
         var _ID = TryParseInt(columnName, 0);
         if (_ID != 0) {
@@ -1389,14 +1388,14 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
         var _beforePos = $(_id).css("height").replace("px", "");
         var _afterPos = $(_id).css("height").replace("px", "");
         var _isOpen = false;
-        if ($(_iconID).hasClass("fa-chevron-up")) {
+        if ($(_iconID).hasClass("fa-chevron-down")) {
             _isOpen = true;
-            $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+            $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
             $(_id).find(".Celldata").removeClass("overflowtext");
         }
         else {
             _isOpen = false;
-            $(_iconID).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+            $(_iconID).removeClass("fa-chevron-up").addClass("fa-chevron-down");
             $(_id).find(".Celldata").addClass("overflowtext");
         }
         $(_id).find(".ExtraTr").toggle("slow");
@@ -1502,7 +1501,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
 
     function GetColumnDataType(ColumnName) {
-
+        debugger;
         for (var i = 0; i < $scope.Columns.length; i++) {
             if ($scope.Columns[i].ColumnID == ColumnName) {
                 return $scope.Columns[i].ColumnDataType;

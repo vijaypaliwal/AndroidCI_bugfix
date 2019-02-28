@@ -130,10 +130,10 @@
                                     <span ng-if="_obj2.DisplayLabel =='Status'"> {{statusLabel}} </span>
     <!--{{_obj2.DisplayLabel}}-->
                                 
-                                 <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='DESC'" class=" sortIcon fa fa-chevron-down"></i> <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='ASC'" class="sortIcon fa fa-chevron-up"></i></code>
-                                <a class="morebtn" ng-click="ShowHideDiv(_obj.iID)" ng-if="$index==0"><i class="fa fa-chevron-up" id="icon_{{_obj.iID}}"></i> <span class="innerCounter" ng-if="_obj.CountData>1">{{_obj.CountData}}</span></a>
+                                 <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='DESC'" class=" sortIcon fa fa-chevron-down"></i> <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='ASC'" class="sortIcon fa fa-chevron-down"></i></code>
+                                <a class="morebtn" ng-click="ShowHideDiv(_obj.iID)" ng-if="$index==0"><i class="fa fa-chevron-down" id="icon_{{_obj.iID}}"></i> <span class="innerCounter" ng-if="_obj.CountData>1">{{_obj.CountData}}</span></a>
                             </td>
-                            <td width="50%" class="Celldata overflowtext"><span ng-if="getUnitSpecialType(_obj2.ColumnID)==21">$</span> {{GetCellData(_obj2.ColumnID,-1,parentIndex,_obj2.isCalculated,false) }}</td>
+                            <td width="50%" class="Celldata overflowtext"><span ng-if="getUnitSpecialType(_obj2.ColumnID)==21&& GetCellData(_obj2.ColumnID,-1,parentIndex,_obj2.isCalculated,false)!=''">$</span> {{GetCellData(_obj2.ColumnID,-1,parentIndex,_obj2.isCalculated,false) }}</td>
                         </tr>
 
                         <tr ng-if="_obj.CountData>1" class="ExtraTr">
