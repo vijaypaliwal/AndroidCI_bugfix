@@ -797,7 +797,7 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
     // Get cell's data according to column name and index
     $scope.GetCellData = function (columnName, Index, isCalculated) {     
-        
+        debugger;
         var _ID = TryParseInt(columnName, 0);
         if (_ID != 0) {
             columnName = $scope.GetCustomFieldByID(_ID);
