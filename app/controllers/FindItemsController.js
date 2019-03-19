@@ -543,7 +543,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
       
 
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
-            if ($(window).scrollTop() > 700 ) {
+            if ($(window).scrollTop() > 1300 ) {
 
                
                 if (_PageSize < $scope.totalrecords) {
