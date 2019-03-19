@@ -296,8 +296,8 @@ app.controller('detailController', ['$scope', 'localStorageService', 'authServic
 
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
             quality: 50,
-            targetWidth: 120,
-            targeHeight: 120,
+           // targetWidth: 120,
+           // targeHeight: 120,
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: true,
