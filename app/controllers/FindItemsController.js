@@ -540,14 +540,12 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $(window).scroll(function () {
         var _SearchValue = $.trim($("#MasterSearch").val());
 
-        alert("1" + $(document).height());
-
-        alert("2" + $(window).height());
+      
 
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
-            if ($(window).scrollTop() == $(document).height() - $(window).height() ) {
+            if ($(window).scrollTop() > 700 ) {
 
-                alert("raj");
+               
                 if (_PageSize < $scope.totalrecords) {
 
                     _IsLazyLoadingUnderProgress = 1;
