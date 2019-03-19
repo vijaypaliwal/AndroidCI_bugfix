@@ -422,7 +422,7 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: true,
-            saveToPhotoAlbum: true,
+            saveToPhotoAlbum: false,
         });
     }
 
