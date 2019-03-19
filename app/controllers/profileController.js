@@ -222,10 +222,11 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
 
                    var d = new Date();
                    $("#myimg").attr("src", $scope.picURl + "?" + d.getTime());
-                   $("#myimgProfile").attr("src", $scope.ProfilePicURl + "?" + d.getTime());
+                   $("#myimgProfile").attr("src", $scope.picURl + "?" + d.getTime());
                    $("#myimgProfile1").attr("src", $scope.ProfilePicURl + "?" + d.getTime());
 
                    $("#imagepreview").attr("src", $scope.picURl + "?" + d.getTime());
+                   CheckScopeBeforeApply();
 
                },
                error: function (err) {
