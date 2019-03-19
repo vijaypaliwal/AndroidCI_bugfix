@@ -540,17 +540,15 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $(window).scroll(function () {
         var _SearchValue = $.trim($("#MasterSearch").val());
 
-      
+        alert("1" + $(document).height());
+
+        alert("2" + $(window).height());
 
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
+            if ($(window).scrollTop() == $(document).height() - $(window).height() ) {
 
-          
-            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-
-                alert("13");
+                alert("raj");
                 if (_PageSize < $scope.totalrecords) {
-
-                    alert("Scroll 1");
 
                     _IsLazyLoadingUnderProgress = 1;
                     _PageSize = _TotalRecordsCurrent + getIncrementor($scope.totalrecords);
@@ -558,7 +556,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     CheckScopeBeforeApply();
                     $scope.GetInventories();
 
-                    alert("Scroll 2");
+                   
                 }
                 else {
                     // log.info("You have already loaded all data.")
