@@ -416,14 +416,14 @@ app.controller('profileController', ['$scope', 'localStorageService', 'authServi
     }
 
 
+
     $scope.capturePhotoNew = function () {
         navigator.camera.getPicture($scope.onPhotoDataSuccessNew, $scope.onFail, {
             quality: 50,
-         
             correctOrientation: true,
             destinationType: destinationType.DATA_URL,
             allowEdit: true,
-            saveToPhotoAlbum: true,
+            saveToPhotoAlbum: false,
         });
     }
 
