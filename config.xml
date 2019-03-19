@@ -41,7 +41,7 @@
   
   <!--<plugin name="cordova-plugin-camera" source="npm" spec="~2.3.1"/>-->
   
-    <plugin name="cordova-plugin-camera" source="npm" spec="*">
+    <plugin name="cordova-plugin-camera" source="npm" spec="~2.3.1">
     <variable name="CAMERA_USAGE_DESCRIPTION" value="Clearly Inventory needs to access your photos so that we can display images of your inventory." />
     <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Clearly Inventory needs to access your photos so that we can display images of your inventory." />
     <variable name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" value="Clearly Inventory needs to access your photos so that we can display images of your inventory." />
