@@ -3450,7 +3450,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                         //   alert("NTU");
                         // 
 
-                        $scope.CustomActivityDataList[i].cfdIncludeOnMoveTagUpdate = true;
+                     //   $scope.CustomActivityDataList[i].cfdIncludeOnMoveTagUpdate = true;
 
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnMoveTagUpdate) {
 
