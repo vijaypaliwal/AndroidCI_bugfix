@@ -3407,11 +3407,12 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
     $scope.IsActiveTransactionField = function (cfdid) {
 
-
-
-
+        debugger;
         for (var i = 0; i < $scope.CustomActivityDataList.length; i++) {
             if ($scope.CustomActivityDataList[i].cfdCustomFieldType.toLowerCase() == "inventory" && $scope.CustomActivityDataList[i].cfdID == cfdid) {
+
+              
+
                 switch ($scope.CurrentOperation) {
                     case "Increase":
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnAdd) {
@@ -3424,6 +3425,23 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                             return true;
                         }
                         break;
+                    case "Adjust":
+
+                        if ($scope.onlyShowIncreaseAdjustActivity == true) {
+                            if ($scope.CustomActivityDataList[i].cfdIncludeOnAdd) {
+
+                                return true;
+                            }
+                            break;
+                        }
+                        if ($scope.onlyShowDecreaseAdjustActivity == true) {
+                            if ($scope.CustomActivityDataList[i].cfdIncludeOnSubtract) {
+                                return true;
+                            }
+                            break;
+                        }
+                        break;
+
                     case "Move":
                         if ($scope.CustomActivityDataList[i].cfdIncludeOnMove) {
                             return true;
