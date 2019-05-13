@@ -2704,7 +2704,7 @@
                                         <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                             <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
-                                                <input id="CustomActivity_Increase_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
+                                                <input id="CustomActivity_Increase_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" ng-if="obj.cfdInputMask==''||obj.cfdInputMask=='text' ||obj.cfdInputMask==null" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
                                                 <input id="CustomActivity_Increase_{{obj.cfdID}}" name="CustomActivityIncrease_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='email'" ng-model="obj.CfValue" type="{{obj.cfdInputMask}}" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
 
 
@@ -2867,7 +2867,7 @@
                                         <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                             <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
-                                                <input id="CustomActivity_Decrease_{{obj.cfdID}}" name="CustomActivityDecrease_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
+                                                <input id="CustomActivity_Decrease_{{obj.cfdID}}" name="CustomActivityDecrease_{{obj.cfdID}}" ng-if="obj.cfdInputMask==''||obj.cfdInputMask=='text' ||obj.cfdInputMask==null" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
                                                 <input id="CustomActivity_Decrease_{{obj.cfdID}}" name="CustomActivityDecrease_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='email'" ng-model="obj.CfValue" type="{{obj.cfdInputMask}}" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
 
                                                 <select id="CustomActivity_Decrease_{{obj.cfdID}}" name="CustomActivity_Decrease_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='month'" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}">
@@ -5633,7 +5633,7 @@
                                                     <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                                         <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
-                                                            <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
+                                                            <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask==''||obj.cfdInputMask=='text' ||obj.cfdInputMask==null" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
                                                             <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='email'" type="{{obj.cfdInputMask}}" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
 
 
@@ -5797,7 +5797,7 @@
                                                     <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                                         <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
-                                                            <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
+                                                            <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask==''||obj.cfdInputMask=='text' ||obj.cfdInputMask==null" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
                                                             <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='email'" type="{{obj.cfdInputMask}}" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
 
 
