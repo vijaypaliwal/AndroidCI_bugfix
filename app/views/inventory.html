@@ -1551,7 +1551,7 @@
                                     <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
 
-                                        <input id="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask=='text'" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
+                                        <input id="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask=='text' || obj.cfdInputMask==''" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
 
                                         <input id="CustomActivity_{{obj.cfdID}}" maxlength="{{GetCustomActivityObjByColumnmap(obj.ColumnName).MaxLength}}" ng-if="$.trim(obj.cfdInputMask)==''" type="text" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />
                                         <!--<input id="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='month'" type="{{obj.cfdInputMask}}" ng-model="InventoryObject.CustomTxnData[$index].Value" class="form-control" />-->
