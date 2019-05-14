@@ -52,7 +52,7 @@
                     <a>Cart Item <span class="newcartcounter">{{CurrentCart.length}}</span> </a>
                 </div>
                 <div class="col-xs-4" ng-click="GoToStep(CurrentCart.length,2)" ng-if="IsSingleMode==true" ng-class="{'active':CurrentStep==CurrentCart.length}">
-                    <a>Activity </a>
+                    <a>Circumstance</a>
                 </div>
                 <div class="col-xs-4" ng-click="GoToStep(CurrentCart.length+1,2)" ng-if="IsSingleMode==true" ng-class="{'active':CurrentStep==CurrentCart.length+1}">
                     <a>Process</a>
@@ -63,7 +63,7 @@
                     <a>Cart Item <span class="newcartcounter">{{CurrentCart.length}}</span></a>
                 </div>
                 <div class="col-xs-4" ng-click="GoToStep(1,2)" ng-if="IsSingleMode==false" ng-class="{'active':CurrentStep==1}">
-                    <a>Activity </a>
+                    <a>Circumstances </a>
                 </div>
                 <div class="col-xs-4" ng-click="GoToStep(2,2)" ng-if="IsSingleMode==false" ng-class="{'active':CurrentStep==2}">
                     <a>Process</a>
@@ -2520,7 +2520,7 @@
 
 
                         <div class="form-group">
-                            <label>Circumstance Date <span>*</span> </label>
+                            <label>Event Date <span>*</span> </label>
                             <div class="input-group">
                                 <input type="date" class="form-control itUpdateDate" id="itUpdateDate" />
 
@@ -5469,7 +5469,7 @@
                                             <div ng-if="obj.cfdSpecialType != 1" class="input-group">
                                                 <div ng-if="obj.cfdprefixsuffixtype!='1'&& obj.cfdprefixsuffixtype!='2'&& obj.cfdprefixsuffixtype!='3'">
 
-                                                    <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)==''||obj.cfdInputMask=='text'" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
+                                                    <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="obj.cfdInputMask==''||obj.cfdInputMask=='text' ||obj.cfdInputMask==null" type="text" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
                                                     <input id="CustomActivity_{{obj.cfdID}}" name="CustomActivity_{{obj.cfdID}}" ng-if="$.trim(obj.cfdInputMask)!='' && obj.cfdInputMask =='email'" type="{{obj.cfdInputMask}}" class="form-control stringType" cfd-id="{{obj.cfdID}}" custom-data-type="{{obj.cfdDataType}}" value="{{obj.CfValue}}" />
 
 
