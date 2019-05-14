@@ -63,6 +63,8 @@
 
   <plugin name="cordova-plugin-x-socialsharing" source="npm" />
 
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+
   <plugin name="com-socketmobile-scanapi-cordova" spec="https://github.com/vijaypaliwal/SDK" />
   
 
