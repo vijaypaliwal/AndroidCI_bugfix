@@ -537,14 +537,15 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             return 10;
         }
     }
-    $(window).scroll(function () {
+    $(window).on('scroll', function () {
         var _SearchValue = $.trim($("#MasterSearch").val());
 
       
 
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
-            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            if ($(document).height() == $(window).scrollTop() + $(window).height()) {
 
+                
                
                 if (_PageSize < $scope.totalrecords) {
 
@@ -1685,11 +1686,22 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                     $(".searchtable").removeClass("disablepointer")
 
+                    console.log("Inventory data")
+                    console.log(result.GetInventoriesResult.Payload[0])
 
 
                     $scope._areImagesShown = result.GetInventoriesResult.Payload[0].AreImagesShown
+
+
                     $scope._areZeroRecordsShown = result.GetInventoriesResult.Payload[0].AreZeroRecords
                     $scope.InventoryItems = result.GetInventoriesResult.Payload[0].Data;
+
+                    if ($scope._areImagesShown == false) {
+                        for (var i = 0; i < $scope.InventoryItems.length; i++) {
+                            $scope.InventoryItems[i].ImagePath = "";
+                            $scope.InventoryItems[i].ImageThumbPath = "";
+                        }
+                    }
 
                     _TotalRecordsCurrent = result.GetInventoriesResult.Payload[0].Data.length;
 
