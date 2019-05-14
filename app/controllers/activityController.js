@@ -2833,21 +2833,8 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
     $scope.changeMode = function () {
         $scope.IsSingleMode = !$scope.IsSingleMode;
 
-
         var i = 0;
-        //if ($scope.IsSingleMode == false) {
-        //    if ($scope.CurrentCart != null && $scope.CurrentCart.length > 0) {
-        //        for (i = 0; i < $scope.CurrentCart.length; i++) {
-        //            $scope.CurrentCart[i].IncreaseDecreaseVMData = angular.copy($scope.CurrentCart[0].IncreaseDecreaseVMData);
-        //            $scope.CurrentCart[i].MoveTransactionData = angular.copy($scope.CurrentCart[0].MoveTransactionData);
-        //            $scope.CurrentCart[i].UpdateTransactionData = angular.copy($scope.CurrentCart[0].UpdateTransactionData);
-        //            $scope.CurrentCart[i].ApplyTransactionData = angular.copy($scope.CurrentCart[0].ApplyTransactionData);
-        //            $scope.CurrentCart[i].ConvertTransactionData = angular.copy($scope.CurrentCart[0].ConvertTransactionData);
-        //            $scope.CurrentCart[i].IsLineItemData = angular.copy($scope.CurrentCart[0].IsLineItemData);
-        //        }
-        //    }
 
-        //}
         setTimeout(function () {
             InitializeSwiper();
 
@@ -2871,25 +2858,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
                 CheckScopeBeforeApply();
 
             });
-            //$(document).on("touchend", "select", function (e) {
-            //    alert("clicking start");
-            //    e.preventDefault();
 
+          
 
-
-
-            //});
-
-            //$(document).on("touchstart", "select", function (e) {
-
-            //    alert("touch start");
-            //    e.preventDefault();
-
-
-
-
-            //});
-        }, 0);
+        }, 1000);
         $scope.$apply();
 
         setTimeout(function () { $('.itUpdateDate').val(today) }, 1000);
@@ -2897,7 +2869,7 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
         setTimeout(function () {
 
 
-          
+
 
             $(".weekPicker,.monthPicker").each(function () {
                 var _val = $(this).attr("selectvalue");
@@ -2916,6 +2888,10 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
             });
         }, 1000);
     }
+
+
+
+
     $scope.FillQuantityToConvert = function (value, myid, Type) {
         $scope.ActionQuantityValueToConvert = value;
         var k = 0;
