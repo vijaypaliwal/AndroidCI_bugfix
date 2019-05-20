@@ -656,3 +656,822 @@ input[type="password"]:focus
    
 }
 
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1000px)  {
+ .form-control
+ {
+   height:55px;
+   font-size:20px;
+ }
+
+
+ .bluearea img
+ {
+     height:160px !important;
+     width:160px !important;
+ }
+
+ .profilepage .detailmode .container h4
+{
+ font-size:20px;
+}
+
+ #mysmallModal .errorcontent
+ {
+     width:300px;
+     padding:50px;
+     border-radius:20px;
+ }
+
+
+ #myloginModal .errorcontent
+ {
+     width:300px;
+     padding:40px;
+     border-radius:20px;
+ }
+
+
+ #myloginModal .errorcontent img
+ {
+     height:60px !important;
+     width:60px !important;
+ }
+
+ #myloginModal .errorcontent span
+ {
+      font-size:27px !important;
+ }
+
+
+ #mysmallModal .errorcontent i
+ {
+     font-size:50px !important;
+ }
+
+  #mysmallModal .errorcontent span
+ {
+     font-size:35px !important;
+ }
+
+
+ .profilepage .bluearea
+ {
+       min-height: 155px;
+    margin-top: -4px !important;
+    padding-top: 34px;
+ }
+
+ .followMeBar.bluearea h4
+ {
+     font-size:28px;
+ }
+
+ .followMeBar i
+ {
+     font-size:30px;
+ }
+
+ .Addbtn.cd-top .fa
+ {
+     margin-top:17px;
+     margin-left: -1px !important;
+ }
+
+
+ #Inventorylistmodal .modal-header h4
+ {
+     font-size:20px;
+ }
+ .Inventorylist li a
+ {
+     font-size:20px;
+ }
+
+ #Inventorylistmodal .modal-header
+ {
+     padding:17px;
+ }
+
+ .widget-products .list-group-item-text .text
+ {
+     font-size:17px !important;
+ }
+
+ .checkout-product-title h6
+ {
+     font-size:22px;
+ }
+
+  .checkout-product-title h6 span
+ {
+     font-size:22px;
+ }
+
+ .cartitems  .itemcontent  .checkout-details .checkout-image
+ {
+     height:90px !important;
+     width:90px !important;
+ }
+
+ form h4
+ {
+     font-size:22px;
+ }
+
+ .filtercross
+ {
+     font-size:40px;
+     padding:10px;
+ }
+
+ .itemdetail h4
+ {
+     font-size:18px !important;
+ }
+
+ .statedetail h4
+ {
+     font-size:18px !important;
+ }
+
+ .inventorydetail h4 {
+     font-size:22px !important;
+ }
+
+ .itemdetail table p {
+    font-size: 16px !important;
+}
+
+  .statedetail table td {
+    font-size: 16px !important;
+}
+
+
+ .spinner img
+ {
+     height:80px !important;
+     width:80px !important;
+ }
+
+ .morebtn
+ {
+     height:50px !important;
+     width:50px !important;
+     line-height:45px !important;
+ }
+
+ .morebtn i
+ {
+     font-size:23px !important;
+ }
+
+ .swiper-wrapper table.imagesection img
+ {
+     height:90px !important;
+     width:90px !important;
+ }
+
+
+ #mysmallModalWaiting span
+ {
+     font-size:17px !important;
+ }
+
+ #accordion1
+ {
+     min-height:100px;
+ }
+
+ .loaderanimation img
+ {
+     height:100px !important;
+     width:100px !important;
+ }
+
+ .open-left
+ {
+     margin-top:10px;
+ }
+
+ #imagepreview
+ {
+     max-height:500px !important;
+     max-width:500px !important;
+ }
+
+ .Ipadheight
+ {
+  
+ }
+   .panel-group
+    {
+        margin-bottom:0 !important;
+    }
+
+ .has-feedback .form-control-feedback {
+    width: 40px;
+    height: 49px;
+    line-height: 53px;
+    font-size: 43px;
+    right: 8px !important;
+}
+
+
+ .Btndisabled {
+    background: #ccc;
+    border: 1px solid brown !important;
+    color: brown !important;
+    background-color: #ccc !important;
+}
+
+
+
+ #toolbar
+ {
+     height:80px !important;
+ }
+
+ .open-left .fa-bars
+ {
+     font-size:34px !important;
+ }
+ .titletext
+ {
+     font-size:23px;
+ }
+
+
+ #viewdata
+ {
+     margin-top:75px !important;
+ }
+
+   
+    .roundbtntitle {
+    height: 55px;
+    width: 55px;
+    margin-top: 10px;
+    line-height: 50px;
+    font-size: 23px;
+   
+}
+
+    #myimgProfile {
+        height: 65px !important;
+    width: 65px !important;
+    margin-top: 5px;
+    margin-left: -19px;
+    border: 1px solid #ccc;
+    }
+
+
+  
+
+    label {
+        font-size:23px !important;
+        margin-top:10px;
+    }
+
+    .btn-primary
+    {
+        font-size: 24px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+
+    .btn-primary i {
+    font-size: 24px;
+}
+
+    .btn-gray
+    {
+           font-size: 24px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+
+    .btn-gray i
+    {
+         font-size: 24px;
+    }
+    .cd-top {
+        height: 80px !important;
+        width: 80px !important;
+        color: #fff !important;
+        background: #b39a99;
+        position: fixed;
+        bottom: 36px !important;
+        text-align:center;
+    }
+
+    .cd-top i
+    {
+           font-size: 35px;
+    margin-top: 15px;
+   line-height:40px;
+   font-size:35px !important;
+    }
+
+
+
+
+
+
+
+      
+    .cartbtn
+    {
+        height:90px !important;
+        width:90px !important;
+            bottom: 37px !important;
+    right: 42px !important;
+    line-height:90px !important;
+    }
+
+    .cartbtn i
+    {
+        font-size:35px;
+    }
+
+    .side-nav .no-child
+    {
+        font-size:18px;
+    }
+
+    .toast
+    {
+        font-size:30px !important;
+    }
+
+    .input-group-addon i
+    {
+        padding:18px !important;
+    }
+
+    .input-group-addon .fa-plus {
+     padding-left: 19px !important; 
+     padding-right: 19px !important; 
+}
+
+      .input-group-addon .fa-minus {
+     padding-left: 18px !important; 
+     padding-right: 18px !important; 
+     padding-top:18px !important;
+}
+
+      .changebtn 
+      {
+          height:90px !important;
+          width:90px !important;
+          line-height:90px !important;
+          bottom:60px !important;
+      }
+
+      .stickybtn .btn
+      {
+          height:60px !important;
+          font-size:26px !important;
+          line-height:60px;
+          border-radius:30px !important;
+      }
+
+      .stickybtn .btn i
+      {
+          font-size:26px;
+      }
+
+      .switchmode .tophead
+      {
+          padding-top:20px !important;
+          padding-bottom:20px !important;
+      }
+
+      .input-group-addon .fa-barcode {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+}
+
+   
+      .input-group-addon .fa-undo
+      {
+            padding-left: 18px !important;
+    padding-right: 18px !important;
+      }
+
+      .bottom-modal ul li {
+    padding: 20px;
+   
+    margin-bottom: 15px;
+    border-radius: 41px;
+    font-size: 30px;
+}
+      
+      .bottom-modal ul li a i {
+        font-size: 28px;
+}
+      .bottom-modal .modal-body
+      {
+          padding-top:35px;
+          padding-bottom:30px;
+      }
+
+   
+
+    .title-header small {
+        font-size:20px !important;
+    }
+    .searchsection
+    {
+        margin-top:-8px !important;
+    }
+    /*.finditems.input-group-addon a
+    {
+        padding:16px !important;
+    }*/
+
+    .squirelimg
+    {
+        height:125px !important;
+        width:125px !important;
+    }
+    p {
+        font-size:18px !important;
+
+    }
+
+    .form-group {
+        margin-bottom:20px;
+    }
+
+    .signupheader
+    {
+        position:fixed;
+    }
+
+    .signupheader td
+    {
+        padding:15px;
+    }
+
+     .signupheader td h5
+     {
+         font-size:25px;
+     }
+
+     /*.finditems img
+     {
+         height:23px;
+     }*/
+     .dropdown-menu > li > a
+     {
+         font-size:16px;
+     }
+
+     .top-menu i
+     {
+         font-size:20px;
+     }
+     #mycartModal span
+     {
+         font-size:20px !important;
+     }
+     /*.finditems .fa-caret-down {
+    color: #fff !important;
+    background: transparent;
+    padding: 1px !important;
+    padding-top: 1px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+}*/
+
+     .rotateData
+     {
+         height:50px !important;
+         width:50px !important;
+     }
+     .summaryClearbtn i
+     {
+         font-size:45px !important;
+     }
+
+    .topheader i {
+        font-size:24px !important;
+    }
+
+    .imagesection {
+   
+    min-height: 120px !important;
+    margin-top: 10px !important;
+}
+
+    .btn-large {
+    height: 63px;
+   line-height:63px;
+  
+    font-size: 20px;
+}
+
+    .contentsection .table-responsive .input-group span
+    {
+        padding:0 !important;
+    }
+    .contentsection
+    {
+        padding-top:65px !important;
+    }
+    .Celldata
+    {
+        font-size:17px;
+    }
+
+    code
+    {
+        font-size:17px !important;
+    }
+
+    .top50 .listview
+    {
+        margin-top:18px;
+    }
+
+    .filtercross
+    {
+        margin-top:0px;
+    }
+
+    .right47 {
+    right: 60px;
+}
+
+    #btnClearSearch.filtercross.active
+{
+          margin-top:8px;
+    }
+
+    #btnClearSearchNew.filtercross
+{
+          margin-top:8px;
+    }
+
+
+    .scrollbar-for-ipad
+    {
+        max-height:780px !important;
+    }
+    .activityinfo
+    {
+        margin-top:25px;
+    }
+
+    .actionbtnarea .btn-primary i
+    {
+        font-size:18px;
+    }
+
+
+    /*For bottom modal*/
+
+
+     .menubtn {
+ 
+    bottom: 35px;
+    right: 35px;
+   
+    height: 90px;
+    width: 90px;
+   
+  
+    line-height: 110px;
+    cursor: pointer;
+}
+
+    .menubtn i
+    {
+        font-size:45px;
+    }
+
+    #bottommenumodal .selectAction {
+  
+      bottom: 125px;
+    right: 55px;
+}
+
+    #bottommenumodal .selectAction .btn {
+height: 60px;
+    width: 60px;
+    line-height: 60px;
+    margin-bottom: 12px;
+   
+}
+
+      #bottommenumodal .selectAction .btn i {
+font-size:30px;
+   
+}
+
+    #bottommenumodal span {
+    font-size: 23px;
+   
+}
+
+
+    .selectAction .btn {
+    height: 60px !important;
+    width: 60px !important;
+
+    line-height: 60px !important;
+  
+}
+    #bottommenumodal .selectAction li span
+    {
+        font-size:20px !important;
+    }
+
+    .singlePanel .prepend .inner
+    {
+        height:55px !important;
+        line-height:53px !important;
+    }
+     .singlePanel .append .inner
+    {
+        height:55px !important;
+        line-height:53px !important;
+    }
+
+
+
+     .customActivityData .prepend .inner
+{
+padding-top: 8px !important;
+    padding-bottom: 5px !important;
+}
+
+.customActivityData .append .inner{
+padding-top: 8px !important;
+    padding-bottom: 5px !important;
+}
+
+
+
+
+     #filtermodal
+     {
+         width:430px !important; 
+     }
+
+      #filtermodal .input-group
+     {
+      margin-bottom:20px;
+     }
+      #filtermodal .modal-header
+      {
+          padding:20px;
+
+      }
+
+      #filtermodal .modal-header h4 {
+    font-size: 30px;
+}
+
+      #filtermodal .modal-header i {
+    font-size: 35px !important;
+    margin-top: 0px !important;
+   
+}
+
+
+     .text
+     {
+         font-size:22px !important;
+     }
+     .infoareas p {
+    font-size: 16px !important;
+}
+
+     .contentsection .infoareas .btn-white
+     {
+         height:50px;
+         width:50px;
+         line-height:50px;
+         font-size:27px;
+     }
+
+     .switchinv {
+    background: #e6e4e4 !important;
+    color: #333;
+    border-radius: 15px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    font-size: 24px;
+    padding-left: 10px;
+    padding-right: 8px;
+    height: 40px !important;
+    width: 52px !important;
+    display: inline-block;
+  
+    vertical-align: top;
+}
+
+    body .switchinv {
+          line-height: 40px !important;
+          font-size:25px !important;
+    }
+
+    #toolbar .title {
+        background: #fff;
+        color: #333;
+        border-radius: 15px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        font-size: 17px;
+        min-width: 45px;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        display: -webkit-inline-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        -ms-word-break: break-all;
+        word-break: break-all;
+        margin-bottom: 0;
+        line-height: 36px !important;
+        height: 40px !important;
+        text-align: center;
+        padding-left: 13px;
+        padding-right: 13px;
+        vertical-align: top;
+    }
+
+    body #toolbar .title
+    {
+   line-height:40px !important;
+    }
+
+    body .inventoryname
+    {
+        font-size:30px !important;
+        text-transform:capitalize;
+        padding:25px;
+        border-radius:50px;
+    }
+    #accordion1 .col-xs-3 a span
+    {
+            line-height: 50px;
+            font-size:20px;
+    }
+
+   #accordion1 .panel-heading .accordion-toggle:after {
+    font-family: 'FontAwesome';
+    content: "\f107";
+    float: right;
+    color: #069;
+    width: 11px;
+    margin-left: 3px;
+    margin-top: 17px;
+    font-size: 24px;
+}
+
+  #accordion .panel p {
+    font-size: 20px !important;
+   
+}
+
+  body .accountheader#toolbar .title
+  {
+      font-size: 25px;
+    height: 60px!important;
+     line-height: 48px!important;
+    }
+  .accountsq img
+  {
+      height:130px !important;
+       width:130px !important;
+       padding:20px !important;
+  }
+
+  #accordion .alert
+  {
+      padding:30px !important;
+  }
+  .accounthead
+  {
+          padding: 27px !important;
+  
+    font-size: 22px !important;
+  }
+  
+  #mycartModal .transactionbody.selectAction
+  {
+      bottom:150px !important;
+  }
+}
+
+
