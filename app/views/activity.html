@@ -18,6 +18,15 @@
     .modal-open .activitycontent {
         display: none;
     }
+
+    .customActivityData .input-group {
+        margin-bottom: 10px;
+    }
+
+
+    .singlePanel .input-group {
+        margin-bottom: 7px;
+    }
 </style>
 
 <!--CSS section - end -->
@@ -6459,7 +6468,7 @@
 
         <!--Bottom navigator if slide mode true end-->
         <!--Selected Item List Modal start-->
-        <div id="selecteditemlistmodal" class="modal">
+        <div id="selecteditemlistmodal" class="modal" data-backdrop="static" data-keyboard="false">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
                 <h4>Selected Item list - <span>{{CurrentCart.length}}</span></h4>
@@ -6494,7 +6503,7 @@
 
 <!--Modal Section - Start -->
 <!--Keep Cart/Leave Page Modal-->
-<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated zoomIn">
+<div style="overflow:hidden; margin-top:50px;" id="myModal" class="modal animated zoomIn" data-backdrop="static" data-keyboard="false">
     <div style="background:#fff;" class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
         <h4>What do you want? </h4>

@@ -58,7 +58,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     $scope.UnitDataList = [];
     $scope.loadingblock = false;
     $scope.statusLabel = "Status";
- 
+
     $scope.ActiveUnitDataFields = [];
 
     $scope.dropDownValues = [];
@@ -446,7 +446,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     _Value = $.trim($("#MasterSearchUOM").val());
                 }
                 break;
-            
+
             default:
                 _Value = $.trim($('#MasterSearch').val());
                 break;
@@ -537,16 +537,35 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             return 10;
         }
     }
+
+
+    function isScrolledIntoView(elem) {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
+  
+
+
+
     $(window).on('scroll', function () {
         var _SearchValue = $.trim($("#MasterSearch").val());
 
-      
 
         if (_IsLazyLoadingUnderProgress === 0 && _TotalRecordsCurrent != 0) {
-            if ($(document).height() == $(window).scrollTop() + $(window).height()) {
 
-                
-               
+
+            var hT = $('.widget-products').offset().top,
+            hH = $('.widget-products').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+            console.log((hT - wH), wS);
+            if (wS > (hT + hH - wH)) {
                 if (_PageSize < $scope.totalrecords) {
 
                     _IsLazyLoadingUnderProgress = 1;
@@ -555,13 +574,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                     CheckScopeBeforeApply();
                     $scope.GetInventories();
 
-                   
                 }
                 else {
                     // log.info("You have already loaded all data.")
                 }
-
             }
+
+
         }
 
 
@@ -889,20 +908,19 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
 
     function getFieldSpecialType(columnName) {
-       
+
         for (var i = 0; i < $scope.ActiveUnitDataFields.length; i++) {
             var Field = $scope.ActiveUnitDataFields[i]
 
-            if (Field.FieldName == columnName) {               
-                return Field.FieldSpecialType;                
-            }           
+            if (Field.FieldName == columnName) {
+                return Field.FieldSpecialType;
+            }
         }
         return "";
 
     }
 
-    function getDropDownValues(columnName, type)
-    {
+    function getDropDownValues(columnName, type) {
 
         debugger;
         for (var i = 0; i < $scope.ActiveUnitDataFields.length; i++) {
@@ -928,7 +946,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                 }
             }
-        }       
+        }
 
     }
 
@@ -940,7 +958,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         console.log("$scope.MyinventoryFieldsNames");
         console.log($scope.MyinventoryFieldsNames);
         console.log("===========================");
-             
+
         console.log("===========================");
         console.log("$scope.ActiveUnitDataFields");
         console.log($scope.ActiveUnitDataFields);
@@ -1053,8 +1071,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                 $scope.iReqValueFieldSpecialType = getFieldSpecialType("ReqValue");
 
-                if ($scope.iReqValueFieldSpecialType != "")
-                {
+                if ($scope.iReqValueFieldSpecialType != "") {
                     switch ($scope.iReqValueFieldSpecialType) {
                         case 2:
                             $scope.CurrentActiveSearchType = 7;
@@ -1082,10 +1099,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                     }
                 }
-                else
-                {
+                else {
                     $scope.CurrentActiveSearchType = 1;
-                }             
+                }
 
                 //$scope.CurrentActiveSearchType = 1;
 
@@ -1130,7 +1146,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 else {
                     $scope.CurrentActiveSearchType = 1;
                 }
-                
+
                 //$scope.CurrentActiveSearchType = 1;
                 var _label = $scope.GetUnitDataLabel('iUnitTag2');
                 _label = _label != undefined && _label != "" ? _label : "";
@@ -1727,7 +1743,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
                         $("#arrow").hide();
                     } else {
-                       
+
                         $(".searchtable").addClass("disablepointer");
                         $("#arrow").attr("style", "");
                         $("#arrow").show();
@@ -1743,7 +1759,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 }
 
                 $scope.myinventoryColumnLoaded = true;
-               // $cordovaKeyboard.disableScroll(false);
+                // $cordovaKeyboard.disableScroll(false);
 
                 $scope.loadingblock = false;
 
@@ -1755,13 +1771,13 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 //
 
                 $scope.myinventoryColumnLoaded = true;
-              //  $cordovaKeyboard.disableScroll(false);
+                //  $cordovaKeyboard.disableScroll(false);
                 CheckScopeBeforeApply();
                 $scope.ShowErrorMessage("current inventories", 2, 1, req.statusText);
             },
             complete: function () {
                 _IsLazyLoadingUnderProgress = 0;
-             //   $cordovaKeyboard.disableScroll(false);
+                //   $cordovaKeyboard.disableScroll(false);
                 SetSelectedIfAny();
             }
         });
@@ -1805,7 +1821,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         $scope.ActiveUnitDataFields.push(_TempArrayMyInventory[i]);
 
                     }
-                   
+
 
                     CheckScopeBeforeApply();
                 }
@@ -1841,7 +1857,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         $scope.MyinventoryFieldsNames.push(_TempArrayMyInventory[i]);
 
                     }
-                   
+
                     CheckScopeBeforeApply();
                 }
                 else {
@@ -1856,7 +1872,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             complete: function () {
 
             }
-        });    
+        });
 
 
     }
@@ -2224,8 +2240,8 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
             $(this).parent(".newlistitem").find(".img").removeClass("hideimage");
             $(this).find(".fa-check").css("color", "transparent");
 
-          //  $(originalID).parent(".newlistitem").find(".img").css("background-color", "transparent")
-         //   $(originalID).parent(".newlistitem").find(".img").removeClass("hideimage");
+            //  $(originalID).parent(".newlistitem").find(".img").css("background-color", "transparent")
+            //   $(originalID).parent(".newlistitem").find(".img").removeClass("hideimage");
 
             var originalID = "#" + $(this).attr("id");
             var _invID = parseFloat($(this).attr("inv-id"));
@@ -2839,9 +2855,9 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                         IncreaseDecreaseVMData: ({ ActionQuantity: _defaultQty }),
                         MoveTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: "", MoveToLocation: "" }),
                         UpdateTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue }),
-                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3),UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4),UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5),UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6),UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7),UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2,UnitDate3: _unitDate3,UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2, UnitNumber3: mainObjectToSend[i].iUnitNumber3 , UnitNumber4: mainObjectToSend[i].iUnitNumber4  }),
+                        ApplyTransactionData: ({ ActionQuantity: _defaultQty, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4), UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5), UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6), UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7), UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitDate3: _unitDate3, UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2, UnitNumber3: mainObjectToSend[i].iUnitNumber3, UnitNumber4: mainObjectToSend[i].iUnitNumber4 }),
                         ConvertTransactionData: ({ ActionFromQuantity: _defaultQty, ActionToQuantity: _defaultQty, ToUOMID: 0, ToUOM: "" }),
-                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3),UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4),UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5),UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6),UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7),UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2,UnitDate3: _unitDate3,UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2 , UnitNumber3: mainObjectToSend[i].iUnitNumber3, UnitNumber4: mainObjectToSend[i].iUnitNumber4}),
+                        MoveUpdateTagTransactionData: ({ ActionQuantity: _defaultQty, StatusToUpdate: mainObjectToSend[i].iStatusValue, MoveToLocationText: mainObjectToSend[i].lLoc, MoveToLocation: mainObjectToSend[i].iLID, UnitTag1: GetSeparatedValue("ReqValue", mainObjectToSend[i].iReqValue), UnitTag2: GetSeparatedValue("UnitTag2", mainObjectToSend[i].iUnitTag2), UnitTag3: GetSeparatedValue("UnitTag3", mainObjectToSend[i].iUnitTag3), UnitTag4: GetSeparatedValue("UnitTag4", mainObjectToSend[i].iUnitTag4), UnitTag5: GetSeparatedValue("UnitTag5", mainObjectToSend[i].iUnitTag5), UnitTag6: GetSeparatedValue("UnitTag6", mainObjectToSend[i].iUnitTag6), UnitTag7: GetSeparatedValue("UnitTag7", mainObjectToSend[i].iUnitTag7), UnitTag8: GetSeparatedValue("UnitTag8", mainObjectToSend[i].iUnitTag8), UniqueDate: _unitDate1, UnitDate2: _unitDate2, UnitDate3: _unitDate3, UnitDate4: _unitDate4, UnitNumber1: mainObjectToSend[i].iUnitNumber1, UnitNumber2: mainObjectToSend[i].iUnitNumber2, UnitNumber3: mainObjectToSend[i].iUnitNumber3, UnitNumber4: mainObjectToSend[i].iUnitNumber4 }),
                     });
 
                     console.log($scope.Cart);

@@ -213,6 +213,19 @@
         margin-bottom: 0;
         font-size: 12px;
     }
+
+   
+    .modal-open .itemdetail {
+        display: none;
+    }
+    .modal-open .statedetail {
+        display: none;
+    }
+    .modal-open .editsection {
+        display:none;
+    }
+
+
 </style>
 
 
@@ -793,15 +806,15 @@
     </a>
 
 
-    <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div style="background:#fff;" class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-                <h4>Image</h4>
-            </div>
+    <div class="modal fade" id="imagemodaldetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div style="background:#fff;" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
+            <h4>Image</h4>
+        </div>
 
-                <div class="modal-body">
-                    <img src="{{CurrentActiveImage.LargeImageURI}}" id="imagepreview" style="max-height:250px;max-width:250px;">
-                </div>
+        <div class="modal-body">
+            <img src="{{CurrentActiveImage.LargeImageURI}}" id="imagepreview" style="max-height:250px;max-width:250px;">
+        </div>
 
     </div>
     </div>

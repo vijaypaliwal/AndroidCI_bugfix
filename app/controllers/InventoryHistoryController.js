@@ -25,7 +25,7 @@ app.controller('InventoryHistoryController', ['$scope', 'localStorageService', '
 
         authService.logOut();
         $location.path('/login');
-        CheckScopeBeforeApply();
+       
     }
     $scope.OpenmenuModal = function () {
 
@@ -86,7 +86,7 @@ app.controller('InventoryHistoryController', ['$scope', 'localStorageService', '
                           }
 
                       }
-                      CheckScopeBeforeApply()
+                   
                   }
                   else {
                       $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
