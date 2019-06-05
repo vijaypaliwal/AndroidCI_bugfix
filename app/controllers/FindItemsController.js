@@ -2059,6 +2059,10 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
     }
 
     $scope.IsAvailableMyInventoryColumn = function (ColumnName) {
+        if (ColumnName == 'iQty' && $scope.DefaultQty == "1") {
+
+            return true;
+        }
         var i = 0;
         for (i = 0; i < $scope.MyinventoryFields.length; i++) {
             if ($scope.MyinventoryFields[i].ColumnName == ColumnName) {
@@ -2870,6 +2874,38 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
         }
         return $scope.Cart;
     }
+
+
+    $scope.Accountlimit = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+
+        $.ajax
+           ({
+               type: "POST",
+               url: serviceBase + 'GetAccountLimit',
+               contentType: 'application/json; charset=utf-8',
+               dataType: 'json',
+               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+               success: function (response) {
+
+                   $scope.objOverLimit = response.GetAccountLimitResult.Payload;
+                   $scope.DefaultQty = $scope.objOverLimit.DefaultQty;
+                   // alert($scope.objOverLimit.DefaultQty);
+
+               },
+               error: function (err) {
+
+                   alert("Error");
+
+               }
+           });
+    }
+
+    $scope.Accountlimit();
 
 
 
