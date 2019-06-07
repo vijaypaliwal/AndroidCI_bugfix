@@ -599,7 +599,7 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
                 break;
             case "decrease":
                 box.on("shown.bs.modal", function () {
-                    $(".mybootboxbody").html("You are not authorize to perform Add event or please turn on Quantity column from setting > Select Inventory columns page");
+                    $(".mybootboxbody").html("You are not authorize to perform Remove event or please turn on Quantity column from setting > Select Inventory columns page");
                 });
 
                 break;
