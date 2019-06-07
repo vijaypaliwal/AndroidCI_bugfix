@@ -587,7 +587,61 @@ app.controller('FindItemsController', ['$scope', 'localStorageService', 'authSer
 
     });
 
+    $scope.showalertmsg = function (eventname) {
+        var box = bootbox.alert("Not Permitted ☹", function () {
+        });
+        switch (eventname) {
+            case "increase":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Add event or please turn on Quantity column from setting > Select Inventory columns page");
+                });
 
+                break;
+            case "decrease":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Add event or please turn on Quantity column from setting > Select Inventory columns page");
+                });
+
+                break;
+            case "move":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Move event or please turn on Location column from setting > Select Inventory columns page");
+                });
+
+                break;
+            case "adjust":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Add event or please turn on Quantity column from setting > Select Inventory columns page");
+                });
+
+                break;
+            case "update":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Update event or please turn on Status column from setting > Select Inventory columns page");
+                });
+
+                break;
+            case "change":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Change event or please turn on one of the state field from setting > Select Inventory columns page");
+                });
+                break;
+            case "convert":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Convert event or please turn on Unit of measure column from setting > Select Inventory columns page");
+                });
+
+                break;
+            case "mtu":
+                box.on("shown.bs.modal", function () {
+                    $(".mybootboxbody").html("You are not authorize to perform Move & Change event or please turn on Location or Status or one of the state field from setting > Select Inventory columns page");
+                });
+
+                break;
+            default:
+                // code block
+        }
+    }
 
     function ClearFilterArray() {
         for (var i = 0; i < $scope.FilterArray.length; i++) {
