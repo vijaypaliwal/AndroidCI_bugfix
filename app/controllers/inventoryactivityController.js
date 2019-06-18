@@ -1012,7 +1012,7 @@ app.controller('inventoryactivityController', ['$scope', 'localStorageService', 
                 return $scope.ActivityList[Index].itQty;
                 break;
             case "itQtyChange":
-                return $scope.ActivityList[Index].itQty;
+                return $scope.ActivityList[Index].itQtyChange;
                 break;
 
             case "ItemGroup":
