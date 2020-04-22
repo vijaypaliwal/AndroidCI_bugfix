@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="col-xs-12">
-            <h4 class="titletext">Manage Unit of Measure </h4>
+            <h4 class="titletext">Manage {{UOMlabel}} </h4>
         </div>
     </div>
 </div>
@@ -88,10 +88,10 @@
 
         <form name="uom">
             <div style="background:#fff;padding:10px; margin-top:7px;">
-                <h4 ng-if="mode == 2">Enter New Unit of Measure</h4>
-                <h4 ng-if="mode == 3">Update Unit of Measure</h4>
+                <h4 ng-if="mode == 2">Enter New {{UOMlabel}}</h4>
+                <h4 ng-if="mode == 3">Update {{UOMlabel}}</h4>
                 <div class="form-group">
-                    <label>Unit of Measure <span>*</span></label>
+                    <label>{{UOMlabel}} <span>*</span></label>
                     <input class="form-control" type="text" id="UOMToCreate" autocorrect="off" autocapitalize="none" ng-model="UOMToCreate" required />
                 </div>
 

@@ -141,7 +141,7 @@
 
 
                         <div class="form-group" ng-if="obj.ColumnName=='iQty'">
-                            <label>Quantity</label>
+                            <label>{{obj.ColumnLabel}} </label>
 
                             <div class="input-group">
 
@@ -154,7 +154,7 @@
 
 
                         <div class="form-group" ng-if="obj.ColumnName=='lLoc'">
-                            <label>Select Location <span class="redText">*</span></label>
+                            <label>Select {{obj.ColumnLabel}} <span class="redText">*</span></label>
                             <div class="input-group">
                                 <select ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
                                     <option mytag="{{obj.LocationZone}}" value="{{obj.LocationName}}" ng-selected="CheckSelectedValues(InventoryObject.Location,obj.LocationName)?true:false" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
@@ -189,7 +189,7 @@
                         </div>
 
                         <div class="form-group" ng-if="obj.ColumnName=='uomUOM'">
-                            <label>Select UOM <span class="redText">*</span></label>
+                            <label>Select {{obj.ColumnLabel}} <span class="redText">*</span></label>
                             <div class="input-group">
 
                                 <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
@@ -2408,7 +2408,7 @@
 
 
                                 <div class="form-group" ng-if="obj.ColumnName=='iQty'">
-                                    <label>Quantity</label>
+                                    <label>{{obj.ColumnLabel}} </label>
 
                                     <div class="input-group">
 
@@ -2428,7 +2428,7 @@
 
 
                                 <div class="form-group" ng-if="obj.ColumnName=='lLoc'">
-                                    <label>Select Location <span class="redText">*</span></label>
+                                    <label>Select {{obj.ColumnLabel}}  <span class="redText">*</span></label>
                                     <div class="input-group">
                                         <select ng-change="changelocation()" class="form-control" id="Location" ng-model="InventoryObject.Location">
                                             <option mytag="{{obj.LocationZone}}" value="{{obj.LocationName}}" ng-selected="CheckSelectedValues(InventoryObject.Location,obj.LocationName)?true:false" ng-repeat="obj in LocationList">{{obj.LocationName}}</option>
@@ -2439,17 +2439,12 @@
                                         <span ng-click="GetLastValue('Inv_Location','#Location')" test-case condition="GetLastValueData('Inv_Location')" class="input-group-addon last"><i class="fa fa-undo"></i></span>
                                         <span class="input-group-addon last" ng-click="ScanNewSwitch(obj.ColumnName)"> <i class="fa fa-barcode waves-effect"></i></span>
                                     </div>
-
-
                                 </div>
 
 
 
-
-
-
                                 <div class="form-group" ng-if="obj.ColumnName=='uomUOM'">
-                                    <label>Select UOM <span class="redText">*</span></label>
+                                    <label>Select {{obj.ColumnLabel}} <span class="redText">*</span></label>
                                     <div class="input-group">
 
                                         <select class="form-control" ng-change="onChangeUOMData()" ng-model="InventoryObject.Uom" id="UOM">
@@ -4867,7 +4862,7 @@
 <div id="locationlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-        <h4>Select Location <span style="font-size:11px;" ng-if="LocationSearchList.length > 0">{{LocationSearchList.length}} Location(s) found</span></h4>
+        <h4>Select {{obj.ColumnLabel}}  <span style="font-size:11px;" ng-if="LocationSearchList.length > 0">{{LocationSearchList.length}} Location(s) found</span></h4>
         <div class="form-group">
 
             <div class="input-group">
@@ -4946,7 +4941,7 @@
 <div id="uomlistmodal" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span> <i class="fa fa-times"></i> </span></button>
-        <h4>Select Unit of measure <span style="font-size:11px;" ng-if="UOMSearchList.length > 0">{{UOMSearchList.length}} UOM(s) found</span></h4>
+        <h4>Select {{UOMLabel}} <span style="font-size:11px;" ng-if="UOMSearchList.length > 0">{{UOMSearchList.length}} UOM(s) found</span></h4>
         <div class="form-group">
 
             <div class="input-group">
@@ -4967,7 +4962,7 @@
         <div ng-if="isnouommsg == true" class="noitem">
             <div style="text-align: center; border: 1px solid #eeeeee;">
                 <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
-                <h4 style="font-size:15px;">We can't find the Unit of measure you're looking for</h4>
+                <h4 style="font-size:15px;">We can't find the {{UOMLabel}} you're looking for</h4>
                 <h5 ng-if="TrimValue(SearchUOMValue)!=''">click to <span ng-click="filluom()" style="cursor:pointer; color:#0083C7; font-size:20px;">{{SearchUOMValue}}</span>  for add in your list.</h5>
             </div>
         </div>
@@ -5024,16 +5019,16 @@
                 </div>
 
                 <div ng-click="getstep(2,'iQty')" class="col-xs-12 form-group">
-                    <span class="mylabel"> Quantity </span> <span> {{ InventoryObject.Quantity }}</span>
+                    <span class="mylabel"> {{QuantityLabel}} </span> <span> {{ InventoryObject.Quantity }}</span>
                 </div>
 
 
                 <div ng-click="getstep(4,'uomUOM')" class="col-xs-12 form-group">
-                    <span class="mylabel"> Unit of measure </span>  <span class="redText">*</span> <span> {{InventoryObject.Uom}}</span>
+                    <span class="mylabel"> {{UOMLabel}} </span>  <span class="redText">*</span> <span> {{InventoryObject.Uom}}</span>
                 </div>
 
                 <div ng-click="getstep(3,'lLoc')" class="col-xs-12 form-group">
-                    <span class="mylabel">Location</span> <span class="redText">*</span> <span>  {{InventoryObject.Location}} </span>
+                    <span class="mylabel">{{LocationLabel}}</span> <span class="redText">*</span> <span>  {{InventoryObject.Location}} </span>
                 </div>
 
 
@@ -5298,13 +5293,13 @@
 
             <div style="background: #2196F3; color:#fff;" class="modal-header">
 
-                <h4>Create new  <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">{{statusLabel}}</span></h4>
+                <h4>Create new  <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">{{LocationLabel}}</span><span ng-if="CreateType==2">{{UOMLabel}}</span> <span ng-if="CreateType==3">{{statusLabel}}</span></h4>
             </div>
 
             <div style="padding: 12px; background: #fff; box-shadow: 0px 2px 10px #ccc; border:1px solid #f5f5f5" class="modal-body">
 
                 <div class="form-group">
-                    <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">Location</span><span ng-if="CreateType==2">Unit of Measure</span> <span ng-if="CreateType==3">{{statusLabel}}</span> </label>
+                    <label>Enter new <span ng-if="CreateType==4">Item Group</span><span ng-if="CreateType==1">{{LocationLabel}}</span><span ng-if="CreateType==2">{{UOMLabel}}</span> <span ng-if="CreateType==3">{{statusLabel}}</span> </label>
 
                     <div class="input-group">
                         <input id="myscanvalue" type="text" ng-model="CreateNewLabel" class="form-control" value="" autocorrect="off" autocapitalize="none" />
@@ -5466,11 +5461,11 @@
 
 
     <a ng-if="InventoryObject.Uom == ''" ng-click="getstep(4,'uomUOM')">
-        Unit of measure
+        {{UOMLabel}}
     </a>
 
     <a ng-if="InventoryObject.Location == ''" ng-click="getstep(3,'lLoc')">
-        Location
+        {{LocationLabel}}
     </a>
 
     <a ng-click="getstepCustom(1,obj.ColumnMap)" ng-repeat="obj in CustomItemDataList" ng-if="CustomItemDataList.length > 0 && IsAvailableMyInventoryColumn(obj.ColumnMap)==true && obj.cfdIsRequired==true && (InventoryObject.CustomPartData[$index].Value==null || InventoryObject.CustomPartData[$index].Value==undefined || InventoryObject.CustomPartData[$index].Value=='')">

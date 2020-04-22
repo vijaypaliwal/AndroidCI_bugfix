@@ -24,82 +24,107 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
     }
 
     $scope.mainObjectToSend = [];
+
     function init() {
-
         $scope.getstatus();
-
-
-
         $scope.$apply();
     }
 
     $(".modal-backdrop").remove();
     $("body").removeClass("modal-open");
 
-
     $scope.keepformopen = function (check) {
-
-
         $scope.check = check;
         $scope.$apply();
-    }
+    };
 
-
-    $scope.logOut = function () {
-
-
-        authService.logOut();
-        $location.path('/login');
-
-    }
-    $scope.getstatus = function () {
-
-
-        $scope.LocationsLoaded = false;
-
-
+    $scope.Statuslabel = "Status";
+    $scope.GetMyinventoryColumns = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
-
         $.ajax
-           ({
-               type: "POST",
-               url: serviceBase + 'GetStatus',
-               contentType: 'application/json; charset=utf-8',
-               dataType: 'json',
-               data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
-               success: function (response) {
-                   $scope.LocationsLoaded = true;
-                    
-                   if (response.GetStatusResult.Success == true) {
-                       $scope.StatusList = response.GetStatusResult.Payload;
+            ({
+                type: "POST",
+                url: serviceBase + 'GetMyInventoryColumns',
+                contentType: 'application/json; charset=utf-8',
 
-                   }
-                   else {
-                       $scope.ShowErrorMessage("Get Statues", 1, 1, response.GetStatusResult.Message)
+                dataType: 'json',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+                success: function (response) {
+                    if (response.GetMyInventoryColumnsResult.Success === true) {
+                        var _TempArrayDummy = response.GetMyInventoryColumnsResult.Payload;
 
-                   }
-                   $scope.$apply();
-               },
-               error: function (err) {
-                   $scope.LocationsLoaded = true;
-                   $scope.ShowErrorMessage("Get Statues", 2, 1, err.statusText);
+                        for (var i = 0; i < _TempArrayDummy.length; i++) {
+                            if (_TempArrayDummy[i].ColumnName == "iStatusValue") {
+                                $scope.Statuslabel = _TempArrayDummy[i].ColumnLabel;
+                            }
+                        }
+                        CheckScopeBeforeApply()
+                    }
+                    else {
+                        $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
 
-               }
-           });
+                    }
 
-    }
+                },
+                error: function (err, textStatus, errorThrown) {
+                    if (err.readyState === 0 || err.status === 0) {
+                    }
+                    else {
+                        if (textStatus != "timeout") {
+                            console.log(err);
+                            $scope.ShowErrorMessage("My inventory Columns", 2, 1, err.statusText);
+                        }
+                    }
+                }
+            });
+    };
+
+    $scope.GetMyinventoryColumns();
+    $scope.logOut = function () {
+        authService.logOut();
+        $location.path('/login');
+    };
+
+    $scope.getstatus = function () {
+        $scope.LocationsLoaded = false;
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+         $scope.SecurityToken = authData.token;
+        }
+        $.ajax
+            ({
+                type: "POST",
+                url: serviceBase + 'GetStatus',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+                success: function (response) {
+                    $scope.LocationsLoaded = true;
+                    if (response.GetStatusResult.Success == true) {
+                        $scope.StatusList = response.GetStatusResult.Payload;
+                    }
+                    else {
+                        $scope.ShowErrorMessage("Get Statues", 1, 1, response.GetStatusResult.Message);
+                    }
+                    $scope.$apply();
+                },
+                error: function (err) {
+                    $scope.LocationsLoaded = true;
+                    $scope.ShowErrorMessage("Get Statues", 2, 1, err.statusText);
+                }
+            });
+    };
 
 
     $scope.addstatus = function () {
         $scope.StatusToCreate = "";
         $scope.mode = 2;
         $scope.StatusID = 0;
-
         $scope.$apply();
-    }
+    };
 
 
 
@@ -109,34 +134,25 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
 
 
     $scope.Openbottommenu = function () {
-
         if ($("body").hasClass("modal-open")) {
             $("#bottommenumodal").modal('hide');
-
-            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
-
-
+            $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
         }
         else {
             $("#bottommenumodal").modal('show');
             $(".menubtn .fa").removeClass('fa-bars').addClass('fa-times');
         }
-    }
+    };
 
 
 
     $scope.editstatus = function (obj) {
-
-         
-
         $scope.mode = 3;
-
         $scope.StatusToCreate = obj.StatusValue;
         $scope.StatusID = obj.StatusId;
         $("#StatusToCreate").val($scope.StatusToCreate);
         $scope.$apply();
-
-    }
+    };
 
     
 
@@ -281,20 +297,14 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
                 error: function (err) {
                     $scope.IsProcessing = false;
                     $scope.ShowErrorMessage("Updating Status", 2, 1, err.statusText);
-
-
                 },
                 complete: function () {
                     $scope.IsProcessing = false;
                 }
-
             });
-
             $scope.$apply();
-
         }
-
-    }
+    };
 
 
     $scope.deletestatus = function (obj) {
@@ -306,7 +316,7 @@ app.controller('statusController', ['$scope', 'localStorageService', 'authServic
 
         var dlID = "#Dlt_" + id;
 
-        var box = bootbox.confirm("Delete Status ?", function (result) {
+        var box = bootbox.confirm("Delete " + $scope.Statuslabel +" ?", function (result) {
             if (result) {
                 $(_id).find("i").addClass("fa-spin");
                 $.ajax({

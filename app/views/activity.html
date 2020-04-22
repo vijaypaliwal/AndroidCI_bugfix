@@ -141,7 +141,7 @@
 
                                                 <div class="form-group">
 
-                                                    <label>Quantity</label>
+                                                    <label>{{Quantitylabel}}</label>
 
                                                     <div class="input-group">
 
@@ -175,7 +175,7 @@
 
 
                                                 <div ng-if="CurrentActiveObject.MoveTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                    <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                                    <span ng-if="AllowNegative!=null && AllowNegative!=true"> {{Quantitylabel}}{{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
                                                 </div>
                                             </div>
 
@@ -190,7 +190,7 @@
                                                 <div class="form-group">
 
 
-                                                    <label>Location</label>
+                                                    <label>{{Locationlabel}}</label>
                                                     <div class="fg-line">
 
 
@@ -222,7 +222,7 @@
                                                         </div>
 
                                                         <span ng-if="CurrentActiveObject.MoveTransactionData.MoveToLocation==CurrentActiveObject.InventoryDataList.iLID" class="errorMessage">
-                                                            Can't move to same location please update.
+                                                            Can't move to same {{Locationlabel}} please update.
                                                         </span>
                                                     </div>
                                                 </div>
@@ -241,7 +241,7 @@
                                         <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                             <div class="form-group">
                                                 <label>
-                                                    Quantity
+                                                    {{Quantitylabel}}
                                                     <span ng-if="CurrentOperation=='Adjust' && TrimValue(CurrentActiveObject.AdjustCalculation)!=''" class="AdjustCalculation">
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustIncrease">({{CurrentActiveObject.AdjustCalculation}})</span>
                                                         <span ng-if="CurrentActiveObject.ActionPerformed==-1 && CurrentActiveObject.AdjustActionQuantity!=0" class="z-depth-1 AdjustDecrease">({{CurrentActiveObject.AdjustCalculation}})</span>
@@ -255,8 +255,8 @@
                                                             <i class="fa fa-thumb-tack"></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
-                                                            <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                            <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                            <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this {{Quantitylabel}} for all</a></li>
+                                                            <li><a data-ng-click="FillQuantityNew(CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current {{Quantitylabel}}</a></li>
                                                         </ul>
                                                     </span>
                                                 </div>
@@ -267,8 +267,8 @@
 
 
                                                 <span ng-if="CurrentOperation!='Increase'&& CurrentOperation!='Adjust' && CurrentActiveObject.IncreaseDecreaseVMData.ActionQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&(CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply')">Quantity can't be greater than original quantity</span>
-                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> Quantity can't be greater than original quantity</span>
+                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&(CurrentOperation=='Increase' ||  CurrentOperation=='Decrease'||CurrentOperation=='Update'||CurrentOperation=='Apply')">{{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
+                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true &&  CurrentOperation!='Increase' &&  CurrentOperation!='Decrease' && CurrentOperation!='Update'&& CurrentOperation!='Apply'"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -1245,7 +1245,7 @@
                                         <div class="row">
                                             <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                                 <div class="form-group">
-                                                    <label>Quantity</label>
+                                                    <label>{{Quantitylabel}}</label>
 
                                                     <div class="input-group">
                                                         <div class="fg-line" ng-class="CurrentActiveObject.ConvertTransactionData.ActionFromQuantity=='' ||  CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity ?'':''">
@@ -1271,7 +1271,7 @@
                                                     </div>
                                                 </div>
                                                 <div ng-if=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                                    <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
 
                                                 </div>
 
@@ -1287,7 +1287,7 @@
 
                                                 <div class="form-group">
 
-                                                    <label>New Quantity <span>*</span></label>
+                                                    <label>New {{Quantitylabel}} <span>*</span></label>
 
                                                     <div class="input-group" ng-class=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity==''?'':''">
 
@@ -1296,25 +1296,19 @@
                                                             <button data-toggle="dropdown" aria-expanded="false" id="convertqty2_{{ CurrentActiveObject.InventoryDataList.uId}}" type="button" class="btn waves-effect rotateData btnPrimary btn-icon">
                                                                 <i class="fa fa-thumb-tack"></i>
                                                             </button>
-
-
                                                             <ul class="dropdown-menu">
-                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this quantity</a></li>
-                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this Quantity</a></li>
-                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this {{Quantitylabel}} for all</a></li>
+                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this {{Quantitylabel}}</a></li>
+                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this {{Quantitylabel}}</a></li>
+                                                                <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current {{Quantitylabel}}</a></li>
                                                             </ul>
                                                         </span>
                                                     </div>
                                                 </div>
-
-
                                                 <div>
 
                                                 </div>
                                             </div>
-
-
 
                                         </div>
 
@@ -1325,7 +1319,7 @@
 
                                                 <div class="form-group">
 
-                                                    <label>Select UOM <span>*</span></label>
+                                                    <label>Select {{UOMlabel}} <span>*</span></label>
 
                                                     <div class="input-group" ng-class="CurrentActiveObject.ConvertTransactionData.ToUOMID==''?'':''">
                                                         <div class="select">
@@ -1360,7 +1354,7 @@
                                             <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
 
                                                 <div class="form-group">
-                                                    <label>Quantity</label>
+                                                    <label>{{Quantitylabel}}</label>
                                                     <div class="input-group">
                                                         <div class="fg-line">
                                                             <input placeholder1="Fill Quantity" type="number" class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity" />
@@ -1382,7 +1376,7 @@
 
 
                                                 <div ng-if="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                                    <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                                    <span ng-if="AllowNegative!=null && AllowNegative!=true"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
                                                 </div>
                                             </div>
 
@@ -1392,7 +1386,7 @@
                                             <div ng-class="$index==0 ? 'col-md-12 col-xs-12' : 'col-md-12 col-xs-12'">
                                                 <div class="form-group">
 
-                                                    <label>Location</label>
+                                                    <label>{{Locationlabel}}</label>
                                                     <div class="fg-line">
 
 
@@ -3072,7 +3066,7 @@
 
 
                                         <div class="form-group">
-                                            <label>Quantity <span>*</span></label>
+                                            <label>{{Quantitylabel}} <span>*</span></label>
                                             <div class="input-group">
 
                                                 <div class="fg-line">
@@ -3099,7 +3093,7 @@
 
 
                                         <div ng-if="CurrentActiveObject.MoveTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                            <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                            <span ng-if="AllowNegative!=null && AllowNegative!=true"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
                                         </div>
                                     </div>
 
@@ -3113,7 +3107,7 @@
                                         <div class="form-group">
                                             <div class="fg-line">
 
-                                                <label>Location <span>*</span> </label>
+                                                <label>{{Locationlabel}} <span>*</span> </label>
 
                                                 <!--<div class="input-group">
                                                     <input type="text" class="form-control" placeholder1="Select Location" ng-model="CurrentActiveObject.MoveTransactionData.MoveToLocationText" />
@@ -4170,7 +4164,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
-                                            <label>Quantity <span>*</span></label>
+                                            <label>{{Quantitylabel}} <span>*</span></label>
 
                                             <div class="input-group">
                                                 <div class="fg-line" ng-class=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity=='' ||  CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity ?'':''">
@@ -4186,8 +4180,8 @@
 
 
                                                     <ul class="dropdown-menu">
-                                                        <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                        <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this {{Quantitylabel}} for all</a></li>
+                                                        <li><a data-ng-click=" FillQuantityConvert( CurrentActiveObject.ConvertTransactionData.ActionFromQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current {{Quantitylabel}}</a></li>
                                                     </ul>
                                                 </span>
 
@@ -4195,7 +4189,7 @@
                                             </div>
                                         </div>
                                         <div ng-if=" CurrentActiveObject.ConvertTransactionData.ActionFromQuantity> CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                            <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                            <span ng-if=" AllowNegative!=null &&  AllowNegative!=true"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
 
                                         </div>
 
@@ -4210,7 +4204,7 @@
                                     <div class="col-xs-12 col-md-12">
 
                                         <div class="form-group">
-                                            <label>New Quantity <span>*</span></label>
+                                            <label>New {{Quantitylabel}} <span>*</span></label>
                                             <div class="input-group" ng-class=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity==''?'':''">
 
                                                 <input type="number" class="form-control WholeNumbersOnly NumberType" placeholder1="This value is required" ng-model=" CurrentActiveObject.ConvertTransactionData.ActionToQuantity" />
@@ -4221,10 +4215,10 @@
 
 
                                                     <ul class="dropdown-menu">
-                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this quantity</a></li>
-                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this Quantity</a></li>
-                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this {{Quantitylabel}} for all</a></li>
+                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,3)"><i class="fa fa-check"></i> Multiply all by this {{Quantitylabel}}</a></li>
+                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,4)"><i class="fa fa-check"></i> Divide quantities by this {{Quantitylabel}}</a></li>
+                                                        <li><a data-ng-click=" FillQuantityToConvert( CurrentActiveObject.ConvertTransactionData.ActionToQuantity, CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current {{Quantitylabel}}</a></li>
                                                     </ul>
                                                 </span>
                                             </div>
@@ -4246,7 +4240,7 @@
                                     <div class="col-xs-12 col-md-12">
 
                                         <div class="form-group">
-                                            <label>New Unit of Measure <span>*</span></label>
+                                            <label>New {{UOMlabel}} <span>*</span></label>
                                             <div class="input-group" ng-class=" CurrentActiveObject.ConvertTransactionData.ToUOMID==''?'':''">
                                                 <div class="select">
                                                     <select class="form-control" ng-model=" CurrentActiveObject.ConvertTransactionData.ToUOMID">
@@ -4280,7 +4274,7 @@
                                     <div class="col-xs-12 col-md-12">
 
                                         <div class="form-group">
-                                            <label>Quantity <span>*</span></label>
+                                            <label>{{Quantitylabel}} <span>*</span></label>
                                             <div class="input-group">
                                                 <div class="fg-line">
                                                     <input placeholder1="Fill Quantity" type="number" class="form-control" ng-model="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity" />
@@ -4292,15 +4286,15 @@
                                                     </span>
 
                                                     <ul style="width:100%; text-align:left;" class="animated zoomIn dropdown-menu">
-                                                        <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this quantity for all</a></li>
-                                                        <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current quantity</a></li>
+                                                        <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,1)"><i class="fa fa-check"></i> Use this {{Quantitylabel}} for all</a></li>
+                                                        <li><a data-ng-click="FillQuantityMove(CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity,CurrentActiveObject.InventoryDataList.uId,2)"><i class="fa fa-check"></i> Fill all with current {{Quantitylabel}}</a></li>
                                                     </ul>
                                                 </span>
                                             </div>
                                         </div>
 
                                         <div ng-if="CurrentActiveObject.MoveUpdateTagTransactionData.ActionQuantity>CurrentActiveObject.InventoryDataList.oquantity" class="errorMessage">
-                                            <span ng-if="AllowNegative!=null && AllowNegative!=true"> Quantity can't be greater than original quantity</span>
+                                            <span ng-if="AllowNegative!=null && AllowNegative!=true"> {{Quantitylabel}} can't be greater than original {{Quantitylabel}}</span>
                                         </div>
 
 
@@ -4312,7 +4306,7 @@
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
                                             <div class="fg-line">
-                                                <label>Location <span>*</span> </label>
+                                                <label>{{Locationlabel}} <span>*</span> </label>
                                                 <div class="input-group">
 
 
@@ -5960,7 +5954,7 @@
                                 <br />
                                 <div class="row form-inputs" ng-if="CanAutoClear==false" style=" background-color: #eee; padding-top: 15px">
                                     <div class=" col-xs-9">
-                                        If processing the cart results in a statement with "0" quantity, clear the statement.
+                                        If processing the cart results in a statement with "0" {{Quantitylabel}}, clear the statement.
                                     </div>
                                     <div class="col-xs-3">
                                         <label class="switch1">
@@ -6201,7 +6195,7 @@
                                                     <span class="{{CurrentHeaderClass}}-text" style="white-space:normal;">
 
                                                         <span ng-if="CurrentOperation=='Increase'">
-                                                            Increased by quantity <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
+                                                            Increased by {{Quantitylabel}} <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                         </span>
 
@@ -6220,7 +6214,7 @@
                                                         </span>
 
                                                         <span ng-if="CurrentOperation=='Decrease'">
-                                                            Decreased by quantity <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
+                                                            Decreased by {{Quantitylabel}} <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                         </span>
 
@@ -6236,7 +6230,7 @@
                                                             {{statusLabel}}
                                                         </span>
                                                         <span ng-if="CurrentOperation=='Convert'">
-                                                            Convert  From quantity
+                                                            Convert  From {{Quantitylabel}}
 
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.ConvertTransactionData.ActionFromQuantity}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].ConvertTransactionData.ActionFromQuantity}}</span>
@@ -6244,7 +6238,7 @@
 
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.InventoryDataList.uomUOM}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].InventoryDataList.uomUOM}}</span>
-                                                            to quantity
+                                                            to {{Quantitylabel}}
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.ConvertTransactionData.ActionToQuantity}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].ConvertTransactionData.ActionToQuantity}}</span>
 
@@ -6267,7 +6261,7 @@
                                                         </span>
 
                                                         <span ng-if="CurrentOperation=='Apply'">
-                                                            Tag below unit data to quantity
+                                                            Tag below unit data to {{Quantitylabel}}
 
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.IncreaseDecreaseVMData.ActionQuantity}}</span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].IncreaseDecreaseVMData.ActionQuantity}}</span>
@@ -6301,14 +6295,14 @@
                                                         <span ng-if="CurrentOperation=='MoveTagUpdate'">
 
 
-                                                            Move,Tag & Update to quantity
+                                                            Move,Tag & Update to {{Quantitylabel}}
                                                             <span ng-if="IsSingleMode==true"> {{_groupRow.MoveUpdateTagTransactionData.ActionQuantity}}<br /></span>
                                                             <span ng-if="IsSingleMode==false"> {{CurrentCart[0].MoveUpdateTagTransactionData.ActionQuantity}}<br /></span>
 
                                                             With data <br />
 
-                                                            <span ng-if="IsSingleMode==true"> Location:{{_groupRow.MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
-                                                            <span ng-if="IsSingleMode==false">Location:{{CurrentCart[0].MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
+                                                            <span ng-if="IsSingleMode==true"> {{Locationlabel}}:{{_groupRow.MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
+                                                            <span ng-if="IsSingleMode==false">{{Locationlabel}}:{{CurrentCart[0].MoveUpdateTagTransactionData.MoveToLocationText}}<br /></span>
 
 
                                                             <span ng-if="IsSingleMode==true">    {{statusLabel}}:{{_groupRow.MoveUpdateTagTransactionData.StatusToUpdate}} <br /></span>
@@ -6400,7 +6394,7 @@
 
             <div class="row Newrow" ng-if="CanAutoClear==false">
                 <div class=" col-xs-8">
-                    <span style="font-size:12px;"> If processing the cart results in a statement with "0" quantity, clear the statement. </span>
+                    <span style="font-size:12px;"> If processing the cart results in a statement with "0" {{Quantitylabel}}, clear the statement. </span>
                 </div>
                 <div class="col-xs-4">
                     <label class="switch1">
@@ -6580,7 +6574,7 @@
 <div style="display:none;" id="locationlistmodal" class="">
     <div class="modal-header">
         <button ng-click="hidelocationmodal();" type="button" class="close"><span> <i class="fa fa-times"></i> </span></button>
-        <h4>select Location <span style="font-size:11px;" ng-if="FilterRecordsLength.length > 0">{{FilterRecordsLength.length}} Location(s) found</span></h4>
+        <h4>select {{Locationlabel}} <span style="font-size:11px;" ng-if="FilterRecordsLength.length > 0">{{FilterRecordsLength.length}} {{Locationlabel}}(s) found</span></h4>
         <div class="form-group">
             <div class="input-group">
                 <input type="text" id="searchlocation" placeholder1="Type Keyword to find locations" ng-blur="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" ng-change="FilterRecordsLength.length=(LocationSearchList | filter:SearchLocationValue).length" class="form-control" ng-model="SearchLocationValue" required="" autofocus />
@@ -6595,7 +6589,7 @@
         <div ng-if="FilterRecordsLength.length==0 && $.trim(SearchLocationValue)!=''" class="noitem">
             <div style="text-align: center; border: 1px solid #eeeeee;">
                 <h4 style="font-size:20px;"><i class="fa fa-frown-o"></i> We're sorry !</h4>
-                <h4 style="font-size:15px;">We can't find the location you're looking for</h4>
+                <h4 style="font-size:15px;">We can't find the {{Locationlabel}} you're looking for</h4>
                 <h5 ng-if="TrimValue(SearchLocationValue)!='' && IsActiveLocationLibrary==true && checkpermission('URL:Manage/Location')==true">click to <span ng-click="filllocationAutoComplete()" style="cursor:pointer; color:#0083C7; font-size:20px;">{{SearchLocationValue}}</span>  for add in your list.</h5>
             </div>
         </div>
@@ -6634,13 +6628,13 @@
 <div style="background:#fff;" id="createnewlabel" class="modal animated bounceIn" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-header">
-        <h4>Create new <span ng-if="CreateType==3">Location</span><span ng-if="CreateType==1">Unit of measure</span> <span ng-if="CreateType==2">    {{statusLabel}}</span></h4>
+        <h4>Create new <span ng-if="CreateType==3">{{Locationlabel}}</span><span ng-if="CreateType==1">{{UOMlabel}}</span> <span ng-if="CreateType==2">    {{statusLabel}}</span></h4>
     </div>
 
     <div style="padding:15px;" class="modal-body">
 
         <div class="form-group">
-            <label>Enter new <newtag ng-if="CreateType==3">Location</newtag> <newtag ng-if="CreateType==1">Unit of measure</newtag> <newtag ng-if="CreateType==2">    {{statusLabel}}</newtag> </label>
+            <label>Enter new <newtag ng-if="CreateType==3">{{Locationlabel}}</newtag> <newtag ng-if="CreateType==1">{{UOMlabel}}</newtag> <newtag ng-if="CreateType==2">    {{statusLabel}}</newtag> </label>
 
             <div class="input-group">
                 <input type="text" ng-model="CreateNewLabel" class="form-control" value="" />

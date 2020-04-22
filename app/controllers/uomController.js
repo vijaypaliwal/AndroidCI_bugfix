@@ -13,6 +13,7 @@ app.controller('uomController', ['$scope', 'localStorageService', 'authService',
     $scope.mainObjectToSend = [];
     function init() {
         $scope.getuom();
+        $scope.GetMyinventoryColumns();
         $scope.$apply();
     }
 
@@ -30,9 +31,69 @@ app.controller('uomController', ['$scope', 'localStorageService', 'authService',
 
     $scope.keepformopen = function (check) {
 
-     
+
         $scope.check = check;
         $scope.$apply();
+    };
+
+    $scope.UOMlabel = "UOM";
+
+    $scope.GetMyinventoryColumns = function () {
+
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax
+            ({
+                type: "POST",
+                url: serviceBase + 'GetMyInventoryColumns',
+                contentType: 'application/json; charset=utf-8',
+
+                dataType: 'json',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+                success: function (response) {
+
+
+                    if (response.GetMyInventoryColumnsResult.Success == true) {
+
+
+
+                        var _TempArrayDummy = response.GetMyInventoryColumnsResult.Payload;
+
+                        for (var i = 0; i < _TempArrayDummy.length; i++) {
+
+                            if (_TempArrayDummy[i].ColumnName == "uomUOM") {
+                                $scope.UOMlabel = _TempArrayDummy[i].ColumnLabel;
+                            }
+
+                           
+
+                        }
+                        CheckScopeBeforeApply()
+                    }
+                    else {
+                        $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
+
+                    }
+
+                },
+                error: function (err, textStatus, errorThrown) {
+                    if (err.readyState == 0 || err.status == 0) {
+
+                    }
+                    else {
+                        if (textStatus != "timeout") {
+                            console.log(err);
+                            $scope.ShowErrorMessage("My inventory Columns", 2, 1, err.statusText);
+                        }
+                    }
+
+
+                }
+            });
+
     }
 
 
@@ -304,7 +365,7 @@ app.controller('uomController', ['$scope', 'localStorageService', 'authService',
 
         var dlID = "#Dlt_" + id;
 
-        var box = bootbox.confirm("Delete Unit of Measure ?", function (result) {
+        var box = bootbox.confirm("Delete " + $scope.UOMlabel+ " ?", function (result) {
             if (result) {
 
                 $(_id).find("i").addClass("fa-spin");

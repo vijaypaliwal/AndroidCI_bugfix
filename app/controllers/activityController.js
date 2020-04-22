@@ -3147,6 +3147,11 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
         return false;
     }
+
+    $scope.Quantitylabel = "Quantity";
+    $scope.Locationlabel = "Location";
+    $scope.UOMlabel = "UOM";
+
     function GetMyInventoryColumns() {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
@@ -3176,6 +3181,15 @@ app.controller('activityController', ['$scope', 'localStorageService', 'authServ
 
                           if (_TempArrayMyInventory[i].ColumnName == "iStatusValue") {
                               $scope.statusLabel = _TempArrayMyInventory[i].ColumnLabel;
+                          }
+                          if (_TempArrayMyInventory[i].ColumnName == "iQty") {
+                              $scope.Quantitylabel = _TempArrayMyInventory[i].ColumnLabel;
+                          }
+                          if (_TempArrayMyInventory[i].ColumnName == "lLoc") {
+                              $scope.Locationlabel = _TempArrayMyInventory[i].ColumnLabel;
+                          }
+                          if (_TempArrayMyInventory[i].ColumnName == "uomUOM") {
+                              $scope.UOMlabel = _TempArrayMyInventory[i].ColumnLabel;
                           }
                       }
 

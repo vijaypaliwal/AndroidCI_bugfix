@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="col-xs-12">
-            <h4 class="titletext">Manage Status </h4>
+            <h4 class="titletext">Manage {{Statuslabel}} </h4>
         </div>
     </div>
 </div>
@@ -98,10 +98,10 @@
         <form name="status">
 
             <div style="background:#fff;padding:10px; margin-top:7px;">
-                <h4 ng-if="mode == 2">Enter New Status</h4>
-                <h4 ng-if="mode == 3">Update Status</h4>
+                <h4 ng-if="mode == 2">Enter New {{Statuslabel}}</h4>
+                <h4 ng-if="mode == 3">Update {{Statuslabel}}</h4>
                 <div class="form-group">
-                    <label>Status <span>*</span></label>
+                    <label>{{Statuslabel}} <span>*</span></label>
                     <input class="form-control" type="text" id="StatusToCreate" ng-model="StatusToCreate" required />
                 </div>
 

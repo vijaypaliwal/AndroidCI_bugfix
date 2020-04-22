@@ -12,6 +12,75 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
         }
     };
 
+    $scope.Quantitylabel = "Quantity";
+
+    $scope.GetMyinventoryColumns = function () {
+
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            $scope.SecurityToken = authData.token;
+        }
+        $.ajax
+          ({
+              type: "POST",
+              url: serviceBase + 'GetMyInventoryColumns',
+              contentType: 'application/json; charset=utf-8',
+
+              dataType: 'json',
+              data: JSON.stringify({ "SecurityToken": $scope.SecurityToken }),
+              success: function (response) {
+
+                  if (response.GetMyInventoryColumnsResult.Success === true) {
+
+                      var _TempArrayDummy = response.GetMyInventoryColumnsResult.Payload;
+
+                      for (var i = 0; i < _TempArrayDummy.length; i++) {
+
+                          if (_TempArrayDummy[i].ColumnName === "pPart") {
+                              $scope.realItemname = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName === "pDescription") {
+                              $scope.realDescname = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName === "iStatusValue") {
+                              $scope.statusLabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName === "iQty") {
+                              $scope.Quantitylabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName === "lLoc") {
+                              $scope.Locationlabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                      }
+                      CheckScopeBeforeApply()
+                  }
+                  else {
+                      $scope.ShowErrorMessage("My inventory Columns", 1, 1, response.GetMyInventoryColumnsResult.Message)
+
+                  }
+
+              },
+              error: function (err, textStatus, errorThrown) {
+                  if (err.readyState == 0 || err.status == 0) {
+
+                  }
+                  else {
+                      if (textStatus != "timeout") {
+                          console.log(err);
+                          $scope.ShowErrorMessage("My inventory Columns", 2, 1, err.statusText);
+                      }
+                  }
+
+
+              }
+          });
+
+    }
 
     $scope.setInventorymode = function () {
 
@@ -31,72 +100,50 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
 
     }
 
-
     $scope.logOut = function () {
-
-
         authService.logOut();
         $location.path('/login');
         CheckScopeBeforeApply();
-    }
+    };
 
 
 
     $('#bottommenumodal').on('hidden.bs.modal', function () {
-        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars')
+        $(".menubtn .fa").removeClass('fa-times').addClass('fa-bars');
     });
 
     $scope.UpdateSecurityToken = function (AccountID) {
-
-
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
-
         $.ajax({
-
             type: "POST",
             url: serviceBase + "UpdateSecurityToken",
             contentType: 'application/json; charset=utf-8',
-
             dataType: 'json',
-
             data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "AccountID": AccountID }),
             error: function (err, textStatus) {
                 $scope.UOMSearching = false;
-
                 $scope.IsLoading = false;
-
-                if (err.readyState == 0 || err.status == 0) {
+                if (err.readyState === 0 || err.status === 0) {
 
                 }
                 else {
 
-
                     if (textStatus != "timeout") {
-
-
                         $scope.ShowErrorMessage("update security token", 2, 1, err.statusText);
                     }
                 }
             },
 
             success: function (data) {
-
-
                 if (data.UpdateSecurityTokenResult.Success == true) {
 
                     if (data.UpdateSecurityTokenResult != null && data.UpdateSecurityTokenResult.Payload != null) {
                         var _token = data.UpdateSecurityTokenResult.Payload;
-
                         localStorageService.set('authorizationData', { token: _token });
-
-
                         $scope.$apply();
-
-
-
                     }
                 }
                 else {
@@ -104,7 +151,7 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
                 }
             }
         });
-    }
+    };
 
 
 
@@ -114,67 +161,61 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
     }
 
 
-
-
     $scope.setsocketmobile = function () {
-
         localStorage.setItem("allowsocket", $scope.SettingsVm.socketmobile);
         CheckScopeBeforeApply();
-
-    }
+    };
 
 
 
     $scope.UpdateSettings = function (value, Type) {
-        debugger;
-
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             $scope.SecurityToken = authData.token;
         }
-        if (Type == 1) {
+        if (Type === 1) {
             $scope.SettingsVm.AutoClear = value;
         }
-        if (Type == 2) {
+        if (Type === 2) {
             $scope.SettingsVm.AllowNegative = value;
         }
-        if (Type == 3) {
+        if (Type === 3) {
             $scope.SettingsVm.DefaultQty = value;
         }
 
         CheckScopeBeforeApply();
         $.ajax
-        ({
-            type: "POST",
-            url: serviceBase + 'ConfigureSettings',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "model": $scope.SettingsVm }),
-            success: function (response) {
-                setTimeout(function () {
-                    ShowSuccess("Saved");
-                }, 100);
+            ({
+                type: "POST",
+                url: serviceBase + 'ConfigureSettings',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify({ "SecurityToken": $scope.SecurityToken, "model": $scope.SettingsVm }),
+                success: function (response) {
+                    setTimeout(function () {
+                        ShowSuccess("Saved");
+                    }, 100);
 
-                var userName = localStorageService.get('UserName');
+                    var userName = localStorageService.get('UserName');
 
-                localStorageService.set('AllowNegativeQuantity_' + userName, $scope.SettingsVm.AllowNegative);
-                localStorageService.set('AutoClear_' + userName, $scope.SettingsVm.AutoClear);
-                if ($scope.SettingsVm.DefaultQty == true) {
+                    localStorageService.set('AllowNegativeQuantity_' + userName, $scope.SettingsVm.AllowNegative);
+                    localStorageService.set('AutoClear_' + userName, $scope.SettingsVm.AutoClear);
+                    if ($scope.SettingsVm.DefaultQty == true) {
 
-                    localStorageService.set('DefaultQty_' + userName, "1");
+                        localStorageService.set('DefaultQty_' + userName, "1");
+                    }
+                    else {
+                        localStorageService.set('DefaultQty_' + userName, "0");
+
+                    }
+                    $scope.UpdateSecurityToken($scope.accountID);
+                },
+                error: function (response) {
+                    log.error(response.statusText);
+                    $scope.ShowErrorMessage("Updating settings", 2, 1, response.statusText);
                 }
-                else {
-                    localStorageService.set('DefaultQty_' + userName, "0");
-
-                }
-                $scope.UpdateSecurityToken($scope.accountID);
-            },
-            error: function (response) {
-                log.error(response.statusText);
-                $scope.ShowErrorMessage("Updating settings", 2, 1, response.statusText);
-            }
-        });
-    }
+            });
+    };
 
     $scope.Openbottommenu = function () {
 
@@ -188,7 +229,7 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
             $("#bottommenumodal").modal('show');
             $(".menubtn .fa").removeClass('fa-bars').addClass('fa-times');
         }
-    }
+    };
 
 
     function init() {
@@ -238,6 +279,8 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
             $scope.SettingsVm.Defaultmode = false;
         }
 
+        $scope.GetMyinventoryColumns();
+
 
         CheckScopeBeforeApply();
 
@@ -254,16 +297,11 @@ app.controller('configuresettingController', ['$scope', 'localStorageService', '
                     $(element).swipe({
                         swipe: function (event, direction, distance, duration, fingerCount) {
                             //This only fires when the user swipes left
-                            debugger;
+                           
                             if (direction == "left" || direction == "right") {
 
                                 setTimeout(function () {
-
-                                    element.find("input").trigger("click");
-
-
-
-
+                                element.find("input").trigger("click");
                                 }, 10)
                             }
                         },

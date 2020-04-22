@@ -1948,6 +1948,10 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
     }
 
+    $scope.Quantitylabel = "Quantity";
+    $scope.Locationlabel = "Location";
+    $scope.UOMlabel = "UOM";
+
 
     $scope.GetMyinventoryColumns = function () {
 
@@ -1979,22 +1983,28 @@ app.controller('currentinventoryController', ['$scope', 'localStorageService', '
 
                       for (var i = 0; i < _TempArrayDummy.length; i++) {
 
-
-
                           if (_TempArrayDummy[i].ColumnName == "pPart") {
                               $scope.realItemname = _TempArrayDummy[i].ColumnLabel;
-
-
-
                           }
 
                           if (_TempArrayDummy[i].ColumnName == "pDescription") {
                               $scope.realDescname = _TempArrayDummy[i].ColumnLabel;
-
                           }
 
                           if (_TempArrayDummy[i].ColumnName == "iStatusValue") {
                               $scope.statusLabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+                          if (_TempArrayDummy[i].ColumnName == "iQty") {
+
+                              $scope.Quantitylabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName == "lLoc") {
+                              $scope.Locationlabel = _TempArrayDummy[i].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[i].ColumnName == "uomUOM") {
+                              $scope.UOMlabel = _TempArrayDummy[i].ColumnLabel;
                           }
 
                       }

@@ -18,7 +18,7 @@
 <div class="title-header">
     <div class="row">
         <div class="col-xs-12">
-            <h4 class="titletext">Locations <small>{{currentrecord}} of {{totalrecords}} <span ng-if="totalrecords<1">record</span> <span ng-if="totalrecords>1">records</span>  shown</small> </h4>
+            <h4 class="titletext">{{Locationlabel}}(s) <small>{{currentrecord}} of {{totalrecords}} <span ng-if="totalrecords<1">record</span> <span ng-if="totalrecords>1">records</span>  shown</small> </h4>
         </div>
     </div>
 </div>
@@ -130,7 +130,7 @@
             </div>
             <div style="position:relative; z-index:100000;" ng-if="ActualTotalRecords==0">
                 <br />
-                <h5>You don't have any location records yet. Click the "Add location".</h5>
+                <h5>You don't have any {{Locationlabel}} records yet. Click the "Add {{Locationlabel}}".</h5>
                 <br />
             </div>
 
@@ -148,19 +148,19 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 ng-if="mode == 2">Enter New Location</h4>
-                        <h4 ng-if="mode == 3">Update Location</h4>
+                        <h4 ng-if="mode == 2">Enter New {{Locationlabel}}</h4>
+                        <h4 ng-if="mode == 3">Update {{Locationlabel}}</h4>
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label>Location <span>*</span></label>
+                    <label>{{Locationlabel}} <span>*</span></label>
                     <input id="loc" class="form-control" autocorrect="off" autocapitalize="none" type="text" ng-model="locationdata.LocationName" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Location Group</label>
+                    <label>{{Locationlabel}} Group</label>
                     <input class="form-control" type="text" ng-model="locationdata.LocationZone" />
                 </div>
 

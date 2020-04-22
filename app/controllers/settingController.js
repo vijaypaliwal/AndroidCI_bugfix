@@ -182,6 +182,10 @@ app.controller('settingController', ['$scope', 'localStorageService', 'authServi
 
     }
 
+    $scope.StatusLabel = "Status";
+    $scope.UOMLabel = "UOM";
+    $scope.LocationLabel = "Location";
+
     $scope.GetMyinventoryColumns = function () {
 
         $scope.Iscolumnloading = true;
@@ -223,7 +227,24 @@ app.controller('settingController', ['$scope', 'localStorageService', 'authServi
                           }
                       }
 
+                      var _TempArrayDummy = response.GetMyInventoryColumnsResult.Payload;
 
+                      for (var k = 0; k < _TempArrayDummy.length; k++) {
+
+
+
+                          if (_TempArrayDummy[k].ColumnName === "iStatusValue") {
+                              $scope.StatusLabel = _TempArrayDummy[k].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[k].ColumnName === "uomUOM") {
+                              $scope.UOMLabel = _TempArrayDummy[k].ColumnLabel;
+                          }
+
+                          if (_TempArrayDummy[k].ColumnName === "lLoc") {
+                              $scope.LocationLabel = _TempArrayDummy[k].ColumnLabel;
+                          }
+                      }
 
                   }
                   else {

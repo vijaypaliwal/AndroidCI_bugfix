@@ -129,21 +129,30 @@
 
                             <td width="50%">
                                 <code ng-if="_obj2.isFirstFurtherCalculated == true || _obj2.isSecondFurtherCalculated == true" class="w3-codespan">
-                                    <span ng-if="_obj2.DisplayLabel !='Item Name' && _obj2.DisplayLabel !='Item Description' && _obj2.DisplayLabel !='Status'"> {{_obj2.DisplayLabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel !='Quantity' && _obj2.DisplayLabel !='Location' && _obj2.DisplayLabel !='Unit of Measure' && _obj2.DisplayLabel !='Item Name' && _obj2.DisplayLabel !='Item Description' && _obj2.DisplayLabel !='Status'"> {{_obj2.DisplayLabel}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Item Name'"> {{realItemname}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Item Description'"> {{realDescname}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Status'"> {{statusLabel}} </span>
-  <!--{{_obj2.DisplayLabel}}-->
-                                
+                                    <span ng-if="_obj2.DisplayLabel =='Quantity'"> {{Quantitylabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel =='Location'"> {{Locationlabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel =='Unit of Measure'"> {{UOMlabel}} </span>
+
+                                    <!--{{_obj2.DisplayLabel}}-->
+
                                 </code>
                                 <code ng-if="_obj2.isFirstFurtherCalculated == false && _obj2.isSecondFurtherCalculated == false" ng-click="applysorting(_obj2.ColumnID)" class="w3-codespan">
-                                    <span ng-if="_obj2.DisplayLabel !='Item Name' && _obj2.DisplayLabel !='Item Description' && _obj2.DisplayLabel !='Status'"> {{_obj2.DisplayLabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel !='Quantity' && _obj2.DisplayLabel !='Location' && _obj2.DisplayLabel !='Unit of Measure' && _obj2.DisplayLabel !='Item Name' && _obj2.DisplayLabel !='Item Description' && _obj2.DisplayLabel !='Status'"> {{_obj2.DisplayLabel}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Item Name'"> {{realItemname}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Item Description'"> {{realDescname}} </span>
                                     <span ng-if="_obj2.DisplayLabel =='Status'"> {{statusLabel}} </span>
- <!--{{_obj2.DisplayLabel}}-->
-                                
-                                 <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='DESC'" class=" sortIcon fa fa-chevron-down"></i> <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='ASC'" class="sortIcon fa fa-chevron-down"></i></code>
+                                    <span ng-if="_obj2.DisplayLabel =='Quantity'"> {{Quantitylabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel =='Location'"> {{Locationlabel}} </span>
+                                    <span ng-if="_obj2.DisplayLabel =='Unit of Measure'"> {{UOMlabel}} </span>
+
+                                    <!--{{_obj2.DisplayLabel}}-->
+
+                                    <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='DESC'" class=" sortIcon fa fa-chevron-down"></i> <i ng-if="_obj2.ColumnID==sortColumn && sortDir=='ASC'" class="sortIcon fa fa-chevron-down"></i>
+                                </code>
                                 <a ng-class="GetParentActionClass(_obj.ParentAction)" class="morebtn" ng-click="ShowHideDiv(_obj.itID)" ng-if="$index==0"><i class="fa fa-chevron-down" id="icon_{{_obj.itID}}"></i></a>
                             </td>
                             <td width="50%" class="Celldata overflowtext"><span ng-if="getUnitSpecialType(_obj2.ColumnID)==21&& GetCellData(_obj2.ColumnID,parentIndex,_obj2.isCalculated)!=''">$</span>{{GetCellData(_obj2.ColumnID,parentIndex,_obj2.isCalculated) }}</td>
@@ -300,11 +309,13 @@
 
                         <div class="col-xs-12">
 
-                            <h6 ng-if="GetDisplayLabel(_obj.ColumnName) != 'Item Name' && GetDisplayLabel(_obj.ColumnName) != 'Item Description' && GetDisplayLabel(_obj.ColumnName) != 'Status' && obj.ColumnName!='ParentAction'">{{GetDisplayLabel(_obj.ColumnName) }}</h6>
+                            <h6 ng-if="GetDisplayLabel(_obj.ColumnName) != 'Quantity' && GetDisplayLabel(_obj.ColumnName) != 'Location' && GetDisplayLabel(_obj.ColumnName) != 'Unit of Measure' && GetDisplayLabel(_obj.ColumnName) != 'Item Name' && GetDisplayLabel(_obj.ColumnName) != 'Item Description' && GetDisplayLabel(_obj.ColumnName) != 'Status' && obj.ColumnName!='ParentAction'">{{GetDisplayLabel(_obj.ColumnName) }}</h6>
                             <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Item Name'">{{realItemname }}</h6>
                             <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Item Description'">{{realDescname }}</h6>
                             <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Status'">{{statusLabel }}</h6>
-
+                            <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Quantity'">{{Quantitylabel }}</h6>
+                            <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Location'">{{Locationlabel }}</h6>
+                            <h6 ng-if="GetDisplayLabel(_obj.ColumnName) == 'Unit of Measure'">{{UOMlabel }}</h6>
 
                             <!--<h6 ng-if="_obj.ColumnName!='ParentAction'">{{obj.ColumnName}}{{GetDisplayLabel(_obj.ColumnName) }}</h6>-->
 
@@ -1340,7 +1351,7 @@
                                     <ul class="dropdown-menu operator shadow-z-5 ng-scope" role="menu" aria-labelledby="dropdownMenu">
                                         <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bool'"><img src="img/filter/EqualTo.gif" alt=""> Equals</a></li>
                                         <!--<li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='bool'"><img src="img/filter/NotEqualTo.gif" alt=""> Does not Equals</a></li>
-                                        <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue='NULL';"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>-->
+                <li style="text-align: left"><a tabindex="-1" ng-click="_obj.FilterOperator='Empty';_obj.SearchValue='NULL';"><img src="img/filter/IsNull.gif" alt=""> Is Null (Empty)</a></li>-->
 
                                     </ul>
                                 </span>
